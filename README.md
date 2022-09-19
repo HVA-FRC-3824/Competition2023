@@ -1,1 +1,0 @@
-# Competition2023
