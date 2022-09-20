@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
+
 /** Inline commands allow the creation of new commands without a new CommandBase file.
  * Usage: single/double commands (Example: extending a piston)
  * Can be used in other files (other commands or OI.java for binding commands to buttons).
