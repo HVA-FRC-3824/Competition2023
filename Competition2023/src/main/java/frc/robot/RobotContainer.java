@@ -20,11 +20,11 @@ public class RobotContainer {
    * Inline commands requires OI when retrieving joystick values. 
    */
   public static final InlineCommands m_inlineCommands = new InlineCommands();
-  public static final OperatorInterface m_operatorInterface = new OperatorInterface();
+  public static final OI m_OI = new OI();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    m_operatorInterface.configureButtonBindings();
+    m_OI.configureButtonBindings();
   }
 
   /**
