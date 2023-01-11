@@ -8,6 +8,9 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+// import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.SPI;
 
 public class WestCoastDrive extends SubsystemBase {
   private WPI_TalonFX m_leftMaster;
@@ -16,9 +19,11 @@ public class WestCoastDrive extends SubsystemBase {
   private WPI_TalonFX m_rightMaster;
   private WPI_TalonFX m_rightSlave;
 
-  private AHRS m_ahrs;
+  private AHRS m_ahrs; // altitude and heading reference system [AHRS]
 
   private DifferentialDrive m_differentialDrive;
+
+  // private final DifferentialDriveOdometry m_odometry;
 
   // private AHRS m_ahrs;
   public WestCoastDrive() {
@@ -40,14 +45,17 @@ public class WestCoastDrive extends SubsystemBase {
     m_rightSlave.follow(m_rightMaster);
 
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
-    m_differentialDrive.setSafetyEnabled(false);
+    // m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
     try {
-      // m_ahrs = new AHRS(SPI.Port.kMXP);
+      m_ahrs = new AHRS(SPI.Port.kMXP);
     }catch (RuntimeException ex) {
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
+
+    // Used for tracking robot position.
+    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
   }
 
   @Override
@@ -59,5 +67,17 @@ public class WestCoastDrive extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void teleopDrive(double power, double turn){
+    /* Reduces sensitivity of twist for turning. */
+    turn = turn/1.5;
+    if (power > Constants.CHASSIS_MAX_POWER){
+      power = Constants.CHASSIS_MAX_POWER;
+    }else if (power < -Constants.CHASSIS_MAX_POWER){
+      power = -Constants.CHASSIS_MAX_POWER;
+    }
+    
+    m_differentialDrive.arcadeDrive(power, turn, true);
   }
 }

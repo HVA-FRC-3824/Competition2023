@@ -23,6 +23,8 @@ public final class Constants {
         public static final int CHASSIS_LEFT_SLAVE_ID                           = 2;
         public static final int CHASSIS_RIGHT_MASTER_ID                         = 3;
         public static final int CHASSIS_RIGHT_SLAVE_ID                          = 4;
+
+        public static final double CHASSIS_MAX_POWER                            = .6;
     //PID
     public static final int    K_PID_LOOP_IDX                                   = 0;
     public static final int    K_SLOT_IDX                                       = 0;
