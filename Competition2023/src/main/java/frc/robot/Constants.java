@@ -11,9 +11,10 @@ package frc.robot;
 public final class Constants {
     //Joysticks (controllers)
     public static final int DRIVER_JOYSTICK_PORT                                = 0;
-    public static final int OPERATOR_JOYSTICK_PORT                              = 1;
+    // public static final int OPERATOR_JOYSTICK_PORT                              = 1;
 
     //Driver buttons
+    public static final int DRIVER_GEAR_SHIFT_BTN_ID                            = 0;
 
     //Operator buttons
 
@@ -25,6 +26,11 @@ public final class Constants {
         public static final int CHASSIS_RIGHT_SLAVE_ID                          = 4;
 
         public static final double CHASSIS_MAX_POWER                            = .6;
+
+            // Pneumatic Ports for gearshifter
+            public static final int CHASSIS_GEARSHIFT_PORT_A                    = 1;
+            public static final int CHASSIS_GEARSHIFT_PORT_B                    = 0;
+            
     //PID
     public static final int    K_PID_LOOP_IDX                                   = 0;
     public static final int    K_SLOT_IDX                                       = 0;

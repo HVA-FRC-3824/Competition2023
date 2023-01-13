@@ -14,7 +14,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  //This function is run when the robot is first started up and should be used for any initialization code.
+  // This function is run when the robot is first started up and should be used for any initialization code.
   @Override
   public void robotInit() {
     // Instantiate RobotContainer. configures buttons, 
@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {}
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  // This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /** This function is called periodically during autonomous. */
+  // This function is called periodically during autonomous.
   @Override
   public void autonomousPeriodic() {}
 
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /** This function is called periodically during operator control. */
+  // This function is called periodically during operator control.
   @Override
   public void teleopPeriodic() {}
 
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().cancelAll();
   }
 
-  /** This function is called periodically during test mode. */
+  // This function is called periodically during test mode.
   @Override
   public void testPeriodic() {}
 }

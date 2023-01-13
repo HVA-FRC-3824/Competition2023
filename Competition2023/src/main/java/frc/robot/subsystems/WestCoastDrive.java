@@ -1,16 +1,19 @@
 package frc.robot.subsystems;
 
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Compressor;
 // import edu.wpi.first.math.geometry.Rotation2d;
 // import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class WestCoastDrive extends SubsystemBase {
   private WPI_TalonFX m_leftMaster;
@@ -18,6 +21,10 @@ public class WestCoastDrive extends SubsystemBase {
 
   private WPI_TalonFX m_rightMaster;
   private WPI_TalonFX m_rightSlave;
+
+  private DoubleSolenoid m_gearShift;
+  private PneumaticsModuleType REVPH;
+  private Compressor m_compressor;
 
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
 
@@ -45,6 +52,9 @@ public class WestCoastDrive extends SubsystemBase {
     m_rightSlave.follow(m_rightMaster);
 
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
+
+    m_gearShift = new DoubleSolenoid(REVPH, Constants.CHASSIS_GEARSHIFT_PORT_A, Constants.CHASSIS_GEARSHIFT_PORT_B);
+    m_compressor = new Compressor(REVPH);
     // m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
@@ -70,7 +80,7 @@ public class WestCoastDrive extends SubsystemBase {
   }
 
   public void teleopDrive(double power, double turn){
-    /* Reduces sensitivity of twist for turning. */
+    // Reduces sensitivity of twist for turning.
     turn = turn/1.5;
     if (power > Constants.CHASSIS_MAX_POWER){
       power = Constants.CHASSIS_MAX_POWER;
@@ -79,5 +89,13 @@ public class WestCoastDrive extends SubsystemBase {
     }
     
     m_differentialDrive.arcadeDrive(power, turn, true);
+  }
+
+  // Methods to control gearbox shifter.
+  public void shiftLowGear(){
+    m_gearShift.set(Value.kReverse);
+  }
+  public void shiftHighGear(){
+    m_gearShift.set(Value.kForward);
   }
 }
