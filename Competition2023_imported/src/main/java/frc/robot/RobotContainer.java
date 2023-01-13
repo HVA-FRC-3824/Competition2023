@@ -2,12 +2,16 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.InlineCommands;
-import frc.robot.subsystems.WestCoastDrive;
+
+import edu.wpi.first.wpilibj2.command.Command;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj2.command.Command;
+// importing subsystems
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.WestCoastDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final WestCoastDrive M_WEST_COAST_DRIVE = new WestCoastDrive();
+  public static final Turret M_TURRET = new Turret();
+  public static final Arm M_ARM = new Arm();
  
   /**
    * Instantiate inline commands before OI because OI requires commands before binding to buttons
@@ -26,9 +32,12 @@ public class RobotContainer {
   public static final InlineCommands m_inlineCommands = new InlineCommands();
   public static final OI m_OI = new OI();
   
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /** 
+   * The container for the robot. Contains subsystems, Operator interface, and commands. 
+   * All objects, methods, and classes should be accessed through this class.
+   */
   public RobotContainer() {
-    // Configure the button bindings
+    // Configures the button bindings obviously
     m_OI.configureButtonBindings();
   }
 
@@ -42,10 +51,10 @@ public class RobotContainer {
   }
   
   /**
-   * Configures TalonFX (Falcon 500) objects with passed in parameters. Falcon
-   * 500s will be used for the chassis only, thus Motion Magic
-   * is not required. (PIDController with Gyro/Vision or ControlMode.Velocity will
-   * be used instead).
+   * Configures TalonFX (Falcon 500) objects with passed in parameters. Falcon 500s will be used for the 
+   * chassis only, thus Motion Magic (Control mode for Talon SRX that provides the benefits of 
+   * Motion Profiling without needing to generate motion profile trajectory points.) is not required. 
+   * (PIDController with Gyro/Vision or ControlMode.Velocity will be used instead).
    */
   public static void configureTalonFX(WPI_TalonFX talonFX, boolean setInverted, boolean setSensorPhase, double kF,double kP, double kI, double kD) {
     // Factory default to reset TalonFX and prevent unexpected behavior.
@@ -62,7 +71,6 @@ public class RobotContainer {
 
     /**
      * Configure the nominal and peak output forward/reverse.
-     * 
      * Nominal Output: minimal/weakest motor output allowed during closed-loop. Peak
      * Output: maximal/strongest motor output allowed during closed-loop.
      */
@@ -71,7 +79,7 @@ public class RobotContainer {
     talonFX.configPeakOutputForward(1, Constants.K_TIMEOUT_MS);
     talonFX.configPeakOutputReverse(-1, Constants.K_TIMEOUT_MS);
 
-    /* Set the Velocity gains (FPID) in slot0. */
+    // Set the Velocity gains (FPID) in slot0.
     talonFX.selectProfileSlot(Constants.K_SLOT_IDX, Constants.K_PID_LOOP_IDX);
     talonFX.config_kF(Constants.K_SLOT_IDX, kF, Constants.K_TIMEOUT_MS);
     talonFX.config_kP(Constants.K_SLOT_IDX, kP, Constants.K_TIMEOUT_MS);

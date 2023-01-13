@@ -1,12 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+// import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // import edu.wpi.first.wpilibj2.command.button.Trigger; // I thought I needed this for the onFalse and onTrue methods
 
 public class OI{
-    //joysticks
+    // joysticks
     private static Joystick m_driverJoystick;
     // private static Joystick m_operatorJoystick;
     private static JoystickButton m_gearShiftBtn;
