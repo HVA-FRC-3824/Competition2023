@@ -20,16 +20,22 @@ public final class Constants {
 
     //subsystems
         //West Coast Drive
-        public static final int CHASSIS_LEFT_MASTER_ID                          = 1;
-        public static final int CHASSIS_LEFT_SLAVE_ID                           = 2;
-        public static final int CHASSIS_RIGHT_MASTER_ID                         = 3;
-        public static final int CHASSIS_RIGHT_SLAVE_ID                          = 4;
+        public static final int WCD_LEFT_MASTER_ID                          = 1;
+        public static final int WCD_LEFT_SLAVE_ID                           = 2;
+        public static final int WCD_RIGHT_MASTER_ID                         = 3;
+        public static final int WCD_RIGHT_SLAVE_ID                          = 4;
 
-        public static final double CHASSIS_MAX_POWER                            = .6;
+        public static final double WCD_MAX_POWER                            = .6;
 
             // Pneumatic Ports for gearshifter
-            public static final int CHASSIS_GEARSHIFT_PORT_A                    = 1;
-            public static final int CHASSIS_GEARSHIFT_PORT_B                    = 0;
+            public static final int WCD_GEARSHIFT_PORT_A                    = 1;
+            public static final int WCD_GEARSHIFT_PORT_B                    = 0;
+
+        // Turret
+        public static final int TURRET_MOTOR_ID                                 = 5;
+
+        // Arm
+        public static final int ARM_MOTOR_ID                                    = 6;
             
     //PID
     public static final int    K_PID_LOOP_IDX                                   = 0;

@@ -6,7 +6,9 @@ import frc.robot.commands.InlineCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 // importing subsystems
 import frc.robot.subsystems.Arm;
@@ -91,5 +93,63 @@ public class RobotContainer {
      * chassis (position considered), but not launcher (velocity only).
      */
     talonFX.setSelectedSensorPosition(0, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
+  }
+
+  /**
+   * Configures TalonSRX objects with passed in parameters.
+   * 
+   * @param controlMode If true, configure with Motion Magic. If false, configure
+   *                    without Motion Magic. (Motion Magic not required for
+   *                    TalonSRXs that will set with ControlMode.Velocity).
+   */
+  public static void configureTalonSRX(WPI_TalonSRX talonSRX, boolean controlMode, FeedbackDevice feedbackDevice, boolean setInverted, boolean setSensorPhase, double kF, double kP, double kI, double kD, int kCruiseVelocity, int kAcceleration, boolean resetPos){
+    // Factory default to reset TalonSRX and prevent unexpected behavior.
+    talonSRX.configFactoryDefault();
+
+    // Configure Sensor Source for Primary PID.
+    talonSRX.configSelectedFeedbackSensor(feedbackDevice, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
+
+    // Configure TalonSRX to drive forward when LED is green.
+    talonSRX.setInverted(setInverted);
+
+    // Configure TalonSRX's sensor to increment its value as it moves forward.
+    talonSRX.setSensorPhase(setSensorPhase);
+
+    // Determine if the internal PID is being used
+    if (controlMode){
+      // Set relevant frame periods (Base_PIDF0 and MotionMagic) to periodic rate (10ms).
+      talonSRX.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, Constants.K_TIMEOUT_MS);
+      talonSRX.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, Constants.K_TIMEOUT_MS);
+    }
+
+    /**
+     * Configure the nominal and peak output forward/reverse.
+     * 
+     * Nominal Output: minimal/weakest motor output allowed during closed-loop. Peak
+     * Output: maximal/strongest motor output allowed during closed-loop.
+     */
+    talonSRX.configNominalOutputForward(0, Constants.K_TIMEOUT_MS);
+    talonSRX.configNominalOutputReverse(0, Constants.K_TIMEOUT_MS);
+    talonSRX.configPeakOutputForward(1, Constants.K_TIMEOUT_MS);
+    talonSRX.configPeakOutputReverse(-1, Constants.K_TIMEOUT_MS);
+
+    // Set Motion Magic/Velocity gains (FPID) in slot0.
+    talonSRX.selectProfileSlot(Constants.K_SLOT_IDX, Constants.K_PID_LOOP_IDX);
+    talonSRX.config_kF(Constants.K_SLOT_IDX, kF, Constants.K_TIMEOUT_MS);
+    talonSRX.config_kP(Constants.K_SLOT_IDX, kP, Constants.K_TIMEOUT_MS);
+    talonSRX.config_kI(Constants.K_SLOT_IDX, kI, Constants.K_TIMEOUT_MS);
+    talonSRX.config_kD(Constants.K_SLOT_IDX, kD, Constants.K_TIMEOUT_MS);
+
+    // Determine if the internal PID is being used
+    if (controlMode){
+      // Set acceleration and cruise velocity for Motion Magic.
+      talonSRX.configMotionCruiseVelocity(kCruiseVelocity, Constants.K_TIMEOUT_MS);
+      talonSRX.configMotionAcceleration(kAcceleration, Constants.K_TIMEOUT_MS);
+    }
+
+    // Reset/zero the TalonSRX's sensor.
+    if (resetPos){
+      talonSRX.setSelectedSensorPosition(0, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
+    }
   }
 }

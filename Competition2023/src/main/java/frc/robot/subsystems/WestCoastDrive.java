@@ -3,7 +3,8 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+// import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,11 +17,11 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class WestCoastDrive extends SubsystemBase {
-  private WPI_TalonFX m_leftMaster;
-  private WPI_TalonFX m_leftSlave;
+  private WPI_TalonSRX m_leftMaster;
+  private WPI_TalonSRX m_leftSlave;
 
-  private WPI_TalonFX m_rightMaster;
-  private WPI_TalonFX m_rightSlave;
+  private WPI_TalonSRX m_rightMaster;
+  private WPI_TalonSRX m_rightSlave;
 
   private DoubleSolenoid m_gearShift;
   private PneumaticsModuleType REVPH;
@@ -35,27 +36,27 @@ public class WestCoastDrive extends SubsystemBase {
   // private AHRS m_ahrs;
   public WestCoastDrive() {
     // Instantiating drivetrain objects
-    m_leftMaster = new WPI_TalonFX(Constants.CHASSIS_LEFT_MASTER_ID);
-    RobotContainer.configureTalonFX(m_leftMaster, false, false, 0.0, 0.0, 0.0, 0.0);
+    m_leftMaster = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
+    RobotContainer.configureTalonSRX(m_leftMaster, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
 
-    m_leftSlave = new WPI_TalonFX(Constants.CHASSIS_LEFT_SLAVE_ID);
-    RobotContainer.configureTalonFX(m_leftSlave, false, false, 0.0, 0.0, 0.0, 0.0);
+    m_leftSlave = new WPI_TalonSRX(Constants.WCD_LEFT_SLAVE_ID);
+    RobotContainer.configureTalonSRX(m_leftSlave, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_leftSlave.follow(m_leftMaster);
 
-    m_rightMaster = new WPI_TalonFX(Constants.CHASSIS_RIGHT_MASTER_ID);
-    RobotContainer.configureTalonFX(m_rightMaster, false, false, 0.0, 0.0, 0.0, 0.0);
+    m_rightMaster = new WPI_TalonSRX(Constants.WCD_RIGHT_MASTER_ID);
+    RobotContainer.configureTalonSRX(m_rightMaster, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
 
-    m_rightSlave = new WPI_TalonFX(Constants.CHASSIS_RIGHT_SLAVE_ID);
-    RobotContainer.configureTalonFX(m_rightSlave, false, false, 0.0, 0.0, 0.0, 0.0);
+    m_rightSlave = new WPI_TalonSRX(Constants.WCD_RIGHT_SLAVE_ID);
+    RobotContainer.configureTalonSRX(m_rightSlave, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_rightSlave.follow(m_rightMaster);
 
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
 
-    m_gearShift = new DoubleSolenoid(REVPH, Constants.CHASSIS_GEARSHIFT_PORT_A, Constants.CHASSIS_GEARSHIFT_PORT_B);
+    m_gearShift = new DoubleSolenoid(REVPH, Constants.WCD_GEARSHIFT_PORT_A, Constants.WCD_GEARSHIFT_PORT_B);
     m_compressor = new Compressor(REVPH);
-    // m_differentialDrive.setSafetyEnabled(false);
+    m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
     try {
@@ -82,10 +83,10 @@ public class WestCoastDrive extends SubsystemBase {
   public void teleopDrive(double power, double turn){
     // Reduces sensitivity of twist for turning.
     turn = turn/1.5;
-    if (power > Constants.CHASSIS_MAX_POWER){
-      power = Constants.CHASSIS_MAX_POWER;
-    }else if (power < -Constants.CHASSIS_MAX_POWER){
-      power = -Constants.CHASSIS_MAX_POWER;
+    if (power > Constants.WCD_MAX_POWER){
+      power = Constants.WCD_MAX_POWER;
+    }else if (power < -Constants.WCD_MAX_POWER){
+      power = -Constants.WCD_MAX_POWER;
     }
     
     m_differentialDrive.arcadeDrive(power, turn, true);
