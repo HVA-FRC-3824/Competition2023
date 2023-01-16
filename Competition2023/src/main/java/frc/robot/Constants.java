@@ -10,11 +10,11 @@ package frc.robot;
  */
 public final class Constants {
     //Joysticks (controllers)
-    public static final int DRIVER_JOYSTICK_PORT                                = 0;
-    // public static final int OPERATOR_JOYSTICK_PORT                              = 1;
+    public static final int DRIVER_JOYSTICK_PORT                            = 0;
+    // public static final int OPERATOR_JOYSTICK_PORT                          = 1;
 
     //Driver buttons
-    public static final int DRIVER_GEAR_SHIFT_BTN_ID                            = 0;
+    public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 0;
 
     //Operator buttons
 
@@ -32,13 +32,13 @@ public final class Constants {
             public static final int WCD_GEARSHIFT_PORT_B                    = 0;
 
         // Turret
-        public static final int TURRET_MOTOR_ID                                 = 5;
+        public static final int TURRET_MOTOR_ID                             = 5;
 
         // Arm
-        public static final int ARM_MOTOR_ID                                    = 6;
+        public static final int ARM_MOTOR_ID                                = 6;
             
     //PID
-    public static final int    K_PID_LOOP_IDX                                   = 0;
-    public static final int    K_SLOT_IDX                                       = 0;
-    public static final int    K_TIMEOUT_MS                                     = 30;
+    public static final int    K_PID_LOOP_IDX                               = 0;
+    public static final int    K_SLOT_IDX                                   = 0;
+    public static final int    K_TIMEOUT_MS                                 = 30;
 }
