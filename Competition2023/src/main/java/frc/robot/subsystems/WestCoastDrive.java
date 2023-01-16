@@ -5,15 +5,15 @@ import frc.robot.RobotContainer;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Compressor;
+// import edu.wpi.first.wpilibj.Compressor;
 // import edu.wpi.first.math.geometry.Rotation2d;
 // import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.SPI;
+// import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class WestCoastDrive extends SubsystemBase {
@@ -25,9 +25,9 @@ public class WestCoastDrive extends SubsystemBase {
 
   private DoubleSolenoid m_gearShift;
   private PneumaticsModuleType REVPH;
-  private Compressor m_compressor;
+  // private Compressor m_compressor;
 
-  private AHRS m_ahrs; // altitude and heading reference system [AHRS]
+  // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
 
   private DifferentialDrive m_differentialDrive;
 
@@ -55,12 +55,12 @@ public class WestCoastDrive extends SubsystemBase {
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
 
     m_gearShift = new DoubleSolenoid(REVPH, Constants.WCD_GEARSHIFT_PORT_A, Constants.WCD_GEARSHIFT_PORT_B);
-    m_compressor = new Compressor(REVPH);
+    // m_compressor = new Compressor(REVPH);
     m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
     try {
-      m_ahrs = new AHRS(SPI.Port.kMXP);
+      // m_ahrs = new AHRS(SPI.Port.kMXP);
     }catch (RuntimeException ex) {
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
