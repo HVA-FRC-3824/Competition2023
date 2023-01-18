@@ -2,15 +2,16 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-// import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Compressor;
 // import edu.wpi.first.math.geometry.Rotation2d;
 // import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 // import edu.wpi.first.wpilibj.SPI;
@@ -25,7 +26,7 @@ public class WestCoastDrive extends SubsystemBase {
 
   private DoubleSolenoid m_gearShift;
   private PneumaticsModuleType REVPH;
-  // private Compressor m_compressor;
+  private Compressor m_compressor;
 
   // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
 
@@ -55,7 +56,7 @@ public class WestCoastDrive extends SubsystemBase {
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
 
     m_gearShift = new DoubleSolenoid(REVPH, Constants.WCD_GEARSHIFT_PORT_A, Constants.WCD_GEARSHIFT_PORT_B);
-    // m_compressor = new Compressor(REVPH);
+    m_compressor = new Compressor(REVPH);
     m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
@@ -65,14 +66,23 @@ public class WestCoastDrive extends SubsystemBase {
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
+    m_compressor.enableHybrid(80, 120);
+    
+
     // Used for tracking robot position.
     // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
+    //                                                                   this.getHeading() is deprecated, replaced by needing xtra encoders
+    
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run\
-    //SmartDashboard.
+    // This method will be called once per scheduler run
+    // SmartDashboard.
+    SmartDashboard.putNumber("System Pressure", m_compressor.getPressure());
+    // SmartDashboard.updateValues();
+    // does .updateValues() need to be called here?
+    
   }
 
   @Override
@@ -83,6 +93,7 @@ public class WestCoastDrive extends SubsystemBase {
   public void teleopDrive(double power, double turn){
     // Reduces sensitivity of twist for turning.
     turn = turn/1.5;
+
     if (power > Constants.WCD_MAX_POWER){
       power = Constants.WCD_MAX_POWER;
     }else if (power < -Constants.WCD_MAX_POWER){
