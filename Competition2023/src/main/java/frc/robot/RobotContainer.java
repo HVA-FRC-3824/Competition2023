@@ -102,13 +102,13 @@ public class RobotContainer {
    *                    without Motion Magic. (Motion Magic not required for
    *                    TalonSRXs that will set with ControlMode.Velocity).
    */
-  public static void configureTalonSRX(WPI_TalonSRX talonSRX, boolean controlMode, FeedbackDevice feedbackDevice, boolean setInverted, boolean setSensorPhase, double kF, double kP, double kI, double kD, int kCruiseVelocity, int kAcceleration, boolean resetPos){
+  public static void configureTalonSRX(WPI_TalonSRX talonSRX, boolean controlMode, boolean setInverted, boolean setSensorPhase, double kF, double kP, double kI, double kD, int kCruiseVelocity, int kAcceleration, boolean resetPos){
     // Factory default to reset TalonSRX and prevent unexpected behavior.
     talonSRX.configFactoryDefault();
 
     // Configure Sensor Source for Primary PID.
-    talonSRX.configSelectedFeedbackSensor(feedbackDevice, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
-
+    // talonSRX.configSelectedFeedbackSensor(feedbackDevice, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
+    
     // Configure TalonSRX to drive forward when LED is green.
     talonSRX.setInverted(setInverted);
 

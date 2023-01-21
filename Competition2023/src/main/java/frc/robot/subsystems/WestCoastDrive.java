@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -39,18 +40,18 @@ public class WestCoastDrive extends SubsystemBase {
   public WestCoastDrive() {
     // Instantiating drivetrain objects
     m_leftMaster = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
-    RobotContainer.configureTalonSRX(m_leftMaster, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureTalonSRX(m_leftMaster, false, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_leftSlave = new WPI_TalonSRX(Constants.WCD_LEFT_SLAVE_ID);
-    RobotContainer.configureTalonSRX(m_leftSlave, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureTalonSRX(m_leftSlave, false, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_leftSlave.follow(m_leftMaster);
 
     m_rightMaster = new WPI_TalonSRX(Constants.WCD_RIGHT_MASTER_ID);
-    RobotContainer.configureTalonSRX(m_rightMaster, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureTalonSRX(m_rightMaster, false, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_rightSlave = new WPI_TalonSRX(Constants.WCD_RIGHT_SLAVE_ID);
-    RobotContainer.configureTalonSRX(m_rightSlave, false, null, false, false, 0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureTalonSRX(m_rightSlave, false, false, false, 0, 0, 0, 0, 0, 0, false);
 
     m_rightSlave.follow(m_rightMaster);
 

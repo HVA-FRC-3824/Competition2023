@@ -16,14 +16,15 @@ public final class Constants {
     //Driver buttons
     public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 0;
 
-    //Operator buttons
+    // Operator buttons
 
-    //subsystems
-        //West Coast Drive
-        public static final int WCD_LEFT_MASTER_ID                          = 1;
-        public static final int WCD_LEFT_SLAVE_ID                           = 2;
+    // subsystems
+        // West Coast Drive
+        // front compressor forward, front one is master
+        public static final int WCD_LEFT_MASTER_ID                          = 2; //front left
+        public static final int WCD_LEFT_SLAVE_ID                           = 1;
         public static final int WCD_RIGHT_MASTER_ID                         = 3;
-        public static final int WCD_RIGHT_SLAVE_ID                          = 4;
+        public static final int WCD_RIGHT_SLAVE_ID                          = 4; //back right
 
         public static final double WCD_MAX_POWER                            = .6;
 
