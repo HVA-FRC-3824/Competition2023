@@ -14,19 +14,19 @@ public final class Constants {
     // public static final int OPERATOR_JOYSTICK_PORT                          = 1;
 
     //Driver buttons
-    public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 0;
+    public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 1;
 
     // Operator buttons
 
     // subsystems
         // West Coast Drive
         // front compressor forward, front one is master
-        public static final int WCD_LEFT_MASTER_ID                          = 2; //front left
-        public static final int WCD_LEFT_SLAVE_ID                           = 1;
-        public static final int WCD_RIGHT_MASTER_ID                         = 3;
-        public static final int WCD_RIGHT_SLAVE_ID                          = 4; //back right
+        public static final int WCD_LEFT_MASTER_ID                          = 2; // 2 front left
+        public static final int WCD_LEFT_SLAVE_ID                           = 3; // 3 back left good
+        public static final int WCD_RIGHT_MASTER_ID                         = 1; // 1 front right
+        public static final int WCD_RIGHT_SLAVE_ID                          = 4; // 4 back right
 
-        public static final double WCD_MAX_POWER                            = .6;
+        public static final double WCD_MAX_POWER                            = .75;
 
             // Pneumatic Ports for gearshifter
             public static final int WCD_GEARSHIFT_PORT_A                    = 1;

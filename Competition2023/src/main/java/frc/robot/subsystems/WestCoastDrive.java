@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.simulation.DoubleSolenoidSim;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -26,11 +28,15 @@ public class WestCoastDrive extends SubsystemBase {
   private WPI_TalonSRX m_rightMaster;
   private WPI_TalonSRX m_rightSlave;
 
-  private DoubleSolenoid m_gearShift;
-  private PneumaticsModuleType REVPH;
-  private Compressor m_compressor;
+  private DoubleSolenoid m_gearShiftRight;
+  private DoubleSolenoid m_gearShiftLeft;
 
-  private AHRS m_ahrs; // altitude and heading reference system [AHRS]
+  private PneumaticsModuleType REVPH;
+  
+  // private PneumaticHub m_revPneumaticHub;
+  // private Compressor m_compressor;
+
+  // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
 
   private DifferentialDrive m_differentialDrive;
 
@@ -57,18 +63,22 @@ public class WestCoastDrive extends SubsystemBase {
 
     m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
 
-    m_gearShift = new DoubleSolenoid(REVPH, Constants.WCD_GEARSHIFT_PORT_A, Constants.WCD_GEARSHIFT_PORT_B);
-    m_compressor = new Compressor(REVPH);
+    // m_revPneumaticHub = new PneumaticHub();
+
+    m_gearShiftLeft = new DoubleSolenoid(1, PneumaticsModuleType.REVPH, 1, 0);
+    m_gearShiftRight = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 1, 0); // unsure about channels
+
+    // m_compressor = new Compressor(PneumaticsModuleType.REVPH);
     m_differentialDrive.setSafetyEnabled(false);
 
     // Try to instantiate the navx gyro with exception catch
-    try {
-      m_ahrs = new AHRS(SPI.Port.kMXP);
-    }catch (RuntimeException ex) {
-      System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
-    }
+    // try {
+    //   m_ahrs = new AHRS(SPI.Port.kMXP);
+    // }catch (RuntimeException ex) {
+    //   System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
+    // }
 
-    m_compressor.enableHybrid(80, 120);
+    // m_compressor.enableAnalog(90, 120);
     
     // Used for tracking robot position.
     // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
@@ -79,8 +89,7 @@ public class WestCoastDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("System Pressure", m_compressor.getPressure());
-    SmartDashboard.updateValues();
+    // SmartDashboard.putNumber("System Pressure", m_compressor.getPressure());
     // Field2d
   }
 
@@ -90,13 +99,16 @@ public class WestCoastDrive extends SubsystemBase {
   }
 
   public void teleopDrive(double power, double turn){
+    // all the way forward is -1, all the back is 1
+    //
     // Reduces sensitivity of twist for turning.
     turn = turn/1.5;
+    System.out.println("Mussolini did nothing wrong");
 
     if (power > Constants.WCD_MAX_POWER){
-      power = Constants.WCD_MAX_POWER;
-    }else if (power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
+    }else if (power < -Constants.WCD_MAX_POWER){
+      power = Constants.WCD_MAX_POWER;
     }
     
     m_differentialDrive.arcadeDrive(power, turn, true);
@@ -104,9 +116,12 @@ public class WestCoastDrive extends SubsystemBase {
 
   // Methods to control gearbox shifter.
   public void shiftLowGear(){
-    m_gearShift.set(Value.kReverse);
+    m_gearShiftLeft.set(Value.kReverse);
+    m_gearShiftRight.set(Value.kReverse);
   }
+
   public void shiftHighGear(){
-    m_gearShift.set(Value.kForward);
+    m_gearShiftLeft.set(Value.kForward);
+    m_gearShiftRight.set(Value.kForward);
   }
 }

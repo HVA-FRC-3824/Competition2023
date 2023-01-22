@@ -43,6 +43,10 @@ public class RobotContainer {
     m_OI.configureButtonBindings();
   }
 
+  public static void initializeDefaultCommands(){
+    M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @return the command to run in autonomous
