@@ -17,6 +17,8 @@ public class Robot extends TimedRobot {
   // This function is run when the robot is first started up and should be used for any initialization code.
   @Override
   public void robotInit() {
+    System.out.println("AVE CHRISTUS REX");
+    System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
     // Instantiate RobotContainer. configures buttons, 
     m_robotContainer = new RobotContainer();
   }

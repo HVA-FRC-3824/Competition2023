@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 // importing subsystems
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.WestCoastDrive;
 
@@ -26,6 +27,7 @@ public class RobotContainer {
   public static final WestCoastDrive M_WEST_COAST_DRIVE = new WestCoastDrive();
   public static final Turret M_TURRET = new Turret();
   public static final Arm M_ARM = new Arm();
+  public static final Grabber M_GRABBER = new Grabber();
  
   /**
    * Instantiate inline commands before OI because OI requires commands before binding to buttons
@@ -67,8 +69,7 @@ public class RobotContainer {
     talonFX.configFactoryDefault();
 
     // Configure Sensor Source for Primary PID.
-    talonFX.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.K_PID_LOOP_IDX,
-        Constants.K_TIMEOUT_MS);
+    talonFX.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
 
     // Configure TalonFX to drive forward when LED is green.
     talonFX.setInverted(setInverted);
@@ -111,7 +112,7 @@ public class RobotContainer {
     talonSRX.configFactoryDefault();
 
     // Configure Sensor Source for Primary PID.
-    if (feedbackDevice.equals(null)){
+    if (feedbackDevice == null){
       System.out.println("Motor(ID:" + talonSRX.getDeviceID() + ") without feedback device configuring");
     }else{
       System.out.println("Motor(ID:" + talonSRX.getDeviceID() + ") with feedback device configuring");

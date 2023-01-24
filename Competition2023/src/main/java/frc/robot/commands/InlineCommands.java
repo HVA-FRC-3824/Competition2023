@@ -17,9 +17,16 @@ public class InlineCommands {
     public final Command m_shiftHighGear;
     public final Command m_shiftLowGear;
 
+    // Grabber
+    public final Command m_togglePiston;
+
     public InlineCommands(){
-        m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.teleopDrive(RobotContainer.m_OI.getDriverJoystick().getY(), RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
+        // WestCoast
+        m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(RobotContainer.m_OI.getDriverJoystick().getY(), RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
         m_shiftHighGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftHighGear());
         m_shiftLowGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftLowGear());
+
+        // Grabber
+        m_togglePiston = new InstantCommand(() -> RobotContainer.M_GRABBER.togglePiston());
     }
 }
