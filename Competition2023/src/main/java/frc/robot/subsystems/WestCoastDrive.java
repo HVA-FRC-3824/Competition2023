@@ -107,7 +107,7 @@ public class WestCoastDrive extends SubsystemBase {
   // method to drive robot
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
-    // turn = turn/1.5;
+    turn = turn/1.25; // 80% of the power? (1/1.25 = .8)
 
     // prevents the power to go over max power
     if (power > Constants.WCD_MAX_POWER){
