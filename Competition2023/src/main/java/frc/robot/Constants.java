@@ -26,7 +26,7 @@ public final class Constants {
         public static final int WCD_RIGHT_MASTER_ID                         = 1; // 1 front right
         public static final int WCD_RIGHT_SLAVE_ID                          = 4; // 4 back right
 
-        public static final double WCD_MAX_POWER                            = .75;
+        public static final double WCD_MAX_POWER                            = 1.0;
 
             // Pneumatic Ports for gearshifter
             public static final int WCD_GEARSHIFT_PORT_A                    = 1;

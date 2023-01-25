@@ -107,17 +107,17 @@ public class WestCoastDrive extends SubsystemBase {
   // method to drive robot
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
-    turn = turn/1.5;
+    // turn = turn/1.5;
 
     // prevents the power to go over max power
     if (power > Constants.WCD_MAX_POWER){
-      power = -Constants.WCD_MAX_POWER;
-    }else if (power < -Constants.WCD_MAX_POWER){
       power = Constants.WCD_MAX_POWER;
+    }else if (power < -Constants.WCD_MAX_POWER){
+      power = -Constants.WCD_MAX_POWER;
     }
     
     // applies the power to the drivetrain
-    m_differentialDrive.arcadeDrive(power, turn, true);
+    m_differentialDrive.arcadeDrive(turn, power, true);
   }
 
   // Methods to control gearbox shifter.
