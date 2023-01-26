@@ -12,11 +12,15 @@ public class OI{
 
     private static JoystickButton m_gearShiftBtn;
 
+    private static JoystickButton m_grabberBtn;
+
     public OI(){
         m_driverJoystick = new Joystick(Constants.DRIVER_JOYSTICK_PORT);
         // m_operatorJoystick = new Joystick(Constants.OPERATOR_JOYSTICK_PORT);
 
         m_gearShiftBtn = new JoystickButton(m_driverJoystick, Constants.DRIVER_GEAR_SHIFT_BTN_ID);
+
+        m_grabberBtn = new JoystickButton(m_driverJoystick, Constants.DRIVER_GRABBER_TOGGLE_BTN_ID);
     }
     
     public Joystick getDriverJoystick() {
@@ -26,6 +30,8 @@ public class OI{
     public void configureButtonBindings(){
         m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
         m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
+
+        m_grabberBtn.toggleOnTrue(RobotContainer.m_inlineCommands.m_togglePiston);
     }
    
 }

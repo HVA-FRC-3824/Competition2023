@@ -1,25 +1,24 @@
 package frc.robot.subsystems;
-
+// General
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// SmartDashboard
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-// import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+// Driving
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.simulation.DoubleSolenoidSim;
-
+  // Pneumatics
+  import edu.wpi.first.wpilibj.DoubleSolenoid;
+  import edu.wpi.first.wpilibj.PneumaticsModuleType;
+  import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+// Odometry
+import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class WestCoastDrive extends SubsystemBase {
   // Motors
@@ -32,9 +31,6 @@ public class WestCoastDrive extends SubsystemBase {
   // Pneumatic objects
   private DoubleSolenoid m_gearShiftRight;
   private DoubleSolenoid m_gearShiftLeft;
-  private PneumaticsModuleType REVPH;
-  // private PneumaticHub m_revPneumaticHub;
-  // private Compressor m_compressor;
 
   // Odometry
   // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
@@ -76,13 +72,9 @@ public class WestCoastDrive extends SubsystemBase {
     // automatically sets the safety mode as disabled, IDK what it does yet, im asking Jovi
     m_differentialDrive.setSafetyEnabled(false);
 
-    // m_revPneumaticHub = new PneumaticHub();
-    // m_compressor = new Compressor(PneumaticsModuleType.REVPH);
-    // m_compressor.enableAnalog(90, 120);
-
     // configureing solenoids for each piston in the west coast drive "transmission"
-    m_gearShiftLeft = new DoubleSolenoid(1, PneumaticsModuleType.REVPH, 1, 0);
-    m_gearShiftRight = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 1, 0); // unsure about channels
+    m_gearShiftLeft = new DoubleSolenoid(1, PneumaticsModuleType.REVPH, 4, 5); // Channels TBD, will be constants
+    m_gearShiftRight = new DoubleSolenoid(2, PneumaticsModuleType.REVPH, 6, 7); // Channels TBD, will be constants
 
     // Try to instantiate the navx gyro with exception catch, used for odometry
     // try {
@@ -97,17 +89,16 @@ public class WestCoastDrive extends SubsystemBase {
     // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
   }
 
+  // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // SmartDashboard.putNumber("System Pressure", m_compressor.getPressure());
     // Field2d odometry stuff to go here
   }
 
   // method to drive robot
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
-    turn = turn/1.25; // 80% of the power? (1/1.25 = .8)
+    turn = turn/Constants.WCD_TURN_SENS; // 80% of the power? (1/1.25 = .8)
 
     // prevents the power to go over max power
     if (power > Constants.WCD_MAX_POWER){

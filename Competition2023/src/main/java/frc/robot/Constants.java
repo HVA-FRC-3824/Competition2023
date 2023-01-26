@@ -15,6 +15,7 @@ public final class Constants {
 
     //Driver buttons
     public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 1;
+    public static final int DRIVER_GRABBER_TOGGLE_BTN_ID                    = 2;
 
     // Operator buttons
 
@@ -27,6 +28,7 @@ public final class Constants {
         public static final int WCD_RIGHT_SLAVE_ID                          = 4; // 4 back right
 
         public static final double WCD_MAX_POWER                            = 1.0;
+        public static final double WCD_TURN_SENS                            = 1.25;
 
             // Pneumatic Ports for gearshifter
             public static final int WCD_GEARSHIFT_PORT_A                    = 1;
@@ -36,7 +38,10 @@ public final class Constants {
         public static final int TURRET_MOTOR_ID                             = 5;
 
         // Arm
-        public static final int ARM_MOTOR_ID                                = 6;
+        public static final int ARM_MOTOR_ID                                = 0;
+
+        // Grabber
+        public static final int GRABBER_PNEUMATIC_HUB_ID                    = 6;
             
     //PID
     public static final int    K_PID_LOOP_IDX                               = 0;
