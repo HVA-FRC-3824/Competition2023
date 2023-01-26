@@ -15,7 +15,7 @@ public class Grabber extends SubsystemBase {
     // create grabber objects and variables
     private DoubleSolenoid m_pistonGrabber;
     private PneumaticHub m_pneumaticHub;
-    private int pneumaticCounter = 1;
+    private boolean pneumaticBool = true;
 
     public Grabber(){
         // object constructors
@@ -45,17 +45,19 @@ public class Grabber extends SubsystemBase {
     }
 
     /**
-     * This method sets the piston grabber to the different possitions depending on pneumaticCounter, which changes after every 
+     * This method sets the piston grabber to the different possitions depending on pneumaticBool, which changes after every 
      * iteration, inducing a toggle effect... hopefully, it needs to be tested. 
      */ 
     public void togglePiston() {
-        if (pneumaticCounter > 0) {
+        if (pneumaticBool) {
             m_pistonGrabber.set(DoubleSolenoid.Value.kReverse);
             System.out.println("Piston retract engauged");
-        }else if (pneumaticCounter < 0) {
+            pneumaticBool = false;
+            
+        }else if (!pneumaticBool) {
             m_pistonGrabber.set(DoubleSolenoid.Value.kForward);
             System.out.println("Piston extend engauged");
+            pneumaticBool = true;
         }
-        pneumaticCounter *= -1;
     }
 }

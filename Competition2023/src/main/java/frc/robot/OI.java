@@ -31,7 +31,7 @@ public class OI{
         m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
         m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
 
-        m_grabberBtn.toggleOnTrue(RobotContainer.m_inlineCommands.m_togglePiston);
+        m_grabberBtn.onTrue(RobotContainer.m_inlineCommands.m_togglePiston);
     }
    
 }
