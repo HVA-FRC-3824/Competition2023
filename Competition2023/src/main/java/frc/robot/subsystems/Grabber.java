@@ -1,29 +1,28 @@
 package frc.robot.subsystems;
-
+// #region imports
 // General
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;
 // Pneumatics
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // Smart Dashboard
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+// #endregion
 public class Grabber extends SubsystemBase {
-    // create grabber objects and variables
-    private DoubleSolenoid m_pistonGrabber;
+    // #region Grabber objects and variables
+    private Solenoid m_pistonGrabber;
     private PneumaticHub m_pneumaticHub;
     private boolean pneumaticBool = true;
-
+    // #endregion
     public Grabber(){
         // object constructors
         m_pneumaticHub = new PneumaticHub(Constants.GRABBER_PNEUMATIC_HUB_ID);
-        // m_pneumaticHub.enableCompressorAnalog(100, 120); // didn't work, need to try hybrid. If this doesn't work Ill just manually do it with an if statement and getPressure();
-        m_pistonGrabber = new DoubleSolenoid(3, PneumaticsModuleType.REVPH, 2, 3); // Channels TBD, will be constants
+        m_pistonGrabber = new Solenoid(6, PneumaticsModuleType.REVPH, 2); // Channels TBD, will be constants
     }
-
     // This method will be called once per scheduler run
     @Override
     public void periodic() {
@@ -43,19 +42,16 @@ public class Grabber extends SubsystemBase {
             m_pneumaticHub.disableCompressor();
         }
     }
-
-    /**
-     * This method sets the piston grabber to the different possitions depending on pneumaticBool, which changes after every 
-     * iteration, inducing a toggle effect... hopefully, it needs to be tested. 
-     */ 
+    /* This method sets the piston grabber to the different possitions depending on pneumaticBool, which changes after every 
+     iteration, inducing a toggle effect... hopefully, it needs to be tested. */ 
     public void togglePiston() {
         if (pneumaticBool) {
-            m_pistonGrabber.set(DoubleSolenoid.Value.kReverse);
+            m_pistonGrabber.set(true);
             System.out.println("Piston retract engauged");
             pneumaticBool = false;
             
         }else if (!pneumaticBool) {
-            m_pistonGrabber.set(DoubleSolenoid.Value.kForward);
+            m_pistonGrabber.set(false);
             System.out.println("Piston extend engauged");
             pneumaticBool = true;
         }

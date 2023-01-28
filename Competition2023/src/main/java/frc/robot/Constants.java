@@ -9,18 +9,22 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //Joysticks (controllers)
+    // #region Joysticks (controllers)
     public static final int DRIVER_JOYSTICK_PORT                            = 0;
-    // public static final int OPERATOR_JOYSTICK_PORT                          = 1;
-
-    //Driver buttons
+    public static final int OPERATOR_JOYSTICK_PORT                          = 1;
+    // #endregion
+    // #region Driver buttons
     public static final int DRIVER_GEAR_SHIFT_BTN_ID                        = 1;
+    // #endregion
+    // #region Operator buttons
     public static final int DRIVER_GRABBER_TOGGLE_BTN_ID                    = 2;
-
-    // Operator buttons
-
-    // subsystems
-        // West Coast Drive
+    // #endregion
+    // #region Test buttons
+    public static final int TEST_GEAR_SHIFT_BTN_ID                        = 1;
+    public static final int TEST_GRABBER_TOGGLE_BTN_ID                    = 2;
+    // #endregion
+    // #region subsystems
+        // #region West Coast Drive
         // front compressor forward, front one is master
         public static final int WCD_LEFT_MASTER_ID                          = 2; // 2 front left
         public static final int WCD_LEFT_SLAVE_ID                           = 3; // 3 back left good
@@ -30,21 +34,24 @@ public final class Constants {
         public static final double WCD_MAX_POWER                            = 1.0;
         public static final double WCD_TURN_SENS                            = 1.25;
 
-            // Pneumatic Ports for gearshifter
+            // #region Pneumatic Ports for gearshifter
             public static final int WCD_GEARSHIFT_PORT_A                    = 1;
             public static final int WCD_GEARSHIFT_PORT_B                    = 0;
-
-        // Turret
+            // #endregion                 
+        // #endregion
+        // #region Turret
         public static final int TURRET_MOTOR_ID                             = 5;
-
-        // Arm
+        // #endregion
+        // #region Arm
         public static final int ARM_MOTOR_ID                                = 0;
-
-        // Grabber
+        // #endregion
+        // #region Grabber
         public static final int GRABBER_PNEUMATIC_HUB_ID                    = 6;
-            
-    //PID
+        // #endregion   
+    // #endregion
+    // #region PID
     public static final int    K_PID_LOOP_IDX                               = 0;
     public static final int    K_SLOT_IDX                                   = 0;
     public static final int    K_TIMEOUT_MS                                 = 30;
+    // #endregion
 }
