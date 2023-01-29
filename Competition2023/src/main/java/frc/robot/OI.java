@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class OI{
-    // OI objects
     // joysticks
     private static Joystick m_driverJoystick;
     private static Joystick m_operatorJoystick;
@@ -21,8 +20,14 @@ public class OI{
         m_grabberBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_GRABBER_TOGGLE_BTN_ID);
     }
 
-    public Joystick getDriverJoystick() {
+    // Used for driving command
+    public Joystick getDriverJoystick(){
         return m_driverJoystick;
+    }
+
+    // Will be used for arm control command
+    public Joystick getOperatorJoystick(){
+        return m_operatorJoystick;
     }
 
     public void configureButtonBindings(){

@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.SPI;
 // #endregion
 
-public class WestCoastDrive extends SubsystemBase {
+public class WestCoastDrive extends SubsystemBase{
   // Motors
   private WPI_TalonSRX m_leftMaster;
   private WPI_TalonSRX m_leftSlave;
@@ -38,7 +38,7 @@ public class WestCoastDrive extends SubsystemBase {
   // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
   // private final DifferentialDriveOdometry m_odometry;
 
-  public WestCoastDrive() {
+  public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
     m_leftMaster = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
     RobotContainer.configureTalonSRX(m_leftMaster, false, null, false, false, 
@@ -75,9 +75,9 @@ public class WestCoastDrive extends SubsystemBase {
     m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
     // Try to instantiate the navx gyro with exception catch, used for odometry
-    // try {
+    // try{
     //   m_ahrs = new AHRS(SPI.Port.kMXP);
-    // }catch (RuntimeException ex) {
+    // }catch(RuntimeException ex){
     //   System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     // }
 
@@ -88,17 +88,17 @@ public class WestCoastDrive extends SubsystemBase {
   }
   // This method will be called once per scheduler run
   @Override
-  public void periodic() {
+  public void periodic(){
     // Field2d odometry stuff will go here 
   }
   // Method to drive robot
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
     turn = turn/Constants.WCD_TURN_SENS; // increase number to decrease sensitvity
-    // prevents the power to go over max power
-    if (power > Constants.WCD_MAX_POWER){
+    // prevents the power from going` over max power
+    if(power > Constants.WCD_MAX_POWER){
       power = Constants.WCD_MAX_POWER;
-    }else if (power < -Constants.WCD_MAX_POWER){
+    }else if(power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
     }
     // applies the power to the drivetrain

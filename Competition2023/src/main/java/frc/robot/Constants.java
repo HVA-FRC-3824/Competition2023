@@ -6,7 +6,7 @@ package frc.robot;
  *
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity. */
-public final class Constants {
+public final class Constants{
     // #region Joysticks/controller IDs
     public static final int DRIVER_JOYSTICK_PORT                                                  = 0;
     public static final int OPERATOR_JOYSTICK_PORT                                                = 1;
@@ -28,6 +28,7 @@ public final class Constants {
         public static final int WCD_RIGHT_MASTER_ID                                               = 1; // 1 front right
         public static final int WCD_RIGHT_SLAVE_ID                                                = 4; // 4 back right
 
+        // Control related constants
         public static final double WCD_MAX_POWER                                                  = 1.0;
         public static final double WCD_TURN_SENS                                                  = 1.5;
 
@@ -45,11 +46,11 @@ public final class Constants {
         // #endregion
 
         // #region GRABBER
-    public static final int PNEUMATIC_HUB_ID                                                      = 6;
-    public static final int GRABBER_CHANNEL_ID                                                    = 0;
-    public static final int GRABBER_LEFT_CHANNEL_ID                                               = 9;
-    public static final int PNEUMATIC_HUB_ANALOG_ID                                               = 0;
-    // #endregion
+        public static final int PNEUMATIC_HUB_ID                                                  = 6;
+        public static final int GRABBER_CHANNEL_ID                                                = 0;
+        public static final int GRABBER_LEFT_CHANNEL_ID                                           = 9;
+        public static final int PNEUMATIC_HUB_ANALOG_ID                                           = 0;
+        // #endregion
     // #endregion
 
     // #region PIDs
