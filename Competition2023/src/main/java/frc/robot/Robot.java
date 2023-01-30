@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
   public void robotInit(){
     System.out.println("AVE CHRISTUS REX");
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
-    // Instantiate RobotContainer. configures buttons, 
+    // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
   }
 
@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.initializeDefaultCommands();
+    RobotContainer.initializeTeleopDefaultCommands();
   }
 
   // This method is called periodically during operator control.

@@ -36,7 +36,7 @@ public class RobotContainer{
     m_OI.configureButtonBindings();
   }
 
-  public static void initializeDefaultCommands(){
+  public static void initializeTeleopDefaultCommands(){
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
   }
 
