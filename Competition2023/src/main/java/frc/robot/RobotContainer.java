@@ -12,6 +12,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.WestCoastDrive;
+import frc.robot.subsystems.LEDs;
 
 /* This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -23,6 +24,7 @@ public class RobotContainer{
   public static final Turret M_TURRET = new Turret();
   public static final Arm M_ARM = new Arm();
   public static final Grabber M_GRABBER = new Grabber();
+  public static final LEDs M_LEDS = new LEDs();
  
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
    * Inline commands requires OI when retrieving joystick values. */
@@ -38,6 +40,7 @@ public class RobotContainer{
 
   public static void initializeTeleopDefaultCommands(){
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+    // arm movement will go here
   }
 
   /**

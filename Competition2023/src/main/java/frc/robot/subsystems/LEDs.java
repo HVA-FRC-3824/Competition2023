@@ -9,9 +9,9 @@ import frc.robot.Constants;
 public class LEDs extends SubsystemBase
 {
     // Declare LED objects:
-    public static AddressableLED m_LED;
-    public static AddressableLEDBuffer m_LEDLength;
-    private int hue = 0;
+    private AddressableLED m_LED;
+    private AddressableLEDBuffer m_LEDLength;
+    private int m_hue = 0;
 
     public LEDs()
     {
@@ -31,12 +31,12 @@ public class LEDs extends SubsystemBase
     @Override
     public void periodic()
     {
-        LEDsColor(hue++, 225, 225);
+        LEDsColor(m_hue++, 225, 225);
 
         // Makes sure hue doesn't go out of range.
-        if(hue >= 180)
+        if(m_hue >= 180)
         {
-            hue = 0;
+            m_hue = 0;
         }
         // Sets the LED HSV 
         m_LED.setData(m_LEDLength);
