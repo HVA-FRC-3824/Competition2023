@@ -8,7 +8,7 @@ import frc.robot.Constants;
 //Controls LEDs
 public class LEDs extends SubsystemBase
 {
-    // Declare LED objects:
+    // Declare LED objects
     private AddressableLED m_LED;
     private AddressableLEDBuffer m_LEDLength;
     private int m_hue = 0;
@@ -25,14 +25,11 @@ public class LEDs extends SubsystemBase
         m_LED.start();
     }
 
-    /*
-    * This method will be called once per scheduler run
-    */
+    // This method will be called once per scheduler run
     @Override
     public void periodic()
     {
         LEDsColor(m_hue++, 225, 225);
-
         // Makes sure hue doesn't go out of range.
         if(m_hue >= 180)
         {
@@ -42,7 +39,7 @@ public class LEDs extends SubsystemBase
         m_LED.setData(m_LEDLength);
     }
 
-    //Change LED colors in rainbow for launch
+    // Change LED colors in rainbow for launch
     public void LEDsColor(int hue, int saturation, int value)
     {
         for(int led = 0; led < m_LEDLength.getLength(); led++)
