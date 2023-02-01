@@ -32,8 +32,8 @@ public final class Constants {
         public static final double WCD_TURN_SENS                                                  = 1.5;
 
         // Pneumatic Ports for gearshifter
-        public static final int WCD_LEFT_SHIFTER_CHANNEL                                          = 2;
-        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 1;                
+        public static final int WCD_LEFT_SHIFTER_CHANNEL                                          = 1;
+        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 2;                
         // #endregion
 
         // #region TURRET
@@ -46,7 +46,7 @@ public final class Constants {
 
         // #region GRABBER
     public static final int PNEUMATIC_HUB_ID                                                      = 6;
-    public static final int GRABBER_CHANNEL_ID                                                    = 0;
+    public static final int GRABBER_CHANNEL_ID                                                    = 3;
     public static final int GRABBER_LEFT_CHANNEL_ID                                               = 9;
     public static final int PNEUMATIC_HUB_ANALOG_ID                                               = 0;
     // #endregion
