@@ -51,6 +51,11 @@ public final class Constants{
         public static final int GRABBER_LEFT_CHANNEL_ID                                           = 9;
         public static final int PNEUMATIC_HUB_ANALOG_ID                                           = 0;
         // #endregion
+
+        // #region LEDs
+        public static final int LEDS_ID                                                           = 0;
+        public static final int TOTAL_LEDS_COUNT                                                  = 50;
+        // #endregion
     // #endregion
 
     // #region PIDs
