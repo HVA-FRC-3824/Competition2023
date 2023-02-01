@@ -13,13 +13,11 @@ import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.WestCoastDrive;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
+/* This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
- */
-public class RobotContainer {
+ * subsystems, commands, and button mappings) should be declared here. */
+public class RobotContainer{
   // The robot's subsystems and commands are defined here...
   public static final WestCoastDrive M_WEST_COAST_DRIVE = new WestCoastDrive();
   public static final Turret M_TURRET = new Turret();
@@ -33,12 +31,12 @@ public class RobotContainer {
   
   /* The container for the robot. Contains subsystems, Operator interface, and commands. 
    * All objects, methods, and classes should be accessed through this class. */
-  public RobotContainer() {
+  public RobotContainer(){
     // Configures the button bindings obviously
     m_OI.configureButtonBindings();
   }
 
-  public static void initializeDefaultCommands(){
+  public static void initializeTeleopDefaultCommands(){
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
   }
 
@@ -46,7 +44,7 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(){
     return new AutonomousDefault();
   }
   
@@ -54,7 +52,8 @@ public class RobotContainer {
    * chassis only, thus Motion Magic (Control mode for Talon SRX that provides the benefits of 
    * Motion Profiling without needing to generate motion profile trajectory points.) is not required. 
    * (PIDController with Gyro/Vision or ControlMode.Velocity will be used instead). */
-  public static void configureTalonFX(WPI_TalonFX talonFX, boolean setInverted, boolean setSensorPhase, double kF,double kP, double kI, double kD) {
+  public static void configureTalonFX(WPI_TalonFX talonFX, boolean setInverted, boolean setSensorPhase, double kF,double kP, 
+                                      double kI, double kD){
     // Factory default to reset TalonFX and prevent unexpected behavior.
     talonFX.configFactoryDefault();
     // Configure Sensor Source for Primary PID.
@@ -88,7 +87,9 @@ public class RobotContainer {
    *                    without Motion Magic. (Motion Magic not required for
    *                    TalonSRXs that will set with ControlMode.Velocity).
    */
-  public static void configureTalonSRX(WPI_TalonSRX talonSRX, boolean controlMode, FeedbackDevice feedbackDevice, boolean setInverted, boolean setSensorPhase, double kF, double kP, double kI, double kD, int kCruiseVelocity, int kAcceleration, boolean resetPos){
+  public static void configureTalonSRX(WPI_TalonSRX talonSRX, boolean controlMode, FeedbackDevice feedbackDevice, 
+                                      boolean setInverted, boolean setSensorPhase, double kF, double kP, double kI, 
+                                      double kD, int kCruiseVelocity, int kAcceleration, boolean resetPos){
     // Factory default to reset TalonSRX and prevent unexpected behavior.
     talonSRX.configFactoryDefault();
     // Configure Sensor Source for Primary PID.
