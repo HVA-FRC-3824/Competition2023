@@ -33,8 +33,8 @@ public final class Constants{
         public static final double WCD_TURN_SENS                                                  = 1.5;
 
         // Pneumatic Ports for gearshifter
-        public static final int WCD_LEFT_SHIFTER_CHANNEL                                          = 2;
-        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 1;                
+        public static final int WCD_LEFT_SHIFTER_CHANNEL                                          = 1;
+        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 2;                
         // #endregion
 
         // #region TURRET
