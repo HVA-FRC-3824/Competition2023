@@ -29,6 +29,7 @@ public class WestCoastDrive extends SubsystemBase{
   private WPI_TalonSRX m_rightMaster;
   private WPI_TalonSRX m_rightSlave;
   private DifferentialDrive m_differentialDrive;
+  private double m_power;
 
   // Pneumatic objects
   private Solenoid m_gearShiftRight;
@@ -86,11 +87,13 @@ public class WestCoastDrive extends SubsystemBase{
     // this.getHeading() appears to be deprecated, replaced by needing xtra encoders
     // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
   }
+
   // This method will be called once per scheduler run
   @Override
   public void periodic(){
     // Field2d odometry stuff will go here 
   }
+
   // Method to drive robot
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
@@ -101,6 +104,7 @@ public class WestCoastDrive extends SubsystemBase{
     }else if(power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
     }
+    m_power = power;
     // applies the power to the drivetrain
     m_differentialDrive.arcadeDrive(turn, power, true);
   }
@@ -113,5 +117,10 @@ public class WestCoastDrive extends SubsystemBase{
   public void shiftHighGear(){
     m_gearShiftLeft.set(true);
     m_gearShiftRight.set(true);
+  }
+
+  // Method that returns true if robot reversing, used for LEDs
+  public boolean isReverse() {
+    return(m_power < 0);
   }
 }

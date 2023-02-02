@@ -54,7 +54,7 @@ public final class Constants{
 
         // #region LEDs
         public static final int LEDS_ID                                                           = 0;
-        public static final int TOTAL_LEDS_COUNT                                                  = 50;
+        public static final int TOTAL_LEDS_COUNT                                                  = 150;
         // #endregion
     // #endregion
 
