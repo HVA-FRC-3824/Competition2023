@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 // General
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.LEDs.LEDsPattern;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // SmartDashboard
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -101,8 +102,10 @@ public class WestCoastDrive extends SubsystemBase{
     // prevents the power from going` over max power
     if(power > Constants.WCD_MAX_POWER){
       power = Constants.WCD_MAX_POWER;
+      RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RAINBOW); // Sets LEDs rainbow when driving forward
     }else if(power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
+      RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RED); // Sets LEDs red for reversing
     }
     m_power = power;
     // applies the power to the drivetrain
@@ -117,10 +120,5 @@ public class WestCoastDrive extends SubsystemBase{
   public void shiftHighGear(){
     m_gearShiftLeft.set(true);
     m_gearShiftRight.set(true);
-  }
-
-  // Method that returns true if robot reversing, used for LEDs
-  public boolean isReverse() {
-    return(m_power < 0);
   }
 }
