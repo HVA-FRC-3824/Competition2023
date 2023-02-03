@@ -30,7 +30,6 @@ public class WestCoastDrive extends SubsystemBase{
   private WPI_TalonSRX m_rightMaster;
   private WPI_TalonSRX m_rightSlave;
   private DifferentialDrive m_differentialDrive;
-  private double m_power;
 
   // Pneumatic objects
   private Solenoid m_gearShiftRight;
@@ -107,7 +106,6 @@ public class WestCoastDrive extends SubsystemBase{
       power = -Constants.WCD_MAX_POWER;
       RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RED); // Sets LEDs red for reversing
     }
-    m_power = power;
     // applies the power to the drivetrain
     m_differentialDrive.arcadeDrive(turn, power, true);
   }
