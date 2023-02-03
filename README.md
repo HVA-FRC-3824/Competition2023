@@ -2,7 +2,7 @@
 ## This is "NAME TBD", FRC 3824 HVA RoHawktic's 2023 robot intended to compete in Charged Up. ##
 This robot's capabilities include: westcoast drive train with a two speed pneumatic powered transmission, pneumantic graber, T.B.D.
 ## The authors of this robot's code are: ##
-Joey R. Borrelli,
+Joey Borrelli,
 Zane Maples, 
 Ryan Moon,
 Krish Desai, and 
