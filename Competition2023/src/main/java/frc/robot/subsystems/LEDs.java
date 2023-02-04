@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import java.util.Random;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -75,11 +76,52 @@ public class LEDs extends SubsystemBase{
 
     private void setLEDsTwinkle(){
         // TODO write this method
+        Random rand = new Random();
+        int led_max = m_LEDsBuffer.getLength();
+        
+        /* Set all to off */
+        for(int i = 0; i < led_max; i++)
+        {
+            m_LEDsBuffer.setHSV(i, 100, 255, 20);
+        }
+
+        /* Grab random led ten times */
+        for(int i = 0; i < 30; i++)
+        {
+            /* Set to lower value */
+            m_LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
+        }
+        try {
+            Thread.sleep(50);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         // twinkle blue for rohawktics?
     }
 
     private void setLEDsBounce(){
         // TODO write this method
+        int led_max = m_LEDsBuffer.getLength();
+        for(int i = 0; i < led_max; i++)
+        {
+            if(i == led_max)
+            {
+                /* If i goes to far stop! */ 
+               m_LEDsBuffer.setHSV(i, 100, 255, 0);
+               break; 
+            }
+            
+            if(i != 0)
+            {
+                m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
+            }
+            m_LEDsBuffer.setHSV(i, 100, 255, 255);
+            try {
+                Thread.sleep(15);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
         // bounce blue for rohawktics?
     }
 
