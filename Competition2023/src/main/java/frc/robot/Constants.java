@@ -37,10 +37,6 @@ public final class Constants{
         public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 2;                
         // #endregion
 
-        // #region TURRET
-        public static final int TURRET_MOTOR_ID                                                   = 5;
-        // #endregion
-
         // #region ARM
         public static final int ARM_MOTOR_ID                                                      = 0;
         // #endregion
