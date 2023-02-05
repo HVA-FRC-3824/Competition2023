@@ -9,8 +9,8 @@ import frc.robot.Constants;
 // Class that controls LEDs
 public class LEDs extends SubsystemBase{
     // enum objects
-    public enum LEDsPattern {RAINBOW, RED, BLUE, GREEN, BOUNCE, TWINKLE};
-    private LEDsPattern m_LEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
+    public enum LEDsPattern {RAINBOW, RED, BLUE, GREEN, BOUNCE, TWINKLE, NOTHING};
+    private LEDsPattern m_LEDsPattern = LEDsPattern.TWINKLE; // Default set to rainbow
     // Declare and instantiate LED objects and variables
     private AddressableLED m_LED = new AddressableLED(Constants.LEDS_ID);
     private AddressableLEDBuffer m_LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
@@ -49,9 +49,10 @@ public class LEDs extends SubsystemBase{
             case TWINKLE:
                 setLEDsTwinkle();
                 break;
+            case NOTHING:
+                break;
             default: 
                 setLEDsColor(180, 255, 255);
-                setLEDsColor(20, 255, 255);
                 System.out.println("ERROR: LEDs switch case Not getting a color pattern");
                 break;   
         }
@@ -75,52 +76,36 @@ public class LEDs extends SubsystemBase{
     }
 
     private void setLEDsTwinkle(){
-        // TODO write this method
         Random rand = new Random();
         int led_max = m_LEDsBuffer.getLength();
         
         /* Set all to off */
-        for(int i = 0; i < led_max; i++)
-        {
+        for(int i = 0; i < led_max; i++){
             m_LEDsBuffer.setHSV(i, 100, 255, 20);
         }
 
         /* Grab random led ten times */
-        for(int i = 0; i < 30; i++)
-        {
+        for(int i = 0; i < 30; i++){
             /* Set to lower value */
             m_LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
-        }
-        try {
-            Thread.sleep(50);
-        } catch (Exception e) {
-            // TODO: handle exception
         }
         // twinkle blue for rohawktics?
     }
 
     private void setLEDsBounce(){
-        // TODO write this method
+        // TODO test and fix method
         int led_max = m_LEDsBuffer.getLength();
-        for(int i = 0; i < led_max; i++)
-        {
-            if(i == led_max)
-            {
+        for(int i = 0; i < led_max; i++){
+            if(i == led_max){
                 /* If i goes to far stop! */ 
                m_LEDsBuffer.setHSV(i, 100, 255, 0);
                break; 
             }
             
-            if(i != 0)
-            {
+            if(i != 0){
                 m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
             }
             m_LEDsBuffer.setHSV(i, 100, 255, 255);
-            try {
-                Thread.sleep(15);
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
         }
         // bounce blue for rohawktics?
     }

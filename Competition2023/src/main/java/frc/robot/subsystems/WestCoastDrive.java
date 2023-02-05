@@ -4,7 +4,6 @@ package frc.robot.subsystems;
 // General
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.LEDs.LEDsPattern;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // SmartDashboard
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,15 +11,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // Driving
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // Pneumatics
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 // Odometry
-//import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-//import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SPI;
 // #endregion
 
 public class WestCoastDrive extends SubsystemBase{
@@ -36,7 +36,7 @@ public class WestCoastDrive extends SubsystemBase{
   private Solenoid m_gearShiftLeft;
 
   // Odometry
-  // private AHRS m_ahrs; // altitude and heading reference system [AHRS]
+  private AHRS m_ahrs; // altitude and heading reference system [AHRS]
   // private final DifferentialDriveOdometry m_odometry;
 
   public WestCoastDrive(){
@@ -76,22 +76,25 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
     // Try to instantiate the navx gyro with exception catch, used for odometry
-    // try{
-    //   m_ahrs = new AHRS(SPI.Port.kMXP);
-    // }catch(RuntimeException ex){
-    //   System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
-    // }
+    try{
+      m_ahrs = new AHRS(SPI.Port.kMXP);
+    }catch(RuntimeException ex){
+      System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
+    }
 
-    // Used for tracking robot position.
-    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
-    // this.getHeading() appears to be deprecated, replaced by needing xtra encoders
-    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
+  //   Used for tracking robot position.
+  //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
+  //   this.getHeading() appears to be deprecated, replaced by needing xtra encoders
+  //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic(){
     // Field2d odometry stuff will go here 
+    SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
+    SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
+    SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
   }
 
   // Method to drive robot
@@ -101,10 +104,8 @@ public class WestCoastDrive extends SubsystemBase{
     // prevents the power from going` over max power
     if(power > Constants.WCD_MAX_POWER){
       power = Constants.WCD_MAX_POWER;
-      RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RAINBOW); // Sets LEDs rainbow when driving forward
     }else if(power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
-      RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RED); // Sets LEDs red for reversing
     }
     // applies the power to the drivetrain
     m_differentialDrive.arcadeDrive(turn, power, true);

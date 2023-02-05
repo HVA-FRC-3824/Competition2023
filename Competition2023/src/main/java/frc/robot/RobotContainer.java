@@ -10,7 +10,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 // importing subsystems
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Grabber;
-import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.WestCoastDrive;
 import frc.robot.subsystems.LEDs;
 
@@ -21,7 +20,6 @@ import frc.robot.subsystems.LEDs;
 public class RobotContainer{
   // The robot's subsystems and commands are defined here...
   public static final WestCoastDrive M_WEST_COAST_DRIVE = new WestCoastDrive();
-  public static final Turret M_TURRET = new Turret();
   public static final Arm M_ARM = new Arm();
   public static final Grabber M_GRABBER = new Grabber();
   public static final LEDs M_LEDS = new LEDs();

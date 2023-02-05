@@ -20,7 +20,6 @@ public class Robot extends TimedRobot {
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
-    RobotContainer.M_LEDS.setLEDsPattern(LEDsPattern.RAINBOW);
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 
