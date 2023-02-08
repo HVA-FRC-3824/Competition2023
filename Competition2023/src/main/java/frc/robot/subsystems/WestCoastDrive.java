@@ -109,7 +109,9 @@ public class WestCoastDrive extends SubsystemBase{
     }
     // applies the power to the drivetrain
     m_differentialDrive.arcadeDrive(turn, power, true);
+    m_differentialDrive.
   }
+
 
   // Methods to control gearbox shifter.
   public void shiftLowGear(){
@@ -119,5 +121,14 @@ public class WestCoastDrive extends SubsystemBase{
   public void shiftHighGear(){
     m_gearShiftLeft.set(true);
     m_gearShiftRight.set(true);
+  }
+
+  public void autoBalance(){
+    //TODO Write auto balance method, encoders needed
+    if(m_ahrs.getRoll() < 5.0){
+      //Move a lot
+    }else if(false){
+
+    }
   }
 }
