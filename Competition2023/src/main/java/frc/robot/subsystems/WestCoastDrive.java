@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.CANCoder;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -37,6 +38,8 @@ public class WestCoastDrive extends SubsystemBase{
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
+  private CANCoder m_rightCanCoder;
+  private CANCoder m_leftCanCoder;
   // private final DifferentialDriveOdometry m_odometry;
 
   public WestCoastDrive(){
@@ -86,6 +89,10 @@ public class WestCoastDrive extends SubsystemBase{
   //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
   //   this.getHeading() appears to be deprecated, replaced by needing xtra encoders
   //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
+  
+  m_leftCanCoder = new CANCoder(7);
+  m_rightCanCoder = new CANCoder(8);
+  
   }
 
   // This method will be called once per scheduler run
@@ -95,6 +102,8 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
+    SmartDashboard.putNumber("Left Encoder: ", m_leftCanCoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder: ", m_rightCanCoder.getPosition());
   }
 
   // Method to drive robot
@@ -153,6 +162,13 @@ public class WestCoastDrive extends SubsystemBase{
       }
     }
   }
-}
 
-// please work changes
+  public double getDegrees(double desired_travel_distance) {
+    return (360 * desired_travel_distance) / Constants.CIRCUMFERENCE;
+  }
+
+  public double getDistance(double provided_degrees) {
+    return Constants.CIRCUMFERENCE * (provided_degrees/360);
+  }
+
+}

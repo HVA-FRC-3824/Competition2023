@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.lang.Math;
+
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
@@ -27,6 +29,10 @@ public final class Constants{
         public static final int WCD_LEFT_SLAVE_ID                                                 = 3; // 3 back left good
         public static final int WCD_RIGHT_MASTER_ID                                               = 1; // 1 front right
         public static final int WCD_RIGHT_SLAVE_ID                                                = 4; // 4 back right
+
+        // odemetry constants
+        private static final double DIAMETER = 8;
+        public static final double CIRCUMFERENCE = (Math.PI * DIAMETER);
 
         // Control related constants
         public static final double WCD_MAX_POWER                                                  = 1.0;
