@@ -109,7 +109,6 @@ public class WestCoastDrive extends SubsystemBase{
     }
     // applies the power to the drivetrain
     m_differentialDrive.arcadeDrive(turn, power, true);
-    m_differentialDrive.
   }
 
 
@@ -123,12 +122,35 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftRight.set(true);
   }
 
-  public void autoBalance(){
-    //TODO Write auto balance method, encoders needed
-    if(m_ahrs.getRoll() < 5.0){
-      //Move a lot
-    }else if(false){
+  public void driveWithEcoders(double distance){
 
+  }
+
+  /* This method will be called when the button for auto balance is clicked, and also during autonomous to
+   * balance while other robots are climbing on. It works by having 6 'states', 3 each direction of leaning,
+   * 3 degrees of either how leaned it is or how far to move, the more leaned the further it moves. */
+  public void autoBalance(){
+    float tempRollRate = m_ahrs.getRoll();
+    if(tempRollRate > 1.0){
+      if(tempRollRate > 2.5){
+        if(tempRollRate > 5.0){
+          // driveWithEncoders(move a lot);
+        }else{
+          // driveWithEncoders(move a little more);
+        }
+      }else{
+        // driveWithEncoders(move a little);
+      }
+    }else if(tempRollRate < -1.0){
+      if(tempRollRate < -2.5){
+        if(tempRollRate < -5.0){
+          // driveWithEncoders(-move a lot);
+        }else{
+          // driveWithEncoders(-move a litte more);
+        }
+      }else{
+        // driveWithEncoders(-move a litte);
+      }
     }
   }
 }
