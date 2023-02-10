@@ -132,7 +132,7 @@ public class WestCoastDrive extends SubsystemBase{
   }
 
   public void driveWithEcoders(double distance){
-
+    //TODO write method
   }
 
   /* This method will be called when the button for auto balance is clicked, and also during autonomous to
@@ -170,5 +170,4 @@ public class WestCoastDrive extends SubsystemBase{
   public double getDistance(double provided_degrees) {
     return Constants.CIRCUMFERENCE * (provided_degrees/360);
   }
-
 }
