@@ -21,6 +21,7 @@ public final class Constants{
 
     // #region Operator button IDs
     public static final int OPERATOR_GRABBER_TOGGLE_BTN_ID                                        = 2;
+    public static final int OPERATOR_CHANGE_STATE_TOGGLE_BTN_ID                                   = 3;
     // #endregion
 
     // #region subsystems

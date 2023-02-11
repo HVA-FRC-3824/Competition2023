@@ -10,6 +10,7 @@ public class OI{
     // buttons
     private static JoystickButton m_gearShiftBtn;
     private static JoystickButton m_grabberBtn;
+    private static JoystickButton m_driveTrainStateToggleBtn;
     public OI(){
         // Joysticks/Controllers
         m_driverJoystick = new Joystick(Constants.DRIVER_JOYSTICK_PORT);
@@ -17,7 +18,7 @@ public class OI{
         // Driver buttons
         m_gearShiftBtn = new JoystickButton(m_driverJoystick, Constants.DRIVER_GEAR_SHIFT_BTN_ID);
         // Operator buttons
-        m_grabberBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_GRABBER_TOGGLE_BTN_ID);
+        m_driveTrainStateToggleBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_CHANGE_STATE_TOGGLE_BTN_ID);
     }
 
     // Used for driving command
@@ -34,7 +35,7 @@ public class OI{
         // WestCoastDrive
         m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
         m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
+        m_driveTrainStateToggleBtn.onTrue(RobotContainer.m_inlineCommands.m_changeState);
         // Grabber
-        m_grabberBtn.onTrue(RobotContainer.m_inlineCommands.m_togglePiston);
     }
 }

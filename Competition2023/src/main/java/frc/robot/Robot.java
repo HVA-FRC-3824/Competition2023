@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  public static int m_teleopInit;
 
   // This method is run when the robot is first started up and should be used for any initialization code.
   @Override
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.initializeTeleopDefaultCommands();
+    m_teleopInit = 1;
   }
 
   // This method is called periodically during operator control.

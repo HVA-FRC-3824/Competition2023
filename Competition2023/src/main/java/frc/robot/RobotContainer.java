@@ -7,6 +7,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
 // importing subsystems
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Grabber;
@@ -38,6 +42,7 @@ public class RobotContainer{
 
   public static void initializeTeleopDefaultCommands(){
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+    M_WEST_COAST_DRIVE.state = "JOYSTICK_MODE";
     // arm movement will go here
   }
 
@@ -135,5 +140,32 @@ public class RobotContainer{
       talonSRX.setSelectedSensorPosition(0, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
     }
     System.out.println("Motor (ID:" + talonSRX.getDeviceID() + ") sucessfully configured");
+  }
+
+  public static RelativeEncoder configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, RelativeEncoder encoder, boolean inverted, double kP, double kI,
+                                      double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
+    /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 
+     * their factory default state. If no argument is passed, these parameters will not persist between power cycles */
+    sparkMax.restoreFactoryDefaults();
+
+    /* In order to use PID functionality for a controller, a SparkMaxPIDController object is constructed by calling
+     * the getPIDController() method on an existing CANSparkMax object */
+    pidController = sparkMax.getPIDController();
+
+    sparkMax.setInverted(inverted);
+
+    if(encoder != null){
+      encoder = sparkMax.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
+      return encoder;
+    }
+    
+    pidController.setP(kP);
+    pidController.setI(kI);
+    pidController.setD(kD);
+    pidController.setIZone(kIz);
+    pidController.setFF(kFF);
+    pidController.setOutputRange(kMinOutput, kMaxOutput);
+    
+    return null;
   }
 }
