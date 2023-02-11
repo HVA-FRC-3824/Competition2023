@@ -40,10 +40,12 @@ public class RobotContainer{
     m_OI.configureButtonBindings();
   }
 
+  // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
+    // Sets our default command to driving with joystick and makes our current state equal Joystick mode.
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
     M_WEST_COAST_DRIVE.state = "JOYSTICK_MODE";
-    // arm movement will go here
+    // TODO arm movement will go here
   }
 
   /**
@@ -142,6 +144,8 @@ public class RobotContainer{
     System.out.println("Motor (ID:" + talonSRX.getDeviceID() + ") sucessfully configured");
   }
 
+
+  //TODO Test this method
   public static RelativeEncoder configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, RelativeEncoder encoder, boolean inverted, double kP, double kI,
                                       double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
     /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 

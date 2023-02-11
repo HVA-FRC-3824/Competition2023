@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.initializeTeleopDefaultCommands();
+    // m_teleopInit is used to confirm that we have entered teleop in WestCoastDrive periodic
     m_teleopInit = 1;
   }
 

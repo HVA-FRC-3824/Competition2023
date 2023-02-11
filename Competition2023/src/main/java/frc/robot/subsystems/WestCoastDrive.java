@@ -145,26 +145,26 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
-    // SmartDashboard.putNumber("Left Encoder: ", m_leftCanCoder.getPosition());
-    // SmartDashboard.putNumber("Right Encoder: ", m_rightCanCoder.getPosition());
 
     /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that 
-     * it doesn't set to default in the middle of it running */
-    if((state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit == 1)){
-      if (!prevState.equals("JOYSTICK")){
-        RobotContainer.m_inlineCommands.m_autoBalance.cancel();
-        RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
-        prevState = "JOYSTICK";
-        SmartDashboard.putString("Current State: ", prevState);
-      }
-    }else if(state.equals("BALANCE_MODE") && (Robot.m_teleopInit == 1)){
-      if (!prevState.equals("BALANCE")){
-        RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
-        RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
-        prevState = "BALANCE";
-        SmartDashboard.putString("Current State: ", prevState);
-      }
+     * it doesn't set to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
+    if((state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit == 1) && (!prevState.equals("JOYSTICK"))){
+      // Cancel the old command
+      RobotContainer.m_inlineCommands.m_autoBalance.cancel();
+      // Set the new command
+      RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
+      // Set our previous state to our new state
+      prevState = "JOYSTICK";
+    }else if(state.equals("BALANCE_MODE") && (Robot.m_teleopInit == 1) && (!prevState.equals("BALANCE"))){
+      // Cancel the old command
+      RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
+      // Set the new command
+      RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
+      // Set our previous state to our new state
+      prevState = "BALANCE";
     }
+    // Puts current state of drive train on smart dashboard
+    SmartDashboard.putString("Current Drive Train State: ", prevState);
 
     // Puts pressure on the smart dashboard
     SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
@@ -174,11 +174,12 @@ public class WestCoastDrive extends SubsystemBase{
     }else if(m_pneumaticHub.getPressure(Constants.PNEUMATIC_HUB_ANALOG_ID) > 120){
         m_pneumaticHub.disableCompressor();
     }
+
     // Puts compressor status on Smart Dashboard
     SmartDashboard.putBoolean("Compressor on: ", m_pneumaticHub.getCompressor());
   }
 
-  // Method to drive robot
+  // Method to drive robot, using power %
   public void drive(double power, double turn){ // all the way forward is -1, all the back is 1 for joystick (power parameter)
     // Reduces sensitivity of twist for turning.
     turn = turn/Constants.WCD_TURN_SENS; // increase number to decrease sensitvity
@@ -202,8 +203,9 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftRight.set(true);
   }
 
+  // method to drive a specific distance using PIDs and the encoders
   public void driveWithEcoders(double distance){
-    
+    //TODO write method
   }
 
   /* This method will be called when the button for auto balance is clicked, and also during autonomous to
@@ -234,14 +236,17 @@ public class WestCoastDrive extends SubsystemBase{
     }
   }
 
+  // method used to calculate the distance into degrees inteligable to the encoder
   public double getDegrees(double desired_travel_distance) {
     return (360 * desired_travel_distance) / Constants.CIRCUMFERENCE;
   }
 
+  // method used to turn the degrees of the encoder into distance
   public double getDistance(double provided_degrees) {
     return Constants.CIRCUMFERENCE * (provided_degrees/360);
   }
 
+  // used to change the state of the robot, called when clicking the change state button
   public void changeState(){
     if(state == "JOYSTICK_MODE"){
       state = "BALANCE_MODE";
