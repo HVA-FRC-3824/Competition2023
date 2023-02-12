@@ -8,24 +8,24 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // SmartDashboard
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+
 // Driving
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.PneumaticHub;
 // Pneumatics
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-
 //import com.ctre.phoenix.sensors.CANCoder;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import edu.wpi.first.math.geometry.Rotation2d;
@@ -35,21 +35,21 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class WestCoastDrive extends SubsystemBase{
   // Motors
-  private WPI_TalonSRX m_leftMaster;
+  private WPI_TalonSRX m_leftMasterSRX;
   private CANSparkMax m_leftMasterSpark;
   private SparkMaxPIDController m_leftMasterPIDController;
   private RelativeEncoder m_leftEncoder;
 
-  private WPI_TalonSRX m_leftSlave;
+  private WPI_TalonSRX m_leftSlaveSRX;
   private CANSparkMax m_leftSlaveSpark;
   private SparkMaxPIDController m_leftSlavePIDController;
 
-  private WPI_TalonSRX m_rightMaster;
+  private WPI_TalonSRX m_rightMasterSRX;
   private CANSparkMax m_rightMasterSpark;
   private SparkMaxPIDController m_rightMasterPIDController;
   private RelativeEncoder m_rightEncoder;
 
-  private WPI_TalonSRX m_rightSlave;
+  private WPI_TalonSRX m_rightSlaveSRX;
   private CANSparkMax m_rightSlaveSpark;
   private SparkMaxPIDController m_rightSlavePIDController;
 
@@ -67,52 +67,51 @@ public class WestCoastDrive extends SubsystemBase{
   // private final DifferentialDriveOdometry m_odometry;
 
   // Robot State
-  public String state = "JOYSTICK_MODE";
-  private String prevState = "JOYSTICK";
+  private String m_state = "JOYSTICK_MODE";
+  private String m_prevState = "JOYSTICK";
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
-    
     m_leftMasterSpark = new CANSparkMax(Constants.WCD_LEFT_MASTER_ID, MotorType.kBrushless);
     m_leftEncoder = RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, m_leftEncoder, false, 0, 
                                                  0, 0, 0, 0, 0, 0);
-    m_leftMaster = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
-    RobotContainer.configureTalonSRX(m_leftMaster, false, null, false, false, 
+    m_leftMasterSRX = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
+    RobotContainer.configureTalonSRX(m_leftMasterSRX, false, null, false, false, 
                                   0, 0, 0, 0, 0, 0, false);
 
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, null, false, 0,
                                   0, 0, 0, 0, 0, 0);
-    m_leftSlave = new WPI_TalonSRX(Constants.WCD_LEFT_SLAVE_ID);
-    RobotContainer.configureTalonSRX(m_leftSlave, false, null, false, false,
+    m_leftSlaveSRX = new WPI_TalonSRX(Constants.WCD_LEFT_SLAVE_ID);
+    RobotContainer.configureTalonSRX(m_leftSlaveSRX, false, null, false, false,
                                   0, 0, 0, 0, 0, 0, false);
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_leftSlave.follow(m_leftMaster);
+    m_leftSlaveSRX.follow(m_leftMasterSRX);
     m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
     m_rightEncoder = RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, m_rightEncoder, false, 0, 
                                                   0, 0, 0, 0, 0, 0);
-    m_rightMaster = new WPI_TalonSRX(Constants.WCD_RIGHT_MASTER_ID);
-    RobotContainer.configureTalonSRX(m_rightMaster, false, null, false, false,
+    m_rightMasterSRX = new WPI_TalonSRX(Constants.WCD_RIGHT_MASTER_ID);
+    RobotContainer.configureTalonSRX(m_rightMasterSRX, false, null, false, false,
                                   0, 0, 0, 0, 0, 0, false);
 
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, null, false, 0,
                                   0, 0, 0, 0, 0, 0);
-    m_rightSlave = new WPI_TalonSRX(Constants.WCD_RIGHT_SLAVE_ID);
-    RobotContainer.configureTalonSRX(m_rightSlave, false, null, false, false,
+    m_rightSlaveSRX = new WPI_TalonSRX(Constants.WCD_RIGHT_SLAVE_ID);
+    RobotContainer.configureTalonSRX(m_rightSlaveSRX, false, null, false, false,
                                   0, 0, 0, 0, 0, 0, false);
 
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_rightSlave.follow(m_rightMaster);
+    m_rightSlaveSRX.follow(m_rightMasterSRX);
     m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
-    m_differentialDrive = new DifferentialDrive(m_leftMaster, m_rightMaster);
+    m_differentialDrive = new DifferentialDrive(m_leftMasterSRX, m_rightMasterSRX);
     // m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
 
     m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
@@ -146,25 +145,26 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
 
-    /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that 
-     * it doesn't set to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
-    if((state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit == 1) && (!prevState.equals("JOYSTICK"))){
+    /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that it doesn't set
+     * to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
+    // TODO Rewrite this into a command that requires the westcoast susbsystem, which will end the default driveWithJoystick
+    if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit == 1) && (!m_prevState.equals("JOYSTICK"))){
       // Cancel the old command
       RobotContainer.m_inlineCommands.m_autoBalance.cancel();
       // Set the new command
       RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
       // Set our previous state to our new state
-      prevState = "JOYSTICK";
-    }else if(state.equals("BALANCE_MODE") && (Robot.m_teleopInit == 1) && (!prevState.equals("BALANCE"))){
+      m_prevState = "JOYSTICK";
+    }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit == 1) && (!m_prevState.equals("BALANCE"))){
       // Cancel the old command
       RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
       // Set the new command
       RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
       // Set our previous state to our new state
-      prevState = "BALANCE";
+      m_prevState = "BALANCE";
     }
     // Puts current state of drive train on smart dashboard
-    SmartDashboard.putString("Current Drive Train State: ", prevState);
+    SmartDashboard.putString("Current Drive Train State: ", m_prevState);
 
     // Puts pressure on the smart dashboard
     SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
@@ -248,10 +248,10 @@ public class WestCoastDrive extends SubsystemBase{
 
   // used to change the state of the robot, called when clicking the change state button
   public void changeState(){
-    if(state == "JOYSTICK_MODE"){
-      state = "BALANCE_MODE";
-    }else if(state == "BALANCE_MODE"){
-      state = "JOYSTICK_MODE";
+    if(m_state == "JOYSTICK_MODE"){
+      m_state = "BALANCE_MODE";
+    }else if(m_state == "BALANCE_MODE"){
+      m_state = "JOYSTICK_MODE";
     }
   }
 }

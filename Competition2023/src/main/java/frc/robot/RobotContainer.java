@@ -42,9 +42,8 @@ public class RobotContainer{
 
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
-    // Sets our default command to driving with joystick and makes our current state equal Joystick mode.
+    // Sets our default command to driving with joystick.
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
-    M_WEST_COAST_DRIVE.state = "JOYSTICK_MODE";
     // TODO arm movement will go here
   }
 
