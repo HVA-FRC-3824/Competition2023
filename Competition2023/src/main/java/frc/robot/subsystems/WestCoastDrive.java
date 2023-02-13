@@ -148,14 +148,14 @@ public class WestCoastDrive extends SubsystemBase{
     /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that it doesn't set
      * to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
     // TODO Rewrite this into a command that requires the westcoast susbsystem, which will end the default driveWithJoystick
-    if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit == 1) && (!m_prevState.equals("JOYSTICK"))){
+    if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit) && (!m_prevState.equals("JOYSTICK"))){
       // Cancel the old command
       RobotContainer.m_inlineCommands.m_autoBalance.cancel();
       // Set the new command
       RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
       // Set our previous state to our new state
       m_prevState = "JOYSTICK";
-    }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit == 1) && (!m_prevState.equals("BALANCE"))){
+    }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit) && (!m_prevState.equals("BALANCE"))){
       // Cancel the old command
       RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
       // Set the new command
