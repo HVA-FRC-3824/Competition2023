@@ -254,4 +254,8 @@ public class WestCoastDrive extends SubsystemBase{
       m_state = "JOYSTICK_MODE";
     }
   }
+
+  public AHRS returnGyro(){
+    return(m_ahrs);
+  }
 }
