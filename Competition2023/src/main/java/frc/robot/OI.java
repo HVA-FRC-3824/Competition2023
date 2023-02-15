@@ -9,8 +9,7 @@ public class OI{
     private static Joystick m_operatorJoystick;
     // buttons
     private static JoystickButton m_gearShiftBtn;
-    private static JoystickButton m_grabberBtn;
-    
+    private static JoystickButton m_driveTrainStateToggleBtn;
     public OI(){
         // Joysticks/Controllers
         m_driverJoystick = new Joystick(Constants.DRIVER_JOYSTICK_PORT);
