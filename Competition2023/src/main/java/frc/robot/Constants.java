@@ -1,7 +1,7 @@
 package frc.robot;
 
 import java.lang.Math;
-
+import frc.robot.subsystems.communication.TagData;
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
@@ -66,4 +66,8 @@ public final class Constants{
     public static final int K_SLOT_IDX                                                            = 0;
     public static final int K_TIMEOUT_MS                                                          = 30;
     // #endregion
+
+    // array of current tag data
+    public static final int MAX_TAGS                                                              = 6;
+    public static TagData[] TAG_DATA = new TagData[6];
 }
