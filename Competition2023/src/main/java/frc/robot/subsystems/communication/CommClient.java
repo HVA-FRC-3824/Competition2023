@@ -1,6 +1,5 @@
 package frc.robot.subsystems.communication;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 import java.io.*;
 import java.net.*;
@@ -57,18 +56,15 @@ public class CommClient extends SubsystemBase
 	    this.id = m_input.readByte();
 
 	    /* Grab the 1st float value */
-	    Constants.TAG_DATA[id].dist = m_input.readFloat();
+	    TagData.TAG_DATA[id-1].dist = m_input.readFloat();
 
 	    /* Grab the 2nd float value */
-	    Constants.TAG_DATA[id].angle = m_input.readFloat();
+	    TagData.TAG_DATA[id-1].angle = m_input.readFloat();
 	} catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void periodic()
-    {
-        receiveMessage();
-    }
+    public void run()
+    {}
 }

@@ -20,11 +20,19 @@ public class Robot extends TimedRobot {
     System.out.println("AVE CHRISTUS REX");
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
     System.out.println("SOMETHING SOMETHING TREX");
+    /* SERVER INITALIZATION */
+
     /* Init TagData objects*/
+    
     for(int i = 0; i < Constants.MAX_TAGS; i++)
     {
-      Constants.TAG_DATA[i] = new TagData(i);
+      /* Type cast to float because java is a shit language and default goes to double???? */
+      TagData.TAG_DATA[i] = new TagData(i+1,(float)0.0,(float)0.0);
     }
+
+    
+
+
 
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
