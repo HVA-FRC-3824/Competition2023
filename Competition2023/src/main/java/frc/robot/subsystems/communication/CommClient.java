@@ -5,8 +5,19 @@ import frc.robot.Constants;
 import java.io.*;
 import java.net.*;
 
-/* Default connection type is TCP. 
- * TODO: Change to UDP!
+/* Quick explanation of the code below
+ * The constructor takes in the address and port to connect to
+ * It then connects to the server
+ * Once connected the server will start sending data to the client
+ * 
+ * Each packet sent from the server contains the id, dist, and angle
+ * [1 ,2,3,4,5,6,7,8,9]
+ * [id,dist 4b, ang 4b]
+ * 
+ * The id is one byte
+ * Both dist & angle are floats, so they take up 4 bytes
+ * 
+ * The periodic function just constantly receives info and updates the array in Constants
 */
 
 public class CommClient extends SubsystemBase
@@ -15,9 +26,7 @@ public class CommClient extends SubsystemBase
     private Socket m_socket = null;
     private DataInputStream m_input = null;
 
-    private float  dist;
-    private byte   id;
-    private float  angle;
+    private byte id;
 
     /* Try to establish a connection */ 
     public CommClient(String address, int port)
@@ -48,19 +57,18 @@ public class CommClient extends SubsystemBase
 	    this.id = m_input.readByte();
 
 	    /* Grab the 1st float value */
-	    this.dist = m_input.readFloat();
+	    Constants.TAG_DATA[id].dist = m_input.readFloat();
 
 	    /* Grab the 2nd float value */
-	    this.angle = m_input.readFloat();
+	    Constants.TAG_DATA[id].angle = m_input.readFloat();
 	} catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void printMessage()
+    @Override
+    public void periodic()
     {
- 	    System.out.println(this.id);	
-	    System.out.println(this.dist);
-	    System.out.println(this.angle);
+        receiveMessage();
     }
 }

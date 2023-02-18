@@ -59,6 +59,14 @@ public final class Constants{
         public static final int LEDS_ID                                                           = 0;
         public static final int TOTAL_LEDS_COUNT                                                  = 150;
         // #endregion
+
+        // server info
+        public static final String IP_ADDR                  /* 127.0.0.1 localhost */             = "127.0.0.1";
+        public static final int PORT                                                              = 3824;
+    
+        // array of current tag data
+        public static final int MAX_TAGS                                                              = 6;
+        public static TagData[] TAG_DATA = new TagData[6];
     // #endregion
 
     // #region PIDs
@@ -67,7 +75,5 @@ public final class Constants{
     public static final int K_TIMEOUT_MS                                                          = 30;
     // #endregion
 
-    // array of current tag data
-    public static final int MAX_TAGS                                                              = 6;
-    public static TagData[] TAG_DATA = new TagData[6];
+
 }
