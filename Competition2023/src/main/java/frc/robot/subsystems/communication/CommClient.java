@@ -1,10 +1,12 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.communication;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.io.*;
 import java.net.*;
 
-/* Default connection type is TCP. */
+/* Default connection type is TCP. 
+ * TODO: Change to UDP!
+*/
 
 public class CommClient extends SubsystemBase
 {
