@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 // #region imports
 // General
 import frc.robot.Constants;
-import frc.robot.Robot;
+// import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -66,9 +66,9 @@ public class WestCoastDrive extends SubsystemBase{
   // private CANCoder m_leftCanCoder;
   // private final DifferentialDriveOdometry m_odometry;
 
-  // Robot State
-  private String m_state = "JOYSTICK_MODE";
-  private String m_prevState = "JOYSTICK";
+  // // Robot State
+  // private String m_state = "JOYSTICK_MODE";
+  // private String m_prevState = "JOYSTICK";
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
@@ -147,24 +147,23 @@ public class WestCoastDrive extends SubsystemBase{
 
     /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that it doesn't set
      * to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
-    // TODO Rewrite this into a command that requires the westcoast susbsystem, which will end the default driveWithJoystick
-    if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit) && (!m_prevState.equals("JOYSTICK"))){
-      // Cancel the old command
-      RobotContainer.m_inlineCommands.m_autoBalance.cancel();
-      // Set the new command
-      RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
-      // Set our previous state to our new state
-      m_prevState = "JOYSTICK";
-    }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit) && (!m_prevState.equals("BALANCE"))){
-      // Cancel the old command
-      RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
-      // Set the new command
-      RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
-      // Set our previous state to our new state
-      m_prevState = "BALANCE";
-    }
-    // Puts current state of drive train on smart dashboard
-    SmartDashboard.putString("Current Drive Train State: ", m_prevState);
+    // if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit) && (!m_prevState.equals("JOYSTICK"))){
+    //   // Cancel the old command
+    //   RobotContainer.m_inlineCommands.m_autoBalance.cancel();
+    //   // Set the new command
+    //   RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
+    //   // Set our previous state to our new state
+    //   m_prevState = "JOYSTICK";
+    // }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit) && (!m_prevState.equals("BALANCE"))){
+    //   // Cancel the old command
+    //   RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
+    //   // Set the new command
+    //   RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
+    //   // Set our previous state to our new state
+    //   m_prevState = "BALANCE";
+    // }
+    // // Puts current state of drive train on smart dashboard
+    // SmartDashboard.putString("Current Drive Train State: ", m_prevState);
 
     // Puts pressure on the smart dashboard
     SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
@@ -204,37 +203,37 @@ public class WestCoastDrive extends SubsystemBase{
   }
 
   // method to drive a specific distance using PIDs and the encoders
-  public void driveWithEcoders(double distance){
+  public void driveWithVelocity(boolean forward, double velocity){
     //TODO write method
   }
 
-  /* This method will be called when the button for auto balance is clicked, and also during autonomous to
-   * balance while other robots are climbing on. It works by having 6 'states', 3 each direction of leaning,
-   * 3 degrees of either how leaned it is or how far to move, the more leaned the further it moves. */
-  public void autoBalance(){
-    float tempRollRate = m_ahrs.getRoll();
-    if(tempRollRate > 1.0){
-      if(tempRollRate > 2.5){
-        if(tempRollRate > 5.0){
-          // driveWithEncoders(move a lot);
-        }else{
-          // driveWithEncoders(move a little more);
-        }
-      }else{
-        // driveWithEncoders(move a little);
-      }
-    }else if(tempRollRate < -1.0){
-      if(tempRollRate < -2.5){
-        if(tempRollRate < -5.0){
-          // driveWithEncoders(-move a lot);
-        }else{
-          // driveWithEncoders(-move a litte more);
-        }
-      }else{
-        // driveWithEncoders(-move a litte);
-      }
-    }
-  }
+  // /* This method will be called when the button for auto balance is clicked, and also during autonomous to
+  //  * balance while other robots are climbing on. It works by having 6 'states', 3 each direction of leaning,
+  //  * 3 degrees of either how leaned it is or how far to move, the more leaned the further it moves. */
+  // public void autoBalance(){
+  //   float tempRollRate = m_ahrs.getRoll();
+  //   if(tempRollRate > 1.0){
+  //     if(tempRollRate > 2.5){
+  //       if(tempRollRate > 5.0){
+  //         // driveWithEncoders(move a lot);
+  //       }else{
+  //         // driveWithEncoders(move a little more);
+  //       }
+  //     }else{
+  //       // driveWithEncoders(move a little);
+  //     }
+  //   }else if(tempRollRate < -1.0){
+  //     if(tempRollRate < -2.5){
+  //       if(tempRollRate < -5.0){
+  //         // driveWithEncoders(-move a lot);
+  //       }else{
+  //         // driveWithEncoders(-move a litte more);
+  //       }
+  //     }else{
+  //       // driveWithEncoders(-move a litte);
+  //     }
+  //   }
+  // }
 
   // method used to calculate the distance into degrees inteligable to the encoder
   public double getDegrees(double desired_travel_distance) {
@@ -246,14 +245,14 @@ public class WestCoastDrive extends SubsystemBase{
     return Constants.CIRCUMFERENCE * (provided_degrees/360);
   }
 
-  // used to change the state of the robot, called when clicking the change state button
-  public void changeState(){
-    if(m_state == "JOYSTICK_MODE"){
-      m_state = "BALANCE_MODE";
-    }else if(m_state == "BALANCE_MODE"){
-      m_state = "JOYSTICK_MODE";
-    }
-  }
+  // // used to change the state of the robot, called when clicking the change state button
+  // public void changeState(){
+  //   if(m_state == "JOYSTICK_MODE"){
+  //     m_state = "BALANCE_MODE";
+  //   }else if(m_state == "BALANCE_MODE"){
+  //     m_state = "JOYSTICK_MODE";
+  //   }
+  // }
 
   public AHRS returnGyro(){
     return(m_ahrs);

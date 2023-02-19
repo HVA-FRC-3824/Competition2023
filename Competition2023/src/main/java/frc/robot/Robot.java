@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  public static boolean m_teleopInit = false;
+  //public static boolean m_teleopInit = false;
 
   // This method is run when the robot is first started up and should be used for any initialization code.
   @Override
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.initializeTeleopDefaultCommands();
     // m_teleopInit is used to confirm that we have entered teleop in WestCoastDrive periodic
-    m_teleopInit = true;
+    //m_teleopInit = true;
   }
 
   // This method is called periodically during operator control.
