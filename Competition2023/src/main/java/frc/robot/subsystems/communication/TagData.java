@@ -10,9 +10,10 @@ import frc.robot.Constants;
 
 public class TagData {
     /* Values, keep public for easy access*/ 
-    int   id; /* 1 byte of data, 1-128 */
-    float dist;
-    float angle;
+    public int        id; 
+    public float      dist;
+    public float      angle;
+    public static int last_known_id;
 
     public static TagData[] TAG_DATA = new TagData[Constants.MAX_TAGS];
 
@@ -31,6 +32,6 @@ public class TagData {
 
     public float tag_returnAngle(int id)
     {
-        return TAG_DATA[id-1].dist;
+        return TAG_DATA[id-1].angle;
     }
 }

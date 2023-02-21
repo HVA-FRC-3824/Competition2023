@@ -62,7 +62,7 @@ public final class Constants{
 
         // server info
         public static final String IP_ADDR                  /* 127.0.0.1 localhost */             = "127.0.0.1";
-        public static final int PORT                                                              = 3824;
+        public static final int PORT                                                              = 5805;
         public static final int MAX_TAGS                                                          = 8;
     // #endregion
 

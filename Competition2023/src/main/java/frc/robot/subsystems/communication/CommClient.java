@@ -1,8 +1,9 @@
 package frc.robot.subsystems.communication;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /* Quick explanation of the code below
  * The constructor takes in the address and port to connect to
@@ -14,57 +15,86 @@ import java.net.*;
  * [id,dist 4b, ang 4b]
  * 
  * The id is one byte
- * Both dist & angle are floats, so they take up 4 bytes
+ * Both dist & angle are floats, so they take up 4 bytes each
  * 
- * The periodic function just constantly receives info and updates the array in Constants
+ * The run() function is called when the client is started to handle the connection
+ * seperately from the robots main thread, (multithreading)
 */
 
-public class CommClient extends SubsystemBase
+public class CommClient implements Runnable
 {
+    private Thread t;
     /* Create our sockets  */ 
-    private Socket m_socket = null;
-    private DataInputStream m_input = null;
+    private DataInputStream m_input   = null;
+    private DatagramSocket  m_socket  = null;
+    private DatagramPacket  m_receive = null;
+    byte[] receive_buf = new byte[9];
 
-    private byte id;
+    private byte   id;
+    private int    port;
 
-    /* Try to establish a connection */ 
-    public CommClient(String address, int port)
+    public CommClient(int port)
     {
-        connectClient(address, port);
+        this.port = port;
     }
 
-    public void connectClient(String address, int port)
+    /* Binds to port using UDP and sets up the packets*/
+    public void connectClient(int port)
     {
         try {
-            m_socket = new Socket(address,port);
-            
-            /* Print on success */
-            System.out.println("Successfully connect to " + address + " on port: " + port);
-
-            m_input = new DataInputStream(m_socket.getInputStream());
-	    System.out.println("DataInputStream connected to client. ");
-
+            m_socket = new DatagramSocket(port);
+            m_receive = new DatagramPacket(receive_buf, 9);
+            m_input = new DataInputStream(new ByteArrayInputStream(m_receive.getData(), m_receive.getOffset(), m_receive.getLength()));
         } catch (Exception i) {
             System.out.println(i);
         } 
     }
 
+    /* Read 9 raw bytes from the stream */
+
     public void receiveMessage()
     {
 	try {
-	    /* Read first byte of the packet, which is the id. */
-	    this.id = m_input.readByte();
+        m_socket.receive(m_receive);
+
+        try {
+            m_input.read(receive_buf, 0, 9);
+        } catch (EOFException e) {
+            System.out.print(e);
+        } 
+
+        /* Set id to first byte */
+        this.id = receive_buf[0];
+        TagData.TAG_DATA[this.id-1].id = receive_buf[0];
+        TagData.last_known_id = receive_buf[0];
 
 	    /* Grab the 1st float value */
-	    TagData.TAG_DATA[id-1].dist = m_input.readFloat();
+	    TagData.TAG_DATA[this.id-1].dist = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(1);
 
 	    /* Grab the 2nd float value */
-	    TagData.TAG_DATA[id-1].angle = m_input.readFloat();
+	    TagData.TAG_DATA[this.id-1].angle = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(5);
 	} catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void run()
-    {}
+    {
+        System.out.println("Thread ran!");
+        connectClient(port);
+
+        while(true)
+        {
+            receiveMessage();
+        }
+    }
+
+    public void start(String name)
+    {
+        if(t == null)
+        {
+            t = new Thread(this,name);
+            t.start();
+        }
+    }
 }
