@@ -59,6 +59,11 @@ public final class Constants{
         public static final int LEDS_ID                                                           = 0;
         public static final int TOTAL_LEDS_COUNT                                                  = 150;
         // #endregion
+
+        // server info
+        public static final String IP_ADDR                  /* 127.0.0.1 localhost */             = "127.0.0.1";
+        public static final int PORT                                                              = 5805;
+        public static final int MAX_TAGS                                                          = 8;
     // #endregion
 
     // #region PIDs
@@ -66,4 +71,6 @@ public final class Constants{
     public static final int K_SLOT_IDX                                                            = 0;
     public static final int K_TIMEOUT_MS                                                          = 30;
     // #endregion
+
+
 }

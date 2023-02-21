@@ -3,6 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.communication.CommClient;
+import frc.robot.subsystems.communication.TagData;
 
 /* The VM is configured to automatically run this class, and to call the methods corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -18,6 +20,20 @@ public class Robot extends TimedRobot {
   public void robotInit(){
     System.out.println("AVE CHRISTUS REX");
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
+    System.out.println("SOMETHING SOMETHING TREX");
+
+    /* Init TagData objects*/
+    for(int i = 0; i < Constants.MAX_TAGS; i++)
+    {
+      /* Type cast to float because java is a shit language and default goes to double???? */
+      TagData.TAG_DATA[i] = new TagData(i+1,(float)0.0,(float)0.0);
+    }
+
+    /* SERVER INITALIZATION */
+    CommClient client = new CommClient(Constants.PORT);
+    /* Start client thread */
+    client.start("ClientThread");
+
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
   }
