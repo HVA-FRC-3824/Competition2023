@@ -71,6 +71,4 @@ public final class Constants{
     public static final int K_SLOT_IDX                                                            = 0;
     public static final int K_TIMEOUT_MS                                                          = 30;
     // #endregion
-
-
 }

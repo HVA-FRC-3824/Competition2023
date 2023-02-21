@@ -10,7 +10,7 @@ public class OI{
     private static Joystick m_operatorJoystick;
     // buttons
     private static JoystickButton m_gearShiftBtn;
-    private static JoystickButton m_driveTrainStateToggleBtn;
+    //private static JoystickButton m_driveTrainStateToggleBtn;
     private static JoystickButton m_autoBalanceBtn;
     private Autobalance m_autoBalanceCommandClass;
     public OI(){
@@ -20,7 +20,7 @@ public class OI{
         // Driver buttons
         m_gearShiftBtn = new JoystickButton(m_driverJoystick, Constants.DRIVER_GEAR_SHIFT_BTN_ID);
         // Operator buttons
-        m_driveTrainStateToggleBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_CHANGE_STATE_TOGGLE_BTN_ID);
+        //m_driveTrainStateToggleBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_CHANGE_STATE_TOGGLE_BTN_ID);
         m_autoBalanceBtn = new JoystickButton(m_operatorJoystick, 5); //TODO get button ID
     }
 

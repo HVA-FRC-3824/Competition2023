@@ -20,7 +20,6 @@ public class Robot extends TimedRobot {
   public void robotInit(){
     System.out.println("AVE CHRISTUS REX");
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
-    System.out.println("SOMETHING SOMETHING TREX");
 
     /* Init TagData objects*/
     for(int i = 0; i < Constants.MAX_TAGS; i++)
