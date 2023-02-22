@@ -10,7 +10,7 @@ import frc.robot.Constants;
 public class LEDs extends SubsystemBase{
     // enum objects
     public enum LEDsPattern {RAINBOW, RED, BLUE, GREEN, BOUNCE, TWINKLE, NOTHING};
-    private LEDsPattern m_LEDsPattern = LEDsPattern.TWINKLE; // Default set to rainbow
+    private LEDsPattern m_currLEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
     // Declare and instantiate LED objects and variables
     private AddressableLED m_LED = new AddressableLED(Constants.LEDS_ID);
     private AddressableLEDBuffer m_LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
@@ -27,28 +27,45 @@ public class LEDs extends SubsystemBase{
     // This method will be called once per scheduler run
     @Override
     public void periodic(){
-        switch(m_LEDsPattern){
+        switch(m_currLEDsPattern){
             case RAINBOW:
+                // not checking if already in this state because the rainbow moves in a wave pattern
                 setLEDsRainbow();
                 break;
             case BLUE:
-                // Blue Hue: 85-135
-                setLEDsColor(100, 255, 255);
-                break;
+                if (m_currLEDsPattern != LEDsPattern.BLUE) {
+                    // Blue Hue: 85-135
+                    setLEDsColor(100, 255, 255);
+                    this.setLEDsPattern(LEDsPattern.BLUE);
+                    break;
+                }
+                
             case RED: 
-                // Red Hue: 170-15 
-                setLEDsColor(180, 255, 255);
-                break;
+                if (m_currLEDsPattern != LEDsPattern.RED) {
+                    // Red Hue: 170-15 
+                    setLEDsColor(180, 255, 255);
+                    this.setLEDsPattern(LEDsPattern.RED);
+                    break;
+                }
             case GREEN:
-                // Green Hue: 40-75
-                setLEDsColor(50, 255, 255);
-                break;
+                if (m_currLEDsPattern != LEDsPattern.GREEN) {
+                    // Green Hue: 40-75
+                    setLEDsColor(50, 255, 255);
+                    this.setLEDsPattern(LEDsPattern.GREEN);
+                    break;
+                }
             case BOUNCE:
-                setLEDsBounce();
-                break;
+                if (m_currLEDsPattern != LEDsPattern.BOUNCE) {
+                    setLEDsBounce();
+                    this.setLEDsPattern(LEDsPattern.BOUNCE);
+                    break;
+                }
             case TWINKLE:
-                setLEDsTwinkle();
-                break;
+                if (m_currLEDsPattern != LEDsPattern.TWINKLE) {
+                    setLEDsTwinkle();
+                    this.setLEDsPattern(LEDsPattern.TWINKLE);
+                    break;
+                }
             case NOTHING:
                 break;
             default: 
@@ -112,6 +129,6 @@ public class LEDs extends SubsystemBase{
 
     // Method called in other places to set a led pattern
     public void setLEDsPattern(LEDsPattern pattern){
-        m_LEDsPattern = pattern;
+        m_currLEDsPattern = pattern;
     }
 }
