@@ -45,7 +45,8 @@ public final class Constants{
         // #endregion
 
         // #region ARM
-        public static final int ARM_MOTOR_ID                                                      = 0;
+        public static final int ARM_MOTOR_ID_POST                                                 = 0;
+        public static final int ARM_MOTOR_ID_REACH                                                = 1;
         // #endregion
 
         // #region GRABBER
