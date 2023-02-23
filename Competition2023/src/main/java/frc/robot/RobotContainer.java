@@ -9,8 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxRelativeEncoder;
+// import com.revrobotics.RelativeEncoder;
+// import com.revrobotics.SparkMaxRelativeEncoder;
 // importing subsystems
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Grabber;
@@ -145,7 +145,7 @@ public class RobotContainer{
 
 
   //TODO Test this method
-  public static RelativeEncoder configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, RelativeEncoder encoder, boolean inverted, double kP, double kI,
+  public static void configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, boolean inverted, double kP, double kI,
                                       double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
     /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 
      * their factory default state. If no argument is passed, these parameters will not persist between power cycles */
@@ -157,10 +157,7 @@ public class RobotContainer{
 
     sparkMax.setInverted(inverted);
 
-    if(encoder != null){
-      encoder = sparkMax.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
-      return encoder;
-    }
+    // sparkMax.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 4096);
     
     pidController.setP(kP);
     pidController.setI(kI);
@@ -168,7 +165,7 @@ public class RobotContainer{
     pidController.setIZone(kIz);
     pidController.setFF(kFF);
     pidController.setOutputRange(kMinOutput, kMaxOutput);
-    
-    return null;
+
+    sparkMax.burnFlash();
   }
 }

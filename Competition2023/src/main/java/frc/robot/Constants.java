@@ -26,10 +26,10 @@ public final class Constants{
 
     // #region subsystems
         // #region WEST_COAST_DRIVE
-        public static final int WCD_LEFT_MASTER_ID                                                = 2; // 2 front left
-        public static final int WCD_LEFT_SLAVE_ID                                                 = 3; // 3 back left good
-        public static final int WCD_RIGHT_MASTER_ID                                               = 1; // 1 front right
-        public static final int WCD_RIGHT_SLAVE_ID                                                = 4; // 4 back right
+        public static final int WCD_LEFT_MASTER_ID                                                = 5;
+        public static final int WCD_LEFT_SLAVE_ID                                                 = 2;
+        public static final int WCD_RIGHT_MASTER_ID                                               = 4;
+        public static final int WCD_RIGHT_SLAVE_ID                                                = 3;
 
         // odemetry constants
         private static final double DIAMETER = 8;

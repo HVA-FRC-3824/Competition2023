@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 // Driving
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+// import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 //import com.ctre.phoenix.sensors.CANCoder;
 //import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -35,21 +35,17 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class WestCoastDrive extends SubsystemBase{
   // Motors
-  // private WPI_TalonSRX m_leftMasterSRX;
   private CANSparkMax m_leftMasterSpark;
   private SparkMaxPIDController m_leftMasterPIDController;
-  private RelativeEncoder m_leftEncoder;
+  //private RelativeEncoder m_leftEncoder;
 
-  // private WPI_TalonSRX m_leftSlaveSRX;
   private CANSparkMax m_leftSlaveSpark;
   private SparkMaxPIDController m_leftSlavePIDController;
 
-  // private WPI_TalonSRX m_rightMasterSRX;
   private CANSparkMax m_rightMasterSpark;
   private SparkMaxPIDController m_rightMasterPIDController;
-  private RelativeEncoder m_rightEncoder;
+  //private RelativeEncoder m_rightEncoder;
 
-  // private WPI_TalonSRX m_rightSlaveSRX;
   private CANSparkMax m_rightSlaveSpark;
   private SparkMaxPIDController m_rightSlavePIDController;
 
@@ -62,8 +58,6 @@ public class WestCoastDrive extends SubsystemBase{
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
-  // private CANCoder m_rightCanCoder;
-  // private CANCoder m_leftCanCoder;
   // private final DifferentialDriveOdometry m_odometry;
 
   // // Robot State
@@ -73,41 +67,27 @@ public class WestCoastDrive extends SubsystemBase{
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
     m_leftMasterSpark = new CANSparkMax(Constants.WCD_LEFT_MASTER_ID, MotorType.kBrushless);
-    m_leftEncoder = RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, m_leftEncoder, false, 0, 
-                                                 0, 0, 0, 0, 0, 0);
-    // m_leftMasterSRX = new WPI_TalonSRX(Constants.WCD_LEFT_MASTER_ID);
-    // RobotContainer.configureTalonSRX(m_leftMasterSRX, false, null, false, false, 
-    //                               0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, false, 0, 0, 0,
+    0, 0, 0, 0);
 
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, null, false, 0,
-                                  0, 0, 0, 0, 0, 0);
-    // m_leftSlaveSRX = new WPI_TalonSRX(Constants.WCD_LEFT_SLAVE_ID);
-    // RobotContainer.configureTalonSRX(m_leftSlaveSRX, false, null, false, false,
-    //                               0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, false, 0, 0, 0, 0,
+    0, 0, 0);
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    // m_leftSlaveSRX.follow(m_leftMasterSRX);
     m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
-    m_rightEncoder = RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, m_rightEncoder, false, 0, 
-                                                  0, 0, 0, 0, 0, 0);
-    // m_rightMasterSRX = new WPI_TalonSRX(Constants.WCD_RIGHT_MASTER_ID);
-    // RobotContainer.configureTalonSRX(m_rightMasterSRX, false, null, false, false,
-    //                               0, 0, 0, 0, 0, 0, false);
+    RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, false, 0, 0, 0, 0,
+    0, 0, 0);
 
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, null, false, 0,
-                                  0, 0, 0, 0, 0, 0);
-    // m_rightSlaveSRX = new WPI_TalonSRX(Constants.WCD_RIGHT_SLAVE_ID);
-    // RobotContainer.configureTalonSRX(m_rightSlaveSRX, false, null, false, false,
-    //                               0, 0, 0, 0, 0, 0, false);
-
+    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, false, 0, 0, 0, 0, 
+    0, 0, 0);
+ 
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    // m_rightSlaveSRX.follow(m_rightMasterSRX);
     m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
@@ -131,10 +111,6 @@ public class WestCoastDrive extends SubsystemBase{
   //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
   //   this.getHeading() appears to be deprecated, replaced by needing xtra encoders
   //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
-  
-  // m_leftCanCoder = new CANCoder(7);
-  // m_rightCanCoder = new CANCoder(8);
-  
   }
 
   // This method will be called once per scheduler run
