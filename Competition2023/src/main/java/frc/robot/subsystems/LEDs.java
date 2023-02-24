@@ -55,17 +55,12 @@ public class LEDs extends SubsystemBase{
                     break;
                 }
             case BOUNCE:
-                if (m_currLEDsPattern != LEDsPattern.BOUNCE) {
-                    setLEDsBounce();
-                    this.setLEDsPattern(LEDsPattern.BOUNCE);
-                    break;
-                }
+                setLEDsBounce();
+                break;
             case TWINKLE:
-                if (m_currLEDsPattern != LEDsPattern.TWINKLE) {
-                    setLEDsTwinkle();
-                    this.setLEDsPattern(LEDsPattern.TWINKLE);
-                    break;
-                }
+                /* setLEDSTwinkle does NOT set the value once, and must be updated periodically */
+                setLEDsTwinkle();
+                break;
             case NOTHING:
                 break;
             default: 
