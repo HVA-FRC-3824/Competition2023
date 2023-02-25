@@ -12,7 +12,7 @@ public class OI{
     private static JoystickButton m_gearShiftBtn;
     //private static JoystickButton m_driveTrainStateToggleBtn;
     private static JoystickButton m_autoBalanceBtn;
-    private Autobalance m_autoBalanceCommandClass;
+    private Autobalance m_autoBalanceCommandClass = new Autobalance();
     public OI(){
         // Joysticks/Controllers
         m_driverJoystick = new Joystick(Constants.DRIVER_JOYSTICK_PORT);
