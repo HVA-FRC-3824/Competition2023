@@ -73,6 +73,9 @@ public class CommClient implements Runnable
 
 	    /* Grab the 2nd float value */
 	    TagData.TAG_DATA[this.id-1].angle = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(5);
+        /* Test print statement */
+        System.out.println(TagData.TAG_DATA[this.id-1].id + " " + TagData.TAG_DATA[this.id-1].dist + " " + TagData.TAG_DATA[this.id-1].angle);
+
 	} catch (IOException e) {
             e.printStackTrace();
         }
