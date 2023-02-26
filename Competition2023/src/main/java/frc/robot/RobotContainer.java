@@ -42,9 +42,10 @@ public class RobotContainer{
 
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
-    // Sets our default command to driving with joystick.
+    // Sets default command for the westcostdrivetrain to driving with driver joystick.
     M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
-    // TODO arm movement will go here
+    // Sets default command for the arm to angling with operator joystick
+    M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithJoystick);
   }
 
   /**
@@ -143,8 +144,6 @@ public class RobotContainer{
     System.out.println("Motor (ID:" + talonSRX.getDeviceID() + ") sucessfully configured");
   }
 
-
-  //TODO Test this method
   public static void configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, boolean inverted, double kP, double kI,
                                       double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
     /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 
@@ -156,8 +155,6 @@ public class RobotContainer{
     pidController = sparkMax.getPIDController();
 
     sparkMax.setInverted(inverted);
-
-    // sparkMax.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 4096);
     
     pidController.setP(kP);
     pidController.setI(kI);

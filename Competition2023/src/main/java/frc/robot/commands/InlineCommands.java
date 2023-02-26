@@ -14,22 +14,36 @@ public class InlineCommands{
     public final Command m_driveWithJoystick;
     public final Command m_shiftHighGear;
     public final Command m_shiftLowGear;
-    // public final Command m_autoBalance;
-    // public final Command m_changeState;
+    public final Command m_setAndHoldPose;
 
     // Grabber
+    public final Command m_toggleGrabber;
+
+    // Arm
+    public final Command m_angleArmWithJoystick;
+    public final Command m_armTopPos;
+    public final Command m_armMiddlePos;
+    public final Command m_armBottomPos;
+    public final Command m_extendArm;
+    public final Command m_retractArm;
 
     public InlineCommands(){
         // WestCoast
-        m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(
-                                                    RobotContainer.m_OI.getDriverJoystick().getY(),
-                                                    RobotContainer.m_OI.getDriverJoystick().getZ()),
-                                                    RobotContainer.M_WEST_COAST_DRIVE);
-        // m_changeState = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.changeState());
-        // m_autoBalance = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.autoBalance(), RobotContainer.M_WEST_COAST_DRIVE);
+        m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(RobotContainer.m_OI.getDriverJoystick().getY(), 
+                                                   RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
         m_shiftHighGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftHighGear());
         m_shiftLowGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftLowGear());
+        m_setAndHoldPose = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.setAndHoldPose());
 
         // Grabber
+        m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
+
+        // Arm
+        m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorJoystick().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
+        m_armTopPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop());
+        m_armMiddlePos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmMiddle());
+        m_armBottomPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmBotton());
+        m_extendArm = new InstantCommand(() -> RobotContainer.M_ARM.extendArm());
+        m_retractArm = new InstantCommand(() -> RobotContainer.M_ARM.retractArm());
     }
 }

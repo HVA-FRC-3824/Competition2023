@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 // #region imports
 // General
 import frc.robot.Constants;
-// import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -12,9 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 // Driving
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 // Pneumatics
 import edu.wpi.first.wpilibj.PneumaticHub;
@@ -23,11 +22,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANSparkMax;
-// import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-//import com.ctre.phoenix.sensors.CANCoder;
-//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 //import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
@@ -37,14 +32,12 @@ public class WestCoastDrive extends SubsystemBase{
   // Motors
   private CANSparkMax m_leftMasterSpark;
   private SparkMaxPIDController m_leftMasterPIDController;
-  //private RelativeEncoder m_leftEncoder;
 
   private CANSparkMax m_leftSlaveSpark;
   private SparkMaxPIDController m_leftSlavePIDController;
 
   private CANSparkMax m_rightMasterSpark;
   private SparkMaxPIDController m_rightMasterPIDController;
-  //private RelativeEncoder m_rightEncoder;
 
   private CANSparkMax m_rightSlaveSpark;
   private SparkMaxPIDController m_rightSlavePIDController;
@@ -60,9 +53,6 @@ public class WestCoastDrive extends SubsystemBase{
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
   // private final DifferentialDriveOdometry m_odometry;
 
-  // // Robot State
-  // private String m_state = "JOYSTICK_MODE";
-  // private String m_prevState = "JOYSTICK";
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
@@ -121,32 +111,12 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
 
-    /* If statement to switch the mode we are in, makes sure teleop is initialized, and sets prevState so that it doesn't set
-     * to default in the middle of it running. m_teleopInit is used to make sure we have already entered into teleop period. */
-    // if((m_state.equals("JOYSTICK_MODE")) && (Robot.m_teleopInit) && (!m_prevState.equals("JOYSTICK"))){
-    //   // Cancel the old command
-    //   RobotContainer.m_inlineCommands.m_autoBalance.cancel();
-    //   // Set the new command
-    //   RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_driveWithJoystick);
-    //   // Set our previous state to our new state
-    //   m_prevState = "JOYSTICK";
-    // }else if(m_state.equals("BALANCE_MODE") && (Robot.m_teleopInit) && (!m_prevState.equals("BALANCE"))){
-    //   // Cancel the old command
-    //   RobotContainer.m_inlineCommands.m_driveWithJoystick.cancel();
-    //   // Set the new command
-    //   RobotContainer.M_WEST_COAST_DRIVE.setDefaultCommand(RobotContainer.m_inlineCommands.m_autoBalance);
-    //   // Set our previous state to our new state
-    //   m_prevState = "BALANCE";
-    // }
-    // // Puts current state of drive train on smart dashboard
-    // SmartDashboard.putString("Current Drive Train State: ", m_prevState);
-
     // Puts pressure on the smart dashboard
     SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
     // If the Prssure is less than 110 then it enables the compressor and if the pressure is greater than 120 then it disables the compressor
-    if(m_pneumaticHub.getPressure(Constants.PNEUMATIC_HUB_ANALOG_ID) < 110){
+    if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) < 110){
         m_pneumaticHub.enableCompressorDigital();
-    }else if(m_pneumaticHub.getPressure(Constants.PNEUMATIC_HUB_ANALOG_ID) > 120){
+    }else if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) > 120){
         m_pneumaticHub.disableCompressor();
     }
 
@@ -178,58 +148,25 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftRight.set(true);
   }
 
-  // method to drive a specific distance using PIDs and the encoders
-  public void driveWithVelocity(boolean forward, double velocity){
-    //TODO write method
+  public void setAndHoldPose(){
+    //TODO get current position using encoders and make the drivetrain keep us at that position, add in deadzone
   }
 
-  // /* This method will be called when the button for auto balance is clicked, and also during autonomous to
-  //  * balance while other robots are climbing on. It works by having 6 'states', 3 each direction of leaning,
-  //  * 3 degrees of either how leaned it is or how far to move, the more leaned the further it moves. */
-  // public void autoBalance(){
-  //   float tempRollRate = m_ahrs.getRoll();
-  //   if(tempRollRate > 1.0){
-  //     if(tempRollRate > 2.5){
-  //       if(tempRollRate > 5.0){
-  //         // driveWithEncoders(move a lot);
-  //       }else{
-  //         // driveWithEncoders(move a little more);
-  //       }
-  //     }else{
-  //       // driveWithEncoders(move a little);
-  //     }
-  //   }else if(tempRollRate < -1.0){
-  //     if(tempRollRate < -2.5){
-  //       if(tempRollRate < -5.0){
-  //         // driveWithEncoders(-move a lot);
-  //       }else{
-  //         // driveWithEncoders(-move a litte more);
-  //       }
-  //     }else{
-  //       // driveWithEncoders(-move a litte);
-  //     }
-  //   }
-  // }
+  public void driveWithVelocity(boolean forward, double velocity){
+    //TODO write method, used by autobalance command
+  }
 
-  // method used to calculate the distance into degrees inteligable to the encoder
+  // method used to calculate the distance into degrees inteligable to the encoder NOT NEEDED?
   public double getDegrees(double desired_travel_distance) {
     return (360 * desired_travel_distance) / Constants.CIRCUMFERENCE;
   }
 
-  // method used to turn the degrees of the encoder into distance
+  // method used to turn the degrees of the encoder into distance NOT NEEDED?
   public double getDistance(double provided_degrees) {
     return Constants.CIRCUMFERENCE * (provided_degrees/360);
   }
 
-  // // used to change the state of the robot, called when clicking the change state button
-  // public void changeState(){
-  //   if(m_state == "JOYSTICK_MODE"){
-  //     m_state = "BALANCE_MODE";
-  //   }else if(m_state == "BALANCE_MODE"){
-  //     m_state = "JOYSTICK_MODE";
-  //   }
-  // }
-
+  // used for autobalance command
   public AHRS returnGyro(){
     return(m_ahrs);
   }

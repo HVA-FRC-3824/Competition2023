@@ -10,65 +10,78 @@ import java.lang.Math;
  * constants are needed, to reduce verbosity. */
 public final class Constants{
     // #region Joysticks/controller IDs
-    public static final int DRIVER_JOYSTICK_PORT                                                  = 0;
-    public static final int OPERATOR_JOYSTICK_PORT                                                = 1;
-    public static final int TEST_JOYSTICK_PORT                                                    = 2;
+    public static final int DRIVER_JOYSTICK_PORT                                                    = 0;
+    public static final int OPERATOR_JOYSTICK_PORT                                                  = 1;
+    public static final int TEST_JOYSTICK_PORT                                                      = 2;
     // #endregion
 
     // #region Driver button IDs
-    public static final int DRIVER_GEAR_SHIFT_BTN_ID                                              = 1;
+    public static final int DRIVER_GEAR_SHIFT_BTN_ID                                                = 1;
     // #endregion
 
     // #region Operator button IDs
-    public static final int OPERATOR_GRABBER_TOGGLE_BTN_ID                                        = 2;
-    public static final int OPERATOR_CHANGE_STATE_TOGGLE_BTN_ID                                   = 3;
+    // Grabber
+    public static final int OPERATOR_GRABBER_TOGGLE_BTN_ID                                          = 1;
+    // WestCoast
+    public static final int OPERATOR_AUTOBALANCE_BTN_ID                                             = 6;
+    public static final int OPERATOR_HOLD_POSE_TOGLE_BTN_ID                                         = 5;
+    // Arm
+    public static final int OPERATOR_SET_ARM_TOP_POSE_BTN_ID                                        = 7;
+    public static final int OPERATOR_SET_ARM_MIDDLE_POSE_RIGHT_BTN_ID                               = 8;
+    public static final int OPERATOR_SET_ARM_MIDDLE_POSE_LEFT_BTN_ID                                = 10;
+    public static final int OPERATOR_SET_ARM_BOTTOM_POSE_BTN_ID                                     = 9;
+    public static final int OPERATOR_EXTEND_ARM_BTN_ID                                              = 11;
+    public static final int OPERATOR_RETRACT_ARM_BTN_ID                                             = 13;
     // #endregion
 
     // #region subsystems
         // #region WEST_COAST_DRIVE
-        public static final int WCD_LEFT_MASTER_ID                                                = 5;
-        public static final int WCD_LEFT_SLAVE_ID                                                 = 2;
-        public static final int WCD_RIGHT_MASTER_ID                                               = 4;
-        public static final int WCD_RIGHT_SLAVE_ID                                                = 3;
+        public static final int WCD_LEFT_MASTER_ID                                                  = 5;
+        public static final int WCD_LEFT_SLAVE_ID                                                   = 2;
+        public static final int WCD_RIGHT_MASTER_ID                                                 = 4;
+        public static final int WCD_RIGHT_SLAVE_ID                                                  = 3;
 
         // odemetry constants
         private static final double DIAMETER = 8;
         public static final double CIRCUMFERENCE = (Math.PI * DIAMETER);
 
         // Control related constants
-        public static final double WCD_MAX_POWER                                                  = 1.0;
-        public static final double WCD_TURN_SENS                                                  = 1.5;
+        public static final double WCD_MAX_POWER                                                    = 1.0;
+        public static final double WCD_TURN_SENS                                                    = 1.5;
 
-        // Pneumatic Ports for gearshifter
-        public static final int WCD_LEFT_SHIFTER_CHANNEL                                          = 1;
-        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                         = 2;                
+        // Pneumatics
+        public static final int PNEUMATIC_HUB_ID                                                    = 6; //TODO get correct can id for PH
+        public static final int ANALOG_PRESSURE_SENSOR_PH_ID                                        = 0;
+        public static final int WCD_LEFT_SHIFTER_CHANNEL                                            = 1;
+        public static final int WCD_RIGHT_SHIFTER_CHANNEL                                           = 2;                
         // #endregion
 
         // #region ARM
-        public static final int ARM_MOTOR_ID_POST                                                 = 0;
-        public static final int ARM_MOTOR_ID_REACH                                                = 1;
+        public static final int ARM_ANGLE_MOTOR_ID                                                  = 3824; //TODO figure out motor ID
+        public static final int ARM_EXTEND_MOTOR_ID                                                 = 3824; //TODO figure out motor ID
+        public static final double MAX_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
+        public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         // #endregion
 
         // #region GRABBER
-        public static final int PNEUMATIC_HUB_ID                                                  = 6;
-        public static final int GRABBER_CHANNEL_ID                                                = 0;
-        public static final int GRABBER_LEFT_CHANNEL_ID                                           = 9;
-        public static final int PNEUMATIC_HUB_ANALOG_ID                                           = 0;
+        public static final int GRABBER_MOTOR_ID                                                    = 3824; //TODO wire up motor and get ID
+        public static final double GRABBER_OPEN_VOLTAGE                                             = -0.1; 
+        public static final double GRABBER_CLOSE_VOLTAGE                                            = 0.0; //TODO decide volage
         // #endregion
 
         // #region LEDs
-        public static final int LEDS_ID                                                           = 0;
-        public static final int TOTAL_LEDS_COUNT                                                  = 150;
+        public static final int LEDS_ID                                                             = 0;
+        public static final int TOTAL_LEDS_COUNT                                                    = 150;
         // #endregion
 
         // server info
-        public static final int PORT                                                              = 5805;
-        public static final int MAX_TAGS                                                          = 8;
+        public static final int PORT                                                                = 5805;
+        public static final int MAX_TAGS                                                            = 8;
     // #endregion
 
     // #region PIDs
-    public static final int K_PID_LOOP_IDX                                                        = 0;
-    public static final int K_SLOT_IDX                                                            = 0;
-    public static final int K_TIMEOUT_MS                                                          = 30;
+    public static final int K_PID_LOOP_IDX                                                          = 0;
+    public static final int K_SLOT_IDX                                                              = 0;
+    public static final int K_TIMEOUT_MS                                                            = 30;
     // #endregion
 }

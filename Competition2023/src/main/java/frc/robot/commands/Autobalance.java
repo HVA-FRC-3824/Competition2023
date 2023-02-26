@@ -25,33 +25,6 @@ public class Autobalance extends CommandBase {
         boolean forward;
         // true means were in 
         boolean state;
-        // if(angle > 1.0){
-        //     if(angle > 2.5){
-        //         if(angle > 5.0){
-        //             // driveWithEncoders(go fast);
-        //             System.out.println("go fast positive");
-        //         }else{
-        //             // driveWithEncoders(go medium speed);
-        //             System.out.println("go medium speed positive");
-        //         }
-        //     }else{
-        //         // driveWithEncoders(go slow);
-        //         System.out.println("go slow positive");
-        //     }
-        // }else if(angle < -1.0){
-        //     if(angle < -2.5){
-        //         if(angle < -5.0){
-        //             // driveWithEncoders(-move a lot);
-        //             System.out.println("go fast negative");
-        //         }else{
-        //             // driveWithEncoders(-move a litte more);
-        //             System.out.println("go medium speed negative");
-        //         }
-        //     }else{
-        //         // driveWithEncoders(-move a litte);
-        //         System.out.println("go slow negative");
-        //     }
-        // }
 
         if (Math.abs(angle) > 2.5){
             // vel = Low velocity
