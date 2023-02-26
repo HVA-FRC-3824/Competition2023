@@ -28,6 +28,11 @@ public class Robot extends TimedRobot {
       TagData.TAG_DATA[i] = new TagData(i+1,(float)0.0,(float)0.0);
     }
 
+    /* SERVER INITALIZATION */
+    CommClient client = new CommClient(Constants.PORT);
+    /* Start client thread */
+    client.start("ClientThread");
+
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
   }
