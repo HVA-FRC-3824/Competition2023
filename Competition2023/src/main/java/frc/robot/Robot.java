@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
     /* Init TagData objects*/
     for(int i = 0; i < Constants.MAX_TAGS; i++)
     {
-      /* Type cast to float because java is a beautiful language and default goes to double???? */
+      // Type cast to float because default goes to double.
       TagData.TAG_DATA[i] = new TagData(i+1,(float)0.0,(float)0.0);
     }
 

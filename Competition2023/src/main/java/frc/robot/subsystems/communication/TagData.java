@@ -15,6 +15,7 @@ public class TagData {
     public float      angle;
     public static int last_known_id;
 
+    /* Create an array of TAG_DATAs to store information about each tag */
     public static TagData[] TAG_DATA = new TagData[Constants.MAX_TAGS];
 
     /* Simple initializer */

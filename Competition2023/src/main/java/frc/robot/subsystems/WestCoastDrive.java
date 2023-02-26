@@ -23,8 +23,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.SparkMaxPIDController;
-//import edu.wpi.first.math.geometry.Rotation2d;
-//import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+// import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
 // #endregion
 
@@ -51,17 +51,16 @@ public class WestCoastDrive extends SubsystemBase{
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
-  // private final DifferentialDriveOdometry m_odometry;
-
+  // public final DifferentialDriveOdometry m_odometry;
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
     m_leftMasterSpark = new CANSparkMax(Constants.WCD_LEFT_MASTER_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, false, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, true, 0, 0, 0,
     0, 0, 0, 0);
 
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, false, 0, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, true, 0, 0, 0, 0,
     0, 0, 0);
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
@@ -69,11 +68,11 @@ public class WestCoastDrive extends SubsystemBase{
     m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, false, 0, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, true, 0, 0, 0, 0,
     0, 0, 0);
 
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
-    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, false, 0, 0, 0, 0, 
+    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, true, 0, 0, 0, 0, 
     0, 0, 0);
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
@@ -97,10 +96,8 @@ public class WestCoastDrive extends SubsystemBase{
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
-  //   Used for tracking robot position.
-  //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
-  //   this.getHeading() appears to be deprecated, replaced by needing xtra encoders
-  //   m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMaster.NEED_ENCODERS, m_rightMaster.NEED_ENCODERS);
+    // Used for tracking robot position.
+    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMasterPIDController, m_rightMasterPIDController);
   }
 
   // This method will be called once per scheduler run
