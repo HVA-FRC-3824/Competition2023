@@ -55,8 +55,9 @@ public class CommClient implements Runnable
     public void receiveMessage()
     {
 	try {
+        System.out.println("BEFORE RECEIVE");
         m_socket.receive(m_receive);
-
+        System.out.println(m_receive);
         try {
             m_input.read(receive_buf, 0, 9);
         } catch (EOFException e) {
@@ -88,6 +89,7 @@ public class CommClient implements Runnable
 
         while(true)
         {
+            System.out.println("THREAD RUNNING");
             receiveMessage();
         }
     }
