@@ -38,7 +38,7 @@ public class CommClient implements Runnable
         this.port = port;
     }
 
-    /* Binds to port using UDP and sets up the packets*/
+    /* Binds to port using UDP and sets up the packets */
     public void connectClient(int port)
     {
         try {
@@ -55,9 +55,8 @@ public class CommClient implements Runnable
     public void receiveMessage()
     {
 	try {
-        System.out.println("BEFORE RECEIVE");
+        /* .receive blocks thread, below code DOES NOT RUN unless message is received and proccessed*/
         m_socket.receive(m_receive);
-        System.out.println(m_receive);
         try {
             m_input.read(receive_buf, 0, 9);
         } catch (EOFException e) {
@@ -68,15 +67,13 @@ public class CommClient implements Runnable
         this.id = receive_buf[0];
         TagData.TAG_DATA[this.id-1].id = receive_buf[0];
         TagData.last_known_id = receive_buf[0];
+        System.out.println("TAG FOUND! ID: " + this.id);
 
 	    /* Grab the 1st float value */
 	    TagData.TAG_DATA[this.id-1].dist = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(1);
 
 	    /* Grab the 2nd float value */
 	    TagData.TAG_DATA[this.id-1].angle = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(5);
-        /* Test print statement */
-        System.out.println(TagData.TAG_DATA[this.id-1].id + " " + TagData.TAG_DATA[this.id-1].dist + " " + TagData.TAG_DATA[this.id-1].angle);
-
 	} catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +86,6 @@ public class CommClient implements Runnable
 
         while(true)
         {
-            System.out.println("THREAD RUNNING");
             receiveMessage();
         }
     }
