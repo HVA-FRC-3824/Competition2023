@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.lang.Math;
+import frc.robot.commands.ScoreData;
 
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -77,6 +78,9 @@ public final class Constants{
         // server info
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
+
+        // scoredata
+        public static ScoreData[][] SCORE_DATA_ARRAY = new ScoreData[3][3];
     // #endregion
 
     // #region PIDs
