@@ -21,6 +21,8 @@ public class AutoScore {
          * Ex.
         */
 
+
+        /* Test comment */
         float angle, dist, height;
 
         angle = Constants.SCORE_DATA_ARRAY[ix][iy].angle;
