@@ -25,8 +25,8 @@ public class AutoScore {
         /* Test comment */
         float angle, dist, height;
 
-        angle = Constants.SCORE_DATA_ARRAY[ix][iy].angle;
-        dist = Constants.SCORE_DATA_ARRAY[ix][iy].dist;
-        height = Constants.SCORE_DATA_ARRAY[ix][iy].height;
+        angle = Constants.SCORE_DATA_ARRAY[iy][ix].angle;
+        dist = Constants.SCORE_DATA_ARRAY[iy][ix].dist;
+        height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
     }
 }

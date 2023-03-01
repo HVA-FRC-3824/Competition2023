@@ -4,6 +4,8 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.lang.Math;
 
+
+
 public class Autobalance extends CommandBase {
     public Autobalance(){
         // Require chassis to takeover drive train input. This will end the driveWithJoystick command that will be recalled after this command ends.*/
@@ -48,5 +50,9 @@ public class Autobalance extends CommandBase {
     public boolean isFinished(){
         // Command will end when joystick button is released due to requirement of chassis class of stop command.
         return false;
+    }
+
+    public void Other() {
+
     }
 }
