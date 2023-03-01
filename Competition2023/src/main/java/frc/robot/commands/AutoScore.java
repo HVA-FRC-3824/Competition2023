@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import java.io.Console;
-
 import frc.robot.Constants;
 
 public class AutoScore {
