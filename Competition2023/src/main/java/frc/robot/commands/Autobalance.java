@@ -55,7 +55,4 @@ public class Autobalance extends CommandBase {
         return false;
     }
 
-    public void Other() {
-
-    }
 }
