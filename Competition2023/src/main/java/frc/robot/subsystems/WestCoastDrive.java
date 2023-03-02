@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
 // Pneumatics
 import edu.wpi.first.wpilibj.PneumaticHub;
@@ -23,8 +24,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.SparkMaxPIDController;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
 // #endregion
 
@@ -51,7 +52,9 @@ public class WestCoastDrive extends SubsystemBase{
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
-  // public final DifferentialDriveOdometry m_odometry;
+  public DifferentialDriveOdometry m_odometry;
+  private RelativeEncoder m_leftEncoder;
+  private RelativeEncoder m_rightEncoder;
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
@@ -62,6 +65,9 @@ public class WestCoastDrive extends SubsystemBase{
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, true, 0, 0, 0, 0,
     0, 0, 0);
+
+    // Creates encoder object
+    m_leftEncoder = m_leftMasterSpark.getEncoder();
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
@@ -74,13 +80,15 @@ public class WestCoastDrive extends SubsystemBase{
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, true, 0, 0, 0, 0, 
     0, 0, 0);
+
+    // Creates encoder object
+    m_rightEncoder = m_rightMasterSpark.getEncoder();
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
     m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
-    // m_differentialDrive = new DifferentialDrive(m_leftMasterSRX, m_rightMasterSRX);
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
 
     m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
@@ -95,14 +103,14 @@ public class WestCoastDrive extends SubsystemBase{
     }catch(RuntimeException ex){
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
-
-    // Used for tracking robot position.
-    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMasterPIDController, m_rightMasterPIDController);
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic(){
+    // Used for tracking robot position.
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), getDistanceMeters(m_rightEncoder.getPosition()));
+
     // Field2d odometry stuff will go here 
     SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
@@ -153,14 +161,8 @@ public class WestCoastDrive extends SubsystemBase{
     //TODO write method, used by autobalance command
   }
 
-  // method used to calculate the distance into degrees inteligable to the encoder NOT NEEDED?
-  public double getDegrees(double desired_travel_distance) {
-    return (360 * desired_travel_distance) / Constants.CIRCUMFERENCE;
-  }
-
-  // method used to turn the degrees of the encoder into distance NOT NEEDED?
-  public double getDistance(double provided_degrees) {
-    return Constants.CIRCUMFERENCE * (provided_degrees/360);
+  public double getDistanceMeters(double degrees) {
+    return Constants.CIRCUMFERENCE * (degrees/360);
   }
 
   // used for autobalance command

@@ -42,8 +42,8 @@ public final class Constants{
         public static final int WCD_RIGHT_SLAVE_ID                                                  = 3;
 
         // odemetry constants
-        private static final double DIAMETER = 8;
-        public static final double CIRCUMFERENCE = (Math.PI * DIAMETER);
+        private static final double DIAMETER                                                        = 0.2; // in meters
+        public static final double CIRCUMFERENCE                                                    = (Math.PI * DIAMETER);
 
         // Control related constants
         public static final double WCD_MAX_POWER                                                    = 1.0;
