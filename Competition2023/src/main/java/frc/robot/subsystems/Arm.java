@@ -16,17 +16,25 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Arm extends SubsystemBase{
     private WPI_TalonSRX m_armAngleMotor;
     private WPI_TalonFX m_armExtendMotor;
+    private WPI_TalonSRX m_armGrabberMotor;
     // private double actualArmAngle;
 
     public Arm(){
+
+        // this motor is actually on the chassis. Just pulls a string to make the main bar act as a seesaw
         m_armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
-        // should it be setInverted? setSensorPhase?
         RobotContainer.configureTalonSRX(m_armAngleMotor, false, null, false, false,
         0, 0, 0, 0.0, 0, 0, false);
 
-        // created a new constant ARM_MOTOR_ID_REACH for the second motor
+        // this motor pulls a string that connects to the end of the grabber
         m_armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
         RobotContainer.configureTalonFX(m_armExtendMotor, true, false, 0.0, 0.0, 0.0, 0.0);
+        
+        // this motor pulls together the pinchers (using strings)
+        // should it be SRX or FX
+        m_armGrabberMotor = new WPI_TalonSRX(Constants.GRABBER_MOTOR_ID);
+        RobotContainer.configureTalonSRX(m_armGrabberMotor, false, null, false, false,
+        0, 0, 0, 0.0, 0, 0, false);
 
         //TODO set actualArmAngle
     }
@@ -36,7 +44,7 @@ public class Arm extends SubsystemBase{
         // SmartDashboard.putNumber("Actual Arm Angle: ", actualArmAngle);
     }
 
-    //TODO get this method up and running, PSEUDOCODE BELLOW
+    //TODO get this method up and running, PSEUDOCODE BELOW
     public void angleArm(double joyStickAngle){
         // If ((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > CONSTANTS.MIN_ARM_ANGLE)){
         // move the arm applying the joystickAngle
