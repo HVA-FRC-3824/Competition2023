@@ -91,6 +91,9 @@ public class WestCoastDrive extends SubsystemBase{
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
 
+    /* Move m_odometry up here */
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), getDistanceMeters(m_rightEncoder.getPosition()));
+
     m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
 
     // configureing solenoids for each piston in the west coast drive "transmission"
@@ -108,8 +111,8 @@ public class WestCoastDrive extends SubsystemBase{
   // This method will be called once per scheduler run
   @Override
   public void periodic(){
-    // Used for tracking robot position.
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), getDistanceMeters(m_rightEncoder.getPosition()));
+    // Reminder, use .update instead of recreating the object using the constructor, does the same thing but prevents memory leakage
+    m_odometry.update(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), getDistanceMeters(m_rightEncoder.getPosition()));
 
     // Field2d odometry stuff will go here 
     SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
@@ -155,6 +158,16 @@ public class WestCoastDrive extends SubsystemBase{
 
   public void setAndHoldPose(){
     //TODO get current position using encoders and make the drivetrain keep us at that position, add in deadzone
+    // Why don't you just kill power to the motors at a certain point??
+  }
+  /* Inverse of f(x)= CIRCUMFERENCE * (degrees/360)*/
+  public double getDegreesFromDistance(double meters){
+    return (360*meters)/Constants.CIRCUMFERENCE;
+  }
+
+  /* Takes in meters and goes forward that amount */
+  public void driveForwardMeters(double meters){
+
   }
 
   public void driveWithVelocity(boolean forward, double velocity){
