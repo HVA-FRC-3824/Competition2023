@@ -16,7 +16,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Arm extends SubsystemBase{
     private WPI_TalonSRX m_armAngleMotor;
     private WPI_TalonFX m_armExtendMotor;
-    // private double actualArmAngle;
+    private double actualArmAngle;
+    private double actualArmExtensionPos;
 
     public Arm(){
         m_armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
@@ -29,6 +30,7 @@ public class Arm extends SubsystemBase{
         RobotContainer.configureTalonFX(m_armExtendMotor, true, false, 0.0, 0.0, 0.0, 0.0);
 
         //TODO set actualArmAngle
+        //TODO set actualArmExtentionPos
     }
 
     @Override
@@ -39,9 +41,9 @@ public class Arm extends SubsystemBase{
     //TODO get this method up and running, PSEUDOCODE BELLOW
     public void angleArm(double joyStickAngle){
         // If ((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > CONSTANTS.MIN_ARM_ANGLE)){
-        // move the arm applying the joystickAngle
+        //     move the arm applying the joystickAngle
         // }else if (actualArmAngle > Constants.MAX_ARM_ANGLE){
-        //    move arm down slightly;
+        //     move arm down slightly;
         // }else if (actualArmAngle < CONSTANTS.MIN_ARM_ANGLE){
         //     move arm up slightly;
         // }
@@ -62,10 +64,16 @@ public class Arm extends SubsystemBase{
 
     public void extendArm(){
         // extends arm for fine tuning
+        if(actualArmExtensionPos < Constants.MAX_ARM_EXTENSION){
+            m_armExtendMotor.setVoltage(Constants.ARM_ANGLE_VOLTAGE);
+        }
     }
 
     public void retractArm(){
         // retracts arm for fine tuning
+        if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
+            m_armExtendMotor.setVoltage(-Constants.ARM_ANGLE_VOLTAGE);
+        }
     }
 
 }

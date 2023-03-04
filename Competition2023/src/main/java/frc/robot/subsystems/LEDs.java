@@ -105,11 +105,10 @@ public class LEDs extends SubsystemBase{
     }
 
     private void setLEDsBounce(){
-        // TODO test and fix method
+        // TODO FIX METHOD
         int led_max = m_LEDsBuffer.getLength();
         for(int i = 0; i < led_max; i++){
             if(i == led_max){
-                /* If i goes to far stop! */ 
                m_LEDsBuffer.setHSV(i, 100, 255, 0);
                break; 
             }
@@ -119,7 +118,6 @@ public class LEDs extends SubsystemBase{
             }
             m_LEDsBuffer.setHSV(i, 100, 255, 255);
         }
-        // bounce blue for rohawktics?
     }
 
     // Method called in other places to set a led pattern

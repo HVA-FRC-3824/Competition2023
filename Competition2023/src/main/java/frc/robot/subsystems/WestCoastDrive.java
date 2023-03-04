@@ -27,6 +27,7 @@ import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 // #endregion
 
 public class WestCoastDrive extends SubsystemBase{
@@ -55,6 +56,7 @@ public class WestCoastDrive extends SubsystemBase{
   public DifferentialDriveOdometry m_odometry;
   private RelativeEncoder m_leftEncoder;
   private RelativeEncoder m_rightEncoder;
+  private ChassisSpeeds m_chassisSpeeds;
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
@@ -93,7 +95,7 @@ public class WestCoastDrive extends SubsystemBase{
 
     /* Move m_odometry up here */
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), getDistanceMeters(m_rightEncoder.getPosition()));
-
+    m_chassisSpeeds = new ChassisSpeeds(0, 0, 0);
     m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
 
     // configureing solenoids for each piston in the west coast drive "transmission"
@@ -158,8 +160,8 @@ public class WestCoastDrive extends SubsystemBase{
 
   public void setAndHoldPose(){
     //TODO get current position using encoders and make the drivetrain keep us at that position, add in deadzone
-    // Why don't you just kill power to the motors at a certain point??
   }
+
   /* Inverse of f(x)= CIRCUMFERENCE * (degrees/360)*/
   public double getDegreesFromDistance(double meters){
     return (360*meters)/Constants.CIRCUMFERENCE;
