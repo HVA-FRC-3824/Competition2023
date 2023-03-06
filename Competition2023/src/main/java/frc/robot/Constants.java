@@ -2,6 +2,8 @@ package frc.robot;
 
 import java.lang.Math;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
@@ -40,10 +42,33 @@ public final class Constants{
         public static final int WCD_LEFT_SLAVE_ID                                                   = 2;
         public static final int WCD_RIGHT_MASTER_ID                                                 = 4;
         public static final int WCD_RIGHT_SLAVE_ID                                                  = 3;
+        // #region Autonomous Constants
+            public static final int K_ENCODER_TICKS_PER_REVOLUTION                                  = 28300;
+            public static final double K_WHEEL_DIAMETER_METERS                                      = 0.2;
+            public static final double K_ENCODER_DISTANCE_PER_PULSE                                 = (K_WHEEL_DIAMETER_METERS * Math.PI) / (double) K_ENCODER_TICKS_PER_REVOLUTION;
+            public static final boolean K_GYRO_REVERSED                                             = true;
+
+            // Use robot characterization tool for these values.
+            public static final double K_S_VOLTS                                                    = 0.372;
+            public static final double K_V_VOLT_SECONDS_PER_METER                                   = 3.09;
+            public static final double K_A_VOLT_SECONDS_SQUARED_PER_METER                           = 0.154;
+            public static final double K_P_DRIVE_VEL                                                = 0.00425;
+            public static final double K_TRACK_WIDTH_METERS                                         = 0.774;
+            public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS                      = new DifferentialDriveKinematics(K_TRACK_WIDTH_METERS);
+
+            // Maximum voltage is 10V rather than nominal battery voltage of 12V for "headroom" in dealing with "voltage sag."
+            public static final int K_MAX_VOLTAGE                                                   = 10;
+            
+            public static final double K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED                 = 3.0;
+
+            public static final double K_RAMSETE_B                                                  = 2;
+            public static final double K_RAMSETE_ZETA                                               = 0.7;
+
+            public static final double WHEEL_CIRCUMFERENCE                                          = (Math.PI * K_WHEEL_DIAMETER_METERS);
+        //#endregion
 
         // odemetry constants
-        private static final double DIAMETER                                                        = 0.2; // in meters
-        public static final double CIRCUMFERENCE                                                    = (Math.PI * DIAMETER);
+
 
         // Control related constants
         public static final double WCD_MAX_POWER                                                    = 1.0;
