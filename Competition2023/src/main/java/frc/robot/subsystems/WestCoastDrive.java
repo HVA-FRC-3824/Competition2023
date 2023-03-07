@@ -262,6 +262,7 @@ public class WestCoastDrive extends SubsystemBase{
       trajConfig);
 
     // Create command that will follow the trajectory.
+    // In vscode this jawn looks like a barcode haha
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, RobotContainer.M_WEST_COAST_DRIVE::getPose,
                                                         new RamseteController(Constants.K_RAMSETE_B, Constants.K_RAMSETE_ZETA),
                                                         new SimpleMotorFeedforward(Constants.K_S_VOLTS,

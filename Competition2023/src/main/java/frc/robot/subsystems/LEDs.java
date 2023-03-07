@@ -115,6 +115,7 @@ public class LEDs extends SubsystemBase{
             
             if(i != 0){
                 m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
+                continue;
             }
             m_LEDsBuffer.setHSV(i, 100, 255, 255);
         }
