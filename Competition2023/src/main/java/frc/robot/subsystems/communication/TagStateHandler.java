@@ -32,7 +32,7 @@ public class TagStateHandler extends SubsystemBase{
 
     public static void updateTagTimer(int id)
     {
-        t_Array[id-1] = 5; /* Five ms */
+        t_Array[id-1] = 2; /* ~200 ms */
     }
 
     @Override
