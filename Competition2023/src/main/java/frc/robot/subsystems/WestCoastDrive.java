@@ -108,7 +108,14 @@ public class WestCoastDrive extends SubsystemBase{
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
 
-    /* Move m_odometry up here */
+    // Try to instantiate the navx gyro with exception catch, used for odometry
+    try{
+      m_ahrs = new AHRS(SPI.Port.kMXP);
+    }catch(RuntimeException ex){
+      System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
+    }
+
+    // Move m_odometry up here 
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()),
                                                                       getDistanceMeters(m_rightEncoder.getPosition()));
     m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
@@ -117,12 +124,7 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
     m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
-    // Try to instantiate the navx gyro with exception catch, used for odometry
-    try{
-      m_ahrs = new AHRS(SPI.Port.kMXP);
-    }catch(RuntimeException ex){
-      System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
-    }
+
   }
 
   // This method will be called once per scheduler run
@@ -223,6 +225,17 @@ public class WestCoastDrive extends SubsystemBase{
     return new DifferentialDriveWheelSpeeds(this.getLeftEncoderRate(), this.getRightEncoderRate());
   }
 
+ // Reset gyro to zero the heading of the robot.
+ public void zeroHeading(){
+   m_ahrs.reset();
+   m_ahrs.setAngleAdjustment(0.0);
+ }
+
+ public void resetEncoders(){
+   m_leftEncoder.setPosition(0);
+   m_rightEncoder.setPosition(0);
+ }
+
   /**
    * Generates ramsete command for following passed in path in autonomous.
    * @param startingPose is the position at which the robot starts up at.
@@ -242,7 +255,7 @@ public class WestCoastDrive extends SubsystemBase{
                                                                        10);
     
     // Configuration for trajectory that wraps path constraints.
-    TrajectoryConfig trajConfig = new TrajectoryConfig(maxVelocity,Constants.K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
+    TrajectoryConfig trajConfig = new TrajectoryConfig(maxVelocity, Constants.K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
       // Add kinematics to track robot speed and ensure max speed is obeyed.
       .setKinematics(Constants.K_DRIVE_KINEMATICS)
       // Apply voltage constraint created above.

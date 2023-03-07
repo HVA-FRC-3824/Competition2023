@@ -53,7 +53,7 @@ public final class Constants{
             public static final double K_V_VOLT_SECONDS_PER_METER                                   = 3.09;
             public static final double K_A_VOLT_SECONDS_SQUARED_PER_METER                           = 0.154;
             public static final double K_P_DRIVE_VEL                                                = 0.00425;
-            public static final double K_TRACK_WIDTH_METERS                                         = 0.774;
+            public static final double K_TRACK_WIDTH_METERS                                         = 0.774; //TODO find width between centers of wheels
             public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS                      = new DifferentialDriveKinematics(K_TRACK_WIDTH_METERS);
 
             // Maximum voltage is 10V rather than nominal battery voltage of 12V for "headroom" in dealing with "voltage sag."
@@ -83,7 +83,7 @@ public final class Constants{
 
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 3824; //TODO figure out motor ID
-        public static final int ARM_EXTEND_MOTOR_ID                                                 = 3824; //TODO figure out motor ID
+        public static final int ARM_EXTEND_MOTOR_ID                                                 = 7;
         public static final double MAX_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MAX_ARM_EXTENSION                                                = 3824; //TODO figure out num
