@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.lang.Math;
+import frc.robot.commands.ScoreData;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
@@ -105,6 +106,9 @@ public final class Constants{
         // server info
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
+
+        // scoredata
+        public static ScoreData[][] SCORE_DATA_ARRAY = new ScoreData[3][3];
     // #endregion
 
     // #region PIDs
