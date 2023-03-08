@@ -21,11 +21,11 @@ public class AutonomousMTM extends SequentialCommandGroup {
   private List<Translation2d> waypoints = List.of(new Translation2d(1.15, 1.569));
   private Pose2d endingPose = new Pose2d(4.95, 1.569, new Rotation2d(0));
 
-  public AutonomousMTM(){
+  public AutonomousMTM() {
     addCommands(
       new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop()),
       new WaitCommand(1),
-      //how to get it to follow to a point, maxVel is in m/s
+      // how to get it to follow to a point, maxVel is in m/s
       RobotContainer.M_WEST_COAST_DRIVE.generateRamsete(startingPose, waypoints, endingPose, 2, false),
       // Don't forget to stop subsystems.
       new InstantCommand(() -> RobotContainer.M_ARM.retractArm())
