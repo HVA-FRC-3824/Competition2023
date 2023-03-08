@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 // #region imports
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // General
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -27,7 +27,7 @@ public class Arm extends SubsystemBase{
 
         // created a new constant ARM_MOTOR_ID_REACH for the second motor
         m_armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
-        RobotContainer.configureTalonFX(m_armExtendMotor, true, false, 0.0, 0.0, 0.0, 0.0);
+        RobotContainer.configureTalonFX(m_armExtendMotor, true, true, 0.0, 0.1, 0.0, 0.0);
 
         //TODO set actualArmAngle
         //TODO set actualArmExtentionPos
@@ -35,18 +35,19 @@ public class Arm extends SubsystemBase{
 
     @Override
     public void periodic() {
-        // SmartDashboard.putNumber("Actual Arm Angle: ", actualArmAngle);
+        actualArmAngle = m_armAngleMotor.getSelectedSensorPosition();
+        SmartDashboard.putNumber("Actual Arm Angle: ", actualArmAngle);
     }
 
     //TODO get this method up and running, PSEUDOCODE BELLOW
     public void angleArm(double joyStickAngle){
-        // If ((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > CONSTANTS.MIN_ARM_ANGLE)){
-        //     move the arm applying the joystickAngle
-        // }else if (actualArmAngle > Constants.MAX_ARM_ANGLE){
-        //     move arm down slightly;
-        // }else if (actualArmAngle < CONSTANTS.MIN_ARM_ANGLE){
-        //     move arm up slightly;
-        // }
+        if((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > Constants.MIN_ARM_ANGLE)){
+            // move the arm applying the joystickAngle
+        }else if (actualArmAngle > Constants.MAX_ARM_ANGLE){
+            // move arm down slightly;
+        }else if (actualArmAngle < Constants.MIN_ARM_ANGLE){
+            // move arm up slightly;
+        }
     }
 
     //TODO get these arm methods up and running, need encoders for all but extend arm and retract arm, but we want to make sure there are limits so we don't unwind it.

@@ -87,7 +87,7 @@ public final class Constants{
         public static final double MAX_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MAX_ARM_EXTENSION                                                = 3824; //TODO figure out num
-        public static final double MIN_ARM_EXTENSION                                                = 3824; //TODO figure out num
+        public static final double MIN_ARM_EXTENSION                                                = 0;
         public static final double ARM_ANGLE_VOLTAGE                                                = 0; //TODO figure out num
         // #endregion
 
