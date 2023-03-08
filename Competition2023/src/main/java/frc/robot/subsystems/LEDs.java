@@ -105,7 +105,6 @@ public class LEDs extends SubsystemBase{
     }
 
     private void setLEDsBounce(){
-        // TODO FIX METHOD
         int led_max = m_LEDsBuffer.getLength();
         for(int i = 0; i < led_max; i++){
             if(i == led_max){
