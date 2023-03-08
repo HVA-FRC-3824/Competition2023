@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
+
+
 // Smart Dashboard
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // #endregion
@@ -18,6 +23,7 @@ public class Arm extends SubsystemBase{
     private WPI_TalonFX m_armExtendMotor;
     private double actualArmAngle;
     private double actualArmExtensionPos;
+    private double m_rpm;
 
     public Arm(){
         m_armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
@@ -29,8 +35,8 @@ public class Arm extends SubsystemBase{
         m_armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
         RobotContainer.configureTalonFX(m_armExtendMotor, true, true, 0.0, 0.1, 0.0, 0.0);
 
-        //TODO set actualArmAngle
-        //TODO set actualArmExtentionPos
+        // TODO set actualArmAngle (using an encoder?)
+        // TODO set actualArmExtentionPos
     }
 
     @Override

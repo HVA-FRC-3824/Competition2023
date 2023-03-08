@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import frc.robot.subsystems.communication.TagData;;
 
 /* Quick explanation of the code below
  * The constructor takes in the address and port to connect to
