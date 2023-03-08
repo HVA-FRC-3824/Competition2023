@@ -1,7 +1,11 @@
 package frc.robot;
 
 import frc.robot.commands.AutonomousDefault;
+import frc.robot.commands.AutonomousMTM;
+import frc.robot.commands.AutonomousRTM;
 import frc.robot.commands.InlineCommands;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -33,11 +37,14 @@ public class RobotContainer{
   public static final InlineCommands m_inlineCommands = new InlineCommands();
   public static final OI m_OI = new OI();
   
+  private final SendableChooser<String> m_autoChooser = new SendableChooser<>();
   /* The container for the robot. Contains subsystems, Operator interface, and commands. 
    * All objects, methods, and classes should be accessed through this class. */
   public RobotContainer(){
     // Configures the button bindings obviously
     m_OI.configureButtonBindings();
+
+    this.initializeAutoChooser();
   }
 
   // Called when teleop is initialized
@@ -48,12 +55,41 @@ public class RobotContainer{
     M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithJoystick);
   }
 
+  /* Set options for autonomous command chooser and display them for selection on
+   * the SmartDashboard. Using string chooser rather than command chooser because
+   * if using a command chooser, will instantiate all the autonomous commands.
+   * This may cause problems (e.g. initial trajectory position is from a different
+   * command's path). */
+  private void initializeAutoChooser(){
+    // Add options (which autonomous commands can be selected) to chooser.
+    m_autoChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
+    m_autoChooser.addOption("MIDDLE POS|TOP ROW|MIDDLE COLUMN", "MidTopMid");
+    m_autoChooser.addOption("RIGHT POS|TOP ROW|MIDDLE COLUMN", "RightTopMid");
+    m_autoChooser.addOption("LEFT POS|TOP ROW|MIDDLE COLUMN", "LeftTopMid");
+
+    // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
+    SmartDashboard.putData("Autonomous Command", m_autoChooser);
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand(){
-    return new AutonomousDefault();
+    switch (m_autoChooser.getSelected())
+    {
+      case "default":
+        return null;
+      case "MidTopMid":
+        return new AutonomousMTM();
+      case "RightTopMid":
+        return new AutonomousRTM();
+      //case "LeftTopMid":
+        //return new AutonomousLTM();
+      default:
+        System.out.println("\nError selecting autonomous command:\nCommand selected: " + m_autoChooser.getSelected() + "\n");
+        return null;
+    }
   }
   
   /* Configures TalonFX (Falcon 500) objects with passed in parameters. Falcon 500s will be used for the 

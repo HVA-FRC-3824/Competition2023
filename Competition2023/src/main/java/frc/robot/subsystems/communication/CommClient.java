@@ -33,6 +33,9 @@ public class CommClient implements Runnable
     private byte   id;
     private int    port;
 
+    private float  c_Dist;
+    private float  c_Angle;
+
     public CommClient(int port)
     {
         this.port = port;
@@ -55,7 +58,7 @@ public class CommClient implements Runnable
     public void receiveMessage()
     {
 	try {
-        /* .receive blocks thread, below code DOES NOT RUN unless message is received and proccessed*/
+        /* .receive blocks thread, below code DOES NOT RUN unless message is received and proccessed */
         m_socket.receive(m_receive);
         try {
             m_input.read(receive_buf, 0, 9);
@@ -65,15 +68,17 @@ public class CommClient implements Runnable
 
         /* Set id to first byte */
         this.id = receive_buf[0];
-        TagData.TAG_DATA[this.id-1].id = receive_buf[0];
         TagData.last_known_id = receive_buf[0];
+
         System.out.println("TAG FOUND! ID: " + this.id);
 
 	    /* Grab the 1st float value */
-	    TagData.TAG_DATA[this.id-1].dist = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(1);
+	    c_Dist = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(1);
 
 	    /* Grab the 2nd float value */
-	    TagData.TAG_DATA[this.id-1].angle = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(5);
+	    c_Angle = ByteBuffer.wrap(receive_buf).order(ByteOrder.BIG_ENDIAN).getFloat(5);
+
+        TagData.update_Tag(id, c_Angle, c_Dist);
 	} catch (IOException e) {
             e.printStackTrace();
         }

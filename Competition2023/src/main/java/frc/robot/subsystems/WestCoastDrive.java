@@ -4,6 +4,9 @@ package frc.robot.subsystems;
 // General
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // SmartDashboard
@@ -14,18 +17,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 
 // Pneumatics
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
+import java.util.List;
+
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.SparkMaxPIDController;
-// import edu.wpi.first.math.geometry.Rotation2d;
-// import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 // #endregion
 
 public class WestCoastDrive extends SubsystemBase{
@@ -51,7 +69,9 @@ public class WestCoastDrive extends SubsystemBase{
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
-  // public final DifferentialDriveOdometry m_odometry;
+  public DifferentialDriveOdometry m_odometry;
+  private RelativeEncoder m_leftEncoder;
+  private RelativeEncoder m_rightEncoder;
 
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
@@ -62,6 +82,9 @@ public class WestCoastDrive extends SubsystemBase{
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, true, 0, 0, 0, 0,
     0, 0, 0);
+
+    // Creates encoder object
+    m_leftEncoder = m_leftMasterSpark.getEncoder();
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
@@ -74,20 +97,16 @@ public class WestCoastDrive extends SubsystemBase{
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
     RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, true, 0, 0, 0, 0, 
     0, 0, 0);
+
+    // Creates encoder object
+    m_rightEncoder = m_rightMasterSpark.getEncoder();
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
     m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
-    // m_differentialDrive = new DifferentialDrive(m_leftMasterSRX, m_rightMasterSRX);
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
-
-    m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
-
-    // configureing solenoids for each piston in the west coast drive "transmission"
-    m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
-    m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
     // Try to instantiate the navx gyro with exception catch, used for odometry
     try{
@@ -96,13 +115,25 @@ public class WestCoastDrive extends SubsystemBase{
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
-    // Used for tracking robot position.
-    // m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()) , m_leftMasterPIDController, m_rightMasterPIDController);
+    // Move m_odometry up here 
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()),
+                                                                      getDistanceMeters(m_rightEncoder.getPosition()));
+    m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
+
+    // configureing solenoids for each piston in the west coast drive "transmission"
+    m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
+    m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
+
+
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic(){
+    // Reminder, use .update instead of recreating the object using the constructor, does the same thing but prevents memory leakage
+    m_odometry.update(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()), 
+                                             getDistanceMeters(m_rightEncoder.getPosition()));
+
     // Field2d odometry stuff will go here 
     SmartDashboard.putNumber("Gyro Heading: ", m_ahrs.getAngle());
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
@@ -149,22 +180,115 @@ public class WestCoastDrive extends SubsystemBase{
     //TODO get current position using encoders and make the drivetrain keep us at that position, add in deadzone
   }
 
+  /* Inverse of f(x)= CIRCUMFERENCE * (degrees/360)*/
+  public double getDegreesFromDistance(double meters){
+    return (360*meters)/Constants.WHEEL_CIRCUMFERENCE;
+  }
+
+  //TODO Takes in meters and goes forward that amount
+  public void driveForwardMeters(double meters){
+
+  }
+
   public void driveWithVelocity(boolean forward, double velocity){
     //TODO write method, used by autobalance command
   }
 
-  // method used to calculate the distance into degrees inteligable to the encoder NOT NEEDED?
-  public double getDegrees(double desired_travel_distance) {
-    return (360 * desired_travel_distance) / Constants.CIRCUMFERENCE;
-  }
-
-  // method used to turn the degrees of the encoder into distance NOT NEEDED?
-  public double getDistance(double provided_degrees) {
-    return Constants.CIRCUMFERENCE * (provided_degrees/360);
+  public double getDistanceMeters(double degrees) {
+    return Constants.WHEEL_CIRCUMFERENCE * (degrees/360);
   }
 
   // used for autobalance command
   public AHRS returnGyro(){
     return(m_ahrs);
+  }
+
+  public Pose2d getPose(){
+    return m_odometry.getPoseMeters();
+  }
+  
+  public void driveWithVoltage(double leftVoltage, double rightVoltage){
+    m_leftMasterSpark.setVoltage(-rightVoltage); // TODO figure out if still applicable: negative
+    m_rightMasterSpark.setVoltage(leftVoltage); // TODO figure out if still applicable: positive because right side is inverted for the arcadeDrive method.
+    m_differentialDrive.feed();
+  }
+
+  public double getLeftEncoderRate(){
+    return m_leftEncoder.getVelocity() * Constants.K_ENCODER_DISTANCE_PER_PULSE * 1000;
+  }
+
+  public double getRightEncoderRate(){
+    return -m_rightEncoder.getVelocity() * Constants.K_ENCODER_DISTANCE_PER_PULSE * 1000;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    return new DifferentialDriveWheelSpeeds(this.getLeftEncoderRate(), this.getRightEncoderRate());
+  }
+
+ // Reset gyro to zero the heading of the robot.
+ public void zeroHeading(){
+   m_ahrs.reset();
+   m_ahrs.setAngleAdjustment(0.0);
+ }
+
+ public void resetEncoders(){
+   m_leftEncoder.setPosition(0);
+   m_rightEncoder.setPosition(0);
+ }
+
+  /**
+   * Generates ramsete command for following passed in path in autonomous.
+   * @param startingPose is the position at which the robot starts up at.
+   * @param waypoints are the points in which the robot travels through to arrive at its end point.
+   * @param endingPose is the position at which the robot ends up at.
+   * @param maxVelocity controls how fast the robot will move through the trajectory/path.
+   * @param isReversed controls whether the robot travels forwards or backwards through the waypoints.
+   * @return sequential command group that follows the path and stops when complete.
+   */
+  public SequentialCommandGroup generateRamsete(Pose2d startingPose, List<Translation2d> waypoints, Pose2d endingPose, 
+                                                double maxVelocity, boolean isReversed){
+    // Voltage constraint so never telling robot to move faster than it is capable of achieving.
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(Constants.K_S_VOLTS,
+                                                                       Constants.K_V_VOLT_SECONDS_PER_METER,
+                                                                       Constants.K_A_VOLT_SECONDS_SQUARED_PER_METER), 
+                                                                       Constants.K_DRIVE_KINEMATICS, 
+                                                                       10);
+    
+    // Configuration for trajectory that wraps path constraints.
+    TrajectoryConfig trajConfig = new TrajectoryConfig(maxVelocity, Constants.K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
+      // Add kinematics to track robot speed and ensure max speed is obeyed.
+      .setKinematics(Constants.K_DRIVE_KINEMATICS)
+      // Apply voltage constraint created above.
+      .addConstraint(autoVoltageConstraint)
+      // Reverse the trajectory based on passed in parameter.
+      .setReversed(isReversed);
+
+    // Generate trajectory: initialPose, interiorWaypoints, endPose, trajConfig
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+      // Starting pose
+      startingPose,
+      // Pass through these interior waypoints
+      waypoints,
+      // Ending pose
+      endingPose,
+      // Pass config
+      trajConfig);
+
+    // Create command that will follow the trajectory.
+    // In vscode this jawn looks like a barcode haha
+    RamseteCommand ramseteCommand = new RamseteCommand(trajectory, RobotContainer.M_WEST_COAST_DRIVE::getPose,
+                                                        new RamseteController(Constants.K_RAMSETE_B, Constants.K_RAMSETE_ZETA),
+                                                        new SimpleMotorFeedforward(Constants.K_S_VOLTS,
+                                                                                  Constants.K_V_VOLT_SECONDS_PER_METER,
+                                                                                  Constants.K_A_VOLT_SECONDS_SQUARED_PER_METER),
+                                                        Constants.K_DRIVE_KINEMATICS,
+                                                        RobotContainer.M_WEST_COAST_DRIVE::getWheelSpeeds,
+                                                        new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
+                                                        new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
+                                                        RobotContainer.M_WEST_COAST_DRIVE::driveWithVoltage, // RamseteCommand passes volts to the callback.
+                                                        RobotContainer.M_WEST_COAST_DRIVE);
+
+    /* Return command group that will run path following command, then stop the robot at the end. */
+    return ramseteCommand.andThen(new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.driveWithVoltage(0, 0)));
   }
 }

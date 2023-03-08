@@ -25,8 +25,6 @@ public class Grabber extends SubsystemBase{
     }
 
     public void toggleGrabber(){
-        /* TODO write code to articulate the grabber, this method runs everytime the button will be clicked, we probably want to do positions with an ecoder, 
-        but we can try voltage for now */
         if(m_grabberStatus){
             m_grabberMotor.setVoltage(Constants.GRABBER_OPEN_VOLTAGE);
             m_grabberStatus = false;

@@ -26,6 +26,14 @@ public class TagData {
         this.angle = defaultA;
     }
 
+    public static void update_Tag(int id, float dist, float angle)
+    {
+        TagStateHandler.updateTagTimer(id);
+
+        TAG_DATA[id-1].dist = dist;
+        TAG_DATA[id-1].angle = angle;
+    }
+
     public float tag_returnDist(int id)
     {
         return TAG_DATA[id-1].dist;
