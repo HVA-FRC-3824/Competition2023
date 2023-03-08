@@ -1,5 +1,6 @@
 # 2023 Competition Robot #
-## This is "NAME TBD", FRC 3824 HVA RoHawktic's 2023 robot intended to compete in Charged Up. ##
+> Robot made to compete in 2023 FRC *Charged Up*
+
 This robot's capabilities include:
 - Westcoast Drive with two speed pneumatic transmission
 - Grabber
