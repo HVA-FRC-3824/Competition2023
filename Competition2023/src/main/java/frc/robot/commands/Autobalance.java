@@ -4,12 +4,7 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.lang.Math;
 
-
-
 public class Autobalance extends CommandBase {
-
-    private float angle = 0.0F;
-
     public Autobalance(){
         // Require chassis to takeover drive train input. This will end the driveWithJoystick command that will be recalled after this command ends.*/
         addRequirements(RobotContainer.M_WEST_COAST_DRIVE);
@@ -23,7 +18,7 @@ public class Autobalance extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        angle = RobotContainer.M_WEST_COAST_DRIVE.returnGyro().getRoll();
+        float angle = RobotContainer.M_WEST_COAST_DRIVE.returnGyro().getRoll();
         // variable to hold the desired velocity of the drivetrain
         double vel;
         // True is forward, false is backward
@@ -54,5 +49,4 @@ public class Autobalance extends CommandBase {
         // Command will end when joystick button is released due to requirement of chassis class of stop command.
         return false;
     }
-
 }
