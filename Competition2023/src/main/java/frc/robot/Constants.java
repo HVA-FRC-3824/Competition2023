@@ -83,7 +83,7 @@ public final class Constants{
         // #endregion
 
         // #region ARM
-        public static final int ARM_ANGLE_MOTOR_ID                                                  = 3824; //TODO figure out motor ID
+        public static final int ARM_ANGLE_MOTOR_ID                                                  = 8;
         public static final int ARM_EXTEND_MOTOR_ID                                                 = 7;
         public static final double MAX_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
