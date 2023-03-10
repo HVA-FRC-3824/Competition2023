@@ -27,11 +27,11 @@ public class Autobalance extends CommandBase {
         boolean state;
 
         if (Math.abs(angle) > 2.5){
-            // vel = Low velocity
+            // vel = Constants.AUTOBALANCE_LOW_VEL
         }else if(Math.abs(angle) > 5.0){
-            // vel = Medium velocity
+            // vel = Constants.AUTOBALANCE_MEDIUM_VEL
         }else if(Math.abs(angle) > 10){
-            // vel = Max velocity
+            // vel = Constants.AUTOBALANCE_HIGH_VEL
         }
 
         if(Math.abs(angle) > 0){
@@ -40,7 +40,7 @@ public class Autobalance extends CommandBase {
             forward = false;
         }
 
-        //RobotContainer.M_WEST_COAST_DRIVE.driveWithVelocity(forward, vel);
+        // RobotContainer.M_WEST_COAST_DRIVE.driveWithVelocity(forward, vel);
     }
 
     // Returns true when the command should end.

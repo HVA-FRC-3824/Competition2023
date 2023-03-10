@@ -4,18 +4,14 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class AutoScore {
-    public static void initScoreValues()
-    {
+    public static void initScoreValues(){
         /* Function should set all the values for SCORE_DATA_ARRAY */
 
         /* Ex. */
 
         /* Height! */
-        for(int i = 0; i < 3; i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
-                /* oogly */
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
                 switch (i) {
                     case 0:
                         Constants.SCORE_DATA_ARRAY[i][j].height = heights.TOP;
@@ -40,33 +36,19 @@ public class AutoScore {
 
     public static enum heights{BOT,MID,TOP};
 
-    public void score(int ix, int iy)
-    {
-        /* do stuff idk based off the index and data 
-         * Ex.
-        */
-
+    public void score(int ix, int iy){
         float angle, dist;
         heights height;
 
-        /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects
-         * One ScoreData object has 3 attributes (angle, dist, height)
-         * These attributes will be fed into the arm to move the physical arm to a scoring spot
-         */
+        /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects One ScoreData object has 3 attributes (angle, dist, height)
+         * These attributes will be fed into the arm to move the physical arm to a scoring spot */
 
         angle = Constants.SCORE_DATA_ARRAY[iy][ix].angle;
         dist = Constants.SCORE_DATA_ARRAY[iy][ix].dist;
         height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
-
-
-        /* 
-         * Sum of these functions may not work yet
-         * But they exist so i'm gonna call em!
-        */
-
-        /* Height */ 
-        switch(height)
-        {
+ 
+        // Height 
+        switch(height){
             case BOT:
                 RobotContainer.M_ARM.extendArmBotton();
                 break;
@@ -77,14 +59,14 @@ public class AutoScore {
                 RobotContainer.M_ARM.extendArmTop();
                 break;
             default:
-                System.out.println("Hey, bad height used!");
+                System.out.println("ERROR: HEIGHT SWITCH CASE FAIL");
                 return;
         }
 
-        /* Angle, make this work joey borrelli!! */
+        // Angle
         RobotContainer.M_ARM.angleArm(angle);
 
-        /* Dist */
+        // Dist
         RobotContainer.M_ARM.extendArm();
         /* ^^ Wrap in a loop to extend a certain amount, REAL encoders would be really helpful here, or if we test the values */
     }
