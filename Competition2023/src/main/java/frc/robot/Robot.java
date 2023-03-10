@@ -3,8 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.communication.CommClient;
-import frc.robot.subsystems.communication.TagData;
+import frc.robot.subsystems.communication.*;
 
 /* The VM is configured to automatically run this class, and to call the methods corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -32,8 +31,13 @@ public class Robot extends TimedRobot {
     /* Start client thread */
     client.start("ClientThread");
 
+    /* Start the tagstatehandler */
+    TagStateHandler.init_Array(); 
+
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
+
+
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 

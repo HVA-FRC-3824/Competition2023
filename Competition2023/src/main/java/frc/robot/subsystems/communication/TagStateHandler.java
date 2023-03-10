@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TagStateHandler extends SubsystemBase{
     private static int t_Array[] = new int[Constants.MAX_TAGS];
     public static boolean tag_Available[] = new boolean[Constants.MAX_TAGS];
-    private String name = "T_ID: ";
+    public static final String name = "T_ID: ";
 
     /* Setup array */
-    public void init_Array()
+    public static void init_Array()
     {
         for(int i = 0; i < Constants.MAX_TAGS; i++)
         {
@@ -22,7 +22,7 @@ public class TagStateHandler extends SubsystemBase{
     }
 
     /* Setup smartdashboard */
-    private void init_dashboard()
+    public static void init_dashboard()
     {
         for(int i = 0; i < Constants.MAX_TAGS; i++)
         {
