@@ -46,6 +46,7 @@ public class Arm extends SubsystemBase{
     }
 
     //TODO get this method up and running, PSEUDOCODE BELLOW
+    // NEGATIVE IS DOWN, POSITIVE IS UP
     public void angleArm(double joyStickAngle){
         if((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > Constants.MIN_ARM_ANGLE)){
             // move the arm applying the joystickAngle
@@ -65,6 +66,7 @@ public class Arm extends SubsystemBase{
         // sets arm to middle grid score length
     }
 
+    // NEGATIVE IS IN, POSITIVE IS OUT
     public void extendArmTop(){
         // sets arm to top grid score length
     }

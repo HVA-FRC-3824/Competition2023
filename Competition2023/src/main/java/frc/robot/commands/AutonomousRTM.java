@@ -21,6 +21,7 @@ public class AutonomousRTM extends SequentialCommandGroup{
   private List<Translation2d> waypoints = List.of(new Translation2d(1.15, 1.569));
   private Pose2d endingPose = new Pose2d(4.95, 1.569, new Rotation2d(0));
   public AutonomousRTM() {
+    System.out.println("Running Autonomous Right Pos, Top Row, Middle Column...");
     addCommands(
       new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop()),
       new WaitCommand(1),

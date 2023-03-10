@@ -59,12 +59,18 @@ public class Robot extends TimedRobot {
   // This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
   @Override
   public void autonomousInit(){
+    // Commands zero heading and reset encoders obv
     RobotContainer.M_WEST_COAST_DRIVE.zeroHeading();
     RobotContainer.M_WEST_COAST_DRIVE.resetEncoders();
+    
+    // Command sets autocommand to the command based on the smartdashboard
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    // schedule the autonomous command (example)
+
+    // schedule the autonomous command
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+    }else{
+      System.out.println("m_autoCommand is null, error with getAutonomousCommand method most likely. ");
     }
   }
 
@@ -80,8 +86,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.initializeTeleopDefaultCommands();
-    // m_teleopInit is used to confirm that we have entered teleop in WestCoastDrive periodic
-    //m_teleopInit = true;
   }
 
   // This method is called periodically during operator control.

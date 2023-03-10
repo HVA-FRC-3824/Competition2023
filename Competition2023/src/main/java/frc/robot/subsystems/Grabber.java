@@ -15,7 +15,7 @@ public class Grabber extends SubsystemBase{
     public Grabber(){
         // Motor for moving the string
         m_grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_ID);
-        RobotContainer.configureTalonFX(m_grabberMotor, false, false, 0, 0, 0, 0);
+        RobotContainer.configureTalonFX(m_grabberMotor, false, false, 0, .1, 0, 0);
     }
 
     // This method will be called once per scheduler run

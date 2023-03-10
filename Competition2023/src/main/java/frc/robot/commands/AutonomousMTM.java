@@ -22,6 +22,7 @@ public class AutonomousMTM extends SequentialCommandGroup {
   private Pose2d endingPose = new Pose2d(4.95, 1.569, new Rotation2d(0));
 
   public AutonomousMTM() {
+    System.out.println("Running Autonomous Middle Pos, Top Row, Middle Column...");
     addCommands(
       new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop()),
       new WaitCommand(1),

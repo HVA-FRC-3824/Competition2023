@@ -76,16 +76,13 @@ public class RobotContainer{
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand(){
-    switch (m_autoChooser.getSelected())
-    {
+    switch (m_autoChooser.getSelected()){
       case "default":
-        return null;
+        return new AutonomousDefault();
       case "MidTopMid":
         return new AutonomousMTM();
       case "RightTopMid":
         return new AutonomousRTM();
-      //case "LeftTopMid":
-        //return new AutonomousLTM();
       default:
         System.out.println("\nError selecting autonomous command:\nCommand selected: " + m_autoChooser.getSelected() + "\n");
         return null;

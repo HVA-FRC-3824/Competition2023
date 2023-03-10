@@ -54,7 +54,7 @@ public final class Constants{
             public static final double K_V_VOLT_SECONDS_PER_METER                                   = 3.09;
             public static final double K_A_VOLT_SECONDS_SQUARED_PER_METER                           = 0.154;
             public static final double K_P_DRIVE_VEL                                                = 0.00425;
-            public static final double K_TRACK_WIDTH_METERS                                         = 0.774; //TODO find width between centers of wheels
+            public static final double K_TRACK_WIDTH_METERS                                         = 0.4556125;
             public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS                      = new DifferentialDriveKinematics(K_TRACK_WIDTH_METERS);
 
             // Maximum voltage is 10V rather than nominal battery voltage of 12V for "headroom" in dealing with "voltage sag."
@@ -93,7 +93,7 @@ public final class Constants{
         // #endregion
 
         // #region GRABBER
-        public static final int GRABBER_MOTOR_ID                                                    = 3824; //TODO wire up motor and get ID
+        public static final int GRABBER_MOTOR_ID                                                    = 9;
         public static final double GRABBER_OPEN_VOLTAGE                                             = -0.1; 
         public static final double GRABBER_CLOSE_VOLTAGE                                            = 0.0; //TODO decide volage
         // #endregion

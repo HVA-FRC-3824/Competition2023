@@ -124,7 +124,8 @@ public class WestCoastDrive extends SubsystemBase{
     m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
     m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
-
+    // disables safety for the motors because otherwise auto doesn't work
+    m_differentialDrive.setSafetyEnabled(false);
   }
 
   // This method will be called once per scheduler run
@@ -207,6 +208,7 @@ public class WestCoastDrive extends SubsystemBase{
     return m_odometry.getPoseMeters();
   }
   
+  // Used for auto ramsete driving
   public void driveWithVoltage(double leftVoltage, double rightVoltage){
     m_leftMasterSpark.setVoltage(-rightVoltage); // TODO figure out if still applicable: negative
     m_rightMasterSpark.setVoltage(leftVoltage); // TODO figure out if still applicable: positive because right side is inverted for the arcadeDrive method.
@@ -247,6 +249,7 @@ public class WestCoastDrive extends SubsystemBase{
    */
   public SequentialCommandGroup generateRamsete(Pose2d startingPose, List<Translation2d> waypoints, Pose2d endingPose, 
                                                 double maxVelocity, boolean isReversed){
+    System.out.println("Generate Ramsete command method running...");
     // Voltage constraint so never telling robot to move faster than it is capable of achieving.
     var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(Constants.K_S_VOLTS,
                                                                        Constants.K_V_VOLT_SECONDS_PER_METER,
