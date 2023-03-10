@@ -39,7 +39,11 @@ public class InlineCommands{
         m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
 
         // Arm
-        m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorJoystick().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
+        if (RobotContainer.m_OI.isController()){
+            m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorController().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
+        }else{
+            m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorJoystick().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
+        }
         m_armTopPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop());
         m_armMiddlePos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmMiddle());
         m_armBottomPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmBotton());

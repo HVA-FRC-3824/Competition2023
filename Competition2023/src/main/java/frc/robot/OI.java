@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.lang.ModuleLayer.Controller;
 
+import edu.wpi.first.wpilibj.DriverStation;
 // Joystick and Button
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -77,14 +78,14 @@ public class OI{
         // RB    - 6
         // Back  - 7
         // Start - 8
-        m_grabberBtn = new JoystickButton(m_operatorController, 0);
-        m_autoBalanceBtn = new JoystickButton(m_operatorController, 0);
-        m_setAndHoldPosBtn = new JoystickButton(m_operatorController, 0);
-        m_setArmTopPosBtn = new JoystickButton(m_operatorController, 0);
-        m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 0);
-        m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 0);
-        m_extendArmBtn = new JoystickButton(m_operatorController, 0);
-        m_retractArmBtn = new JoystickButton(m_operatorController, 0);
+        m_grabberBtn = new JoystickButton(m_operatorController, 2);
+        m_autoBalanceBtn = new JoystickButton(m_operatorController, 7);
+        m_setAndHoldPosBtn = new JoystickButton(m_operatorController, 8);
+        m_setArmTopPosBtn = new JoystickButton(m_operatorController, 4);
+        m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 3);
+        m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);
+        m_extendArmBtn = new JoystickButton(m_operatorController, 6);
+        m_retractArmBtn = new JoystickButton(m_operatorController, 5);
     }
 
     // Used for driving command
@@ -92,9 +93,27 @@ public class OI{
         return m_driverJoystick;
     }
 
-    // Will be used for arm control command
+    // Used for arm control command
     public Joystick getOperatorJoystick(){
         return m_operatorJoystick;
+    }
+
+    // Used for arm control command
+    public Joystick getOperatorController(){
+        return m_operatorController;
+    }
+
+    // returns if a controller is connected to port 2, used for deciding which controller to use for arm control
+    public boolean isController(){
+        return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT));
+    }
+
+    // used in robot.java to determine weather to set default commands or not
+    public boolean isDriverConnected(){
+        return(DriverStation.isJoystickConnected(Constants.DRIVER_JOYSTICK_PORT));
+    }
+    public boolean isOperatorConnected(){
+        return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT) || DriverStation.isJoystickConnected(Constants.OPERATOR_JOYSTICK_PORT));
     }
 
     public void configureButtonBindings(){

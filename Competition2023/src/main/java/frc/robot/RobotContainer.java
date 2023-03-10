@@ -50,9 +50,19 @@ public class RobotContainer{
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
-    M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+    // If statement should prevent the bagillion errors TODO test this
+    if (m_OI.isDriverConnected()){
+      M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+    }else{
+      System.out.println("ERROR: DRIVER JOYSTICK MISSING... ");
+    }
     // Sets default command for the arm to angling with operator joystick
-    M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithJoystick);
+    // If statement should prevent the bagillion errors TODO test this
+    if (m_OI.isOperatorConnected()){
+      M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithJoystick);
+    }else{
+      System.out.println("ERROR: OPERATOR JOYSTICK MISSING... ");
+    }
   }
 
   /* Set options for autonomous command chooser and display them for selection on
