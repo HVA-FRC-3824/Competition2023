@@ -88,7 +88,7 @@ public class WestCoastDrive extends SubsystemBase{
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_leftSlaveSpark.follow(m_leftMasterSpark);
+    //m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
     m_rightMasterPIDController = m_rightMasterSpark.getPIDController();
@@ -105,7 +105,7 @@ public class WestCoastDrive extends SubsystemBase{
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_rightSlaveSpark.follow(m_rightMasterSpark);
+    //m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
@@ -285,20 +285,19 @@ public class WestCoastDrive extends SubsystemBase{
       trajConfig);
 
     // Create command that will follow the trajectory.
-    // In vscode this jawn looks like a barcode haha
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, RobotContainer.M_WEST_COAST_DRIVE::getPose,
-                                                        new RamseteController(Constants.K_RAMSETE_B, Constants.K_RAMSETE_ZETA),
-                                                        new SimpleMotorFeedforward(Constants.K_S_VOLTS,
+                                                       new RamseteController(Constants.K_RAMSETE_B, Constants.K_RAMSETE_ZETA),
+                                                       new SimpleMotorFeedforward(Constants.K_S_VOLTS,
                                                                                   Constants.K_V_VOLT_SECONDS_PER_METER,
                                                                                   Constants.K_A_VOLT_SECONDS_SQUARED_PER_METER),
-                                                        Constants.K_DRIVE_KINEMATICS,
-                                                        RobotContainer.M_WEST_COAST_DRIVE::getWheelSpeeds,
-                                                        new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
-                                                        new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
-                                                        RobotContainer.M_WEST_COAST_DRIVE::driveWithVoltage, // RamseteCommand passes volts to the callback.
-                                                        RobotContainer.M_WEST_COAST_DRIVE);
+                                                       Constants.K_DRIVE_KINEMATICS,
+                                                       RobotContainer.M_WEST_COAST_DRIVE::getWheelSpeeds,
+                                                       new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
+                                                       new PIDController(Constants.K_P_DRIVE_VEL, 0, 0),
+                                                       RobotContainer.M_WEST_COAST_DRIVE::driveWithVoltage, // RamseteCommand passes volts to the callback.
+                                                       RobotContainer.M_WEST_COAST_DRIVE);
 
-    /* Return command group that will run path following command, then stop the robot at the end. */
+    // Return command group that will run path following command, then stop the robot at the end.
     return ramseteCommand.andThen(new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.driveWithVoltage(0, 0)));
   }
 }

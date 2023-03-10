@@ -16,8 +16,11 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 // #endregion
 
 public class Arm extends SubsystemBase{
+    // motors
     private WPI_TalonSRX m_armAngleMotor;
     private WPI_TalonFX m_armExtendMotor;
+
+    // encoder position variables
     private double actualArmAngle;
     private double actualArmExtensionPos;
 
@@ -25,7 +28,7 @@ public class Arm extends SubsystemBase{
         //TODO PIDS
         m_armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
         RobotContainer.configureTalonSRX(m_armAngleMotor, false, null, false, false,
-        0, 0, 0, 0.0, 0, 0, false);
+        0, 0.1, 0, 0.0, 0, 0, false);
 
         //TODO PIDS
         m_armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);

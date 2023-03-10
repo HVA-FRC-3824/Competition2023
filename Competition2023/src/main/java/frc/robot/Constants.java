@@ -15,7 +15,7 @@ public final class Constants{
     // #region Joysticks/controller IDs
     public static final int DRIVER_JOYSTICK_PORT                                                    = 0;
     public static final int OPERATOR_JOYSTICK_PORT                                                  = 1;
-    public static final int TEST_JOYSTICK_PORT                                                      = 2;
+    public static final int OPERATOR_CONTROLLER_PORT                                                = 2;
     // #endregion
 
     // #region Driver button IDs
