@@ -20,7 +20,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 // Pneumatics
-import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -43,7 +42,6 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 // #endregion
 
 public class WestCoastDrive extends SubsystemBase{
@@ -65,7 +63,7 @@ public class WestCoastDrive extends SubsystemBase{
   // Pneumatic objects
   private Solenoid m_gearShiftRight;
   private Solenoid m_gearShiftLeft;
-  private PneumaticHub m_pneumaticHub;
+  // private PneumaticHub m_pneumaticHub;
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
@@ -76,10 +74,12 @@ public class WestCoastDrive extends SubsystemBase{
   public WestCoastDrive(){
     // Instantiating drivetrain objects (configuring motor controllers, etc)
     m_leftMasterSpark = new CANSparkMax(Constants.WCD_LEFT_MASTER_ID, MotorType.kBrushless);
+    m_leftMasterPIDController = m_leftMasterSpark.getPIDController();
     RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, true, 0, 0, 0,
     0, 0, 0, 0);
 
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
+    m_leftSlavePIDController = m_leftSlaveSpark.getPIDController();
     RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, true, 0, 0, 0, 0,
     0, 0, 0);
 
@@ -91,10 +91,12 @@ public class WestCoastDrive extends SubsystemBase{
     m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
+    m_rightMasterPIDController = m_rightMasterSpark.getPIDController();
     RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, true, 0, 0, 0, 0,
     0, 0, 0);
 
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
+    m_rightSlavePIDController = m_rightSlaveSpark.getPIDController();
     RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, true, 0, 0, 0, 0, 
     0, 0, 0);
 
@@ -115,16 +117,18 @@ public class WestCoastDrive extends SubsystemBase{
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
-    // Move m_odometry up here 
+    // used for auto
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_ahrs.getAngle()), getDistanceMeters(m_leftEncoder.getPosition()),
                                                                       getDistanceMeters(m_rightEncoder.getPosition()));
-    m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
+
+    // used for compressor
+    // m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
 
     // configureing solenoids for each piston in the west coast drive "transmission"
     m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
     m_gearShiftRight = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_RIGHT_SHIFTER_CHANNEL);
 
-    // disables safety for the motors because otherwise auto doesn't work
+    // disables safety for the motors because otherwise auto doesn't work maybe
     m_differentialDrive.setSafetyEnabled(false);
   }
 
@@ -140,17 +144,18 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
 
-    // Puts pressure on the smart dashboard
-    SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
-    // If the Prssure is less than 110 then it enables the compressor and if the pressure is greater than 120 then it disables the compressor
-    if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) < 110){
-        m_pneumaticHub.enableCompressorDigital();
-    }else if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) > 120){
-        m_pneumaticHub.disableCompressor();
-    }
+    // COMPRESSOR ISN'T ON ROBOT RN
+    // // Puts pressure on the smart dashboard
+    // SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
+    // // If the Prssure is less than 110 then it enables the compressor and if the pressure is greater than 120 then it disables the compressor
+    // if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) < 110){
+    //     m_pneumaticHub.enableCompressorDigital();
+    // }else if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) > 120){
+    //     m_pneumaticHub.disableCompressor();
+    // }
 
-    // Puts compressor status on Smart Dashboard
-    SmartDashboard.putBoolean("Compressor on: ", m_pneumaticHub.getCompressor());
+    // // Puts compressor status on Smart Dashboard
+    // SmartDashboard.putBoolean("Compressor on: ", m_pneumaticHub.getCompressor());
 
   }
 
@@ -164,8 +169,9 @@ public class WestCoastDrive extends SubsystemBase{
     }else if(power < -Constants.WCD_MAX_POWER){
       power = -Constants.WCD_MAX_POWER;
     }
-    // applies the power to the drivetrain
     
+    // applies the power to the drivetrain
+    // negative turn and power because robot goes backwards otherwise.
     m_differentialDrive.arcadeDrive(-turn, -power, true);
   }
 
@@ -180,21 +186,15 @@ public class WestCoastDrive extends SubsystemBase{
   }
 
   public void setAndHoldPose(){
-    //TODO get current position using encoders and make the drivetrain keep us at that position, add in deadzone
-  }
-
-  /* Inverse of f(x)= CIRCUMFERENCE * (degrees/360)*/
-  public double getDegreesFromDistance(double meters){
-    return (360*meters)/Constants.WHEEL_CIRCUMFERENCE;
-  }
-
-  //TODO Takes in meters and goes forward that amount
-  public void driveForwardMeters(double meters){
-
+    // TODO TEST and add in deadzone, I don't even think these are the right methods
+    double leftEncoderTempPos = m_leftEncoder.getPosition();
+    double rightEncoderTempPos = m_leftEncoder.getPosition();
+    m_rightMasterPIDController.setReference(rightEncoderTempPos, CANSparkMax.ControlType.kPosition);
+    m_leftMasterPIDController.setReference(leftEncoderTempPos, CANSparkMax.ControlType.kPosition);
   }
 
   public void driveWithVelocity(boolean forward, double velocity){
-    //TODO write method, used by autobalance command
+    //TODO write method, to be used by autobalance command
   }
 
   public double getDistanceMeters(double degrees) {
@@ -206,6 +206,7 @@ public class WestCoastDrive extends SubsystemBase{
     return(m_ahrs);
   }
 
+  // used for auto
   public Pose2d getPose(){
     return m_odometry.getPoseMeters();
   }
@@ -217,28 +218,32 @@ public class WestCoastDrive extends SubsystemBase{
     m_differentialDrive.feed();
   }
 
+  // AUTO
   public double getLeftEncoderRate(){
     return m_leftEncoder.getVelocity() * Constants.K_ENCODER_DISTANCE_PER_PULSE * 1000;
   }
 
+  // AUTO
   public double getRightEncoderRate(){
     return -m_rightEncoder.getVelocity() * Constants.K_ENCODER_DISTANCE_PER_PULSE * 1000;
   }
 
+  // AUTO
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){
     return new DifferentialDriveWheelSpeeds(this.getLeftEncoderRate(), this.getRightEncoderRate());
   }
 
- // Reset gyro to zero the heading of the robot.
- public void zeroHeading(){
-   m_ahrs.reset();
-   m_ahrs.setAngleAdjustment(0.0);
- }
+  // Reset gyro to zero the heading of the robot.
+  public void zeroHeading(){
+    m_ahrs.reset();
+    m_ahrs.setAngleAdjustment(0.0);
+  }
 
- public void resetEncoders(){
-   m_leftEncoder.setPosition(0);
-   m_rightEncoder.setPosition(0);
- }
+  // AUTO
+  public void resetEncoders(){
+    m_leftEncoder.setPosition(0);
+    m_rightEncoder.setPosition(0);
+  }
 
   /**
    * Generates ramsete command for following passed in path in autonomous.

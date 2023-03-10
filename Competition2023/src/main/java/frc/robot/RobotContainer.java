@@ -183,10 +183,6 @@ public class RobotContainer{
      * their factory default state. If no argument is passed, these parameters will not persist between power cycles */
     sparkMax.restoreFactoryDefaults();
 
-    /* In order to use PID functionality for a controller, a SparkMaxPIDController object is constructed by calling
-     * the getPIDController() method on an existing CANSparkMax object */
-    pidController = sparkMax.getPIDController();
-
     sparkMax.setInverted(inverted);
     
     pidController.setP(kP);

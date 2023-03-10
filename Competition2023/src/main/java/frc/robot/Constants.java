@@ -68,15 +68,12 @@ public final class Constants{
             public static final double WHEEL_CIRCUMFERENCE                                          = (Math.PI * K_WHEEL_DIAMETER_METERS);
         //#endregion
 
-        // odemetry constants
-
-
         // Control related constants
         public static final double WCD_MAX_POWER                                                    = 1.0;
         public static final double WCD_TURN_SENS                                                    = 1.5;
 
         // Pneumatics
-        public static final int PNEUMATIC_HUB_ID                                                    = 6; //TODO get correct can id for PH
+        public static final int PNEUMATIC_HUB_ID                                                    = 6;
         public static final int ANALOG_PRESSURE_SENSOR_PH_ID                                        = 0;
         public static final int WCD_LEFT_SHIFTER_CHANNEL                                            = 1;
         public static final int WCD_RIGHT_SHIFTER_CHANNEL                                           = 2;                
@@ -89,7 +86,11 @@ public final class Constants{
         public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
         public static final double MAX_ARM_EXTENSION                                                = 3824; //TODO figure out num
         public static final double MIN_ARM_EXTENSION                                                = 0;
-        public static final double ARM_ANGLE_VOLTAGE                                                = 0; //TODO figure out num
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 3; // TODO figure out num
+        public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
+        public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
+        public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
+        public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
         // #endregion
 
         // #region GRABBER
@@ -106,7 +107,7 @@ public final class Constants{
         // server info
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
-        public static ScoreData[][] SCORE_DATA_ARRAY = new ScoreData[3][3];
+        public static ScoreData[][] SCORE_DATA_ARRAY                                                = new ScoreData[3][3];
    
         // #endregion
 

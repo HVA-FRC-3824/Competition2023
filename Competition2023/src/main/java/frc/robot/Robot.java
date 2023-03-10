@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
     System.out.println("AVE CHRISTUS REX");
     System.out.println("SANCTA MARIA, MATER DEI, ORA PRO NOBIS PECCATORIBUS ET NOBIS VICTORIAM REDDE");
 
-    /* Init TagData objects*/
+    // Init TagData objects
     for(int i = 0; i < Constants.MAX_TAGS; i++)
     {
       // Type cast to float because default goes to double.
