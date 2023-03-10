@@ -88,7 +88,7 @@ public class WestCoastDrive extends SubsystemBase{
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    //m_leftSlaveSpark.follow(m_leftMasterSpark);
+    m_leftSlaveSpark.follow(m_leftMasterSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
     m_rightMasterPIDController = m_rightMasterSpark.getPIDController();
@@ -105,7 +105,7 @@ public class WestCoastDrive extends SubsystemBase{
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    //m_rightSlaveSpark.follow(m_rightMasterSpark);
+    m_rightSlaveSpark.follow(m_rightMasterSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
     m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
