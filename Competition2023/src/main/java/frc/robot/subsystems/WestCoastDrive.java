@@ -151,6 +151,7 @@ public class WestCoastDrive extends SubsystemBase{
 
     // Puts compressor status on Smart Dashboard
     SmartDashboard.putBoolean("Compressor on: ", m_pneumaticHub.getCompressor());
+
   }
 
   // Method to drive robot, using power %
@@ -164,7 +165,8 @@ public class WestCoastDrive extends SubsystemBase{
       power = -Constants.WCD_MAX_POWER;
     }
     // applies the power to the drivetrain
-    m_differentialDrive.arcadeDrive(turn, power, true);
+    
+    m_differentialDrive.arcadeDrive(-turn, -power, true);
   }
 
   // Methods to control gearbox shifter.

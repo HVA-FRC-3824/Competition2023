@@ -60,7 +60,7 @@ public final class Constants{
             // Maximum voltage is 10V rather than nominal battery voltage of 12V for "headroom" in dealing with "voltage sag."
             public static final int K_MAX_VOLTAGE                                                   = 10;
             
-            public static final double K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED                 = 3.0;
+            public static final double K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED                 = 1.0; //3.0
 
             public static final double K_RAMSETE_B                                                  = 2;
             public static final double K_RAMSETE_ZETA                                               = 0.7;
