@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,6 +19,8 @@ public class InlineCommands{
 
     // Grabber
     public final Command m_toggleGrabber;
+    public final Command m_grabberOpen;
+    public final Command m_grabberClose;
 
     // Arm
     public final Command m_angleArmWithJoystick;
@@ -26,6 +29,7 @@ public class InlineCommands{
     public final Command m_armBottomPos;
     public final Command m_extendArm;
     public final Command m_retractArm;
+
 
     public InlineCommands(){
         // WestCoast
@@ -37,10 +41,12 @@ public class InlineCommands{
 
         // Grabber
         m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
+        m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberOpen());
+        m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberClose());
 
         // Arm
         // if (RobotContainer.isController()){
-            m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorController().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
+        m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorController().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
         // }else{
         //     m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorJoystick().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
         // }

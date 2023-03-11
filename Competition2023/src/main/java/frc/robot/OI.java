@@ -80,10 +80,13 @@ public class OI{
         m_setArmTopPosBtn = new JoystickButton(m_operatorController, 4);
         m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 3);
         m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);
+        
         m_extendArmPOVBtn = new POVButton(m_operatorController, 90);
         m_retractArmPOVBtn = new POVButton(m_operatorController, 270);
 
-        // m_closeGrabberTemp = new J
+        m_grabberCloseTempBtn = new JoystickButton(m_operatorController, 6);
+        m_grabberOpenTempBtn = new JoystickButton(m_operatorController, 5);
+
     }
 
     // Used for driving command
@@ -140,10 +143,10 @@ public class OI{
         // m_joystickSetArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         
-        // m_joystickExtendArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
         m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
-        
-        // m_joystickRetractArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
         m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
+
+        m_grabberOpenTempBtn.whileTrue(RobotContainer.m_inlineCommands.m_grabberOpen);
+        m_grabberCloseTempBtn.whileTrue(RobotContainer.m_inlineCommands.m_grabberClose);
     }
 }

@@ -34,8 +34,16 @@ public class Grabber extends SubsystemBase{
             m_grabberStatus = false;
         }else{
             // Close grabber
-            m_grabberMotor.setVoltage(Constants.GRABBER_CLOSE_VOLTAGE);
+            m_grabberMotor.setVoltage(-Constants.GRABBER_CLOSE_VOLTAGE);
             m_grabberStatus = true;
         }
+    }
+
+    public void grabberOpen(){
+        m_grabberMotor.setVoltage(Constants.GRABBER_CLOSE_VOLTAGE);
+    }
+
+    public void grabberClose(){
+        m_grabberMotor.setVoltage(-Constants.GRABBER_CLOSE_VOLTAGE);
     }
 }

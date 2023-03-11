@@ -82,8 +82,8 @@ public final class Constants{
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 8;
         public static final int ARM_EXTEND_MOTOR_ID                                                 = 7;
-        public static final double MAX_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
-        public static final double MIN_ARM_ANGLE                                                    = 3824; //TODO figure out encoder number
+        public static final double MAX_ARM_ANGLE                                                    = 100000000; //TODO figure out encoder number
+        public static final double MIN_ARM_ANGLE                                                    = -100000000; //TODO figure out encoder number
         public static final double MAX_ARM_EXTENSION                                                = 3824; //TODO figure out num
         public static final double MIN_ARM_EXTENSION                                                = 0;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 3; // TODO figure out num
@@ -95,7 +95,7 @@ public final class Constants{
 
         // #region GRABBER
         public static final int GRABBER_MOTOR_ID                                                    = 9;
-        public static final double GRABBER_CLOSE_VOLTAGE                                            = 3; 
+        public static final double GRABBER_CLOSE_VOLTAGE                                            = 2; 
         // #endregion
 
         // #region LEDs
