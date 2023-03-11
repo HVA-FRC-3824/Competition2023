@@ -15,6 +15,7 @@ public class LEDs extends SubsystemBase{
     private AddressableLED m_LED = new AddressableLED(Constants.LEDS_ID);
     private AddressableLEDBuffer m_LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
     private int m_hue = 0;
+    private int i = 0;
     
     public LEDs(){ 
         // Sets the LEDs length to the buffer length
@@ -106,19 +107,21 @@ public class LEDs extends SubsystemBase{
 
     private void setLEDsBounce(){
         int led_max = m_LEDsBuffer.getLength();
-        for(int i = 0; i < led_max; i++){
-            if(i == led_max){
-               m_LEDsBuffer.setHSV(i, 100, 255, 0);
-               break; 
-            }
-            
-            if(i != 0){
-                m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
-                continue;
-            }
-            
-            m_LEDsBuffer.setHSV(i, 100, 255, 255);
+        if(i == led_max){
+           m_LEDsBuffer.setHSV(i, 100, 255, 0);
+           i = 0;
+           return;
         }
+            
+        if(i != 0){
+            m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
+            i++;
+            return;
+        }
+            
+        m_LEDsBuffer.setHSV(i, 100, 255, 255);
+        i++;
+        
     }
 
     // Method called in other places to set a led pattern
