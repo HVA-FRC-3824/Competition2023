@@ -1,12 +1,12 @@
-# 2023 Competition Robot #
+# 2023 Competition Robot - ARMageddon #
 > Robot made to compete in 2023 FRC *Charged Up*
 
-This robot's capabilities include:
+ARMageddon's capabilities include:
 - Westcoast Drive with two speed pneumatic transmission
 - Grabber
 - Articulating and telescoping arm
 - [Custom vision system](https://github.com/bogogion/frc-2023-cv)
-- Autonomous Commands to be added
+- Autonomous capability
 
 *Capabilities will, and can change. List WIP*
 ## The authors of this robot's code are: ##
