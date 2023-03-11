@@ -4,7 +4,6 @@ import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.AutonomousMTM;
 import frc.robot.commands.AutonomousRTM;
 import frc.robot.commands.InlineCommands;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.IdleMode;
 
 // import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.SparkMaxRelativeEncoder;
@@ -51,9 +49,9 @@ public class RobotContainer{
   }
 
   // Had to take out of m_OI, because m_inline commands calls it before it exists.
-  public static boolean isController(){
-    return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT));
-  }
+  // public static boolean isController(){
+  //   return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT));
+  // }
 
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){

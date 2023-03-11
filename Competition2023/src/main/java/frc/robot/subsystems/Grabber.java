@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 // #region imports
 // General
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -22,13 +24,16 @@ public class Grabber extends SubsystemBase{
     @Override
     public void periodic(){
         SmartDashboard.putBoolean("Grabber status (true closed, false open)", m_grabberStatus);
+        SmartDashboard.putNumber("Grabber Encoder pos: ", m_grabberMotor.getSelectedSensorPosition());
     }
 
     public void toggleGrabber(){
         if(m_grabberStatus){
-            m_grabberMotor.setVoltage(Constants.GRABBER_OPEN_VOLTAGE);
+            // Open grabber
+            m_grabberMotor.set(ControlMode.Position, 0);
             m_grabberStatus = false;
         }else{
+            // Close grabber
             m_grabberMotor.setVoltage(Constants.GRABBER_CLOSE_VOLTAGE);
             m_grabberStatus = true;
         }

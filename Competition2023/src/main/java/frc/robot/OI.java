@@ -12,22 +12,22 @@ import frc.robot.commands.Autobalance;
 public class OI{
     // joysticks
     private static Joystick m_driverJoystick;
-    private static Joystick m_operatorJoystick;
+    // private static Joystick m_operatorJoystick;
     private static Joystick m_operatorController;
     
     // driver joystick buttons
     private static JoystickButton m_gearShiftBtn;
     
     // operator joystick buttons
-    private static JoystickButton m_joystickGrabberBtn;
-    private static JoystickButton m_joystickAutoBalanceBtn;
-    private static JoystickButton m_joystickSetAndHoldPoseBtn;
-    private static JoystickButton m_joystickSetArmTopPosBtn;
-    private static JoystickButton m_joystickSetArmMiddlePosLeftBtn;
-    private static JoystickButton m_joystickSetArmMiddlePosRightBtn;
-    private static JoystickButton m_joystickSetArmBottomPosBtn;
-    private static JoystickButton m_joystickExtendArmBtn;
-    private static JoystickButton m_joystickRetractArmBtn;
+    // private static JoystickButton m_joystickGrabberBtn;
+    // private static JoystickButton m_joystickAutoBalanceBtn;
+    // private static JoystickButton m_joystickSetAndHoldPoseBtn;
+    // private static JoystickButton m_joystickSetArmTopPosBtn;
+    // private static JoystickButton m_joystickSetArmMiddlePosLeftBtn;
+    // private static JoystickButton m_joystickSetArmMiddlePosRightBtn;
+    // private static JoystickButton m_joystickSetArmBottomPosBtn;
+    // private static JoystickButton m_joystickExtendArmBtn;
+    // private static JoystickButton m_joystickRetractArmBtn;
     
     // operator controller buttons
     private static JoystickButton m_grabberBtn;
@@ -38,6 +38,9 @@ public class OI{
     private static JoystickButton m_setArmBottomPosBtn;
     private static POVButton m_extendArmPOVBtn;
     private static POVButton m_retractArmPOVBtn;
+
+    private static JoystickButton m_grabberCloseTempBtn;
+    private static JoystickButton m_grabberOpenTempBtn;
     
     // Commands
     private Autobalance m_autoBalanceCommandClass = new Autobalance();
@@ -45,22 +48,22 @@ public class OI{
     public OI(){
         // Joysticks/Controllers
         m_driverJoystick = new Joystick(Constants.DRIVER_JOYSTICK_PORT);
-        m_operatorJoystick = new Joystick(Constants.OPERATOR_JOYSTICK_PORT);
+        // m_operatorJoystick = new Joystick(Constants.OPERATOR_JOYSTICK_PORT);
         m_operatorController = new Joystick(Constants.OPERATOR_CONTROLLER_PORT);
         
         // Driver buttons
         m_gearShiftBtn = new JoystickButton(m_driverJoystick, Constants.DRIVER_GEAR_SHIFT_BTN_ID);
         
         // Operator joystick buttons
-        m_joystickGrabberBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_GRABBER_TOGGLE_BTN_ID);
-        m_joystickAutoBalanceBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_AUTOBALANCE_BTN_ID);
-        m_joystickSetAndHoldPoseBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_HOLD_POSE_TOGLE_BTN_ID);
-        m_joystickSetArmTopPosBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_TOP_POSE_BTN_ID);
-        m_joystickSetArmMiddlePosLeftBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_MIDDLE_POSE_LEFT_BTN_ID);
-        m_joystickSetArmMiddlePosRightBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_MIDDLE_POSE_RIGHT_BTN_ID);
-        m_joystickSetArmBottomPosBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_BOTTOM_POSE_BTN_ID);
-        m_joystickExtendArmBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_EXTEND_ARM_BTN_ID);
-        m_joystickRetractArmBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_RETRACT_ARM_BTN_ID);
+        // m_joystickGrabberBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_GRABBER_TOGGLE_BTN_ID);
+        // m_joystickAutoBalanceBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_AUTOBALANCE_BTN_ID);
+        // m_joystickSetAndHoldPoseBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_HOLD_POSE_TOGLE_BTN_ID);
+        // m_joystickSetArmTopPosBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_TOP_POSE_BTN_ID);
+        // m_joystickSetArmMiddlePosLeftBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_MIDDLE_POSE_LEFT_BTN_ID);
+        // m_joystickSetArmMiddlePosRightBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_MIDDLE_POSE_RIGHT_BTN_ID);
+        // m_joystickSetArmBottomPosBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_SET_ARM_BOTTOM_POSE_BTN_ID);
+        // m_joystickExtendArmBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_EXTEND_ARM_BTN_ID);
+        // m_joystickRetractArmBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_RETRACT_ARM_BTN_ID);
 
         // Operator controller buttons
         // A     - 1
@@ -79,6 +82,8 @@ public class OI{
         m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);
         m_extendArmPOVBtn = new POVButton(m_operatorController, 90);
         m_retractArmPOVBtn = new POVButton(m_operatorController, 270);
+
+        // m_closeGrabberTemp = new J
     }
 
     // Used for driving command
@@ -87,9 +92,9 @@ public class OI{
     }
 
     // Used for arm control command
-    public Joystick getOperatorJoystick(){
-        return m_operatorJoystick;
-    }
+    // public Joystick getOperatorJoystick(){
+    //     return m_operatorJoystick;
+    // }
 
     // Used for arm control command
     public Joystick getOperatorController(){
@@ -114,31 +119,31 @@ public class OI{
         m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
         m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
         
-        m_joystickAutoBalanceBtn.onTrue(m_autoBalanceCommandClass);
+        // m_joystickAutoBalanceBtn.onTrue(m_autoBalanceCommandClass);
         m_autoBalanceBtn.onTrue(m_autoBalanceCommandClass);
         
-        m_joystickSetAndHoldPoseBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
+        // m_joystickSetAndHoldPoseBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
         m_setAndHoldPosBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
         
         // Grabber
-        m_joystickGrabberBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleGrabber);
+        // m_joystickGrabberBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleGrabber);
         m_grabberBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleGrabber);
         
         // Arm
-        m_joystickSetArmTopPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armTopPos);
+        // m_joystickSetArmTopPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armTopPos);
         m_setArmTopPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armTopPos);
         
-        m_joystickSetArmMiddlePosLeftBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
-        m_joystickSetArmMiddlePosRightBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
+        // m_joystickSetArmMiddlePosLeftBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
+        // m_joystickSetArmMiddlePosRightBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
         m_setArmMiddlePosBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
         
-        m_joystickSetArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
+        // m_joystickSetArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         
-        m_joystickExtendArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
+        // m_joystickExtendArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
         m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
         
-        m_joystickRetractArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
+        // m_joystickRetractArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
         m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
     }
 }

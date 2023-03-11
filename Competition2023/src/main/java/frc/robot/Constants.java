@@ -95,8 +95,7 @@ public final class Constants{
 
         // #region GRABBER
         public static final int GRABBER_MOTOR_ID                                                    = 9;
-        public static final double GRABBER_OPEN_VOLTAGE                                             = -0.1; 
-        public static final double GRABBER_CLOSE_VOLTAGE                                            = 0.0; //TODO decide volage
+        public static final double GRABBER_CLOSE_VOLTAGE                                            = 3; 
         // #endregion
 
         // #region LEDs

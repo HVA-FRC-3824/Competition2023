@@ -76,12 +76,12 @@ public class WestCoastDrive extends SubsystemBase{
     // Instantiating drivetrain objects (configuring motor controllers, etc)
     m_leftMasterSpark = new CANSparkMax(Constants.WCD_LEFT_MASTER_ID, MotorType.kBrushless);
     m_leftMasterPIDController = m_leftMasterSpark.getPIDController();
-    RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, true, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_leftMasterSpark, m_leftMasterPIDController, false, 0, 0, 0,
     0, 0, 0, 0);
 
     m_leftSlaveSpark = new CANSparkMax(Constants.WCD_LEFT_SLAVE_ID, MotorType.kBrushless);
     m_leftSlavePIDController = m_leftSlaveSpark.getPIDController();
-    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, true, 0, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_leftSlaveSpark, m_leftSlavePIDController, false, 0, 0, 0, 0,
     0, 0, 0);
 
     // Creates encoder object
@@ -93,12 +93,12 @@ public class WestCoastDrive extends SubsystemBase{
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
     m_rightMasterPIDController = m_rightMasterSpark.getPIDController();
-    RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, true, 0, 0, 0, 0,
+    RobotContainer.configureSparkMax(m_rightMasterSpark, m_rightMasterPIDController, false, 0, 0, 0, 0,
     0, 0, 0);
 
     m_rightSlaveSpark = new CANSparkMax(Constants.WCD_RIGHT_SLAVE_ID, MotorType.kBrushless);
     m_rightSlavePIDController = m_rightSlaveSpark.getPIDController();
-    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, true, 0, 0, 0, 0, 
+    RobotContainer.configureSparkMax(m_rightSlaveSpark, m_rightSlavePIDController, false, 0, 0, 0, 0, 
     0, 0, 0);
 
     // Creates encoder object
@@ -176,7 +176,7 @@ public class WestCoastDrive extends SubsystemBase{
     
     // applies the power to the drivetrain
     // negative turn and power because robot goes backwards otherwise.
-    m_differentialDrive.arcadeDrive(-turn, -power, true);
+    m_differentialDrive.arcadeDrive(turn, power, true);
   }
 
   // Methods to control gearbox shifter.

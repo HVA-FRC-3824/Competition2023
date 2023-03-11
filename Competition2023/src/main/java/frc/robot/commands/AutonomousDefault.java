@@ -8,12 +8,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.Autobalance;
 // import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 
 public class AutonomousDefault extends SequentialCommandGroup{
-    private Autobalance autoBalanceObj = new Autobalance();
     private Pose2d startingPose = new Pose2d(2, 2.75, new Rotation2d(0));
     private List<Translation2d> waypoints = List.of(new Translation2d(4.5, 2.75));
     private Pose2d middlePose = new Pose2d(7, 2.75, new Rotation2d(0));

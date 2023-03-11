@@ -71,6 +71,11 @@ public class Arm extends SubsystemBase{
         m_armExtendMotor.setNeutralMode(NeutralMode.Coast);
     }
 
+    public void setArmMotorsBreak(){
+        m_armAngleMotor.setNeutralMode(NeutralMode.Brake);
+        m_armExtendMotor.setNeutralMode(NeutralMode.Brake);
+    }
+
     // sets arm to bottom grid score length
     public void extendArmBotton(){
         m_armExtendMotor.set(ControlMode.Position, Constants.ARM_BOTTOM_EXTENSION_VALUE);
