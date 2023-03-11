@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 // #region imports
 // General
+import java.util.List;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -22,12 +23,12 @@ import com.revrobotics.RelativeEncoder;
 // Pneumatics
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-
-import java.util.List;
+import edu.wpi.first.wpilibj.PneumaticHub;
 
 // Odometry
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -63,7 +64,7 @@ public class WestCoastDrive extends SubsystemBase{
   // Pneumatic objects
   private Solenoid m_gearShiftRight;
   private Solenoid m_gearShiftLeft;
-  // private PneumaticHub m_pneumaticHub;
+  private PneumaticHub m_pneumaticHub;
 
   // Odometry
   private AHRS m_ahrs; // altitude and heading reference system [AHRS]
@@ -122,7 +123,7 @@ public class WestCoastDrive extends SubsystemBase{
                                                                       getDistanceMeters(m_rightEncoder.getPosition()));
 
     // used for compressor
-    // m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
+    m_pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_ID);
 
     // configureing solenoids for each piston in the west coast drive "transmission"
     m_gearShiftLeft = new Solenoid(Constants.PNEUMATIC_HUB_ID, PneumaticsModuleType.REVPH, Constants.WCD_LEFT_SHIFTER_CHANNEL);
@@ -144,19 +145,22 @@ public class WestCoastDrive extends SubsystemBase{
     SmartDashboard.putNumber("Gyro Pitch: ", m_ahrs.getPitch());
     SmartDashboard.putNumber("Gyro Roll: ", m_ahrs.getRoll());
 
-    // COMPRESSOR ISN'T ON ROBOT RN
-    // // Puts pressure on the smart dashboard
-    // SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
-    // // If the Prssure is less than 110 then it enables the compressor and if the pressure is greater than 120 then it disables the compressor
-    // if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) < 110){
-    //     m_pneumaticHub.enableCompressorDigital();
-    // }else if(m_pneumaticHub.getPressure(Constants.ANALOG_PRESSURE_SENSOR_PH_ID) > 120){
-    //     m_pneumaticHub.disableCompressor();
-    // }
+    // Puts pressure on the smart dashboard
+    SmartDashboard.putNumber("System Pressure: ", m_pneumaticHub.getPressure(0));
+  }
 
-    // // Puts compressor status on Smart Dashboard
-    // SmartDashboard.putBoolean("Compressor on: ", m_pneumaticHub.getCompressor());
+  public void setDriveTrainBreak(){
+    m_leftMasterSpark.setIdleMode(IdleMode.kBrake);
+    m_leftSlaveSpark.setIdleMode(IdleMode.kBrake);
+    m_rightMasterSpark.setIdleMode(IdleMode.kBrake);
+    m_rightSlaveSpark.setIdleMode(IdleMode.kBrake);
+  }
 
+  public void setDriveTrainCoast(){
+    m_leftMasterSpark.setIdleMode(IdleMode.kCoast);
+    m_leftSlaveSpark.setIdleMode(IdleMode.kCoast);
+    m_rightMasterSpark.setIdleMode(IdleMode.kCoast);
+    m_rightSlaveSpark.setIdleMode(IdleMode.kCoast);
   }
 
   // Method to drive robot, using power %

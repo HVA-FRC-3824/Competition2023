@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 // Smart Dashboard
@@ -29,10 +30,12 @@ public class Arm extends SubsystemBase{
         m_armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
         RobotContainer.configureTalonSRX(m_armAngleMotor, false, null, false, false,
         0, 0.1, 0, 0.0, 0, 0, false);
+        m_armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         //TODO PIDS
         m_armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
         RobotContainer.configureTalonFX(m_armExtendMotor, true, true, 0.0, 0.1, 0.0, 0.0);
+        m_armExtendMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     @Override
@@ -61,6 +64,11 @@ public class Arm extends SubsystemBase{
             // move arm up slightly;
             m_armAngleMotor.setVoltage(1);
         }
+    }
+
+    public void setArmMotorsCoast(){
+        m_armAngleMotor.setNeutralMode(NeutralMode.Coast);
+        m_armExtendMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     // sets arm to bottom grid score length

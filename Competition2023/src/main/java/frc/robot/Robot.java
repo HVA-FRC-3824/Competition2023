@@ -36,8 +36,6 @@ public class Robot extends TimedRobot {
 
     // Instantiate RobotContainer. 
     m_robotContainer = new RobotContainer();
-
-
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 
@@ -63,10 +61,10 @@ public class Robot extends TimedRobot {
   // This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
   @Override
   public void autonomousInit(){
-    // Commands zero heading and reset encoders obv
+    // Commands zero heading, reset encoders, and sets the drivetrain to coast mode obv
     RobotContainer.M_WEST_COAST_DRIVE.zeroHeading();
     RobotContainer.M_WEST_COAST_DRIVE.resetEncoders();
-    
+    RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
     // Command sets autocommand to the command based on the smartdashboard
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -76,6 +74,8 @@ public class Robot extends TimedRobot {
     }else{
       System.out.println("m_autoCommand is null, error with getAutonomousCommand method most likely. ");
     }
+
+    RobotContainer.M_ARM.setArmMotorsCoast();
   }
 
   // This method is called periodically during autonomous.
@@ -89,7 +89,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
     RobotContainer.initializeTeleopDefaultCommands();
+    RobotContainer.M_ARM.setArmMotorsCoast();
   }
 
   // This method is called periodically during operator control.

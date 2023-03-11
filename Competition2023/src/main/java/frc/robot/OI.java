@@ -1,16 +1,10 @@
 package frc.robot;
 
-import java.lang.ModuleLayer.Controller;
-
 import edu.wpi.first.wpilibj.DriverStation;
 // Joystick and Button
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-// Controller, axis and button
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Axis;
-import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 // Commands
 import frc.robot.commands.Autobalance;
@@ -42,8 +36,8 @@ public class OI{
     private static JoystickButton m_setArmTopPosBtn;
     private static JoystickButton m_setArmMiddlePosBtn;
     private static JoystickButton m_setArmBottomPosBtn;
-    private static JoystickButton m_extendArmBtn;
-    private static JoystickButton m_retractArmBtn;
+    private static POVButton m_extendArmPOVBtn;
+    private static POVButton m_retractArmPOVBtn;
     
     // Commands
     private Autobalance m_autoBalanceCommandClass = new Autobalance();
@@ -69,7 +63,6 @@ public class OI{
         m_joystickRetractArmBtn = new JoystickButton(m_operatorJoystick, Constants.OPERATOR_RETRACT_ARM_BTN_ID);
 
         // Operator controller buttons
-        // TODO set button numbers 
         // A     - 1
         // B     - 2
         // X     - 3
@@ -84,8 +77,8 @@ public class OI{
         m_setArmTopPosBtn = new JoystickButton(m_operatorController, 4);
         m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 3);
         m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);
-        m_extendArmBtn = new JoystickButton(m_operatorController, 6);
-        m_retractArmBtn = new JoystickButton(m_operatorController, 5);
+        m_extendArmPOVBtn = new POVButton(m_operatorController, 90);
+        m_retractArmPOVBtn = new POVButton(m_operatorController, 270);
     }
 
     // Used for driving command
@@ -143,9 +136,9 @@ public class OI{
         m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         
         m_joystickExtendArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
-        m_extendArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
+        m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
         
         m_joystickRetractArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
-        m_retractArmBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
+        m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
     }
 }
