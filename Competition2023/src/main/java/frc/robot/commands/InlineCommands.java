@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -12,10 +11,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * For chains of commands (Example: ten-ball autonomous command sequence), create a separate CommandBase/CommandGroup file. */
 public class InlineCommands{
     // WestCoast drive
-    public final Command m_driveWithJoystick;
-    public final Command m_shiftHighGear;
-    public final Command m_shiftLowGear;
-    public final Command m_setAndHoldPose;
+    // public final Command m_driveWithJoystick;
+    // public final Command m_shiftHighGear;
+    // public final Command m_shiftLowGear;
+    // public final Command m_setAndHoldPose;
 
     // Grabber
     public final Command m_toggleGrabber;
@@ -34,11 +33,11 @@ public class InlineCommands{
 
     public InlineCommands(){
         // WestCoast
-        m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(RobotContainer.m_OI.getDriverJoystick().getY(), 
-                                                   RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
-        m_shiftHighGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftHighGear());
-        m_shiftLowGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftLowGear());
-        m_setAndHoldPose = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.setAndHoldPose());
+        // m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(RobotContainer.m_OI.getDriverJoystick().getY(), 
+        //                                            RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
+        // m_shiftHighGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftHighGear());
+        // m_shiftLowGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftLowGear());
+        // m_setAndHoldPose = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.setAndHoldPose());
 
         // Grabber
         m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());

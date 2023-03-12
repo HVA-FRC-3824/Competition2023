@@ -19,7 +19,7 @@ import com.revrobotics.SparkMaxPIDController;
 // importing subsystems
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Grabber;
-import frc.robot.subsystems.WestCoastDrive;
+import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.LEDs;
 
 /* This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,7 +28,7 @@ import frc.robot.subsystems.LEDs;
  * subsystems, commands, and button mappings) should be declared here. */
 public class RobotContainer{
   // The robot's subsystems and commands are defined here...
-  public static final WestCoastDrive M_WEST_COAST_DRIVE = new WestCoastDrive();
+  public static final SwerveDrive M_SWERVE_DRIVE = new SwerveDrive();
   public static final Arm M_ARM = new Arm();
   public static final Grabber M_GRABBER = new Grabber();
   public static final LEDs M_LEDS = new LEDs();
@@ -58,7 +58,7 @@ public class RobotContainer{
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
     // If statement should prevent the bagillion errors TODO test this
     if (m_OI.isDriverConnected()){
-      M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+      // M_SWERVE_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
     }else{
       System.out.println("ERROR: DRIVER JOYSTICK MISSING... ");
     }
@@ -193,24 +193,24 @@ public class RobotContainer{
     System.out.println("Motor (ID:" + talonSRX.getDeviceID() + ") sucessfully configured");
   }
 
-  public static void configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, boolean inverted, double kP, double kI,
-                                      double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
-    /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 
-     * their factory default state. If no argument is passed, these parameters will not persist between power cycles */
-    sparkMax.restoreFactoryDefaults();
+  // public static void configureSparkMax(CANSparkMax sparkMax, SparkMaxPIDController pidController, boolean inverted, double kP, double kI,
+  //                                     double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput ){
+  //   /* The restoreFactoryDefaults method can be used to reset the configuration parameters in the SPARK MAX to 
+  //    * their factory default state. If no argument is passed, these parameters will not persist between power cycles */
+  //   sparkMax.restoreFactoryDefaults();
 
-    sparkMax.setInverted(inverted);
+  //   sparkMax.setInverted(inverted);
 
-    //TODO set a limit
-    //sparkMax.limi
+  //   //TODO set a limit
+  //   //sparkMax.limi
     
-    pidController.setP(kP);
-    pidController.setI(kI);
-    pidController.setD(kD);
-    pidController.setIZone(kIz);
-    pidController.setFF(kFF);
-    pidController.setOutputRange(kMinOutput, kMaxOutput);
+  //   pidController.setP(kP);
+  //   pidController.setI(kI);
+  //   pidController.setD(kD);
+  //   pidController.setIZone(kIz);
+  //   pidController.setFF(kFF);
+  //   pidController.setOutputRange(kMinOutput, kMaxOutput);
 
-    sparkMax.burnFlash();
-  }
+  //   sparkMax.burnFlash();
+  // }
 }

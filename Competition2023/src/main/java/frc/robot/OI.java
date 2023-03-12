@@ -119,14 +119,14 @@ public class OI{
 
     public void configureButtonBindings(){
         // WestCoastDrive
-        m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
-        m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
+        // m_gearShiftBtn.onTrue(RobotContainer.m_inlineCommands.m_shiftHighGear);
+        // m_gearShiftBtn.onFalse(RobotContainer.m_inlineCommands.m_shiftLowGear);
         
         // m_joystickAutoBalanceBtn.onTrue(m_autoBalanceCommandClass);
         m_autoBalanceBtn.onTrue(m_autoBalanceCommandClass);
         
         // m_joystickSetAndHoldPoseBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
-        m_setAndHoldPosBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
+        // m_setAndHoldPosBtn.onTrue(RobotContainer.m_inlineCommands.m_setAndHoldPose);
         
         // Grabber
         // m_joystickGrabberBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleGrabber);

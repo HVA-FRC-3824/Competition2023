@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
   // This method is called once each time the robot enters Disabled mode.
   @Override
   public void disabledInit(){
-    RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainBreak();
+    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainBreak();
     RobotContainer.M_ARM.setArmMotorsBreak();
   }
 
@@ -68,9 +68,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit(){
     // Commands zero heading, reset encoders, and sets the drivetrain to coast mode obv
-    RobotContainer.M_WEST_COAST_DRIVE.zeroHeading();
-    RobotContainer.M_WEST_COAST_DRIVE.resetEncoders();
-    RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
+    // RobotContainer.M_WEST_COAST_DRIVE.zeroHeading();
+    // RobotContainer.M_WEST_COAST_DRIVE.resetEncoders();
+    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
     // Command sets autocommand to the command based on the smartdashboard
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
+    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
     RobotContainer.initializeTeleopDefaultCommands();
     RobotContainer.M_ARM.setArmMotorsCoast();
   }
