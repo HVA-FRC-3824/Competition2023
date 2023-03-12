@@ -64,7 +64,7 @@ public class AutoScore {
         }
 
         // Angle
-        RobotContainer.M_ARM.angleArm(angle);
+        RobotContainer.M_ARM.setDesiredArmPosition(angle);
 
         // Dist
         RobotContainer.M_ARM.extendArm();

@@ -82,11 +82,11 @@ public final class Constants{
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 8;
         public static final int ARM_EXTEND_MOTOR_ID                                                 = 7;
-        public static final double MAX_ARM_ANGLE                                                    = 100000000; //TODO figure out encoder number
-        public static final double MIN_ARM_ANGLE                                                    = -100000000; //TODO figure out encoder number
+        public static final double MAX_ARM_POSITION                                                 = 10000; //TODO figure out encoder number
+        public static final double MIN_ARM_POSITION                                                 = -1000; //TODO figure out encoder number
         public static final double MAX_ARM_EXTENSION                                                = 3824; //TODO figure out num
         public static final double MIN_ARM_EXTENSION                                                = 0;
-        public static final double ARM_EXTENSION_VOLTAGE                                            = 3; // TODO figure out num
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 5; // TODO figure out num
         public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num

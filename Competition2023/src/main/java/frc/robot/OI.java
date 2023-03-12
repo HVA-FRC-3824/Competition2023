@@ -81,8 +81,8 @@ public class OI{
         m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 3);
         m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);
         
-        m_extendArmPOVBtn = new POVButton(m_operatorController, 90);
-        m_retractArmPOVBtn = new POVButton(m_operatorController, 270);
+        m_extendArmPOVBtn = new POVButton(m_operatorController, 0);
+        m_retractArmPOVBtn = new POVButton(m_operatorController, 180);
 
         m_grabberCloseTempBtn = new JoystickButton(m_operatorController, 6);
         m_grabberOpenTempBtn = new JoystickButton(m_operatorController, 5);
@@ -143,8 +143,8 @@ public class OI{
         // m_joystickSetArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         
-        m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
-        m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
+        m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
+        m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
 
         m_grabberOpenTempBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberOpen).onFalse(RobotContainer.m_inlineCommands.m_grabberHalt);
         m_grabberCloseTempBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberClose).onFalse(RobotContainer.m_inlineCommands.m_grabberHalt);

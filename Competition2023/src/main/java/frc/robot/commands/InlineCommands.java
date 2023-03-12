@@ -25,12 +25,12 @@ public class InlineCommands{
     public final Command m_grabberHalt;
 
     // Arm
-    public final Command m_angleArmWithJoystick;
     public final Command m_armTopPos;
     public final Command m_armMiddlePos;
     public final Command m_armBottomPos;
     public final Command m_extendArm;
     public final Command m_retractArm;
+    public final Command m_extenderHalt;
 
 
     public InlineCommands(){
@@ -48,15 +48,11 @@ public class InlineCommands{
         m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(0));
 
         // Arm
-        // if (RobotContainer.isController()){
-        m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorController().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
-        // }else{
-        //     m_angleArmWithJoystick = new RunCommand(() -> RobotContainer.M_ARM.angleArm(RobotContainer.m_OI.getOperatorJoystick().getY()), RobotContainer.M_ARM); //TODO figure out if this is the right axis
-        // }
         m_armTopPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop());
         m_armMiddlePos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmMiddle());
         m_armBottomPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmBotton());
         m_extendArm = new InstantCommand(() -> RobotContainer.M_ARM.extendArm());
         m_retractArm = new InstantCommand(() -> RobotContainer.M_ARM.retractArm());
+        m_extenderHalt = new InstantCommand(() -> RobotContainer.M_ARM.haltArm());
     }
 }

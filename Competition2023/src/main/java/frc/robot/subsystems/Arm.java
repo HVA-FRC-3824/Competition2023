@@ -22,7 +22,8 @@ public class Arm extends SubsystemBase{
     private WPI_TalonFX m_armExtendMotor;
 
     // encoder position variables
-    private double actualArmAngle;
+    private double armAngleDesiredPosition = 0;
+    private double armAngleActualPosition;
     private double actualArmExtensionPos;
 
     public Arm(){
@@ -41,31 +42,37 @@ public class Arm extends SubsystemBase{
     @Override
     public void periodic() {
         // output encoder position for angleMotor
-        actualArmAngle = m_armAngleMotor.getSelectedSensorPosition();
-        SmartDashboard.putNumber("Actual Arm Angle Position: ", actualArmAngle);
+        armAngleActualPosition = m_armAngleMotor.getSelectedSensorPosition();
+        SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleActualPosition);
+
+        SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
 
         // output encoder position for extendMotor
         actualArmExtensionPos = m_armExtendMotor.getSelectedSensorPosition();
         SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
     }
-    //TEST COMMIT TO MAIN
 
-
-    // NEGATIVE IS DOWN, POSITIVE IS UP
     // Method that allows movement of the arm angle
-    public void angleArm(double joyStickAngle){
-        if((actualArmAngle < Constants.MAX_ARM_ANGLE) && (actualArmAngle > Constants.MIN_ARM_ANGLE)){
-            // apply joystick angle
-            m_armAngleMotor.set(TalonSRXControlMode.PercentOutput, joyStickAngle * Constants.ARM_ANGLE_MOTOR_SENS);
+    public void setDesiredArmPosition(double joystickAngle){
+       /* Top encoder pos:
+        * Bottom encoder pos:
+        */
+        if ((armAngleDesiredPosition < Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition > Constants.MIN_ARM_POSITION)){
+            armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 2);
 
-        // Both else ifs are used to prevent over/underreach.
-        }else if (actualArmAngle > Constants.MAX_ARM_ANGLE){
-            // moves arm down slightly
-            m_armAngleMotor.setVoltage(-1);
-        }else if (actualArmAngle < Constants.MIN_ARM_ANGLE){
-            // move arm up slightly;
-            m_armAngleMotor.setVoltage(1);
+
+        // Makes sure desired pos doesn't go above or bellow max
+        }else{
+            if(armAngleDesiredPosition > Constants.MAX_ARM_POSITION){
+                armAngleDesiredPosition = Constants.MAX_ARM_POSITION;
+            }else if(armAngleDesiredPosition < Constants.MIN_ARM_POSITION){
+                armAngleDesiredPosition = Constants.MIN_ARM_POSITION;
+            }
         }
+    }
+
+    public void setArmActualPosToDesiredPos(){
+        m_armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
     }
 
     public void setArmMotorsCoast(){
@@ -105,5 +112,9 @@ public class Arm extends SubsystemBase{
         if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
             m_armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
         }
+    }
+
+    public void haltArm(){
+        m_armExtendMotor.setVoltage(0);
     }
 }

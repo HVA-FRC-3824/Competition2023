@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.ArmMove;
 import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.AutonomousMTM;
 import frc.robot.commands.AutonomousRTM;
@@ -32,7 +33,7 @@ public class RobotContainer{
   public static final Arm M_ARM = new Arm();
   public static final Grabber M_GRABBER = new Grabber();
   public static final LEDs M_LEDS = new LEDs();
- 
+  public static final ArmMove M_ARM_MOVE = new ArmMove();
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
    * Inline commands requires OI when retrieving joystick values. */
   public static final InlineCommands m_inlineCommands = new InlineCommands();
@@ -56,19 +57,9 @@ public class RobotContainer{
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
-    // If statement should prevent the bagillion errors TODO test this
-    if (m_OI.isDriverConnected()){
-      M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
-    }else{
-      System.out.println("ERROR: DRIVER JOYSTICK MISSING... ");
-    }
+    M_WEST_COAST_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
     // Sets default command for the arm to angling with operator joystick
-    // If statement should prevent the bagillion errors TODO test this
-    if (m_OI.isOperatorConnected()){
-      M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithJoystick);
-    }else{
-      System.out.println("ERROR: OPERATOR JOYSTICK MISSING... ");
-    }
+    M_ARM.setDefaultCommand(M_ARM_MOVE);
   }
 
   /* Set options for autonomous command chooser and display them for selection on
