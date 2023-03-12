@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // Driving
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -61,6 +63,9 @@ public class WestCoastDrive extends SubsystemBase{
 
   private DifferentialDrive m_differentialDrive;
 
+  private MotorControllerGroup m_leftSide;
+  private MotorControllerGroup m_rightSide;
+
   // Pneumatic objects
   private Solenoid m_gearShiftRight;
   private Solenoid m_gearShiftLeft;
@@ -89,7 +94,8 @@ public class WestCoastDrive extends SubsystemBase{
 
     /* Set the control mode and output value for the leftSlave motor controller so that it will follow the leftMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_leftSlaveSpark.follow(m_leftMasterSpark);
+    //m_leftSlaveSpark.follow(m_leftMasterSpark);
+    m_leftSide = new MotorControllerGroup(m_leftMasterSpark, m_leftSlaveSpark);
 
     m_rightMasterSpark = new CANSparkMax(Constants.WCD_RIGHT_MASTER_ID, MotorType.kBrushless);
     m_rightMasterPIDController = m_rightMasterSpark.getPIDController();
@@ -106,10 +112,11 @@ public class WestCoastDrive extends SubsystemBase{
  
     /* Set the control mode and output value for the rightSlave motor controller so that it will follow the rightMaster controller.
      * Could be interchanged with a motor controller group. */ 
-    m_rightSlaveSpark.follow(m_rightMasterSpark);
+    //m_rightSlaveSpark.follow(m_rightMasterSpark);
+    m_rightSide = new MotorControllerGroup(m_rightMasterSpark, m_rightSlaveSpark);
 
     // creates a differential drive object so that we can use its methods and address all the motors as one drivetrain
-    m_differentialDrive = new DifferentialDrive(m_leftMasterSpark, m_rightMasterSpark);
+    m_differentialDrive = new DifferentialDrive(m_leftSide, m_rightSide);
 
     // Try to instantiate the navx gyro with exception catch, used for odometry
     try{

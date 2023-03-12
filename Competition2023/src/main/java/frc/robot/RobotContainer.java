@@ -200,6 +200,9 @@ public class RobotContainer{
     sparkMax.restoreFactoryDefaults();
 
     sparkMax.setInverted(inverted);
+
+    //TODO set a limit
+    //sparkMax.limi
     
     pidController.setP(kP);
     pidController.setI(kI);
