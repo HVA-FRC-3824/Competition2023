@@ -146,7 +146,9 @@ public class OI{
         m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm);
         m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm);
 
-        m_grabberOpenTempBtn.whileTrue(RobotContainer.m_inlineCommands.m_grabberOpen);
-        m_grabberCloseTempBtn.whileTrue(RobotContainer.m_inlineCommands.m_grabberClose);
+        m_grabberOpenTempBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberOpen);
+        m_grabberCloseTempBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberClose);
+        
+        //(m_grabberCloseTempBtn && m_grabberOpenTempBtn).whileFalse(RobotContainer.m_inlineCommands.m_grabberHalt);
     }
 }

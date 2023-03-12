@@ -21,6 +21,7 @@ public class InlineCommands{
     public final Command m_toggleGrabber;
     public final Command m_grabberOpen;
     public final Command m_grabberClose;
+    public final Command m_grabberHalt;
 
     // Arm
     public final Command m_angleArmWithJoystick;
@@ -43,6 +44,7 @@ public class InlineCommands{
         m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
         m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberOpen());
         m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberClose());
+        m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberHalt());
 
         // Arm
         // if (RobotContainer.isController()){
