@@ -48,6 +48,8 @@ public class Arm extends SubsystemBase{
         actualArmExtensionPos = m_armExtendMotor.getSelectedSensorPosition();
         SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
     }
+    //TEST COMMIT TO MAIN
+
 
     // NEGATIVE IS DOWN, POSITIVE IS UP
     // Method that allows movement of the arm angle
