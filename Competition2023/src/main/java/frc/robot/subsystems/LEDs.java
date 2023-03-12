@@ -121,7 +121,6 @@ public class LEDs extends SubsystemBase{
             
         m_LEDsBuffer.setHSV(i, 100, 255, 255);
         i++;
-        
     }
 
     // Method called in other places to set a led pattern

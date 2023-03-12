@@ -34,13 +34,13 @@ public class TagData {
         TAG_DATA[id-1].angle = angle;
     }
 
-    public float tag_returnDist(int id)
+    public float tag_returnDist()
     {
-        return TAG_DATA[id-1].dist;
+        return this.dist;
     }
 
-    public float tag_returnAngle(int id)
+    public float tag_returnAngle()
     {
-        return TAG_DATA[id-1].angle;
+        return this.angle;
     }
 }
