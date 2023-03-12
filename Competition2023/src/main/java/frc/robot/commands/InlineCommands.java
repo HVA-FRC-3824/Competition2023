@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,9 +43,9 @@ public class InlineCommands{
 
         // Grabber
         m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
-        m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberOpen());
-        m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberClose());
-        m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberHalt());
+        m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(3.75));
+        m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(-3.75));
+        m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(0));
 
         // Arm
         // if (RobotContainer.isController()){
