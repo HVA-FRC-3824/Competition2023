@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.lang.Math;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import frc.robot.commands.ScoreData;
 
@@ -25,7 +26,7 @@ public final class Constants{
     // #region Operator button IDs
     // Grabber
     public static final int OPERATOR_GRABBER_TOGGLE_BTN_ID                                          = 1;
-    // WestCoast
+    // Chassis
     public static final int OPERATOR_AUTOBALANCE_BTN_ID                                             = 6;
     public static final int OPERATOR_HOLD_POSE_TOGLE_BTN_ID                                         = 5;
     // Arm
@@ -38,46 +39,79 @@ public final class Constants{
     // #endregion
 
     // #region subsystems
-        // #region WEST_COAST_DRIVE
-        public static final int WCD_LEFT_MASTER_ID                                                  = 5;
-        public static final int WCD_LEFT_SLAVE_ID                                                   = 2;
-        public static final int WCD_RIGHT_MASTER_ID                                                 = 4;
-        public static final int WCD_RIGHT_SLAVE_ID                                                  = 3;
-        // #region Autonomous Constants
-            public static final int K_ENCODER_TICKS_PER_REVOLUTION                                  = 28300;
-            public static final double K_WHEEL_DIAMETER_METERS                                      = 0.2;
-            public static final double K_ENCODER_DISTANCE_PER_PULSE                                 = (K_WHEEL_DIAMETER_METERS * Math.PI) / (double) K_ENCODER_TICKS_PER_REVOLUTION;
-            public static final boolean K_GYRO_REVERSED                                             = true;
-
-            // Use robot characterization tool for these values.
-            public static final double K_S_VOLTS                                                    = 0.372;
-            public static final double K_V_VOLT_SECONDS_PER_METER                                   = 3.09;
-            public static final double K_A_VOLT_SECONDS_SQUARED_PER_METER                           = 0.154;
-            public static final double K_P_DRIVE_VEL                                                = 0.00425;
-            public static final double K_TRACK_WIDTH_METERS                                         = 0.4556125;
-            public static final DifferentialDriveKinematics K_DRIVE_KINEMATICS                      = new DifferentialDriveKinematics(K_TRACK_WIDTH_METERS);
-
-            // Maximum voltage is 10V rather than nominal battery voltage of 12V for "headroom" in dealing with "voltage sag."
-            public static final int K_MAX_VOLTAGE                                                   = 10;
-            
-            public static final double K_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED                 = 1.0; //3.0
-
-            public static final double K_RAMSETE_B                                                  = 2;
-            public static final double K_RAMSETE_ZETA                                               = 0.7;
-
-            public static final double WHEEL_CIRCUMFERENCE                                          = (Math.PI * K_WHEEL_DIAMETER_METERS);
-        //#endregion
-
-        // Control related constants
-        public static final double WCD_MAX_POWER                                                    = 1.0;
-        public static final double WCD_TURN_SENS                                                    = 1.5;
-
         // Pneumatics
         public static final int PNEUMATIC_HUB_ID                                                    = 6;
         public static final int ANALOG_PRESSURE_SENSOR_PH_ID                                        = 0;
         public static final int WCD_LEFT_SHIFTER_CHANNEL                                            = 1;
         public static final int WCD_RIGHT_SHIFTER_CHANNEL                                           = 2;                
         // #endregion
+
+        //#region Swerve Drive
+        public static final int FRONT_RIGHT_ANGLE_MOTOR_ID                                          = 2; 
+        public static final int FRONT_RIGHT_SPEED_MOTOR_ID                                          = 3;
+
+        public static final int FRONT_LEFT_ANGLE_MOTOR_ID                                           = 15; 
+        public static final int FRONT_LEFT_SPEED_MOTOR_ID                                           = 12; 
+
+        public static final int BACK_LEFT_ANGLE_MOTOR_ID                                            = 14; 
+        public static final int BACK_LEFT_SPEED_MOTOR_ID                                            = 13; 
+
+        public static final int BACK_RIGHT_ANGLE_MOTOR_ID                                           = 0; 
+        public static final int BACK_RIGHT_SPEED_MOTOR_ID                                           = 1; 
+        
+        public static final int ABS_ENCODER_FR_ID                                                   = 1;
+        public static final int ABS_ENCODER_FL_ID                                                   = 4;
+        public static final int ABS_ENCODER_BL_ID                                                   = 3;
+        public static final int ABS_ENCODER_BR_ID                                                   = 2;
+        
+        public static final double K_CHASSIS_TURN_P                                                 = 0;
+        public static final double K_CHASSIS_TURN_I                                                 = 0;
+        public static final double K_CHASSIS_TURN_D                                                 = 0;
+
+        public static final double K_TURN_TOLERANCE_DEG                                             = 0;
+        public static final double K_TURN_RATE_TOLERANCE_DEG_PER_SEC                                = 0;
+
+        public static final double K_CHASSIS_TURN_VISION_P                                          = 0.025;
+        public static final double K_CHASSIS_TURN_VISION_MIN                                        = 0.05;
+        public static final double CHASSIS_TURN_ERROR_THRESHOLD                                     = 0.5;
+        
+        public static final double K_CHASSIS_LEFT_ANGLE_P                                           = 0.2245;     //previous: 0.225
+        public static final double K_CHASSIS_LEFT_ANGLE_I                                           = 0.0000185;  //previous: 0.0002
+        public static final double K_CHASSIS_LEFT_ANGLE_D                                           = 0.000001;   //previous: 0.0000001
+
+        public static final double K_CHASSIS_RIGHT_ANGLE_P                                          = 0.2245;    //previous: 0.225
+        public static final double K_CHASSIS_RIGHT_ANGLE_I                                          = 0.0000185; //previous: 0.0002
+        public static final double K_CHASSIS_RIGHT_ANGLE_D                                          = 0.000003;  //previous: 0.000005
+
+        public static final double SWERVE_DRIVE_MAX_VOLTAGE                                         = 4.95;
+        public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
+        public static final double SWERVE_TPR                                                       = 2048 / SWERVE_GEAR_RATIO; //motors ticks per revolution of wheel
+        public static final double SWERVE_POWER                                                     = 0.81; //0.83
+
+        public static final double K_MAX_VELOCITY                                                   = 3.0; // m/s
+        public static final double K_MODULE_MAX_ANGULAR_VELOCITY                                    = Math.PI; // 0.5 rotations/sec
+        public static final double K_MODULE_MAX_ANGULAR_ACCELERATION                                = 2 * Math.PI; //radians/sec^2
+        public static final double K_SWERVE_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED              = 3.0; 
+        
+        public static final int K_ABSOLUTE_ENCODER_UPR                                              = 4096; //units per rotation
+
+        // Chassis Specs
+        public static final Translation2d BACK_LEFT_WHEEL_LOCATION                                  = new Translation2d(-12.5 , 10.75);
+        public static final Translation2d BACK_RIGHT_WHEEL_LOCATION                                 = new Translation2d(-12.5 , -10.75);
+        public static final Translation2d FRONT_LEFT_WHEEL_LOCATION                                 = new Translation2d(12.5 , 10.75);        
+        public static final Translation2d FRONT_RIGHT_WHEEL_LOCATION                                = new Translation2d(12.5 , -10.75);
+
+        public static final double K_SWERVE_WHEEL_DIAMETER_METERS                                   = 0.1524;
+        public static final double SWERVE_DRIVE_WHEEL_AXLE_LENGTH                                   = 36;
+        public static final double SWERVE_DRIVE_WHEEL_AXLE_WIDTH                                    = 48;
+        public static final double SWERVE_DRIVE_WHEEL_AXLE_DIAGONAL                                 = 60;
+
+        public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
+
+        public static final double WHEEL_MOTOR_TICKS_PER_REVOLUTION                                 = 2048 * 12; //kSensorUnitsPerRotation / kGearRatio;
+
+        public static final int K_SWERVE_ENCODER_TICKS_PER_REVOLUTION                               = 28300;
+        public static final double K_SWERVE_ENCODER_DISTANCE_PER_PULSE                              = (K_SWERVE_WHEEL_DIAMETER_METERS * Math.PI) / (double) K_SWERVE_ENCODER_TICKS_PER_REVOLUTION;
 
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 8;

@@ -27,7 +27,7 @@ public class AutonomousMTM extends SequentialCommandGroup {
       new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop()),
       new WaitCommand(1),
       // how to get it to follow to a point, maxVel is in m/s
-      RobotContainer.M_WEST_COAST_DRIVE.generateRamsete(startingPose, waypoints, endingPose, 2, false),
+      //RobotContainer.M_WEST_COAST_DRIVE.generateRamsete(startingPose, waypoints, endingPose, 2, false),
       // Don't forget to stop subsystems.
       new InstantCommand(() -> RobotContainer.M_ARM.retractArm())
       //new InstantCommand(() -> RobotContainer.m_chamber.setBasePower(0))
