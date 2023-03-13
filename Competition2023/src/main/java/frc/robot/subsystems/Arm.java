@@ -26,7 +26,8 @@ public class Arm extends SubsystemBase{
     private double m_armAngleActualPosition;
     private double m_actualArmExtensionPos;
 
-    private final SendableChooser<Boolean> m_encoderReset = new SendableChooser<>();
+    private final SendableChooser<Boolean> m_angleEncoderReset = new SendableChooser<>();
+    private final SendableChooser<Boolean> m_extensionEncoderReset = new SendableChooser<>();
 
     public Arm(){
         //TODO PIDS
@@ -40,30 +41,49 @@ public class Arm extends SubsystemBase{
         RobotContainer.configureTalonFX(m_armExtendMotor, true, true, 0.0, 0.1, 0.0, 0.0);
         m_armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
-        m_encoderReset.setDefaultOption("False: ", false);
-        m_encoderReset.addOption("True: ", true);
-        SmartDashboard.putData("Reset Arm Angle Encoder: ", m_encoderReset);
+        // Angle reset
+        m_angleEncoderReset.setDefaultOption("False: ", false);
+        m_angleEncoderReset.addOption("True: ", true);
+        SmartDashboard.putData("Reset Arm Angle Encoder: ", m_angleEncoderReset);
+
+        // Extension reset
+        m_extensionEncoderReset.setDefaultOption("False: ", false);
+        m_extensionEncoderReset.addOption("True: ", true);
+        SmartDashboard.putData("Reset Arm Angle Encoder: ", m_extensionEncoderReset);
     }
 
     @Override
     public void periodic() {
         // output encoder position for angleMotor
-        m_armAngleActualPosition = m_armAngleMotor.getSelectedSensorPosition();
+        m_armAngleActualPosition = (m_armAngleMotor.getSelectedSensorPosition() / 16) / 2048;
         SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", m_armAngleActualPosition);
 
+        // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", m_armAngleDesiredPosition);
 
-        // output encoder position for extendMotor
-        m_actualArmExtensionPos = m_armExtendMotor.getSelectedSensorPosition();
+        // set actual arm extension and output encoder position for extendMotor
+        m_actualArmExtensionPos = (m_armExtendMotor.getSelectedSensorPosition() / 16) / 2048;
         SmartDashboard.putNumber("Actual Arm Extension Position: ", m_actualArmExtensionPos);
 
-        if(m_encoderReset.getSelected()){
+        // If reset encoder is selected, it runs encoder reset method
+        if(m_angleEncoderReset.getSelected()){
             resetAngleMotorEncoder();
+        }
+
+        // If reset encoder is selected, it runs encoder reset method
+        if(m_extensionEncoderReset.getSelected()){
+            resetExtensionMotorEncoder();
         }
     }
 
+    // reset arm angle motor encoder
     public void resetAngleMotorEncoder(){
         m_armAngleMotor.setSelectedSensorPosition(0);
+    }
+
+    // reset arm angle motor encoder
+    public void resetExtensionMotorEncoder(){
+        m_armExtendMotor.setSelectedSensorPosition(0);
     }
 
     // Method that allows movement of the arm angle
@@ -123,6 +143,7 @@ public class Arm extends SubsystemBase{
             m_armExtendMotor.setVoltage(Constants.ARM_EXTENSION_VOLTAGE);
         }else{
             System.out.println("WARNING: Arm Extension Position is greater than Max extension!!! ");
+            m_armExtendMotor.setVoltage(0);
         }
     }
 
@@ -132,6 +153,7 @@ public class Arm extends SubsystemBase{
             m_armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
         }else{
             System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
+            m_armExtendMotor.setVoltage(0);
         }
     }
 

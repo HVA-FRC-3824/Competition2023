@@ -73,7 +73,7 @@ public final class Constants{
         // public static final double SWERVE_DRIVE_MAX_VOLTAGE                                         = 4.95;
         public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
         // public static final double SWERVE_TPR                                                       = 2048 / SWERVE_GEAR_RATIO; //motors ticks per revolution of wheel
-        public static final double SWERVE_POWER                                                     = 0.81; //0.83
+        public static final double SWERVE_POWER                                                     = 0.9;
 
         // public static final double K_MAX_VELOCITY                                                   = 3.0; // m/s
         // public static final double K_MODULE_MAX_ANGULAR_VELOCITY                                    = Math.PI; // 0.5 rotations/sec
@@ -103,11 +103,14 @@ public final class Constants{
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 2;
         public static final int ARM_EXTEND_MOTOR_ID                                                 = 3;
-        public static final double MAX_ARM_POSITION                                                 = 10000; //TODO figure out encoder number
-        public static final double MIN_ARM_POSITION                                                 = -1000; //TODO figure out encoder number
-        public static final double MAX_ARM_EXTENSION                                                = 38240000; //TODO figure out num
-        public static final double MIN_ARM_EXTENSION                                                = -3824000;
-        public static final double ARM_EXTENSION_VOLTAGE                                            = 5; // TODO figure out num
+
+        public static final int ARM_ANGLE_GEAR_RATIO                                                = 49;
+        public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
+        public static final double MAX_ARM_POSITION                                                 = (390872 / ARM_ANGLE_GEAR_RATIO) / 2048;
+        public static final double MIN_ARM_POSITION                                                 = (-1000 / ARM_ANGLE_GEAR_RATIO) / 2048;
+        public static final double MAX_ARM_EXTENSION                                                = (390872 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 6;
         //public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num

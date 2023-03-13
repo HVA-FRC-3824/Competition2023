@@ -107,7 +107,7 @@ public class OI{
         m_setArmMiddlePosBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
         m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
         
-        m_extendArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_extendArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
-        m_retractArmPOVBtn.whileTrue(RobotContainer.m_inlineCommands.m_retractArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
+        m_extendArmPOVBtn.onTrue(RobotContainer.m_inlineCommands.m_extendArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
+        m_retractArmPOVBtn.onTrue(RobotContainer.m_inlineCommands.m_retractArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
     }
 }

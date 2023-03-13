@@ -115,8 +115,8 @@ public class SwerveDrive extends SubsystemBase{
   // (x1 joystick input left/right, y1 joystick input front/back, x2 joystick input turn)
   public void convertSwerveValues (double x1, double y1, double x2){
     // Width and length between center of wheels
-    double w = 21.5;
-    double l = 25;
+    double w = 17; // 21.5
+    double l = 29; //25
     
     // Width and length relative ratios
     double wr;
