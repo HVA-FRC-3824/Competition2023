@@ -289,7 +289,7 @@ public class SwerveDrive extends SubsystemBase{
   }
 
   //Toggle drive between field centric and robot centric
-  public void toggleDriveMode(){
+  public void toggleDriveCentricity(){
     robotCentric = !robotCentric;
   }
 

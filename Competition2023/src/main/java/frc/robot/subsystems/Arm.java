@@ -10,7 +10,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 // Smart Dashboard
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -58,7 +57,7 @@ public class Arm extends SubsystemBase{
         * Bottom encoder pos:
         */
         if ((armAngleDesiredPosition < Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition > Constants.MIN_ARM_POSITION)){
-            armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 2);
+            armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 2); // TODO probably need to increase, also set to constant 
 
 
         // Makes sure desired pos doesn't go above or bellow max
@@ -114,7 +113,7 @@ public class Arm extends SubsystemBase{
         }
     }
 
-    public void haltArm(){
+    public void stopArm(){
         m_armExtendMotor.setVoltage(0);
     }
 }

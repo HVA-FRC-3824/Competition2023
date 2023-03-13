@@ -1,11 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
-<<<<<<< HEAD
 import frc.robot.Constants;
-import frc.robot.Robot;
-=======
->>>>>>> Swerve
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -15,14 +11,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
  * Can be used in other files (other commands or OI.java for binding commands to buttons).
  * For chains of commands (Example: ten-ball autonomous command sequence), create a separate CommandBase/CommandGroup file. */
 public class InlineCommands{
-    // WestCoast drive
-    // public final Command m_driveWithJoystick;
-    // public final Command m_shiftHighGear;
-    // public final Command m_shiftLowGear;
-    // public final Command m_setAndHoldPose;
+    // Swerve Drive
+    public final Command m_driveWithJoystick;
+    public final Command m_toggleDriveCentricity;
+    public final Command m_toggleDefenseMode;
 
     // Grabber
-    public final Command m_toggleGrabber;
+    //public final Command m_toggleGrabber;
     public final Command m_grabberOpen;
     public final Command m_grabberClose;
     public final Command m_grabberHalt;
@@ -35,19 +30,18 @@ public class InlineCommands{
     public final Command m_retractArm;
     public final Command m_extenderHalt;
 
-
     public InlineCommands(){
-        // WestCoast
-        // m_driveWithJoystick = new RunCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.drive(RobotContainer.m_OI.getDriverJoystick().getY(), 
-        //                                            RobotContainer.m_OI.getDriverJoystick().getZ()), RobotContainer.M_WEST_COAST_DRIVE);
-        // m_shiftHighGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftHighGear());
-        // m_shiftLowGear = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.shiftLowGear());
-        // m_setAndHoldPose = new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.setAndHoldPose());
+        // SwerveDrive
+        m_driveWithJoystick = new RunCommand(() -> 
+            RobotContainer.M_SWERVE_DRIVE.convertSwerveValues(RobotContainer.m_OI.getDriverController().getRawAxis(0), 
+            RobotContainer.m_OI.getDriverController().getRawAxis(1), RobotContainer.m_OI.getDriverController().getRawAxis(4)), RobotContainer.M_SWERVE_DRIVE);
+        m_toggleDriveCentricity = new InstantCommand(() -> RobotContainer.M_SWERVE_DRIVE.toggleDriveCentricity());
+        m_toggleDefenseMode = new InstantCommand(() -> RobotContainer.M_SWERVE_DRIVE.toggleDefenseMode());
 
         // Grabber
-        m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
-        m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(3.75));
-        m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(-3.75));
+        //m_toggleGrabber = new InstantCommand(() -> RobotContainer.M_GRABBER.toggleGrabber());
+        m_grabberOpen = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(Constants.GRABBER_VOLTAGE));
+        m_grabberClose = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(-Constants.GRABBER_VOLTAGE));
         m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(0));
 
         // Arm
@@ -56,6 +50,6 @@ public class InlineCommands{
         m_armBottomPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmBotton());
         m_extendArm = new InstantCommand(() -> RobotContainer.M_ARM.extendArm());
         m_retractArm = new InstantCommand(() -> RobotContainer.M_ARM.retractArm());
-        m_extenderHalt = new InstantCommand(() -> RobotContainer.M_ARM.haltArm());
+        m_extenderHalt = new InstantCommand(() -> RobotContainer.M_ARM.stopArm());
     }
 }

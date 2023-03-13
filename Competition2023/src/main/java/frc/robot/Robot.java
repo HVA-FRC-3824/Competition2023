@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.communication.*;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
     /* Start the tagstatehandler */
     TagStateHandler.init_Array(); 
     
+    // starts camera
     CameraServer.startAutomaticCapture();
 
     // Instantiate RobotContainer. 
@@ -51,40 +53,31 @@ public class Robot extends TimedRobot {
      * commands, removing finished or interrupted commands, and running subsystem periodic() methods.  This must be called from 
      * the robot's periodic block in order for anything in the Command-based framework to work. */
     CommandScheduler.getInstance().run();
+    SmartDashboard.putBoolean("Defense mode:", RobotContainer.M_SWERVE_DRIVE.getDefenseStatus());
   }
 
-  // This method is called once each time the robot enters Disabled mode.
   @Override
   public void disabledInit(){
-    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainBreak();
     RobotContainer.M_ARM.setArmMotorsBreak();
   }
 
-  // This method is called periodically when disabled
   @Override
   public void disabledPeriodic(){}
 
-  // This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
+
   @Override
   public void autonomousInit(){
-    // Commands zero heading, reset encoders, and sets the drivetrain to coast mode obv
-    // RobotContainer.M_WEST_COAST_DRIVE.zeroHeading();
-    // RobotContainer.M_WEST_COAST_DRIVE.resetEncoders();
-    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
     // Command sets autocommand to the command based on the smartdashboard
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command
+    // schedule the autonomous command if one is selected.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }else{
-      System.out.println("m_autoCommand is null, error with getAutonomousCommand method most likely. ");
+      System.out.println("ERROR: m_autoCommand is null, error with getAutonomousCommand method most likely. ");
     }
-
-    RobotContainer.M_ARM.setArmMotorsCoast();
   }
 
-  // This method is called periodically during autonomous.
   @Override
   public void autonomousPeriodic(){}
 
@@ -95,23 +88,20 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    // RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainCoast();
+
+    // Sets default commands of driving and moving arm
     RobotContainer.initializeTeleopDefaultCommands();
-    RobotContainer.M_ARM.setArmMotorsCoast();
   }
 
-  // This method is called periodically during operator control.
   @Override
   public void teleopPeriodic(){}
 
-  // This method is called when test mode is initialized
   @Override
   public void testInit(){
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
 
-  // This method is called periodically during test mode.
   @Override
   public void testPeriodic(){}
 }
