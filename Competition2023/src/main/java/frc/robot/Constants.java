@@ -34,17 +34,17 @@ public final class Constants{
 
     // #region subsystems
         //#region Swerve Drive
-        public static final int FRONT_RIGHT_ANGLE_MOTOR_ID                                          = 2; 
-        public static final int FRONT_RIGHT_SPEED_MOTOR_ID                                          = 3;
+        public static final int FRONT_RIGHT_ANGLE_MOTOR_ID                                          = 5; 
+        public static final int FRONT_RIGHT_SPEED_MOTOR_ID                                          = 6;
 
-        public static final int FRONT_LEFT_ANGLE_MOTOR_ID                                           = 15; 
-        public static final int FRONT_LEFT_SPEED_MOTOR_ID                                           = 12; 
+        public static final int FRONT_LEFT_ANGLE_MOTOR_ID                                           = 7; 
+        public static final int FRONT_LEFT_SPEED_MOTOR_ID                                           = 8; 
 
-        public static final int BACK_LEFT_ANGLE_MOTOR_ID                                            = 14; 
-        public static final int BACK_LEFT_SPEED_MOTOR_ID                                            = 13; 
+        public static final int BACK_LEFT_ANGLE_MOTOR_ID                                            = 9; 
+        public static final int BACK_LEFT_SPEED_MOTOR_ID                                            = 10; 
 
-        public static final int BACK_RIGHT_ANGLE_MOTOR_ID                                           = 0; 
-        public static final int BACK_RIGHT_SPEED_MOTOR_ID                                           = 1; 
+        public static final int BACK_RIGHT_ANGLE_MOTOR_ID                                           = 11; 
+        public static final int BACK_RIGHT_SPEED_MOTOR_ID                                           = 12; 
         
         // public static final int ABS_ENCODER_FR_ID                                                   = 1;
         // public static final int ABS_ENCODER_FL_ID                                                   = 4;
