@@ -51,20 +51,33 @@ public class AutoScore extends CommandBase{
         while(true)
         {    
             /* The crazy insane ultra long if statement */
-            if(TagStateHandler.tag_Available[followed_Tag] && TagData.TAG_DATA[followed_Tag].tag_returnDist()!= Constants.MIN_DIST_TO_TAG)
+            if(TagStateHandler.tag_Available[followed_Tag] && TagData.TAG_DATA[followed_Tag].tag_returnDist() != Constants.MIN_DIST_TO_TAG)
             {   
                 timeout = 0;
-                if(TagData.TAG_DATA[followed_Tag].tag_returnAngle() != 0)
-                { /* TODO: figure out how the angle changes based on turn off the robot
-                     TODO: write movement left to right*/ continue;}
+                /* Crazy wizard magic to round up the number */
+                int rounded_Angle = (int)(TagData.TAG_DATA[followed_Tag].tag_returnAngle()+.5);
+                if(rounded_Angle != 0)
+                { 
+                    /* TODO: figure out how the angle changes based on turn off the robot */
+                    if(rounded_Angle > 0)
+                    {/* Move either right or left. */}
+                    else
+                    {/* Move either right or left. */}
+
+                    continue;
+                }
 
                 /* Move forward some amount 
                  * TODO: Find amount
                 */
             }
             else
-            { System.out.println("Tag timing out! Uh-oh!"); timeout++;
-             if(timeout == 10){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
+            { 
+                if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG){return 1;} 
+
+                /* Update timeout if the tag cannot be seen */
+                System.out.println("Tag timing out! Uh-oh!"); timeout++;
+                if(timeout == 10){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
         }
     }
 
