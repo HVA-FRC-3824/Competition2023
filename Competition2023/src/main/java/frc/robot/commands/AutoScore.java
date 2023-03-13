@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -43,9 +44,17 @@ public class AutoScore extends CommandBase{
 
     public static enum heights{BOT,MID,TOP};
 
-    /* Returns -1 for error */
-    public int follow_Tag(int id)
+    /* Finally! The four line function! :) */
+    public void auto_score(int tag_to_follow, int ix, int iy)
     {
+        if(follow_Tag(tag_to_follow)){score(ix,iy);SmartDashboard.putString("Tag centered status:", "SUCCESS!");}
+        else{SmartDashboard.putString("Tag centered status:", "FAILURE: CAMERA LOST SIGHT OF TAG");}
+    }
+
+    
+    public boolean follow_Tag(int id)
+    {
+        SmartDashboard.putString("Tag centered status:", "Trying...");
         this.followed_Tag = id;
         followed_Tag--; /* For index */
         while(true)
@@ -71,11 +80,11 @@ public class AutoScore extends CommandBase{
             }
             else
             { 
-                if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG){return 1;} 
+                if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG){return true;} 
 
                 /* Update timeout if the tag cannot be seena */
                 System.out.println("Tag timing out! Uh-oh!"); timeout++;
-                if(timeout == 15){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
+                if(timeout == 15){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return false; }}
         }
     }
 

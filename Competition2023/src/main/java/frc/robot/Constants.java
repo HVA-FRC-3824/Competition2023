@@ -117,7 +117,7 @@ public final class Constants{
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
         public static ScoreData[][] SCORE_DATA_ARRAY                                                = new ScoreData[3][3];
-        public static final int MIN_DIST_TO_TAG                                                     = 8; /* In inches*/
+        public static final float MIN_DIST_TO_TAG                                                     = 8; /* In inches*/
    
         // #endregion
 
