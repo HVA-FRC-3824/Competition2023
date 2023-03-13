@@ -2,7 +2,8 @@
 > Robot made to compete in 2023 FRC *Charged Up*
 
 ARMageddon's capabilities include:
-- Westcoast Drive with two speed pneumatic transmission
+- ~~Westcoast Drive with two speed pneumatic transmission~~
+- Swerve Drive
 - Grabber
 - Articulating and telescoping arm
 - [Custom vision system](https://github.com/bogogion/frc-2023-cv)
