@@ -138,7 +138,7 @@ public class Arm extends SubsystemBase{
     }
 
     public void armExtendCustom(double pos){
-        m_armExtendMotor.set(ControlMode.Position, pos);
+        armExtendMotor.set(ControlMode.Position, pos);
     }
 
     // extends arm for fine tuning

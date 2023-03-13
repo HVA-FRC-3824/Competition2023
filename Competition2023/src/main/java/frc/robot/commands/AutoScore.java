@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import com.fasterxml.jackson.databind.util.RootNameLookup;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -95,13 +93,13 @@ public class AutoScore extends CommandBase{
         // Height 
         switch(height){
             case BOT:
-                RobotContainer.ARM_OBJ.extendArmBotton();
+                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
                 break;
             case MID:
-                RobotContainer.ARM_OBJ.extendArmMiddle();
+                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
                 break;
             case TOP:
-                RobotContainer.ARM_OBJ.extendArmTop();
+                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
                 break;
             default:
                 System.out.println("Whomp Whomp");
@@ -123,8 +121,6 @@ public class AutoScore extends CommandBase{
             }
         }
 
-        // Dist
-        RobotContainer.ARM_OBJ.extendArm();
-        /* ^^ Wrap in a loop to extend a certain amount, REAL encoders would be really helpful here, or if we test the values */
+        RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE);
     }
 }
