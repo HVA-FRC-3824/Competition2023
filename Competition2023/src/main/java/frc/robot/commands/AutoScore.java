@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -9,7 +8,9 @@ import frc.robot.subsystems.communication.TagStateHandler;
 
 public class AutoScore extends CommandBase{
 
-    public static int followed_Tag = 0;
+    private int followed_Tag = 0;
+
+    private int timeout = 0; /* counter for timeout */
 
     public static void initScoreValues(){
         /* Function should set all the values for SCORE_DATA_ARRAY */
@@ -42,15 +43,17 @@ public class AutoScore extends CommandBase{
 
     public static enum heights{BOT,MID,TOP};
 
-    @Override
-    public void execute()
+    /* Returns -1 for error */
+    public int follow_Tag(int id)
     {
-       followed_Tag--;
-       while(true)
-       {    
+        this.followed_Tag = id;
+        followed_Tag--; /* For index */
+        while(true)
+        {    
             /* The crazy insane ultra long if statement */
             if(TagStateHandler.tag_Available[followed_Tag] && TagData.TAG_DATA[followed_Tag].tag_returnDist()!= Constants.MIN_DIST_TO_TAG)
             {   
+                timeout = 0;
                 if(TagData.TAG_DATA[followed_Tag].tag_returnAngle() != 0)
                 { /* TODO: figure out how the angle changes based on turn off the robot
                      TODO: write movement left to right*/ continue;}
@@ -60,8 +63,9 @@ public class AutoScore extends CommandBase{
                 */
             }
             else
-            { System.out.println("Tag lost!"); break;}
-       }
+            { System.out.println("Tag timing out! Uh-oh!"); timeout++;
+             if(timeout == 10){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
+        }
     }
 
     public void score(int ix, int iy){
