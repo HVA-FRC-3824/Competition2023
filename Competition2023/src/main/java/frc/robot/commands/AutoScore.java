@@ -73,21 +73,21 @@ public class AutoScore extends CommandBase{
             { 
                 if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG){return 1;} 
 
-                /* Update timeout if the tag cannot be seen */
+                /* Update timeout if the tag cannot be seena */
                 System.out.println("Tag timing out! Uh-oh!"); timeout++;
-                if(timeout == 10){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
+                if(timeout == 15){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return -1; }}
         }
     }
 
     public void score(int ix, int iy){
-        float offset, dist;
+        float offset /*, dist */;
         heights height;
 
         /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects One ScoreData object has 3 attributes (angle, dist, height)
          * These attributes will be fed into the arm to move the physical arm to a scoring spot */
 
         offset = Constants.SCORE_DATA_ARRAY[iy][ix].offset;
-        dist = Constants.SCORE_DATA_ARRAY[iy][ix].dist;
+        //dist = Constants.SCORE_DATA_ARRAY[iy][ix].dist;
         height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
  
         // Height 
