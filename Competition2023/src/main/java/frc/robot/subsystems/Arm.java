@@ -137,6 +137,10 @@ public class Arm extends SubsystemBase{
         armExtendMotor.set(ControlMode.Position, Constants.ARM_TOP_EXTENSION_VALUE);
     }
 
+    public void armExtendCustom(double pos){
+        m_armExtendMotor.set(ControlMode.Position, pos);
+    }
+
     // extends arm for fine tuning
     public void extendArm(){
         if(actualArmExtensionPos < Constants.MAX_ARM_EXTENSION){

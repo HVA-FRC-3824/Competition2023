@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import com.fasterxml.jackson.databind.util.RootNameLookup;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -60,16 +62,14 @@ public class AutoScore extends CommandBase{
                 { 
                     /* TODO: figure out how the angle changes based on turn off the robot */
                     if(rounded_Angle > 0)
-                    {/* Move either right or left. */}
+                    { RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0); }
                     else
-                    {/* Move either right or left. */}
+                    { RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0); }
 
                     continue;
                 }
 
-                /* Move forward some amount 
-                 * TODO: Find amount
-                */
+                RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 1, 0);
             }
             else
             { 
@@ -104,11 +104,24 @@ public class AutoScore extends CommandBase{
                 RobotContainer.ARM_OBJ.extendArmTop();
                 break;
             default:
-                System.out.println("ERROR: HEIGHT SWITCH CASE FAIL");
+                System.out.println("Whomp Whomp");
                 return;
         }
 
         /* Move robot by an offset, -/+ : left/right */
+        if(offset != 0)
+        {
+            if(offset > 0)
+            {/* Right */
+                for(int i = 0; i < offset; i++)
+                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(.5, 0, 0);}
+            }
+            else
+            {/* Left */
+                for(int i = 0; i > offset; i--)
+                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(1, 0, 0);}
+            }
+        }
 
         // Dist
         RobotContainer.ARM_OBJ.extendArm();
