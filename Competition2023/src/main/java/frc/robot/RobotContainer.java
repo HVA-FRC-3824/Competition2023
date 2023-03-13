@@ -1,6 +1,5 @@
 package frc.robot;
 
-import frc.robot.commands.ArmMove;
 import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.AutonomousMTM;
 import frc.robot.commands.AutonomousRTM;
@@ -29,7 +28,6 @@ public class RobotContainer{
   public static final Arm M_ARM = new Arm();
   public static final Grabber M_GRABBER = new Grabber();
   public static final LEDs M_LEDS = new LEDs();
-  public static final ArmMove M_ARM_MOVE = new ArmMove();
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
    * Inline commands requires OI when retrieving joystick values. */
   public static final InlineCommands m_inlineCommands = new InlineCommands();
@@ -48,7 +46,7 @@ public class RobotContainer{
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
     M_SWERVE_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
     // Sets default command for the arm to angling with operator joystick
-    M_ARM.setDefaultCommand(M_ARM_MOVE);
+    M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithController);
   }
 
   /* Set options for autonomous command chooser and display them for selection on

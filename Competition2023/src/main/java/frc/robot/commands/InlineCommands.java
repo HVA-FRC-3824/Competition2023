@@ -23,6 +23,7 @@ public class InlineCommands{
     public final Command m_grabberHalt;
 
     // Arm
+    public final Command m_angleArmWithController;
     public final Command m_armTopPos;
     public final Command m_armMiddlePos;
     public final Command m_armBottomPos;
@@ -33,8 +34,11 @@ public class InlineCommands{
     public InlineCommands(){
         // SwerveDrive
         m_driveWithJoystick = new RunCommand(() -> 
-            RobotContainer.M_SWERVE_DRIVE.convertSwerveValues(RobotContainer.m_OI.getDriverController().getRawAxis(0), 
-            RobotContainer.m_OI.getDriverController().getRawAxis(1), RobotContainer.m_OI.getDriverController().getRawAxis(4)), RobotContainer.M_SWERVE_DRIVE);
+            RobotContainer.M_SWERVE_DRIVE.convertSwerveValues(
+            RobotContainer.m_OI.getDriverController().getRawAxis(0), 
+            RobotContainer.m_OI.getDriverController().getRawAxis(1), 
+            RobotContainer.m_OI.getDriverController().getRawAxis(4)), 
+            RobotContainer.M_SWERVE_DRIVE);
         m_toggleDriveCentricity = new InstantCommand(() -> RobotContainer.M_SWERVE_DRIVE.toggleDriveCentricity());
         m_toggleDefenseMode = new InstantCommand(() -> RobotContainer.M_SWERVE_DRIVE.toggleDefenseMode());
 
@@ -45,6 +49,10 @@ public class InlineCommands{
         m_grabberHalt = new InstantCommand(() -> RobotContainer.M_GRABBER.grabberSetVoltage(0));
 
         // Arm
+        m_angleArmWithController = new RunCommand(() -> 
+            RobotContainer.M_ARM.setDesiredArmPosition(
+            RobotContainer.m_OI.getOperatorController().getY()), 
+            RobotContainer.M_ARM);
         m_armTopPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmTop());
         m_armMiddlePos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmMiddle());
         m_armBottomPos = new InstantCommand(() -> RobotContainer.M_ARM.extendArmBotton());

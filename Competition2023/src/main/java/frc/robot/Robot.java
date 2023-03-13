@@ -94,7 +94,10 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic(){}
+  public void teleopPeriodic(){
+    // The method in the arm that makes the arm move to desired angle
+    RobotContainer.M_ARM.setArmActualPosToDesiredPos();
+  }
 
   @Override
   public void testInit(){

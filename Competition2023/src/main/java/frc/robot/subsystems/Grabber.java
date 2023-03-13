@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // #endregion
 public class Grabber extends SubsystemBase{
     private WPI_TalonFX m_grabberMotor;
-    private boolean m_grabberStatus = false; // starts as false because grabber starts as open
+    // private boolean m_grabberStatus = false; // starts as false because grabber starts as open
     public Grabber(){
         // Motor for moving the string
         m_grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_ID);
@@ -22,7 +22,7 @@ public class Grabber extends SubsystemBase{
     // This method will be called once per scheduler run
     @Override
     public void periodic(){
-        SmartDashboard.putBoolean("Grabber status (true closed, false open)", m_grabberStatus);
+        // SmartDashboard.putBoolean("Grabber status (true closed, false open)", m_grabberStatus);
         SmartDashboard.putNumber("Grabber Encoder pos: ", m_grabberMotor.getSelectedSensorPosition());
     }
 

@@ -255,8 +255,7 @@ public class SwerveDrive extends SubsystemBase{
     // Set angle motor position + print values
     angleMotor.set(TalonFXControlMode.Position, angle); //0
 
-    System.out.println("Speed" + speed);
-    SmartDashboard.putNumber("Angle", angle);
+    // SmartDashboard.putNumber("Angle", angle);
   }
 
   // Not used: work in progress 3/24 // ABS ENC
