@@ -12,8 +12,8 @@ import frc.robot.subsystems.communication.*;
  * the package after creating this project, you must also update the build.gradle file in the
  * project. */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
+  private Command autonomousCommand;
+  private RobotContainer robotContainer;
   
   // This method is run when the robot is first started up and should be used for any initialization code.
   @Override
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture();
 
     // Instantiate RobotContainer. 
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 
@@ -53,12 +53,12 @@ public class Robot extends TimedRobot {
      * commands, removing finished or interrupted commands, and running subsystem periodic() methods.  This must be called from 
      * the robot's periodic block in order for anything in the Command-based framework to work. */
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("Defense mode:", RobotContainer.M_SWERVE_DRIVE.getDefenseStatus());
+    SmartDashboard.putBoolean("Defense mode:", RobotContainer.SWERVE_DRIVE_OBJ.getDefenseStatus());
   }
 
   @Override
   public void disabledInit(){
-    RobotContainer.M_ARM.setArmMotorsBreak();
+    RobotContainer.ARM_OBJ.setArmMotorsBreak();
   }
 
   @Override
@@ -68,13 +68,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit(){
     // Command sets autocommand to the command based on the smartdashboard
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command if one is selected.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
     }else{
-      System.out.println("ERROR: m_autoCommand is null, error with getAutonomousCommand method most likely. ");
+      System.out.println("ERROR: autoCommand is null, error with getAutonomousCommand method most likely. ");
     }
   }
 
@@ -85,8 +85,8 @@ public class Robot extends TimedRobot {
   public void teleopInit(){
     /* This makes sure that the autonomous stops running when teleop starts running. If you want the autonomous to
      * continue until interrupted by another command, remove this line or comment it out. */
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
 
     // Sets default commands of driving and moving arm
@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic(){
     // The method in the arm that makes the arm move to desired angle
-    RobotContainer.M_ARM.setArmActualPosToDesiredPos();
+    RobotContainer.ARM_OBJ.setArmActualPosToDesiredPos();
   }
 
   @Override

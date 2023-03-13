@@ -1,13 +1,12 @@
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import java.lang.Math;
+import frc.robot.RobotContainer;
 
 public class Autobalance extends CommandBase {
     public Autobalance(){
         // Require chassis to takeover drive train input. This will end the driveWithJoystick command that will be recalled after this command ends.*/
-        // addRequirements(RobotContainer.M_WEST_COAST_DRIVE);
+        addRequirements(RobotContainer.SWERVE_DRIVE_OBJ);
     }
 
     // Called when the command is initially scheduled.

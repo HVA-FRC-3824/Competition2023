@@ -19,10 +19,10 @@ public class AutonomousDefault extends SequentialCommandGroup{
         System.out.println("Running Autonomous Default...");
         addCommands(
             // get out of community zone
-            // new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.generateRamsete(startingPose, waypoints, middlePose, 3, false)),
+            // new InstantCommand(() -> RobotContainer.WEST_COAST_DRIVE.generateRamsete(startingPose, waypoints, middlePose, 3, false)),
             // // stop robot
-            // new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.setDriveTrainBreak()),
-            // new InstantCommand(() -> RobotContainer.M_WEST_COAST_DRIVE.driveWithVoltage(0, 0))
+            // new InstantCommand(() -> RobotContainer.WEST_COAST_DRIVE.setDriveTrainBreak()),
+            // new InstantCommand(() -> RobotContainer.WEST_COAST_DRIVE.driveWithVoltage(0, 0))
         );
     }
 }

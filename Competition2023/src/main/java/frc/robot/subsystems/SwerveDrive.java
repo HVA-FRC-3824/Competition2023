@@ -19,22 +19,21 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
 public class SwerveDrive extends SubsystemBase{
   // Declare chassis objects
-  private AHRS m_ahrs;
+  private AHRS ahrs;
 
-  private WPI_TalonFX m_angleMotorFrontRight;
-  private WPI_TalonFX m_speedMotorFrontRight;
+  private WPI_TalonFX angleMotorFrontRight;
+  private WPI_TalonFX driveMotorFrontRight;
   
-  private WPI_TalonFX m_angleMotorFrontLeft;
-  private WPI_TalonFX m_speedMotorFrontLeft;
+  private WPI_TalonFX angleMotorFrontLeft;
+  private WPI_TalonFX driveMotorFrontLeft;
 
-  private WPI_TalonFX m_angleMotorBackLeft;
-  private WPI_TalonFX m_speedMotorBackLeft;
+  private WPI_TalonFX angleMotorBackLeft;
+  private WPI_TalonFX driveMotorBackLeft;
 
-  private WPI_TalonFX m_angleMotorBackRight;
-  private WPI_TalonFX m_speedMotorBackRight;
+  private WPI_TalonFX angleMotorBackRight;
+  private WPI_TalonFX driveMotorBackRight;
 
   private double swervePower;
-  private double defenseSwervePower = 0.9;
   
   private boolean isDefending = false;
   private boolean robotCentric = false;
@@ -54,7 +53,7 @@ public class SwerveDrive extends SubsystemBase{
   public SwerveDrive(){   
     //Try to instantiate the NavX Gyro with exception catch
     try{
-      m_ahrs = new AHRS(SPI.Port.kMXP);
+      ahrs = new AHRS(SPI.Port.kMXP);
     }catch (RuntimeException ex){
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
@@ -65,25 +64,25 @@ public class SwerveDrive extends SubsystemBase{
     // AbsEncoderBR = new CANCoder(Constants.ABS_ENCODER_BR_ID); // ABS ENC
 
     //Configure drivetrain motors
-    m_angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_angleMotorFrontRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
-    m_speedMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_SPEED_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_speedMotorFrontRight, false, false, 0.0, 0.0, 0.0, 0.0);
+    angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_ID);
+      RobotContainer.configureTalonFX(angleMotorFrontRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
+    driveMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_DRIVE_MOTOR_ID);
+      RobotContainer.configureTalonFX(driveMotorFrontRight, false, false, 0.0, 0.0, 0.0, 0.0);
 
-    m_angleMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_ANGLE_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_angleMotorFrontLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
-    m_speedMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_SPEED_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_speedMotorFrontLeft, false, false, 0.0, 0.0, 0.0, 0.0);
+    angleMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_ANGLE_MOTOR_ID);
+      RobotContainer.configureTalonFX(angleMotorFrontLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
+    driveMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_DRIVE_MOTOR_ID);
+      RobotContainer.configureTalonFX(driveMotorFrontLeft, false, false, 0.0, 0.0, 0.0, 0.0);
     
-    m_angleMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_ANGLE_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_angleMotorBackLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
-    m_speedMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_SPEED_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_speedMotorBackLeft, false, false, 0.0, 0.0, 0.0, 0.0);
+    angleMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_ANGLE_MOTOR_ID);
+      RobotContainer.configureTalonFX(angleMotorBackLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
+    driveMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_DRIVE_MOTOR_ID);
+      RobotContainer.configureTalonFX(driveMotorBackLeft, false, false, 0.0, 0.0, 0.0, 0.0);
 
-    m_angleMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_ANGLE_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_angleMotorBackRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
-    m_speedMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_SPEED_MOTOR_ID);
-      RobotContainer.configureTalonFX(m_speedMotorBackRight, false, false, 0.0, 0.0, 0.0, 0.0);
+    angleMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_ANGLE_MOTOR_ID);
+      RobotContainer.configureTalonFX(angleMotorBackRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
+    driveMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_DRIVE_MOTOR_ID);
+      RobotContainer.configureTalonFX(driveMotorBackRight, false, false, 0.0, 0.0, 0.0, 0.0);
 
     swervePower = Constants.SWERVE_POWER;
   }
@@ -92,24 +91,24 @@ public class SwerveDrive extends SubsystemBase{
   @Override
   public void periodic(){
     // Update drivetrain information on SmartDashboard for testing.
-    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", m_angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", m_angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", m_angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", m_angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
   }
 
   //Gets motors for use in commands
   public WPI_TalonFX getMotorFR (){
-    return m_angleMotorFrontRight;
+    return angleMotorFrontRight;
   }
   public WPI_TalonFX getMotorFL (){
-    return m_angleMotorFrontLeft;
+    return angleMotorFrontLeft;
   }
   public WPI_TalonFX getMotorBL (){
-    return m_angleMotorBackLeft;
+    return angleMotorBackLeft;
   }
   public WPI_TalonFX getMotorBR (){
-    return m_angleMotorBackRight;
+    return angleMotorBackRight;
   }
 
   // (x1 joystick input left/right, y1 joystick input front/back, x2 joystick input turn)
@@ -153,7 +152,7 @@ public class SwerveDrive extends SubsystemBase{
     }
 
     // Set gyro to current angle of sensor  
-    double gyro_current = m_ahrs.getYaw();
+    double gyro_current = ahrs.getYaw();
 
     // Set fixed driving directions
     // Set (input) r = magnitude, square root of x^2 * y^2
@@ -240,17 +239,17 @@ public class SwerveDrive extends SubsystemBase{
       backRight[5] += 2 * Math.PI;}
 
     // Send values to motors, angle variable math is percentage of chassis circle
-    drive(m_speedMotorFrontRight, m_angleMotorFrontRight, -frontRight[2], -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(m_speedMotorFrontLeft, m_angleMotorFrontLeft, frontLeft[2], -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(m_speedMotorBackLeft, m_angleMotorBackLeft, backLeft[2], -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(m_speedMotorBackRight, m_angleMotorBackRight, backRight[2], -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorFrontRight, angleMotorFrontRight, -frontRight[2], -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorFrontLeft, angleMotorFrontLeft, frontLeft[2], -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorBackLeft, angleMotorBackLeft, backLeft[2], -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorBackRight, angleMotorBackRight, backRight[2], -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
   }
 
 
   // Moves each wheel (1 speed + 1 angle motor)
-  public void drive (WPI_TalonFX speedMotor, WPI_TalonFX angleMotor, double speed, double angle){
+  public void drive (WPI_TalonFX driveMotor, WPI_TalonFX angleMotor, double speed, double angle){
     // Set speed motor position
-    speedMotor.set(speed * swervePower);
+    driveMotor.set(speed * swervePower);
 
     // Set angle motor position + print values
     angleMotor.set(TalonFXControlMode.Position, angle); //0
@@ -261,21 +260,21 @@ public class SwerveDrive extends SubsystemBase{
   // Not used: work in progress 3/24 // ABS ENC
   // Sets motors to external encoder values, permanent forward direction
   public void setMotorPosition(){
-    // m_angleMotorFrontRight.setSelectedSensorPosition(AbsEncoderFR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // m_angleMotorFrontLeft.setSelectedSensorPosition(AbsEncoderFL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // m_angleMotorBackLeft.setSelectedSensorPosition(AbsEncoderBL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // m_angleMotorBackRight.setSelectedSensorPosition(AbsEncoderBR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
+    // angleMotorFrontRight.setSelectedSensorPosition(AbsEncoderFR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
+    // angleMotorFrontLeft.setSelectedSensorPosition(AbsEncoderFL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
+    // angleMotorBackLeft.setSelectedSensorPosition(AbsEncoderBL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
+    // angleMotorBackRight.setSelectedSensorPosition(AbsEncoderBR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
   }
 
   // Reset gyro to zero the heading of the robot.
   public void zeroHeading(){
-    m_ahrs.reset();
-    m_ahrs.setAngleAdjustment(0.0); //offset
+    ahrs.reset();
+    ahrs.setAngleAdjustment(0.0); //offset
   }
 
   // Set gyro to a certain heading
   public void setHeading(double heading){
-    m_ahrs.setAngleAdjustment(heading);
+    ahrs.setAngleAdjustment(heading);
   }
 
   /**
@@ -284,22 +283,12 @@ public class SwerveDrive extends SubsystemBase{
    * @return the robot's heading in degrees.
    */
   public double getHeading(){
-    return Math.IEEEremainder(m_ahrs.getAngle(), 360) * (Constants.K_SWERVE_GYRO_REVERSED ? -1.0 : 1.0);
+    return Math.IEEEremainder(ahrs.getAngle(), 360) * (Constants.K_SWERVE_GYRO_REVERSED ? -1.0 : 1.0);
   }
 
   //Toggle drive between field centric and robot centric
   public void toggleDriveCentricity(){
     robotCentric = !robotCentric;
-  }
-
-  public void toggleDefenseMode(){
-    if(swervePower == Constants.SWERVE_POWER){
-      swervePower = defenseSwervePower;
-      isDefending = true;
-    }else if(swervePower == defenseSwervePower){
-      swervePower = Constants.SWERVE_POWER;
-      isDefending = false;
-    }
   }
 
   public boolean getDefenseStatus(){

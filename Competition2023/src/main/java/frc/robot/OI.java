@@ -9,34 +9,33 @@ import frc.robot.commands.SetAndHoldPosition;
 
 public class OI{
     // joysticks
-    private static Joystick m_driverController;
-    private static Joystick m_operatorController;
+    private static Joystick driverController;
+    private static Joystick operatorController;
     
     // driver joystick buttons
-    private static JoystickButton m_toggleDriveCentricityBtn;
-    private static JoystickButton m_autoBalanceBtn;
-    private static JoystickButton m_toggleSetAndHoldPosBtn;
-    private static JoystickButton m_toggleDefenseModeBtn;
+    private static JoystickButton toggleDriveCentricityBtn;
+    private static JoystickButton autoBalanceBtn;
+    private static JoystickButton toggleSetAndHoldPosBtn;
     
     // operator controller buttons
-    // private static JoystickButton m_grabberBtn;
-    private static JoystickButton m_grabberCloseBtn;
-    private static JoystickButton m_grabberOpenBtn;
+    // private static JoystickButton grabberBtn;
+    private static JoystickButton grabberCloseBtn;
+    private static JoystickButton grabberOpenBtn;
 
-    private static JoystickButton m_setArmTopPosBtn;
-    private static JoystickButton m_setArmMiddlePosBtn;
-    private static JoystickButton m_setArmBottomPosBtn;
-    private static POVButton m_extendArmPOVBtn;
-    private static POVButton m_retractArmPOVBtn;
+    private static JoystickButton setArmTopPosBtn;
+    private static JoystickButton setArmMiddlePosBtn;
+    private static JoystickButton setArmBottomPosBtn;
+    private static POVButton extendArmPOVBtn;
+    private static POVButton retractArmPOVBtn;
 
     // COMMANDS
-    private Autobalance m_autoBalanceCommandClass = new Autobalance();
-    private SetAndHoldPosition m_setAndHoldPositionClass = new SetAndHoldPosition();
+    private Autobalance autoBalanceCommandClass = new Autobalance();
+    private SetAndHoldPosition setAndHoldPositionClass = new SetAndHoldPosition();
 
     public OI(){
         // CONTROLLERS
-        m_driverController = new Joystick(Constants.DRIVER_CONTROLLER_PORT);
-        m_operatorController = new Joystick(Constants.OPERATOR_CONTROLLER_PORT);
+        driverController = new Joystick(Constants.DRIVER_CONTROLLER_PORT);
+        operatorController = new Joystick(Constants.OPERATOR_CONTROLLER_PORT);
         
         // CONTROLER BUTTON IDS
         // A     - 1
@@ -49,32 +48,31 @@ public class OI{
         // Start - 8
 
         // DRIVER BUTTONS
-        m_toggleDriveCentricityBtn = new JoystickButton(m_driverController, 5); // LB
-        m_autoBalanceBtn = new JoystickButton(m_driverController, 6);           // RB
-        m_toggleSetAndHoldPosBtn = new JoystickButton(m_driverController, 4);   // Y
-        m_toggleDefenseModeBtn = new JoystickButton(m_driverController, 1);     // A
+        toggleDriveCentricityBtn = new JoystickButton(driverController, 5); // LB
+        autoBalanceBtn = new JoystickButton(driverController, 6);           // RB
+        toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
 
         // OPERATOR BUTTONS
-        // m_grabberBtn = new JoystickButton(m_operatorController, 2);             // B
-        m_grabberCloseBtn = new JoystickButton(m_operatorController, 6);        // RB
-        m_grabberOpenBtn = new JoystickButton(m_operatorController, 5);         // LB
+        // grabberBtn = new JoystickButton(operatorController, 2);             // B
+        grabberCloseBtn = new JoystickButton(operatorController, 6);        // RB
+        grabberOpenBtn = new JoystickButton(operatorController, 5);         // LB
 
-        m_setArmTopPosBtn = new JoystickButton(m_operatorController, 4);        // Y
-        m_setArmMiddlePosBtn = new JoystickButton(m_operatorController, 3);     // X
-        m_setArmBottomPosBtn = new JoystickButton(m_operatorController, 1);     // A
+        setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
+        setArmMiddlePosBtn = new JoystickButton(operatorController, 3);     // X
+        setArmBottomPosBtn = new JoystickButton(operatorController, 1);     // A
         
-        m_extendArmPOVBtn = new POVButton(m_operatorController, 0);                    // Dpad up
-        m_retractArmPOVBtn = new POVButton(m_operatorController, 180);                 // Dpad down
+        extendArmPOVBtn = new POVButton(operatorController, 0);                    // Dpad up
+        retractArmPOVBtn = new POVButton(operatorController, 180);                 // Dpad down
     }
 
     // Used for driving command
     public Joystick getDriverController(){
-        return m_driverController;
+        return driverController;
     }
 
     // Used for arm control command
     public Joystick getOperatorController(){
-        return m_operatorController;
+        return operatorController;
     }
 
     // returns if a controller is connected to port 2, used for deciding which controller to use for arm control
@@ -92,22 +90,21 @@ public class OI{
 
     public void configureButtonBindings(){
         // WestCoastDrive
-        m_autoBalanceBtn.onTrue(m_autoBalanceCommandClass);
-        m_toggleDriveCentricityBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleDriveCentricity);
-        m_toggleSetAndHoldPosBtn.toggleOnTrue(m_setAndHoldPositionClass);
-        m_toggleDefenseModeBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleDefenseMode);
+        autoBalanceBtn.onTrue(autoBalanceCommandClass);
+        toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
+        toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionClass);
 
         // Grabber
-        //m_grabberBtn.onTrue(RobotContainer.m_inlineCommands.m_toggleGrabber);
-        m_grabberOpenBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberOpen).onFalse(RobotContainer.m_inlineCommands.m_grabberHalt);
-        m_grabberCloseBtn.onTrue(RobotContainer.m_inlineCommands.m_grabberClose).onFalse(RobotContainer.m_inlineCommands.m_grabberHalt);
+        //grabberBtn.onTrue(RobotContainer.inlineCommands.toggleGrabber);
+        grabberOpenBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberOpen).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHalt);
+        grabberCloseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberClose).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHalt);
 
         // Arm
-        m_setArmTopPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armTopPos);
-        m_setArmMiddlePosBtn.onTrue(RobotContainer.m_inlineCommands.m_armMiddlePos);
-        m_setArmBottomPosBtn.onTrue(RobotContainer.m_inlineCommands.m_armBottomPos);
+        setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);
+        setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
+        setArmBottomPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armBottomPos);
         
-        m_extendArmPOVBtn.onTrue(RobotContainer.m_inlineCommands.m_extendArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
-        m_retractArmPOVBtn.onTrue(RobotContainer.m_inlineCommands.m_retractArm).onFalse(RobotContainer.m_inlineCommands.m_extenderHalt);
+        extendArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.extendArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderHalt);
+        retractArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.retractArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderHalt);
     }
 }

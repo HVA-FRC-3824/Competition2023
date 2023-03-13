@@ -25,9 +25,9 @@ public class CommClient implements Runnable
 {
     private Thread t;
     /* Create our sockets  */ 
-    private DataInputStream m_input   = null;
-    private DatagramSocket  m_socket  = null;
-    private DatagramPacket  m_receive = null;
+    private DataInputStream input   = null;
+    private DatagramSocket  socket  = null;
+    private DatagramPacket  receive = null;
     byte[] receive_buf = new byte[9];
 
     private byte   id;
@@ -45,9 +45,9 @@ public class CommClient implements Runnable
     public void connectClient(int port)
     {
         try {
-            m_socket = new DatagramSocket(port);
-            m_receive = new DatagramPacket(receive_buf, 9);
-            m_input = new DataInputStream(new ByteArrayInputStream(m_receive.getData(), m_receive.getOffset(), m_receive.getLength()));
+            socket = new DatagramSocket(port);
+            receive = new DatagramPacket(receive_buf, 9);
+            input = new DataInputStream(new ByteArrayInputStream(receive.getData(), receive.getOffset(), receive.getLength()));
         } catch (Exception i) {
             System.out.println(i);
         } 
@@ -59,9 +59,9 @@ public class CommClient implements Runnable
     {
 	try {
         /* .receive blocks thread, below code DOES NOT RUN unless message is received and proccessed */
-        m_socket.receive(m_receive);
+        socket.receive(receive);
         try {
-            m_input.read(receive_buf, 0, 9);
+            input.read(receive_buf, 0, 9);
         } catch (EOFException e) {
             System.out.print(e);
         } 

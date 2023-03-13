@@ -11,34 +11,34 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // #endregion
 public class Grabber extends SubsystemBase{
-    private WPI_TalonFX m_grabberMotor;
-    // private boolean m_grabberStatus = false; // starts as false because grabber starts as open
+    private WPI_TalonFX grabberMotor;
+    // private boolean grabberStatus = false; // starts as false because grabber starts as open
     public Grabber(){
         // Motor for moving the string
-        m_grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_ID);
-        RobotContainer.configureTalonFX(m_grabberMotor, false, false, 0, .1, 0, 0);
+        grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_ID);
+        RobotContainer.configureTalonFX(grabberMotor, false, false, 0, .1, 0, 0);
     }
 
     // This method will be called once per scheduler run
     @Override
     public void periodic(){
-        // SmartDashboard.putBoolean("Grabber status (true closed, false open)", m_grabberStatus);
-        SmartDashboard.putNumber("Grabber Encoder pos: ", m_grabberMotor.getSelectedSensorPosition());
+        // SmartDashboard.putBoolean("Grabber status (true closed, false open)", grabberStatus);
+        SmartDashboard.putNumber("Grabber Encoder pos: ", grabberMotor.getSelectedSensorPosition());
     }
 
     // public void toggleGrabber(){
-    //     if(m_grabberStatus){
+    //     if(grabberStatus){
     //         // Open grabber
-    //         m_grabberMotor.set(ControlMode.Position, 0);
-    //         m_grabberStatus = false;
+    //         grabberMotor.set(ControlMode.Position, 0);
+    //         grabberStatus = false;
     //     }else{
     //         // Close grabber
-    //         m_grabberMotor.setVoltage(-Constants.GRABBER_VOLTAGE);
-    //         m_grabberStatus = true;
+    //         grabberMotor.setVoltage(-Constants.GRABBER_VOLTAGE);
+    //         grabberStatus = true;
     //     }
     // }
 
     public void grabberSetVoltage(double voltage){
-        m_grabberMotor.setVoltage(voltage);
+        grabberMotor.setVoltage(voltage);
     }
 }

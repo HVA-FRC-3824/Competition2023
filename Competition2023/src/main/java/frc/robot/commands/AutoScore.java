@@ -95,13 +95,13 @@ public class AutoScore extends CommandBase{
         // Height 
         switch(height){
             case BOT:
-                RobotContainer.M_ARM.extendArmBotton();
+                RobotContainer.ARM_OBJ.extendArmBotton();
                 break;
             case MID:
-                RobotContainer.M_ARM.extendArmMiddle();
+                RobotContainer.ARM_OBJ.extendArmMiddle();
                 break;
             case TOP:
-                RobotContainer.M_ARM.extendArmTop();
+                RobotContainer.ARM_OBJ.extendArmTop();
                 break;
             default:
                 System.out.println("ERROR: HEIGHT SWITCH CASE FAIL");
@@ -111,7 +111,7 @@ public class AutoScore extends CommandBase{
         /* Move robot by an offset, -/+ : left/right */
 
         // Dist
-        RobotContainer.M_ARM.extendArm();
+        RobotContainer.ARM_OBJ.extendArm();
         /* ^^ Wrap in a loop to extend a certain amount, REAL encoders would be really helpful here, or if we test the values */
     }
 }

@@ -10,31 +10,31 @@ import frc.robot.Constants;
 public class LEDs extends SubsystemBase{
     // enum objects
     public enum LEDsPattern {RAINBOW, RED, BLUE, GREEN, BOUNCE, TWINKLE, NOTHING};
-    private LEDsPattern m_currLEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
+    private LEDsPattern currLEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
     // Declare and instantiate LED objects and variables
-    private AddressableLED m_LED = new AddressableLED(Constants.LEDS_ID);
-    private AddressableLEDBuffer m_LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
-    private int m_hue = 0;
+    private AddressableLED LED = new AddressableLED(Constants.LEDS_ID);
+    private AddressableLEDBuffer LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
+    private int hue = 0;
     private int i = 0;
     
     public LEDs(){ 
         // Sets the LEDs length to the buffer length
-        m_LED.setLength(m_LEDsBuffer.getLength());
+        LED.setLength(LEDsBuffer.getLength());
         // Sets the Leds to the data stored on the buffer
-        m_LED.setData(m_LEDsBuffer);
-        m_LED.start();
+        LED.setData(LEDsBuffer);
+        LED.start();
     }
 
     // This method will be called once per scheduler run
     @Override
     public void periodic(){
-        switch(m_currLEDsPattern){
+        switch(currLEDsPattern){
             case RAINBOW:
                 // not checking if already in this state because the rainbow moves in a wave pattern
                 setLEDsRainbow();
                 break;
             case BLUE:
-                if (m_currLEDsPattern != LEDsPattern.BLUE) {
+                if (currLEDsPattern != LEDsPattern.BLUE) {
                     // Blue Hue: 85-135
                     setLEDsColor(100, 255, 255);
                     this.setLEDsPattern(LEDsPattern.BLUE);
@@ -42,14 +42,14 @@ public class LEDs extends SubsystemBase{
                 }
                 
             case RED: 
-                if (m_currLEDsPattern != LEDsPattern.RED) {
+                if (currLEDsPattern != LEDsPattern.RED) {
                     // Red Hue: 170-15 
                     setLEDsColor(180, 255, 255);
                     this.setLEDsPattern(LEDsPattern.RED);
                     break;
                 }
             case GREEN:
-                if (m_currLEDsPattern != LEDsPattern.GREEN) {
+                if (currLEDsPattern != LEDsPattern.GREEN) {
                     // Green Hue: 40-75
                     setLEDsColor(50, 255, 255);
                     this.setLEDsPattern(LEDsPattern.GREEN);
@@ -70,61 +70,61 @@ public class LEDs extends SubsystemBase{
                 break;   
         }
         // Sends the LED buffer data to the LEDS 
-        m_LED.setData(m_LEDsBuffer);
+        LED.setData(LEDsBuffer);
     }
 
     private void setLEDsRainbow(){
-        setLEDsColor(m_hue++, 255, 255);
+        setLEDsColor(hue++, 255, 255);
         // Makes sure hue doesn't go out of range.
-        if(m_hue >= 180){
-            m_hue = 0;
+        if(hue >= 180){
+            hue = 0;
         }          
     }
 
     // Change LED colors in rainbow for launch, regular run
     private void setLEDsColor(int hue, int saturation, int value){
-        for(int led = 0; led < m_LEDsBuffer.getLength(); led++){
-            m_LEDsBuffer.setHSV(led, hue, saturation, value);
+        for(int led = 0; led < LEDsBuffer.getLength(); led++){
+            LEDsBuffer.setHSV(led, hue, saturation, value);
         }
     }
 
     private void setLEDsTwinkle(){
         Random rand = new Random();
-        int led_max = m_LEDsBuffer.getLength();
+        int led_max = LEDsBuffer.getLength();
         
         /* Set all to off */
         for(int i = 0; i < led_max; i++){
-            m_LEDsBuffer.setHSV(i, 100, 255, 20);
+            LEDsBuffer.setHSV(i, 100, 255, 20);
         }
 
         /* Grab random led ten times */
         for(int i = 0; i < 30; i++){
             /* Set to lower value */
-            m_LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
+            LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
         }
         // twinkle blue for rohawktics?
     }
 
     private void setLEDsBounce(){
-        int led_max = m_LEDsBuffer.getLength();
+        int led_max = LEDsBuffer.getLength();
         if(i == led_max){
-           m_LEDsBuffer.setHSV(i, 100, 255, 0);
+           LEDsBuffer.setHSV(i, 100, 255, 0);
            i = 0;
            return;
         }
             
         if(i != 0){
-            m_LEDsBuffer.setHSV(i-1, 100, 255, 0);
+            LEDsBuffer.setHSV(i-1, 100, 255, 0);
             i++;
             return;
         }
             
-        m_LEDsBuffer.setHSV(i, 100, 255, 255);
+        LEDsBuffer.setHSV(i, 100, 255, 255);
         i++;
     }
 
     // Method called in other places to set a led pattern
     public void setLEDsPattern(LEDsPattern pattern){
-        m_currLEDsPattern = pattern;
+        currLEDsPattern = pattern;
     }
 }

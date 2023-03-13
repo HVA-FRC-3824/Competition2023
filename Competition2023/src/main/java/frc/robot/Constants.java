@@ -18,33 +18,19 @@ public final class Constants{
     //TODO ADD THESE
     // #endregion
 
-    // #region Operator button IDs
-    // Grabber
-    // public static final int OPERATOR_GRABBER_TOGGLE_BTN_ID                                          = 1;
-    // Chassis
-    // public static final int OPERATOR_AUTOBALANCE_BTN_ID                                             = 6;
-    // public static final int OPERATOR_HOLD_POSE_TOGLE_BTN_ID                                         = 5;
-    // Arm
-    // public static final int OPERATOR_SET_ARM_TOP_POSE_BTN_ID                                        = 7;
-    // public static final int OPERATOR_SET_ARM_MIDDLE_POSITION_BTN_ID                                 = 8;
-    // public static final int OPERATOR_SET_ARM_BOTTOM_POSITION_BTN_ID                                 = 9;
-    // public static final int OPERATOR_EXTEND_ARM_BTN_ID                                              = 11;
-    // public static final int OPERATOR_RETRACT_ARM_BTN_ID                                             = 13;
-    // #endregion
-
     // #region subsystems
         //#region Swerve Drive
         public static final int FRONT_RIGHT_ANGLE_MOTOR_ID                                          = 5; 
-        public static final int FRONT_RIGHT_SPEED_MOTOR_ID                                          = 6;
+        public static final int FRONT_RIGHT_DRIVE_MOTOR_ID                                          = 6;
 
         public static final int FRONT_LEFT_ANGLE_MOTOR_ID                                           = 7; 
-        public static final int FRONT_LEFT_SPEED_MOTOR_ID                                           = 8; 
+        public static final int FRONT_LEFT_DRIVE_MOTOR_ID                                           = 8; 
 
         public static final int BACK_LEFT_ANGLE_MOTOR_ID                                            = 9; 
-        public static final int BACK_LEFT_SPEED_MOTOR_ID                                            = 10; 
+        public static final int BACK_LEFT_DRIVE_MOTOR_ID                                            = 10; 
 
         public static final int BACK_RIGHT_ANGLE_MOTOR_ID                                           = 11; 
-        public static final int BACK_RIGHT_SPEED_MOTOR_ID                                           = 12; 
+        public static final int BACK_RIGHT_DRIVE_MOTOR_ID                                           = 12; 
         
         // public static final int ABS_ENCODER_FR_ID                                                   = 1;
         // public static final int ABS_ENCODER_FL_ID                                                   = 4;
@@ -73,7 +59,7 @@ public final class Constants{
         // public static final double SWERVE_DRIVE_MAX_VOLTAGE                                         = 4.95;
         public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
         // public static final double SWERVE_TPR                                                       = 2048 / SWERVE_GEAR_RATIO; //motors ticks per revolution of wheel
-        public static final double SWERVE_POWER                                                     = 0.9;
+        public static final double SWERVE_POWER                                                     = 0.81; //0.83
 
         // public static final double K_MAX_VELOCITY                                                   = 3.0; // m/s
         // public static final double K_MODULE_MAX_ANGULAR_VELOCITY                                    = Math.PI; // 0.5 rotations/sec
@@ -103,7 +89,7 @@ public final class Constants{
         // #region ARM
         public static final int ARM_ANGLE_MOTOR_ID                                                  = 2;
         public static final int ARM_EXTEND_MOTOR_ID                                                 = 3;
-
+        
         public static final int ARM_ANGLE_GEAR_RATIO                                                = 49;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
         public static final double MAX_ARM_POSITION                                                 = (390872 / ARM_ANGLE_GEAR_RATIO) / 2048;

@@ -1,8 +1,6 @@
 package frc.robot;
 
 import frc.robot.commands.AutonomousDefault;
-import frc.robot.commands.AutonomousMTM;
-import frc.robot.commands.AutonomousRTM;
 import frc.robot.commands.InlineCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,29 +22,29 @@ import frc.robot.subsystems.LEDs;
  * subsystems, commands, and button mappings) should be declared here. */
 public class RobotContainer{
   // The robot's subsystems and commands are defined here...
-  public static final SwerveDrive M_SWERVE_DRIVE = new SwerveDrive();
-  public static final Arm M_ARM = new Arm();
-  public static final Grabber M_GRABBER = new Grabber();
-  public static final LEDs M_LEDS = new LEDs();
+  public static final SwerveDrive SWERVE_DRIVE_OBJ = new SwerveDrive();
+  public static final Arm ARM_OBJ = new Arm();
+  public static final Grabber GRABBER_OBJ = new Grabber();
+  public static final LEDs LEDS_OBJ = new LEDs();
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
    * Inline commands requires OI when retrieving joystick values. */
-  public static final InlineCommands m_inlineCommands = new InlineCommands();
-  public static final OI m_OI = new OI();
-  private final SendableChooser<String> m_autonomousCommandChooser = new SendableChooser<>();
+  public static final InlineCommands INLINE_COMMANDS_OBJ = new InlineCommands();
+  public static final OI OI_OBJ = new OI();
+  private final SendableChooser<String> autonomousCommandChooser = new SendableChooser<>();
   
   /* The container for the robot. Contains subsystems, Operator interface, and commands. 
    * All objects, methods, and classes should be accessed through this class. */
   public RobotContainer(){
-    m_OI.configureButtonBindings();
+    OI_OBJ.configureButtonBindings();
     this.initializeAutoChooser();
   }
 
   // Called when teleop is initialized
   public static void initializeTeleopDefaultCommands(){
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
-    M_SWERVE_DRIVE.setDefaultCommand(m_inlineCommands.m_driveWithJoystick);
+    SWERVE_DRIVE_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.driveWithJoystick);
     // Sets default command for the arm to angling with operator joystick
-    M_ARM.setDefaultCommand(m_inlineCommands.m_angleArmWithController);
+    ARM_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.angleArmWithController);
   }
 
   /* Set options for autonomous command chooser and display them for selection on
@@ -56,13 +54,13 @@ public class RobotContainer{
    * command's path). */
   private void initializeAutoChooser(){
     // Add options (which autonomous commands can be selected) to chooser.
-    m_autonomousCommandChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
-    m_autonomousCommandChooser.addOption("MIDDLE POS|TOP ROW|MIDDLE COLUMN", "MidTopMid");
-    m_autonomousCommandChooser.addOption("RIGHT POS|TOP ROW|MIDDLE COLUMN", "RightTopMid");
-    // m_autonomousCommandChooser.addOption("LEFT POS|TOP ROW|MIDDLE COLUMN", "LeftTopMid"); //need to add the rest of the auto commands
+    autonomousCommandChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
+    autonomousCommandChooser.addOption("MIDDLE POS|TOP ROW|MIDDLE COLUMN", "MidTopMid");
+    autonomousCommandChooser.addOption("RIGHT POS|TOP ROW|MIDDLE COLUMN", "RightTopMid");
+    // autonomousCommandChooser.addOption("LEFT POS|TOP ROW|MIDDLE COLUMN", "LeftTopMid"); //need to add the rest of the auto commands
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
-    SmartDashboard.putData("Autonomous Command", m_autonomousCommandChooser);
+    SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
   }
 
   /**
@@ -70,15 +68,15 @@ public class RobotContainer{
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand(){
-    switch (m_autonomousCommandChooser.getSelected()){
+    switch (autonomousCommandChooser.getSelected()){
       case "default":
         return new AutonomousDefault();
-      case "MidTopMid":
-        return new AutonomousMTM();
-      case "RightTopMid":
-        return new AutonomousRTM();
+      // case "MidTopMid":
+      //   return new AutonomousMTM();
+      // case "RightTopMid":
+      //   return new AutonomousRTM();
       default:
-        System.out.println("\nError selecting autonomous command:\nCommand selected: " + m_autonomousCommandChooser.getSelected() + "\n");
+        System.out.println("\nError selecting autonomous command:\nCommand selected: " + autonomousCommandChooser.getSelected() + "\n");
         return null;
     }
   }
