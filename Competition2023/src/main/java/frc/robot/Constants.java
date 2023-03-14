@@ -56,7 +56,7 @@ public final class Constants{
         public static final double MIN_ARM_POSITION                                                 = -10000;
         public static final double MAX_ARM_EXTENSION                                                = (415575 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
-        public static final double ARM_EXTENSION_VOLTAGE                                            = 6;
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 8;
         //public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
@@ -64,7 +64,9 @@ public final class Constants{
         // #endregion
 
         // #region GRABBER
-        public static final int PNEUMATIC_HUB_CAN_ID                                                = 4;
+        public static final int GRABBER_MOTOR_CAN_ID                                                = 4;
+        public static final double GRABBER_VOLTAGE                                                  = 6;
+        // public static final int PNEUMATIC_HUB_CAN_ID                                                = 4;
             // pneumatics
             public static final int GRABBER_RPH_ID                                                  = 3824; // TODO change
             public static final int PNEUMATIC_HUB_ANALOG_ID                                         = 0;

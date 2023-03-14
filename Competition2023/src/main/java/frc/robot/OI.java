@@ -17,7 +17,9 @@ public class OI{
     private static JoystickButton toggleSetAndHoldPosBtn;
     
     // operator controller buttons
-    private static JoystickButton grabberBtn;
+    // private static JoystickButton grabberBtn;
+    private static JoystickButton grabberCloseBtn;
+    private static JoystickButton grabberOpenBtn;
 
     private static JoystickButton setArmTopPosBtn;
     private static JoystickButton setArmMiddlePosBtn;
@@ -50,7 +52,9 @@ public class OI{
         toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
 
         // OPERATOR BUTTONS
-        grabberBtn = new JoystickButton(operatorController, 2);             // B
+        // grabberBtn = new JoystickButton(operatorController, 2);             // B
+        grabberCloseBtn = new JoystickButton(operatorController, 6);        // RB
+        grabberOpenBtn = new JoystickButton(operatorController, 5);         // LB
 
         setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
         setArmMiddlePosBtn = new JoystickButton(operatorController, 3);     // X
@@ -77,7 +81,9 @@ public class OI{
         toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionClass);
 
         // Grabber
-        grabberBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleGrabber);
+        // grabberBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleGrabber);
+        grabberOpenBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberOpen).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop);
+        grabberCloseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberClose).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop); //Hold
 
         // Arm
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);

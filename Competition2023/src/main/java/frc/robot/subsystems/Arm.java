@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 // Smart Dashboard
@@ -24,17 +25,17 @@ public class Arm extends SubsystemBase{
     // encoder position variables
     private double armAngleDesiredPosition = 0;
     private double armAngleRawActualPosition;
-    private double armAngleActualPosition;
+    // private double armAngleActualPosition;
     private double actualArmExtensionPos;
 
     private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
-    private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
+    // private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
 
     public Arm(){
         //TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
-        RobotContainer.configureTalonSRX(armAngleMotor, false, null, false, false,
-        0, .1, 0, 0, 0, 0, false);
+        RobotContainer.configureTalonSRX(armAngleMotor, true, FeedbackDevice.CTRE_MagEncoder_Absolute, false, true,
+        0, .2, 0.00001, 0, 0, 0, false);
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         //TODO PIDS
@@ -48,17 +49,17 @@ public class Arm extends SubsystemBase{
         SmartDashboard.putData("Reset Arm Angle Encoder: ", angleEncoderReset);
 
         // Extension reset
-        extensionEncoderReset.setDefaultOption("False: ", false);
-        extensionEncoderReset.addOption("True: ", true);
-        SmartDashboard.putData("Reset Arm Angle Encoder: ", extensionEncoderReset);
+        // extensionEncoderReset.setDefaultOption("False: ", false);
+        // extensionEncoderReset.addOption("True: ", true);
+        // SmartDashboard.putData("Reset Arm Angle Encoder: ", extensionEncoderReset);
     }
 
     @Override
     public void periodic() {
         // output encoder position for angleMotor
         armAngleRawActualPosition = armAngleMotor.getSelectedSensorPosition();
-        armAngleActualPosition = (armAngleRawActualPosition / Constants.ARM_ANGLE_GEAR_RATIO) / 2048;
-        SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleActualPosition);
+        // armAngleActualPosition = (armAngleRawActualPosition / Constants.ARM_ANGLE_GEAR_RATIO) / 2048;
+        SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
 
         // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
@@ -73,9 +74,9 @@ public class Arm extends SubsystemBase{
         }
 
         // If reset encoder is selected, it runs encoder reset method
-        if(extensionEncoderReset.getSelected()){
-            resetExtensionMotorEncoder();
-        }
+        // if(extensionEncoderReset.getSelected()){
+        //     resetExtensionMotorEncoder();
+        // }
     }
 
     // reset arm angle motor encoder
@@ -97,7 +98,7 @@ public class Arm extends SubsystemBase{
         if ((armAngleDesiredPosition < Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition > Constants.MIN_ARM_POSITION)){
             // Joystick deadzone
             if(Math.abs(joystickAngle) > .1 ){
-                armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 2); // TODO probably need to increase, also set to constant 
+                armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 100); // TODO probably need to increase, also set to constant 
             }
             
         // Makes sure desired pos doesn't go above or bellow max
@@ -111,7 +112,7 @@ public class Arm extends SubsystemBase{
     }
 
     public void setArmActualPosToDesiredPos(){
-        // armAngleMotor.set(ControlMode.Position, -armAngleDesiredPosition);
+        armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
         for(int i = 0; i < 5; i++){
             System.out.println("I HATE THE ANTICHRIST");
         }
