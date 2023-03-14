@@ -26,18 +26,6 @@ public class Grabber extends SubsystemBase{
         SmartDashboard.putNumber("Grabber Encoder pos: ", grabberMotor.getSelectedSensorPosition());
     }
 
-    // public void toggleGrabber(){
-    //     if(grabberStatus){
-    //         // Open grabber
-    //         grabberMotor.set(ControlMode.Position, 0);
-    //         grabberStatus = false;
-    //     }else{
-    //         // Close grabber
-    //         grabberMotor.setVoltage(-Constants.GRABBER_VOLTAGE);
-    //         grabberStatus = true;
-    //     }
-    // }
-
     public void grabberSetVoltage(double voltage){
         grabberMotor.setVoltage(voltage);
     }

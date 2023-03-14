@@ -23,6 +23,7 @@ public class Arm extends SubsystemBase{
 
     // encoder position variables
     private double armAngleDesiredPosition = 0;
+    private double armAngleRawActualPosition;
     private double armAngleActualPosition;
     private double actualArmExtensionPos;
 
@@ -33,12 +34,12 @@ public class Arm extends SubsystemBase{
         //TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, false, null, false, false,
-        0, 0.1, .1, 0.2, 0, 0, false);
+        0, .1, 0, 0, 0, 0, false);
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         //TODO PIDS
         armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
-        RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0.1, 0.0, 0.0);
+        RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0, 0.0, 0.0);
         armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
         // Angle reset
@@ -55,14 +56,15 @@ public class Arm extends SubsystemBase{
     @Override
     public void periodic() {
         // output encoder position for angleMotor
-        armAngleActualPosition = (armAngleMotor.getSelectedSensorPosition() / 16) / 2048;
+        armAngleRawActualPosition = armAngleMotor.getSelectedSensorPosition();
+        armAngleActualPosition = (armAngleRawActualPosition / Constants.ARM_ANGLE_GEAR_RATIO) / 2048;
         SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleActualPosition);
 
         // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
 
         // set actual arm extension and output encoder position for extendMotor
-        actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / 16) / 2048;
+        actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
         SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
 
         // If reset encoder is selected, it runs encoder reset method
@@ -109,7 +111,10 @@ public class Arm extends SubsystemBase{
     }
 
     public void setArmActualPosToDesiredPos(){
-        armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
+        // armAngleMotor.set(ControlMode.Position, -armAngleDesiredPosition);
+        for(int i = 0; i < 5; i++){
+            System.out.println("I HATE THE ANTICHRIST");
+        }
     }
 
     public void setArmMotorsCoast(){

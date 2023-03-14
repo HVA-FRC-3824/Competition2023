@@ -97,7 +97,7 @@ public class OI{
         // Grabber
         //grabberBtn.onTrue(RobotContainer.inlineCommands.toggleGrabber);
         grabberOpenBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberOpen).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHalt);
-        grabberCloseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberClose).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHalt);
+        grabberCloseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberClose).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHold);
 
         // Arm
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);

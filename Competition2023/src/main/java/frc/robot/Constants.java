@@ -92,9 +92,9 @@ public final class Constants{
         
         public static final int ARM_ANGLE_GEAR_RATIO                                                = 49;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
-        public static final double MAX_ARM_POSITION                                                 = (390872 / ARM_ANGLE_GEAR_RATIO) / 2048;
-        public static final double MIN_ARM_POSITION                                                 = (-1000 / ARM_ANGLE_GEAR_RATIO) / 2048;
-        public static final double MAX_ARM_EXTENSION                                                = (390872 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double MAX_ARM_POSITION                                                 = 390872;
+        public static final double MIN_ARM_POSITION                                                 = -10000;
+        public static final double MAX_ARM_EXTENSION                                                = (415575 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 6;
         //public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
@@ -105,7 +105,7 @@ public final class Constants{
 
         // #region GRABBER
         public static final int GRABBER_MOTOR_ID                                                    = 4;
-        public static final double GRABBER_VOLTAGE                                                  = 3.75; 
+        public static final double GRABBER_VOLTAGE                                                  = 2.75; 
         // #endregion
 
         // #region LEDs

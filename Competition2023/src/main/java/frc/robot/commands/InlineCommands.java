@@ -20,6 +20,7 @@ public class InlineCommands{
     public final Command grabberOpen;
     public final Command grabberClose;
     public final Command grabberHalt;
+    public final Command grabberHold;
 
     // Arm
     public final Command angleArmWithController;
@@ -45,6 +46,7 @@ public class InlineCommands{
         grabberOpen = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(Constants.GRABBER_VOLTAGE));
         grabberClose = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE));
         grabberHalt = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(0));
+        grabberHold = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-1));
 
         // Arm
         angleArmWithController = new RunCommand(() -> 
