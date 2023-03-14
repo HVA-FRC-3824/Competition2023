@@ -1,9 +1,8 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /* Inline commands allow the creation of new commands without a new CommandBase file.
@@ -16,11 +15,7 @@ public class InlineCommands{
     public final Command toggleDriveCentricity;
 
     // Grabber
-    //public final Command toggleGrabber;
-    public final Command grabberOpen;
-    public final Command grabberClose;
-    public final Command grabberHalt;
-    public final Command grabberHold;
+    public final Command toggleGrabber;
 
     // Arm
     public final Command angleArmWithController;
@@ -42,11 +37,7 @@ public class InlineCommands{
         toggleDriveCentricity = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDriveCentricity());
 
         // Grabber
-        //toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER.toggleGrabber());
-        grabberOpen = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(Constants.GRABBER_VOLTAGE));
-        grabberClose = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE));
-        grabberHalt = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(0));
-        grabberHold = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-1));
+        toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());
 
         // Arm
         angleArmWithController = new RunCommand(() -> 

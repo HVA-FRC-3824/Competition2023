@@ -20,33 +20,14 @@ public final class Constants{
 
     // #region subsystems
         //#region Swerve Drive
-        public static final int FRONT_RIGHT_ANGLE_MOTOR_ID                                          = 5; 
-        public static final int FRONT_RIGHT_DRIVE_MOTOR_ID                                          = 6;
-
-        public static final int FRONT_LEFT_ANGLE_MOTOR_ID                                           = 7; 
-        public static final int FRONT_LEFT_DRIVE_MOTOR_ID                                           = 8; 
-
-        public static final int BACK_LEFT_ANGLE_MOTOR_ID                                            = 9; 
-        public static final int BACK_LEFT_DRIVE_MOTOR_ID                                            = 10; 
-
-        public static final int BACK_RIGHT_ANGLE_MOTOR_ID                                           = 11; 
-        public static final int BACK_RIGHT_DRIVE_MOTOR_ID                                           = 12; 
-        
-        // public static final int ABS_ENCODER_FR_ID                                                   = 1;
-        // public static final int ABS_ENCODER_FL_ID                                                   = 4;
-        // public static final int ABS_ENCODER_BL_ID                                                   = 3;
-        // public static final int ABS_ENCODER_BR_ID                                                   = 2;
-        
-        // public static final double K_CHASSIS_TURN_P                                                 = 0;
-        // public static final double K_CHASSIS_TURN_I                                                 = 0;
-        // public static final double K_CHASSIS_TURN_D                                                 = 0;
-
-        // public static final double K_TURN_TOLERANCE_DEG                                             = 0;
-        // public static final double K_TURN_RATE_TOLERANCE_DEG_PER_SEC                                = 0;
-
-        // public static final double K_CHASSIS_TURN_VISION_P                                          = 0.025;
-        // public static final double K_CHASSIS_TURN_VISION_MIN                                        = 0.05;
-        // public static final double CHASSIS_TURN_ERROR_THRESHOLD                                     = 0.5;
+        public static final int FRONT_RIGHT_ANGLE_MOTOR_CAN_ID                                      = 5; 
+        public static final int FRONT_RIGHT_DRIVE_MOTOR_CAN_ID                                      = 6;
+        public static final int FRONT_LEFT_ANGLE_MOTOR_CAN_ID                                       = 7; 
+        public static final int FRONT_LEFT_DRIVE_MOTOR_CAN_ID                                       = 8; 
+        public static final int BACK_LEFT_ANGLE_MOTOR_CAN_ID                                        = 9; 
+        public static final int BACK_LEFT_DRIVE_MOTOR_CAN_ID                                        = 10; 
+        public static final int BACK_RIGHT_ANGLE_MOTOR_CAN_ID                                       = 11; 
+        public static final int BACK_RIGHT_DRIVE_MOTOR_CAN_ID                                       = 12; 
         
         public static final double K_CHASSIS_LEFT_ANGLE_P                                           = 0.2245;     //previous: 0.225
         public static final double K_CHASSIS_LEFT_ANGLE_I                                           = 0.0000185;  //previous: 0.0002
@@ -56,39 +37,18 @@ public final class Constants{
         public static final double K_CHASSIS_RIGHT_ANGLE_I                                          = 0.0000185; //previous: 0.0002
         public static final double K_CHASSIS_RIGHT_ANGLE_D                                          = 0.000003;  //previous: 0.000005
 
-        // public static final double SWERVE_DRIVE_MAX_VOLTAGE                                         = 4.95;
         public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
-        // public static final double SWERVE_TPR                                                       = 2048 / SWERVE_GEAR_RATIO; //motors ticks per revolution of wheel
         public static final double SWERVE_POWER                                                     = 0.81; //0.83
-
-        // public static final double K_MAX_VELOCITY                                                   = 3.0; // m/s
-        // public static final double K_MODULE_MAX_ANGULAR_VELOCITY                                    = Math.PI; // 0.5 rotations/sec
-        // public static final double K_MODULE_MAX_ANGULAR_ACCELERATION                                = 2 * Math.PI; // radians/sec^2
-        // public static final double K_SWERVE_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED              = 3.0; 
-        
-        // public static final int K_ABSOLUTE_ENCODER_UPR                                              = 4096; // units per rotation
-
-        // Chassis Specs
-        // public static final Translation2d BACK_LEFT_WHEEL_LOCATION                                  = new Translation2d(-12.5 , 10.75);
-        // public static final Translation2d BACK_RIGHT_WHEEL_LOCATION                                 = new Translation2d(-12.5 , -10.75);
-        // public static final Translation2d FRONT_LEFT_WHEEL_LOCATION                                 = new Translation2d(12.5 , 10.75);        
-        // public static final Translation2d FRONT_RIGHT_WHEEL_LOCATION                                = new Translation2d(12.5 , -10.75);
-
-        // public static final double K_SWERVE_WHEEL_DIAMETER_METERS                                   = 0.1524;
-        // public static final double SWERVE_DRIVE_WHEEL_AXLE_LENGTH                                   = 36;
-        // public static final double SWERVE_DRIVE_WHEEL_AXLE_WIDTH                                    = 48;
-        // public static final double SWERVE_DRIVE_WHEEL_AXLE_DIAGONAL                                 = 60;
 
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
 
         public static final double WHEEL_MOTOR_TICKS_PER_REVOLUTION                                 = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
 
         public static final int K_SWERVE_ENCODER_TICKS_PER_REVOLUTION                               = 28300;
-        // public static final double K_SWERVE_ENCODER_DISTANCE_PER_PULSE                              = (K_SWERVE_WHEEL_DIAMETER_METERS * Math.PI) / (double) K_SWERVE_ENCODER_TICKS_PER_REVOLUTION;
 
         // #region ARM
-        public static final int ARM_ANGLE_MOTOR_ID                                                  = 2;
-        public static final int ARM_EXTEND_MOTOR_ID                                                 = 3;
+        public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
+        public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
         
         public static final int ARM_ANGLE_GEAR_RATIO                                                = 49;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
@@ -104,8 +64,10 @@ public final class Constants{
         // #endregion
 
         // #region GRABBER
-        public static final int GRABBER_MOTOR_ID                                                    = 4;
-        public static final double GRABBER_VOLTAGE                                                  = 2.75; 
+        public static final int PNEUMATIC_HUB_CAN_ID                                                = 4;
+            // pneumatics
+            public static final int GRABBER_RPH_ID                                                  = 3824; // TODO change
+            public static final int PNEUMATIC_HUB_ANALOG_ID                                         = 0;
         // #endregion
 
         // #region LEDs

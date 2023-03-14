@@ -130,6 +130,6 @@ public class AutoScore extends CommandBase{
             }
         }
 
-        RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE);
+        RobotContainer.GRABBER_OBJ.toggleGrabber();
     }
 }

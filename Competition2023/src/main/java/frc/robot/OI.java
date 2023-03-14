@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -18,9 +17,7 @@ public class OI{
     private static JoystickButton toggleSetAndHoldPosBtn;
     
     // operator controller buttons
-    // private static JoystickButton grabberBtn;
-    private static JoystickButton grabberCloseBtn;
-    private static JoystickButton grabberOpenBtn;
+    private static JoystickButton grabberBtn;
 
     private static JoystickButton setArmTopPosBtn;
     private static JoystickButton setArmMiddlePosBtn;
@@ -53,9 +50,7 @@ public class OI{
         toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
 
         // OPERATOR BUTTONS
-        // grabberBtn = new JoystickButton(operatorController, 2);             // B
-        grabberCloseBtn = new JoystickButton(operatorController, 6);        // RB
-        grabberOpenBtn = new JoystickButton(operatorController, 5);         // LB
+        grabberBtn = new JoystickButton(operatorController, 2);             // B
 
         setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
         setArmMiddlePosBtn = new JoystickButton(operatorController, 3);     // X
@@ -75,19 +70,6 @@ public class OI{
         return operatorController;
     }
 
-    // returns if a controller is connected to port 2, used for deciding which controller to use for arm control
-    public boolean isController(){
-        return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT));
-    }
-
-    // used in robot.java to determine weather to set default commands or not
-    public boolean isDriverConnected(){
-        return(DriverStation.isJoystickConnected(Constants.DRIVER_CONTROLLER_PORT));
-    }
-    public boolean isOperatorConnected(){
-        return(DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT) || DriverStation.isJoystickConnected(Constants.OPERATOR_CONTROLLER_PORT));
-    }
-
     public void configureButtonBindings(){
         // WestCoastDrive
         autoBalanceBtn.onTrue(autoBalanceCommandClass);
@@ -95,9 +77,7 @@ public class OI{
         toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionClass);
 
         // Grabber
-        //grabberBtn.onTrue(RobotContainer.inlineCommands.toggleGrabber);
-        grabberOpenBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberOpen).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHalt);
-        grabberCloseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberClose).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberHold);
+        grabberBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleGrabber);
 
         // Arm
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);

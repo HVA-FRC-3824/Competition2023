@@ -36,7 +36,7 @@ public class RobotContainer{
    * All objects, methods, and classes should be accessed through this class. */
   public RobotContainer(){
     OI_OBJ.configureButtonBindings();
-    this.initializeAutoChooser();
+    this.initializeAutonomousChooser();
   }
 
   // Called when teleop is initialized
@@ -52,12 +52,10 @@ public class RobotContainer{
    * if using a command chooser, will instantiate all the autonomous commands.
    * This may cause problems (e.g. initial trajectory position is from a different
    * command's path). */
-  private void initializeAutoChooser(){
+  private void initializeAutonomousChooser(){
     // Add options (which autonomous commands can be selected) to chooser.
     autonomousCommandChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
-    autonomousCommandChooser.addOption("MIDDLE POS|TOP ROW|MIDDLE COLUMN", "MidTopMid");
-    autonomousCommandChooser.addOption("RIGHT POS|TOP ROW|MIDDLE COLUMN", "RightTopMid");
-    // autonomousCommandChooser.addOption("LEFT POS|TOP ROW|MIDDLE COLUMN", "LeftTopMid"); //need to add the rest of the auto commands
+    autonomousCommandChooser.addOption("AUTOBALANCE", "Autobalance");
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);

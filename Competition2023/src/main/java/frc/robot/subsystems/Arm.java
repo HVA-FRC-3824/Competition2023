@@ -32,13 +32,13 @@ public class Arm extends SubsystemBase{
 
     public Arm(){
         //TODO PIDS
-        armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_ID);
+        armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, false, null, false, false,
         0, .1, 0, 0, 0, 0, false);
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         //TODO PIDS
-        armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_ID);
+        armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_CAN_ID);
         RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0, 0.0, 0.0);
         armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
