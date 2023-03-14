@@ -8,13 +8,12 @@ import frc.robot.RobotContainer;
 // Smart Dashboard
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+// Objects
+// import edu.wpi.first.wpilibj.PneumaticHub;
+// import edu.wpi.first.wpilibj.PneumaticsModuleType;
+// import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-// Objects
-import edu.wpi.first.wpilibj.PneumaticHub;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 
 // #endregion
 public class Grabber extends SubsystemBase{
@@ -37,15 +36,15 @@ public class Grabber extends SubsystemBase{
     
     /* This method sets the piston grabber to the different possitions depending on pneumaticBool, which changes after every 
        iteration, inducing a toggle effect */ 
-    public void toggleGrabber(){
-        // if (grabberOpen) {
-        //     grabberPiston.set(true);
-        //     grabberOpen = false;
-        // }else if (!grabberOpen) {
-        //     grabberPiston.set(false);
-        //     grabberOpen = true;
-        // }
-    }
+    // public void toggleGrabber(){
+    //     if (grabberOpen) {
+    //         grabberPiston.set(true);
+    //         grabberOpen = false;
+    //     }else if (!grabberOpen) {
+    //         grabberPiston.set(false);
+    //         grabberOpen = true;
+    //     }
+    // }
 
     // This method will be called once per scheduler run
     @Override

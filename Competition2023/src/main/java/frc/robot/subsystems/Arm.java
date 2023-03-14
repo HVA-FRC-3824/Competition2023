@@ -109,6 +109,7 @@ public class Arm extends SubsystemBase{
                 armAngleDesiredPosition = Constants.MIN_ARM_POSITION;
             }
         }
+        
     }
 
     public void setArmActualPosToDesiredPos(){

@@ -19,11 +19,11 @@ public class Autobalance extends CommandBase {
     public void execute(){
         // float angle = RobotContainer.M_WEST_COAST_DRIVE.returnGyro().getRoll();
         // variable to hold the desired velocity of the drivetrain
-        double vel;
+        // double vel;
         // True is forward, false is backward
-        boolean forward;
+        // boolean forward;
         // true means were in 
-        boolean state;
+        // boolean state;
 
         // if (Math.abs(angle) > 2.5){
         //     // vel = Constants.AUTOBALANCE_LOW_VEL

@@ -130,6 +130,6 @@ public class AutoScore extends CommandBase{
             }
         }
 
-        RobotContainer.GRABBER_OBJ.toggleGrabber();
+        //RobotContainer.GRABBER_OBJ.toggleGrabber(); // TODO change to close grabber, then stop when velocity drops to a certain point, because that means that the cone/cube is slowing us down
     }
 }

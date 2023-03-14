@@ -15,7 +15,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-// import com.ctre.phoenix.sensors.CANCoder; // ABS ENC
 
 public class SwerveDrive extends SubsystemBase{
   // Declare chassis objects
@@ -35,13 +34,7 @@ public class SwerveDrive extends SubsystemBase{
 
   private double swervePower;
   
-  private boolean isDefending = false;
   private boolean robotCentric = false;
-
-  // public CANCoder AbsEncoderFR; // ABS ENC
-  // public CANCoder AbsEncoderFL; // ABS ENC
-  // public CANCoder AbsEncoderBL; // ABS ENC
-  // public CANCoder AbsEncoderBR; // ABS ENC
 
   /* Array of values for calculating swerve angle & speed
   *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
@@ -57,11 +50,6 @@ public class SwerveDrive extends SubsystemBase{
     }catch (RuntimeException ex){
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
-
-    // AbsEncoderFR = new CANCoder(Constants.ABS_ENCODER_FR_ID); // ABS ENC
-    // AbsEncoderFL = new CANCoder(Constants.ABS_ENCODER_FL_ID); // ABS ENC
-    // AbsEncoderBL = new CANCoder(Constants.ABS_ENCODER_BL_ID); // ABS ENC
-    // AbsEncoderBR = new CANCoder(Constants.ABS_ENCODER_BR_ID); // ABS ENC
 
     //Configure drivetrain motors
     angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_CAN_ID);
@@ -90,7 +78,7 @@ public class SwerveDrive extends SubsystemBase{
   // This method will be called once per scheduler run.
   @Override
   public void periodic(){
-    // Update drivetrain information on SmartDashboard for testing.
+    // Update drivetrain information on SmartDashboard for testing. TODO remove?
     SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
@@ -257,15 +245,6 @@ public class SwerveDrive extends SubsystemBase{
     // SmartDashboard.putNumber("Angle", angle);
   }
 
-  // Not used: work in progress 3/24 // ABS ENC
-  // Sets motors to external encoder values, permanent forward direction
-  public void setMotorPosition(){
-    // angleMotorFrontRight.setSelectedSensorPosition(AbsEncoderFR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // angleMotorFrontLeft.setSelectedSensorPosition(AbsEncoderFL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // angleMotorBackLeft.setSelectedSensorPosition(AbsEncoderBL.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-    // angleMotorBackRight.setSelectedSensorPosition(AbsEncoderBR.getAbsolutePosition() * Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION / 360, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS); // ABS ENC
-  }
-
   // Reset gyro to zero the heading of the robot.
   public void zeroHeading(){
     ahrs.reset();
@@ -289,9 +268,5 @@ public class SwerveDrive extends SubsystemBase{
   //Toggle drive between field centric and robot centric
   public void toggleDriveCentricity(){
     robotCentric = !robotCentric;
-  }
-
-  public boolean getDefenseStatus(){
-    return isDefending;
   }
 }

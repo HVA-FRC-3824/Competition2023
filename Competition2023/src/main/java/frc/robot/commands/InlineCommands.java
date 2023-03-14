@@ -28,7 +28,7 @@ public class InlineCommands{
     public final Command armBottomPos;
     public final Command extendArm;
     public final Command retractArm;
-    public final Command extenderHalt;
+    public final Command extenderStop;
 
     public InlineCommands(){
         // SwerveDrive
@@ -57,6 +57,6 @@ public class InlineCommands{
         
         extendArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArm());
         retractArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.retractArm());
-        extenderHalt = new InstantCommand(() -> RobotContainer.ARM_OBJ.stopArm());
+        extenderStop = new InstantCommand(() -> RobotContainer.ARM_OBJ.stopArm());
     }
 }
