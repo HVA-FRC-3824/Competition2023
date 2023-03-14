@@ -84,7 +84,7 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putBoolean("Swerve Power Mode: ", powerModeScore);
+    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
   }
 
   //Gets motors for use in commands
@@ -244,7 +244,7 @@ public class SwerveDrive extends SubsystemBase{
     // Set angle motor position + print values
     angleMotor.set(TalonFXControlMode.Position, angle); //0
 
-    // SmartDashboard.putNumber("Angle", angle);
+    SmartDashboard.putNumber("Angle", speed);
   }
 
   // Reset gyro to zero the heading of the robot.
@@ -275,8 +275,10 @@ public class SwerveDrive extends SubsystemBase{
   public void toggleDrivePower(){
     if(powerModeScore){
       swervePower = Constants.SWERVE_POWER;
+      powerModeScore = false;
     }else if(!powerModeScore){
       swervePower = Constants.SWERVE_SCORE_POWER;
+      powerModeScore = true;
     }
   }
 
