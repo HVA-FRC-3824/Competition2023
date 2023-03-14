@@ -38,7 +38,8 @@ public final class Constants{
         public static final double K_CHASSIS_RIGHT_ANGLE_D                                          = 0.000003;  //previous: 0.000005
 
         public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
-        public static final double SWERVE_POWER                                                     = 0.81; //0.83
+        public static final double SWERVE_POWER                                                     = 0.85;
+        public static final double SWERVE_SCORE_POWER                                               = .5;
 
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
 

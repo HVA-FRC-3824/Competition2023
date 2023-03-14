@@ -109,14 +109,11 @@ public class Arm extends SubsystemBase{
                 armAngleDesiredPosition = Constants.MIN_ARM_POSITION;
             }
         }
-        
+
     }
 
     public void setArmActualPosToDesiredPos(){
         armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
-        for(int i = 0; i < 5; i++){
-            System.out.println("I HATE THE ANTICHRIST");
-        }
     }
 
     public void setArmMotorsCoast(){

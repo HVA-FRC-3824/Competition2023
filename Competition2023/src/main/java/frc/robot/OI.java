@@ -15,6 +15,7 @@ public class OI{
     private static JoystickButton toggleDriveCentricityBtn;
     private static JoystickButton autoBalanceBtn;
     private static JoystickButton toggleSetAndHoldPosBtn;
+    private static JoystickButton toggleDrivePowerBtn;
     
     // operator controller buttons
     // private static JoystickButton grabberBtn;
@@ -50,6 +51,8 @@ public class OI{
         toggleDriveCentricityBtn = new JoystickButton(driverController, 5); // LB
         autoBalanceBtn = new JoystickButton(driverController, 6);           // RB
         toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
+        toggleDrivePowerBtn = new JoystickButton(driverController, 1);      // A
+
 
         // OPERATOR BUTTONS
         // grabberBtn = new JoystickButton(operatorController, 2);             // B
@@ -78,7 +81,8 @@ public class OI{
         // WestCoastDrive
         autoBalanceBtn.onTrue(autoBalanceCommandClass);
         toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
-        toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionClass);
+        toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionClass); //TODO check toggle?
+        toggleDrivePowerBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDrivePower);
 
         // Grabber
         // grabberBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleGrabber);

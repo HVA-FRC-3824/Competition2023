@@ -14,6 +14,7 @@ public class InlineCommands{
     // Swerve Drive
     public final Command driveWithJoystick;
     public final Command toggleDriveCentricity;
+    public final Command toggleDrivePower;
 
     // Grabber
     // public final Command toggleGrabber;
@@ -39,6 +40,7 @@ public class InlineCommands{
             RobotContainer.OI_OBJ.getDriverController().getRawAxis(4)), 
             RobotContainer.SWERVE_DRIVE_OBJ);
         toggleDriveCentricity = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDriveCentricity());
+        toggleDrivePower = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDrivePower());
 
         // Grabber
         // toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());

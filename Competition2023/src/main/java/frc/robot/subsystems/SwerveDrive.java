@@ -35,6 +35,7 @@ public class SwerveDrive extends SubsystemBase{
   private double swervePower;
   
   private boolean robotCentric = false;
+  private boolean powerModeScore = false;
 
   /* Array of values for calculating swerve angle & speed
   *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
@@ -72,7 +73,7 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorBackRight, false, false, 0.0, 0.0, 0.0, 0.0);
 
-    swervePower = Constants.SWERVE_POWER;
+      swervePower = Constants.SWERVE_POWER;
   }
 
   // This method will be called once per scheduler run.
@@ -83,6 +84,7 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    SmartDashboard.putBoolean("Swerve Power Mode: ", powerModeScore);
   }
 
   //Gets motors for use in commands
@@ -269,4 +271,13 @@ public class SwerveDrive extends SubsystemBase{
   public void toggleDriveCentricity(){
     robotCentric = !robotCentric;
   }
+
+  public void toggleDrivePower(){
+    if(powerModeScore){
+      swervePower = Constants.SWERVE_POWER;
+    }else if(!powerModeScore){
+      swervePower = Constants.SWERVE_SCORE_POWER;
+    }
+  }
+
 }
