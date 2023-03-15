@@ -4,11 +4,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ResetExtensionMotorEncoder;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -17,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class ArmExtension extends SubsystemBase {
   private WPI_TalonFX armExtendMotor;
   private double actualArmExtensionPos;
-  private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
+  // private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
   private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
   /** Creates a new ArmExtension. */
   public ArmExtension() {
@@ -26,10 +27,11 @@ public class ArmExtension extends SubsystemBase {
     RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0, 0.0, 0.0);
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
-    // Extension reset smartdashboard chooser
-    extensionEncoderReset.setDefaultOption("False: ", false);
-    extensionEncoderReset.addOption("True: ", true);
-    SmartDashboard.putData("Reset Arm Angle Encoder: ", extensionEncoderReset);
+    // // Extension reset smartdashboard chooser
+    // extensionEncoderReset.setDefaultOption("False: ", false);
+    // extensionEncoderReset.addOption("True: ", true);
+    // SmartDashboard.putData("Reset Arm Angle Encoder: ", extensionEncoderReset);
+    SmartDashboard.putData("RESET ARM EXTENSION ENCODER", new ResetExtensionMotorEncoder());
   }
 
   @Override
@@ -40,9 +42,9 @@ public class ArmExtension extends SubsystemBase {
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
 
     // If reset encoder is selected, it runs encoder reset method
-    if(extensionEncoderReset.getSelected()){
-      resetExtensionMotorEncoder();
-    }
+    // if(extensionEncoderReset.getSelected()){
+    //   resetExtensionMotorEncoder();
+    // }
 
     SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
   }

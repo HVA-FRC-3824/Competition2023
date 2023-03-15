@@ -3,8 +3,9 @@ package frc.robot.subsystems;
 // #region imports
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ResetAngleMotorEncoder;
 // General
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -24,7 +25,7 @@ public class ArmAngle extends SubsystemBase{
     private double armAngleDesiredPosition = 0;
     private double armAngleRawActualPosition;
 
-    private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
+    // private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
 
     public ArmAngle(){
         //TODO PIDS
@@ -34,9 +35,11 @@ public class ArmAngle extends SubsystemBase{
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         // Angle reset smartdashboard chooser
-        angleEncoderReset.setDefaultOption("False: ", false);
-        angleEncoderReset.addOption("True: ", true);
-        SmartDashboard.putData("Reset Arm Angle Encoder: ", angleEncoderReset);
+        // angleEncoderReset.setDefaultOption("False: ", false);
+        // angleEncoderReset.addOption("True: ", true);
+        // SmartDashboard.putData("Reset Arm Angle Encoder: ", angleEncoderReset);
+
+        SmartDashboard.putData("RESET ARM ANGLE ENCODER", new ResetAngleMotorEncoder());
     }
 
     @Override
@@ -50,9 +53,9 @@ public class ArmAngle extends SubsystemBase{
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
 
         // If reset encoder is selected, it runs encoder reset method
-        if(angleEncoderReset.getSelected()){
-            resetAngleMotorEncoder();
-        }
+        // if(angleEncoderReset.getSelected()){
+        //     resetAngleMotorEncoder();
+        // }
     }
 
     // reset arm angle motor encoder

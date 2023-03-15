@@ -12,10 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import frc.robot.commands.ResetFieldForwardPositionGyro;
 
 public class SwerveDrive extends SubsystemBase{
   // Declare chassis objects
@@ -37,7 +38,7 @@ public class SwerveDrive extends SubsystemBase{
   
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
-  private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
+  // private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
   *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
@@ -77,9 +78,12 @@ public class SwerveDrive extends SubsystemBase{
 
     swervePower = Constants.SWERVE_POWER;
 
-    gyroReset.setDefaultOption("Reset Gyro false", false);
-    gyroReset.addOption("Reset Gyro true", true);
-    SmartDashboard.putData("RESET GYRO", ahrs);
+    // gyroReset.setDefaultOption("RESET GYRO FALSE", false);
+    // gyroReset.addOption("RESET GYRO TRUE", true);
+    // SmartDashboard.putData("RESET GRYO", gyroReset);
+    
+    // Button that calls the reset field forward position command //TODO Test
+    SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
   }
 
   // This method will be called once per scheduler run.
@@ -94,13 +98,12 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore); //TODO IDK why this didn't work
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
 
-    // TEST
-    if(gyroReset.getSelected()){
-      resetFieldCentricity();
-    }
+    // if(gyroReset.getSelected()){
+    //   resetFieldCentricity();
+    // }
   }
 
-  private void resetFieldCentricity(){
+  public void resetFieldCentricity(){
     ahrs.reset();
   }
 
