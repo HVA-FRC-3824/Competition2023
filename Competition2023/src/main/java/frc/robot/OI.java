@@ -94,7 +94,10 @@ public class OI{
         setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
         setArmBottomPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armBottomPos);
         
-        extendArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.extendArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
-        retractArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.retractArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
+        /*
+         * This functionality has been replaced by controller functionality
+         */
+        // extendArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.extendArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
+        // retractArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.retractArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
     }
 }

@@ -108,13 +108,13 @@ public class AutoScore extends CommandBase{
         // Height 
         switch(height){
             case BOT:
-                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
+                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
                 break;
             case MID:
-                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
+                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
                 break;
             case TOP:
-                RobotContainer.ARM_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
+                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
                 break;
             default:
                 System.out.println("Whomp Whomp");

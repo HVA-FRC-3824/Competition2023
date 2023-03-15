@@ -11,7 +11,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 // importing subsystems
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.ArmAngle;
+import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.LEDs;
@@ -23,7 +24,8 @@ import frc.robot.subsystems.LEDs;
 public class RobotContainer{
   // The robot's subsystems and commands are defined here...
   public static final SwerveDrive SWERVE_DRIVE_OBJ = new SwerveDrive();
-  public static final Arm ARM_OBJ = new Arm();
+  public static final ArmAngle ARM_ANGLE_OBJ = new ArmAngle();
+  public static final ArmExtension ARM_EXTENSION_OBJ = new ArmExtension();
   public static final Grabber GRABBER_OBJ = new Grabber();
   public static final LEDs LEDS_OBJ = new LEDs();
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
@@ -43,8 +45,10 @@ public class RobotContainer{
   public static void initializeTeleopDefaultCommands(){
     // Sets default command for the westcostdrivetrain to driving with driver joystick.
     SWERVE_DRIVE_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.driveWithJoystick);
-    // Sets default command for the arm to angling with operator joystick
-    ARM_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.angleArmWithController);
+    // Sets default command for the arm angle to angling with operator joystick
+    ARM_ANGLE_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.angleArmWithController);
+    // Sets defualt command for the arm extender
+    ARM_EXTENSION_OBJ.setDefaultCommand(INLINE_COMMANDS_OBJ.extendArmWithController);
   }
 
   /* Set options for autonomous command chooser and display them for selection on

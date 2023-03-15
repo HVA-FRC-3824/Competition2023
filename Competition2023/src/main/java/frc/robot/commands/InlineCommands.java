@@ -24,6 +24,7 @@ public class InlineCommands{
 
     // Arm
     public final Command angleArmWithController;
+    public final Command extendArmWithController;
     public final Command armTopPos;
     public final Command armMiddlePos;
     public final Command armBottomPos;
@@ -48,17 +49,23 @@ public class InlineCommands{
         grabberClose = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE));
         grabberStop = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(0));
 
-        // Arm
+        // Arm Angle
         angleArmWithController = new RunCommand(() -> 
-            RobotContainer.ARM_OBJ.setDesiredArmPosition(
+            RobotContainer.ARM_ANGLE_OBJ.setDesiredArmPosition(
             RobotContainer.OI_OBJ.getOperatorController().getY()), 
-            RobotContainer.ARM_OBJ);
-        armTopPos = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArmTop());
-        armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArmMiddle());
-        armBottomPos = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArmBotton());
+            RobotContainer.ARM_ANGLE_OBJ);
         
-        extendArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArm());
-        retractArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.retractArm());
-        extenderStop = new InstantCommand(() -> RobotContainer.ARM_OBJ.stopArm());
+        // Arm Extension
+        extendArmWithController = new RunCommand(() ->
+            RobotContainer.ARM_EXTENSION_OBJ.extendAndRetractArm(
+            RobotContainer.OI_OBJ.getOperatorController().getRawAxis(0)), 
+            RobotContainer.ARM_EXTENSION_OBJ); //TODO FIGURE OUT WHAT AXIS
+        armTopPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop());
+        armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle());
+        armBottomPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmBotton());
+        
+        extendArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArm());
+        retractArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.retractArm());
+        extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArm());
     }
 }

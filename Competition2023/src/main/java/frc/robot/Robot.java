@@ -56,12 +56,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit(){
-    RobotContainer.ARM_OBJ.setArmMotorsBreak();
+    RobotContainer.ARM_ANGLE_OBJ.setArmAngleMotorBreak();
+    RobotContainer.ARM_EXTENSION_OBJ.setArmExtensionMotorBrake();
   }
 
   @Override
   public void disabledPeriodic(){}
-
 
   @Override
   public void autonomousInit(){
@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic(){
     // The method in the arm that makes the arm move to desired angle
-    RobotContainer.ARM_OBJ.setArmActualPosToDesiredPos();
+    RobotContainer.ARM_ANGLE_OBJ.setArmActualPosToDesiredPos();
   }
 
   @Override
