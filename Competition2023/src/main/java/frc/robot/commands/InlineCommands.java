@@ -15,6 +15,8 @@ public class InlineCommands{
     public final Command driveWithJoystick;
     public final Command toggleDriveCentricity;
     public final Command toggleDrivePower;
+    public final Command jukeSpeed;
+    public final Command normalSpeed;
 
     // Grabber
     // public final Command toggleGrabber;
@@ -27,9 +29,10 @@ public class InlineCommands{
     public final Command armTopPos;
     public final Command armMiddlePos;
     public final Command armBottomPos;
-    public final Command extendArm;
-    public final Command retractArm;
+    // public final Command extendArm;
+    // public final Command retractArm;
     public final Command extenderStop;
+    public final Command toggleExtensionLimiter;
 
     public InlineCommands(){
         // SwerveDrive
@@ -41,6 +44,8 @@ public class InlineCommands{
             RobotContainer.SWERVE_DRIVE_OBJ);
         toggleDriveCentricity = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDriveCentricity());
         toggleDrivePower = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDrivePower());
+        jukeSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.jukeSpeedMode());
+        normalSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.normalSpeedMode());
 
         // Grabber
         // toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());
@@ -57,8 +62,10 @@ public class InlineCommands{
         armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArmMiddle());
         armBottomPos = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArmBotton());
         
-        extendArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArm());
-        retractArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.retractArm());
-        extenderStop = new InstantCommand(() -> RobotContainer.ARM_OBJ.stopArm());
+        // extendArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.extendArm());
+        // retractArm = new InstantCommand(() -> RobotContainer.ARM_OBJ.retractArm());
+        extenderStop = new InstantCommand(() -> RobotContainer.ARM_OBJ.stopArmExtension());
+
+        toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_OBJ.toggleExtensionLimiter());
     }
 }

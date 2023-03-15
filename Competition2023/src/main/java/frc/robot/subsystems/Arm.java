@@ -31,6 +31,8 @@ public class Arm extends SubsystemBase{
     private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
     // private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
 
+    private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
+
     public Arm(){
         //TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
@@ -52,6 +54,8 @@ public class Arm extends SubsystemBase{
         // extensionEncoderReset.setDefaultOption("False: ", false);
         // extensionEncoderReset.addOption("True: ", true);
         // SmartDashboard.putData("Reset Arm Angle Encoder: ", extensionEncoderReset);
+
+        armAngleMotor.setSelectedSensorPosition(0); //TODO VOIDS ABSOLUTE ENCODER FUNCTIONALITY USED UNTIL WE FIX THE ENCODER
     }
 
     @Override
@@ -64,7 +68,7 @@ public class Arm extends SubsystemBase{
         // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
 
-        // set actual arm extension and output encoder position for extendMotor
+        // set actual arm extension and output encoder position for extendMotor in rotations TODO muliply by circumferance to get distance for more accurate limit?
         actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
         SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
 
@@ -77,6 +81,8 @@ public class Arm extends SubsystemBase{
         // if(extensionEncoderReset.getSelected()){
         //     resetExtensionMotorEncoder();
         // }
+
+        SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
     }
 
     // reset arm angle motor encoder
@@ -146,26 +152,48 @@ public class Arm extends SubsystemBase{
     }
 
     // extends arm for fine tuning
-    public void extendArm(){
-        if(actualArmExtensionPos < Constants.MAX_ARM_EXTENSION){
-            armExtendMotor.setVoltage(Constants.ARM_EXTENSION_VOLTAGE);
-        }else{
-            System.out.println("WARNING: Arm Extension Position is greater than Max extension!!! ");
-            armExtendMotor.setVoltage(0);
-        }
-    }
+    // public void extendArm(){
+    //     if(actualArmExtensionPos < Constants.MAX_ARM_EXTENSION){
+    //         armExtendMotor.setVoltage(Constants.ARM_EXTENSION_VOLTAGE);
+    //     }else{
+    //         System.out.println("WARNING: Arm Extension Position is greater than Max extension!!! ");
+    //         armExtendMotor.setVoltage(0);
+    //     }
+    // }
 
     // retracts arm for fine tuning
-    public void retractArm(){
-        if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
-            armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
-        }else{
-            System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
-            armExtendMotor.setVoltage(0);
+    // public void retractArm(){
+    //     if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
+    //         armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
+    //     }else{
+    //         System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
+    //         armExtendMotor.setVoltage(0);
+    //     }
+    // }
+
+    public void stopArmExtension(){
+        armExtendMotor.setVoltage(0);
+    }
+
+    public double getArmExtensionMotorEncoderPosition(){
+        return(actualArmExtensionPos);
+    }
+
+    public WPI_TalonFX getArmExtensionMotor(){
+        return(armExtendMotor);
+    }
+
+    public void toggleExtensionLimiter(){
+        if(extensionLimiter){
+          System.out.println("DISENGAGING EXTENSION LIMITER");
+          extensionLimiter = false;
+        }else if(!extensionLimiter){
+          System.out.println("ENGAGING EXTENSION LIMITER");
+          extensionLimiter = true;
         }
     }
 
-    public void stopArm(){
-        armExtendMotor.setVoltage(0);
+    public boolean getExtensionLimiter(){
+        return(extensionLimiter);
     }
 }
