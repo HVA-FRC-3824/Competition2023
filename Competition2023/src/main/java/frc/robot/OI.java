@@ -2,9 +2,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.ArmExtension;
-import frc.robot.commands.ArmRetraction;
+// import edu.wpi.first.wpilibj2.command.button.POVButton;
+// import frc.robot.commands.ArmExtension;
+// import frc.robot.commands.ArmRetraction;
 import frc.robot.commands.Autobalance;
 import frc.robot.commands.SetAndHoldPosition;
 
@@ -28,16 +28,18 @@ public class OI{
     private static JoystickButton setArmTopPosBtn;
     private static JoystickButton setArmMiddlePosBtn;
     private static JoystickButton setArmBottomPosBtn;
-    private static POVButton extendArmPOVBtn;
-    private static POVButton retractArmPOVBtn;
+    /* REPLACED FUNCTIONALITY */
+    // private static POVButton extendArmPOVBtn;
+    // private static POVButton retractArmPOVBtn;
 
     private static JoystickButton toggleArmExtensionLimiterBtn;
 
     // COMMANDS
     private Autobalance autoBalanceCommandClass = new Autobalance();
     private SetAndHoldPosition setAndHoldPositionCommandClass = new SetAndHoldPosition();
-    private ArmExtension armExtensionCommandClass = new ArmExtension();
-    private ArmRetraction armRetractionCommandClass = new ArmRetraction();
+    /* REPLACED FUNCTIONALITY */
+    // private ArmExtension armExtensionCommandClass = new ArmExtension();
+    // private ArmRetraction armRetractionCommandClass = new ArmRetraction();
 
     public OI(){
         // CONTROLLERS
@@ -70,8 +72,9 @@ public class OI{
         setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
         setArmMiddlePosBtn = new JoystickButton(operatorController, 2);     // B
         setArmBottomPosBtn = new JoystickButton(operatorController, 1);     // A
-        extendArmPOVBtn = new POVButton(operatorController, 0);                    // Dpad up
-        retractArmPOVBtn = new POVButton(operatorController, 180);                 // Dpad down
+        // REPLACED FUNCTIONALITY
+        // extendArmPOVBtn = new POVButton(operatorController, 0);                    // Dpad up
+        // retractArmPOVBtn = new POVButton(operatorController, 180);                 // Dpad down
         toggleArmExtensionLimiterBtn = new JoystickButton(operatorController, 3); // X
     }
 
@@ -102,11 +105,13 @@ public class OI{
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);
         setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
         setArmBottomPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armBottomPos);
+
+        toggleArmExtensionLimiterBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleExtensionLimiter);
         
         /*
          * This functionality has been replaced by controller functionality
          */
-        // extendArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.extendArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
-        // retractArmPOVBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.retractArm).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
+        // extendArmPOVBtn.onTrue(armExtensionCommandClass).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
+        // retractArmPOVBtn.onTrue(armRetractionCommandClass).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
     }
 }
