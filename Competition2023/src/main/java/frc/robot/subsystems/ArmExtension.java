@@ -18,6 +18,7 @@ public class ArmExtension extends SubsystemBase {
   private WPI_TalonFX armExtendMotor;
   private double actualArmExtensionPos;
   private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
+  private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
   /** Creates a new ArmExtension. */
   public ArmExtension() {
     //TODO PIDS
@@ -42,6 +43,8 @@ public class ArmExtension extends SubsystemBase {
     if(extensionEncoderReset.getSelected()){
       resetExtensionMotorEncoder();
     }
+
+    SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
   }
 
   // reset arm angle motor encoder
@@ -102,12 +105,34 @@ public class ArmExtension extends SubsystemBase {
         armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
       }else{
         System.out.println("WARNING: Arm Extension Position is out of bounds!!! ");
-        stopArm();
+        stopArmExtension();
       }
     }
   }
 
-  public void stopArm(){
+  public void stopArmExtension(){
     armExtendMotor.setVoltage(0);
+  }
+
+  public double getArmExtensionMotorEncoderPosition(){
+    return(actualArmExtensionPos);
+  }
+
+  public WPI_TalonFX getArmExtensionMotor(){
+    return(armExtendMotor);
+  }
+
+  public void toggleExtensionLimiter(){
+    if(extensionLimiter){
+      System.out.println("DISENGAGING EXTENSION LIMITER");
+      extensionLimiter = false;
+    }else if(!extensionLimiter){
+      System.out.println("ENGAGING EXTENSION LIMITER");
+      extensionLimiter = true;
+    }
+  }
+
+  public boolean getExtensionLimiter(){
+    return(extensionLimiter);
   }
 }

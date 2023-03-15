@@ -15,6 +15,8 @@ public class InlineCommands{
     public final Command driveWithJoystick;
     public final Command toggleDriveCentricity;
     public final Command toggleDrivePower;
+    public final Command jukeSpeed;
+    public final Command normalSpeed;
 
     // Grabber
     // public final Command toggleGrabber;
@@ -31,6 +33,7 @@ public class InlineCommands{
     public final Command extendArm;
     public final Command retractArm;
     public final Command extenderStop;
+    public final Command toggleExtensionLimiter;
 
     public InlineCommands(){
         // SwerveDrive
@@ -42,6 +45,8 @@ public class InlineCommands{
             RobotContainer.SWERVE_DRIVE_OBJ);
         toggleDriveCentricity = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDriveCentricity());
         toggleDrivePower = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDrivePower());
+        jukeSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.jukeSpeedMode());
+        normalSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.normalSpeedMode());
 
         // Grabber
         // toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());
@@ -55,6 +60,7 @@ public class InlineCommands{
             RobotContainer.OI_OBJ.getOperatorController().getY()), 
             RobotContainer.ARM_ANGLE_OBJ);
         
+        toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter());
         // Arm Extension
         extendArmWithController = new RunCommand(() ->
             RobotContainer.ARM_EXTENSION_OBJ.extendAndRetractArm(
@@ -66,6 +72,6 @@ public class InlineCommands{
         
         extendArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArm());
         retractArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.retractArm());
-        extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArm());
+        extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArmExtension());
     }
 }

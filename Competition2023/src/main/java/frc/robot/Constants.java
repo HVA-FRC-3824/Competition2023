@@ -40,6 +40,7 @@ public final class Constants{
         public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
         public static final double SWERVE_POWER                                                     = 0.85;
         public static final double SWERVE_SCORE_POWER                                               = .5;
+        public static final double SWERVE_JUKE_POWER                                                = .3;
 
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
 

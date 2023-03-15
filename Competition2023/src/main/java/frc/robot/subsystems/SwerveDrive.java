@@ -12,7 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.SPI;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
@@ -36,6 +40,7 @@ public class SwerveDrive extends SubsystemBase{
   
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
+  private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
   *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
@@ -73,7 +78,11 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorBackRight, false, false, 0.0, 0.0, 0.0, 0.0);
 
-      swervePower = Constants.SWERVE_POWER;
+    swervePower = Constants.SWERVE_POWER;
+
+    gyroReset.setDefaultOption("Reset Gyro false", false);
+    gyroReset.addOption("Reset Gyro true", true);
+    SmartDashboard.putData("RESET GYRO", ahrs);
   }
 
   // This method will be called once per scheduler run.
@@ -84,7 +93,18 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
+    
+    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore); //TODO IDK why this didn't work
+    SmartDashboard.putNumber("Swerve Current Power", swervePower);
+
+    // TEST
+    if(gyroReset.getSelected()){
+      resetFieldCentricity();
+    }
+  }
+
+  private void resetFieldCentricity(){
+    ahrs.reset();
   }
 
   //Gets motors for use in commands
@@ -280,6 +300,14 @@ public class SwerveDrive extends SubsystemBase{
       swervePower = Constants.SWERVE_SCORE_POWER;
       powerModeScore = true;
     }
+  }
+
+  public void jukeSpeedMode(){
+    swervePower = Constants.SWERVE_JUKE_POWER;
+  }
+
+  public void normalSpeedMode(){
+    swervePower = Constants.SWERVE_POWER;
   }
 
 }
