@@ -95,7 +95,7 @@ public class Arm extends SubsystemBase{
         * Bottom encoder pos:
         */
         // makes sure we are inside acceptable area of motion
-        if ((armAngleDesiredPosition < Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition > Constants.MIN_ARM_POSITION)){
+        if ((armAngleDesiredPosition <= Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition >= Constants.MIN_ARM_POSITION)){
             // Joystick deadzone
             if(Math.abs(joystickAngle) > .1 ){
                 armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 100); // TODO probably need to increase, also set to constant 
