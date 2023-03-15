@@ -9,7 +9,7 @@ public class ScoreData {
     ScoreData(float offset, float dist, AutoScore.heights height)
     {
         this.offset = offset;
-        this.dist = dist; 
+        this.dist = dist; /* TODO: Determine if this needs to be used, since we already have arm encoder presets for top middle and bottom... */
         this.height = height; /* Height would be only 3 values */
     }
 }

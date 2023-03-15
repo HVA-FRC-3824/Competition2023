@@ -48,13 +48,19 @@ public class AutoScore extends CommandBase{
     public void auto_score(int tag_to_follow, int ix, int iy)
     {
         if(follow_Tag(tag_to_follow)){score(ix,iy);SmartDashboard.putString("Tag centered status:", "SUCCESS!");}
-        else{SmartDashboard.putString("Tag centered status:", "FAILURE: CAMERA LOST SIGHT OF TAG");}
+        else
+        {SmartDashboard.putString("Tag centered status:", "FAILURE: CAMERA LOST SIGHT OF TAG");
+            SmartDashboard.putNumber("Followed tag: ", 0);  
+        }
     }
 
     
     public boolean follow_Tag(int id)
     {
+        /* Operator information */
         SmartDashboard.putString("Tag centered status:", "Trying...");
+        SmartDashboard.putNumber("Followed tag: ", id);
+
         this.followed_Tag = id;
         followed_Tag--; /* For index */
         while(true)
@@ -130,6 +136,6 @@ public class AutoScore extends CommandBase{
             }
         }
 
-        //RobotContainer.GRABBER_OBJ.toggleGrabber(); // TODO change to close grabber, then stop when velocity drops to a certain point, because that means that the cone/cube is slowing us down
+        RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE);
     }
 }
