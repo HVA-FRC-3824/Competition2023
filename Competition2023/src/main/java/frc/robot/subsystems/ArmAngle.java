@@ -86,6 +86,11 @@ public class ArmAngle extends SubsystemBase{
         armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
     }
 
+    public void setArmActualPosCustom(double pos)
+    {
+        armAngleMotor.set(ControlMode.Position, pos);
+    }
+
     public void setArmAngleMotorCoast(){
         armAngleMotor.setNeutralMode(NeutralMode.Coast);
     }

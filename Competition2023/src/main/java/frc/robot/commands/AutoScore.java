@@ -39,8 +39,19 @@ public class AutoScore extends CommandBase{
         }
 
         /* Set hard offset and dist */
-        Constants.SCORE_DATA_ARRAY[0][0].offset = 0;
-        Constants.SCORE_DATA_ARRAY[0][0].dist = 5;
+        /* TOP */
+        Constants.SCORE_DATA_ARRAY[0][0].offset = -1;
+        Constants.SCORE_DATA_ARRAY[0][1].offset = 0;
+        Constants.SCORE_DATA_ARRAY[0][2].offset = 1;
+        /* MIDDLE */
+        Constants.SCORE_DATA_ARRAY[1][0].offset = -1;
+        Constants.SCORE_DATA_ARRAY[1][1].offset = 0;
+        Constants.SCORE_DATA_ARRAY[1][2].offset = 1;
+        /* BOTTOM */
+        Constants.SCORE_DATA_ARRAY[2][0].offset = -1;
+        Constants.SCORE_DATA_ARRAY[2][1].offset = 0;
+        Constants.SCORE_DATA_ARRAY[2][2].offset = 1+;
+
     }
 
     public static enum heights{BOT,MID,TOP};
@@ -91,30 +102,33 @@ public class AutoScore extends CommandBase{
 
                 /* Update timeout if the tag cannot be seena */
                 System.out.println("Tag timing out! Uh-oh!"); timeout++;
-                if(timeout == 15){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return false; }}
+                if(timeout == 15){ System.out.println("Tag fully lost, timeout reached. End of command! :("); return false; }
+            }
         }
     }
 
     public void score(int ix, int iy){
-        float offset /*, dist */;
+        float offset;
         heights height;
 
         /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects One ScoreData object has 3 attributes (angle, dist, height)
          * These attributes will be fed into the arm to move the physical arm to a scoring spot */
 
         offset = Constants.SCORE_DATA_ARRAY[iy][ix].offset;
-        //dist = Constants.SCORE_DATA_ARRAY[iy][ix].dist;
         height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
- 
+
         // Height 
         switch(height){
             case BOT:
+                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_BOTTOM_ANGLE_VALUE);
                 RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
                 break;
             case MID:
+                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_MIDDLE_ANGLE_VALUE);
                 RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
                 break;
             case TOP:
+                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_TOP_ANGLE_VALUE);
                 RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
                 break;
             default:
@@ -128,12 +142,12 @@ public class AutoScore extends CommandBase{
             if(offset > 0)
             {/* Right */
                 for(int i = 0; i < offset; i++)
-                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(.5, 0, 0);}
+                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(1, 0, 0);}
             }
             else
             {/* Left */
                 for(int i = 0; i > offset; i--)
-                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(1, 0, 0);}
+                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(-1, 0, 0);}
             }
         }
 

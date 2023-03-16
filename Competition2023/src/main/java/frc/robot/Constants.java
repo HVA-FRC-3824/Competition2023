@@ -63,6 +63,9 @@ public final class Constants{
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
+        public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824;
+        public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824;
+        public static final double ARM_TOP_ANGLE_VALUE                                              = 3824;
         // #endregion
 
         // #region GRABBER
