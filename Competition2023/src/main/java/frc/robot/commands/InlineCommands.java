@@ -58,15 +58,15 @@ public class InlineCommands{
         // Arm Angle
         angleArmWithController = new RunCommand(() -> 
             RobotContainer.ARM_ANGLE_OBJ.setDesiredArmPosition(
-            RobotContainer.OI_OBJ.getOperatorController().getY()), 
+            RobotContainer.OI_OBJ.getOperatorController().getRawAxis(1)), 
             RobotContainer.ARM_ANGLE_OBJ);
         
         toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter());
         // Arm Extension
         extendArmWithController = new RunCommand(() ->
             RobotContainer.ARM_EXTENSION_OBJ.extendAndRetractArm(
-            RobotContainer.OI_OBJ.getOperatorController().getRawAxis(0)), 
-            RobotContainer.ARM_EXTENSION_OBJ); //TODO FIGURE OUT WHAT AXIS
+            RobotContainer.OI_OBJ.getOperatorController().getRawAxis(5)), 
+            RobotContainer.ARM_EXTENSION_OBJ); 
         armTopPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop());
         armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle());
         armBottomPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmBotton());

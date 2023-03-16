@@ -89,12 +89,12 @@ public class ArmExtension extends SubsystemBase {
   // retracts arm for fine tuning 
   /* FUNCTIONALITY REPLACED BY JOYSTICK CAPABILITY */
   public void retractArm(){
-      if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
-          armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
-      }else{
-          System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
-          armExtendMotor.setVoltage(0);
-      }
+    if(actualArmExtensionPos > Constants.MIN_ARM_EXTENSION){
+      armExtendMotor.setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
+    }else{
+      System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
+      armExtendMotor.setVoltage(0);
+    }
   }
 
   public void extendAndRetractArm(double joystickInput){

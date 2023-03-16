@@ -5,4 +5,3 @@ public class ScoreData {
     public float offset;
     AutoScore.heights height;
 }
-
