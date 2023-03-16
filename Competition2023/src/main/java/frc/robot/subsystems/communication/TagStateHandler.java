@@ -1,7 +1,8 @@
 package frc.robot.subsystems.communication;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TagStateHandler extends SubsystemBase{

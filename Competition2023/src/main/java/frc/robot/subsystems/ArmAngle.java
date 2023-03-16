@@ -1,21 +1,17 @@
 package frc.robot.subsystems;
 
-// #region imports
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ResetAngleMotorEncoder;
+
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ResetAngleMotorEncoder;
-// General
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-// Smart Dashboard
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// #endregion
 
 public class ArmAngle extends SubsystemBase{
     // motors

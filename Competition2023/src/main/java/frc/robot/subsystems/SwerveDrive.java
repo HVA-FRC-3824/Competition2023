@@ -5,18 +5,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import com.kauailabs.navx.frc.AHRS;
-
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.ResetFieldForwardPositionGyro;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+
+import com.kauailabs.navx.frc.AHRS;
 
 public class SwerveDrive extends SubsystemBase{
   // Declare chassis objects
