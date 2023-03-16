@@ -2,7 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AutonomousDefault;
 import frc.robot.commands.InlineCommands;
-
+import frc.robot.commands.AutonomousScoreHybridBackUp;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,7 +61,7 @@ public class RobotContainer{
   private void initializeAutonomousChooser(){
     // Add options (which autonomous commands can be selected) to chooser.
     autonomousCommandChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
-    autonomousCommandChooser.addOption("AUTOBALANCE", "Autobalance");
+    autonomousCommandChooser.addOption("SCORE HYBRID BACK UP", "scoreHybridBackUp");
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
@@ -75,8 +75,8 @@ public class RobotContainer{
     switch (autonomousCommandChooser.getSelected()){
       case "default":
         return new AutonomousDefault();
-      // case "MidTopMid":
-      //   return new AutonomousMTM();
+      case "scoreBackUp":
+        return new AutonomousScoreHybridBackUp();
       // case "RightTopMid":
       //   return new AutonomousRTM();
       default:
