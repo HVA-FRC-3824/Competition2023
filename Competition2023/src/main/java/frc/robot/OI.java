@@ -93,7 +93,7 @@ public class OI{
         // WestCoastDrive
         autoBalanceBtn.onTrue(autoBalanceCommandClass);
         toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
-        toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionCommandClass); //TODO check toggle?
+        toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionCommandClass); // TODO check toggle?
         toggleDrivePowerBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDrivePower);
         jukeSpeedModeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.jukeSpeed).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.normalSpeed);
 

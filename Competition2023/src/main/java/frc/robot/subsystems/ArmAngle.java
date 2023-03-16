@@ -68,7 +68,7 @@ public class ArmAngle extends SubsystemBase{
         if ((armAngleDesiredPosition <= Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition >= Constants.MIN_ARM_POSITION)){
             // Joystick deadzone
             if(Math.abs(joystickAngle) > .1 ){
-                armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 100); // TODO probably need to increase, also set to constant 
+                armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 100); // Set to constant 
             }
             
         // Makes sure desired pos doesn't go above or bellow max
@@ -84,11 +84,6 @@ public class ArmAngle extends SubsystemBase{
 
     public void setArmActualPosToDesiredPos(){
         armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
-    }
-
-    public void setArmActualPosCustom(double pos)
-    {
-        armAngleMotor.set(ControlMode.Position, pos);
     }
 
     public void setArmAngleMotorCoast(){

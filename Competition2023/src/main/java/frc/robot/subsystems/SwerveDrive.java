@@ -82,7 +82,7 @@ public class SwerveDrive extends SubsystemBase{
     // gyroReset.addOption("RESET GYRO TRUE", true);
     // SmartDashboard.putData("RESET GRYO", gyroReset);
     
-    // Button that calls the reset field forward position command //TODO Test
+    // Button that calls the reset field forward position command
     SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
   }
 

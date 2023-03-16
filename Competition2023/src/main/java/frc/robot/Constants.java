@@ -63,6 +63,7 @@ public final class Constants{
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
+        
         public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824;
         public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824;
         public static final double ARM_TOP_ANGLE_VALUE                                              = 3824;
@@ -73,8 +74,8 @@ public final class Constants{
         public static final double GRABBER_VOLTAGE                                                  = 6;
         // public static final int PNEUMATIC_HUB_CAN_ID                                                = 4;
             // pneumatics
-            public static final int GRABBER_RPH_ID                                                  = 3824; // TODO change
-            public static final int PNEUMATIC_HUB_ANALOG_ID                                         = 0;
+            // public static final int GRABBER_RPH_ID                                                  = 3824;
+            // public static final int PNEUMATIC_HUB_ANALOG_ID                                         = 0;
         // #endregion
 
         // #region LEDs
