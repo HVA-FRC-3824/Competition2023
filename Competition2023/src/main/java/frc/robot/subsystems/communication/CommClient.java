@@ -30,11 +30,11 @@ public class CommClient implements Runnable
     private DatagramPacket  receive = null;
     byte[] receive_buf = new byte[9];
 
-    private byte   id;
+    public byte   id;
     private int    port;
 
-    private float  c_Dist;
-    private float  c_Angle;
+    public float  c_Dist;
+    public float  c_Angle;
 
     public CommClient(int port)
     {
