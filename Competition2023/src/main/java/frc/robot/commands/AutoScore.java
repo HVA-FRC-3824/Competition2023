@@ -50,7 +50,7 @@ public class AutoScore extends CommandBase{
         /* BOTTOM */
         Constants.SCORE_DATA_ARRAY[2][0].offset = -1;
         Constants.SCORE_DATA_ARRAY[2][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[2][2].offset = 1+;
+        Constants.SCORE_DATA_ARRAY[2][2].offset = 1;
 
     }
 
