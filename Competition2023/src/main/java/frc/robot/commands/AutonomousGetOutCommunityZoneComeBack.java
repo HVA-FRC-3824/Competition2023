@@ -15,7 +15,7 @@ import frc.robot.RobotContainer;
 public class AutonomousGetOutCommunityZoneComeBack extends SequentialCommandGroup {
   /** Creates a new AutonomousGetOutCommunityZoneComeBack. */
   public AutonomousGetOutCommunityZoneComeBack() {
-    System.out.println("Running Autonomous Default...");
+    System.out.println("Running Autonomous Get out of community zone and come back to grid...");
       addCommands(
         // move robot forward
         new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),

@@ -2,8 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.ResetExtensionMotorEncoder;
-import pabeles.concurrency.IntOperatorTask.Max;
+// import frc.robot.commands.ResetExtensionMotorEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;

@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 public class AutonomousScoreHybridBackUp extends SequentialCommandGroup{
   /** Creates a new ScoreHybridBackUp. */
   public AutonomousScoreHybridBackUp() {
-    System.out.println("Running Autonomous Default...");
+    System.out.println("Running Autonomous score hybrid and then back up auto...");
     addCommands(
       // Extend arm bottom position
       new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(0)), // TODO extend arm bottom position

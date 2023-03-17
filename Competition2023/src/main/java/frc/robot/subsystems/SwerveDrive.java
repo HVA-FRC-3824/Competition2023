@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.ResetFieldForwardPositionGyro;
+// import frc.robot.commands.ResetFieldForwardPositionGyro;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
