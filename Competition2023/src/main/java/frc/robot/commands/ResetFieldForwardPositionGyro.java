@@ -14,12 +14,14 @@ public class ResetFieldForwardPositionGyro extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.SWERVE_DRIVE_OBJ.resetFieldCentricity();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.SWERVE_DRIVE_OBJ.resetFieldCentricity();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

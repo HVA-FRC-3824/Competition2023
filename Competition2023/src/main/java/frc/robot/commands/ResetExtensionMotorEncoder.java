@@ -13,12 +13,13 @@ public class ResetExtensionMotorEncoder extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.ARM_EXTENSION_OBJ.resetExtensionMotorEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.ARM_EXTENSION_OBJ.resetExtensionMotorEncoder();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

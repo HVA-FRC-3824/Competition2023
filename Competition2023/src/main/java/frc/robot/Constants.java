@@ -56,7 +56,7 @@ public final class Constants{
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
         public static final double MAX_ARM_POSITION                                                 = 390872;
         public static final double MIN_ARM_POSITION                                                 = -10000;
-        public static final double MAX_ARM_EXTENSION                                                = (415575 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 8;
         //public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
