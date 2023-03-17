@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TagStateHandler extends SubsystemBase{
     private static int t_Array[] = new int[Constants.MAX_TAGS];
     public static boolean tag_Available[] = new boolean[Constants.MAX_TAGS];
-    public static final String name = "T_ID: ";
+    public static final String name = "T_ID: "; /* Used for smart dashboardie */
 
     /* Setup array */
     public static void init_Array()
@@ -34,6 +34,7 @@ public class TagStateHandler extends SubsystemBase{
     public static void updateTagTimer(int id)
     {
         t_Array[id-1] = 3; /* ~300 ms */
+        SmartDashboard.putBoolean(name + id, true);
     }
 
     @Override

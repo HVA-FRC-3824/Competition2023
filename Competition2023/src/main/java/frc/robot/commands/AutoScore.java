@@ -98,7 +98,9 @@ public class AutoScore extends CommandBase{
             }
             else
             { 
-                if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG){return true;} 
+                if(TagData.TAG_DATA[followed_Tag].tag_returnDist() == Constants.MIN_DIST_TO_TAG
+                ){ RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0);
+                    return true;} 
 
                 /* Update timeout if the tag cannot be seena */
                 System.out.println("Tag timing out! Uh-oh!"); timeout++;
