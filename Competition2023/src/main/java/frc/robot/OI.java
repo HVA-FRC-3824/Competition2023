@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-// import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 // import frc.robot.commands.ArmExtension;
 // import frc.robot.commands.ArmRetraction;
@@ -29,6 +29,11 @@ public class OI{
     private static JoystickButton setArmTopPosBtn;
     private static JoystickButton setArmMiddlePosBtn;
     private static JoystickButton setArmBottomPosBtn;
+
+    private static POVButton purpleCubeBtn;
+    private static POVButton yellowConeBtn;
+    private static POVButton normalLEDBtn;
+
     /* REPLACED FUNCTIONALITY */
     // private static POVButton extendArmPOVBtn;
     // private static POVButton retractArmPOVBtn;
@@ -73,6 +78,11 @@ public class OI{
         setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
         setArmMiddlePosBtn = new JoystickButton(operatorController, 2);     // B
         setArmBottomPosBtn = new JoystickButton(operatorController, 1);     // A
+
+        purpleCubeBtn = new POVButton(operatorController, 270);
+        yellowConeBtn = new POVButton(operatorController, 90);
+        normalLEDBtn = new POVButton(operatorController, 0);
+
         // REPLACED FUNCTIONALITY
         // extendArmPOVBtn = new POVButton(operatorController, 0);                    // Dpad up
         // retractArmPOVBtn = new POVButton(operatorController, 180);                 // Dpad down
@@ -112,6 +122,12 @@ public class OI{
         /*
          * This functionality has been replaced by controller functionality
          */
+
+        // LEDs
+        purpleCubeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setPurpleLED);
+        yellowConeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setYellowLED);
+        normalLEDBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setNormalLED);
+
         // extendArmPOVBtn.onTrue(armExtensionCommandClass).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
         // retractArmPOVBtn.onTrue(armRetractionCommandClass).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.extenderStop);
     }

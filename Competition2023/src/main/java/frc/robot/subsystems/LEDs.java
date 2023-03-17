@@ -84,7 +84,7 @@ public class LEDs extends SubsystemBase{
     }
 
     // Change LED colors in rainbow for launch, regular run
-    private void setLEDsColor(int hue, int saturation, int value){
+    public void setLEDsColor(int hue, int saturation, int value){
         for(int led = 0; led < LEDsBuffer.getLength(); led++){
             LEDsBuffer.setHSV(led, hue, saturation, value);
         }

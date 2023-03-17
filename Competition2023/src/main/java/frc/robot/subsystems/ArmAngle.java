@@ -24,7 +24,7 @@ public class ArmAngle extends SubsystemBase{
     // private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
 
     public ArmAngle(){
-        //TODO PIDS
+        // TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, true, FeedbackDevice.CTRE_MagEncoder_Absolute, false, true,
         0, .2, 0.00001, 0, 0, 0, false);

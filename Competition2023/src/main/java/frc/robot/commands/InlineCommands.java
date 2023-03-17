@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-
+import frc.robot.subsystems.LEDs.LEDsPattern;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -35,6 +35,11 @@ public class InlineCommands{
     public final Command retractArm;
     public final Command extenderStop;
     public final Command toggleExtensionLimiter;
+
+    // LEDs
+    public final Command setPurpleLED;
+    public final Command setYellowLED;
+    public final Command setNormalLED;
 
     public InlineCommands(){
         // SwerveDrive
@@ -74,5 +79,11 @@ public class InlineCommands{
         extendArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArm());
         retractArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.retractArm());
         extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArmExtension());
+        
+        // LED Buttons
+        setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(60, 100, 100));
+        setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(300, 100, 50));
+        setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsPattern(LEDsPattern.RAINBOW));
+    
     }
 }
