@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -38,7 +38,7 @@ public class SwerveDrive extends SubsystemBase{
   
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
-  // private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
+  private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
   *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
@@ -78,29 +78,31 @@ public class SwerveDrive extends SubsystemBase{
 
     swervePower = Constants.SWERVE_POWER;
 
-    // gyroReset.setDefaultOption("RESET GYRO FALSE", false);
-    // gyroReset.addOption("RESET GYRO TRUE", true);
-    // SmartDashboard.putData("RESET GRYO", gyroReset);
+    gyroReset.setDefaultOption("RESET GYRO FALSE", false);
+    gyroReset.addOption("RESET GYRO TRUE", true);
+    SmartDashboard.putData("RESET GRYO", gyroReset);
     
     // Button that calls the reset field forward position command
-    SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
+    // SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
   }
 
   // This method will be called once per scheduler run.
   @Override
   public void periodic(){
-    // Update drivetrain information on SmartDashboard for testing. TODO remove?
-    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    // Update drivetrain information on SmartDashboard for testing.
+    // SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    // SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    // SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
+    // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     
     SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore); //TODO IDK why this didn't work
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
 
-    // if(gyroReset.getSelected()){
-    //   resetFieldCentricity();
-    // }
+    SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
+
+    if(gyroReset.getSelected()){
+      resetFieldCentricity();
+    }
   }
 
   public void resetFieldCentricity(){

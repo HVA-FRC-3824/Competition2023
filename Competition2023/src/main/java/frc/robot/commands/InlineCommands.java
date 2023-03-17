@@ -74,7 +74,7 @@ public class InlineCommands{
             RobotContainer.ARM_EXTENSION_OBJ); 
         armTopPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop());
         armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle());
-        armBottomPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmBotton());
+        armBottomPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmBottom());
         
         extendArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArm());
         retractArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.retractArm());

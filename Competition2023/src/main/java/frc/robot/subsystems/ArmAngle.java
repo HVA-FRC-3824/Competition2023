@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.ResetAngleMotorEncoder;
+// import frc.robot.commands.ResetAngleMotorEncoder;
 
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +27,7 @@ public class ArmAngle extends SubsystemBase{
         // TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, true, FeedbackDevice.CTRE_MagEncoder_Absolute, false, true,
-        0, .2, 0.00001, 0, 0, 0, false);
+        0, .25, 0.000015, 0, 0, 0, false);
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         // Angle reset smartdashboard chooser
@@ -35,7 +35,9 @@ public class ArmAngle extends SubsystemBase{
         // angleEncoderReset.addOption("True: ", true);
         // SmartDashboard.putData("Reset Arm Angle Encoder: ", angleEncoderReset);
 
-        SmartDashboard.putData("RESET ARM ANGLE ENCODER", new ResetAngleMotorEncoder());
+        // SmartDashboard.putData("RESET ARM ANGLE ENCODER", new ResetAngleMotorEncoder()); 
+        
+        armAngleMotor.setSelectedSensorPosition(0); // CANCELING OUT ABSOLUTE FUNCTION   
     }
 
     @Override
@@ -68,7 +70,7 @@ public class ArmAngle extends SubsystemBase{
         if ((armAngleDesiredPosition <= Constants.MAX_ARM_POSITION) && (armAngleDesiredPosition >= Constants.MIN_ARM_POSITION)){
             // Joystick deadzone
             if(Math.abs(joystickAngle) > .1 ){
-                armAngleDesiredPosition = armAngleDesiredPosition + (joystickAngle * 100); // Set to constant 
+                armAngleDesiredPosition = armAngleDesiredPosition + (-joystickAngle * 200); // Set to constant 
             }
             
         // Makes sure desired pos doesn't go above or bellow max
