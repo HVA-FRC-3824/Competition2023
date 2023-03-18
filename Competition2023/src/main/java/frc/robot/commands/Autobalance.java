@@ -5,6 +5,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class Autobalance extends CommandBase {
+    // variable to hold the desired power of the drivetrain
+    double power;
+    // True is forward, false is backward
+    boolean forward;
+    // true means were in 
+    boolean state;
+
     public Autobalance(){
         // Require chassis to takeover drive train input. This will end the driveWithJoystick command that will be recalled after this command ends.*/
         addRequirements(RobotContainer.SWERVE_DRIVE_OBJ);
@@ -18,29 +25,27 @@ public class Autobalance extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        // float angle = RobotContainer.M_WEST_COAST_DRIVE.returnGyro().getRoll();
-        // variable to hold the desired velocity of the drivetrain
-        // double vel;
-        // True is forward, false is backward
-        // boolean forward;
-        // true means were in 
-        // boolean state;
+        System.out.println("AUTOBALANCE METHOD RUNNING");
+        float pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.returnGyroPitch();
+ 
+        // Determines power
+        if (Math.abs(pitchAngle) > 10){
+            power = 0.2;
+        }else if(Math.abs(pitchAngle) > 5.0){
+            power = 0.15;
+        }else if(Math.abs(pitchAngle) > 2.5){
+            power = 0.1;
+        }else{
+            power = 0;
+        }
 
-        // if (Math.abs(angle) > 2.5){
-        //     // vel = Constants.AUTOBALANCE_LOW_VEL
-        // }else if(Math.abs(angle) > 5.0){
-        //     // vel = Constants.AUTOBALANCE_MEDIUM_VEL
-        // }else if(Math.abs(angle) > 10){
-        //     // vel = Constants.AUTOBALANCE_HIGH_VEL
-        // }
+        // Determines if we need to go forward or backward
+        forward = (pitchAngle > 0);
+        if(forward){ // <-- sets us to actually do that
+            power = -power;
+        }
 
-        // if(Math.abs(angle) > 0){
-        //     forward = true;
-        // }else{
-        //     forward = false;
-        // }
-
-        // RobotContainer.M_WEST_COAST_DRIVE.driveWithVelocity(forward, vel);
+        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, power, 0);
     }
 
     // Returns true when the command should end.

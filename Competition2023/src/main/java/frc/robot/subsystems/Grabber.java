@@ -1,34 +1,34 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
+// import frc.robot.Constants;
+// import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.PneumaticHub;
 // import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import edu.wpi.first.wpilibj.Solenoid;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+// import com.ctre.phoenix.motorcontrol.NeutralMode;
+// import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 // #endregion
 public class Grabber extends SubsystemBase{
     // private PneumaticHub pneumaticHub;
     // private Solenoid grabberPiston;
     // private boolean grabberOpen = true;
-    private WPI_TalonFX grabberMotor;
+                // private WPI_TalonFX grabberMotor;
 
     public Grabber(){
         // pneumaticHub = new PneumaticHub(Constants.PNEUMATIC_HUB_CAN_ID);
         // grabberPiston = new Solenoid(Constants.PNEUMATIC_HUB_CAN_ID, PneumaticsModuleType.REVPH, Constants.GRABBER_RPH_ID);
-        grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_CAN_ID);
-        RobotContainer.configureTalonFX(grabberMotor, false, false, 0, .1, 0, 0);
-        grabberMotor.setNeutralMode(NeutralMode.Brake);
+                // grabberMotor = new WPI_TalonFX(Constants.GRABBER_MOTOR_CAN_ID);
+                // RobotContainer.configureTalonFX(grabberMotor, false, false, 0, .1, 0, 0);
+                // grabberMotor.setNeutralMode(NeutralMode.Brake);
     }
 
     public void grabberSetVoltage(double voltage){
-        grabberMotor.setVoltage(voltage);
+        // grabberMotor.setVoltage(voltage);
     }
     
     /* This method sets the piston grabber to the different possitions depending on pneumaticBool, which changes after every 
@@ -58,6 +58,6 @@ public class Grabber extends SubsystemBase{
         // // Puts compressor status on Smart Dashboard
         // SmartDashboard.putBoolean("Compressor on: ", pneumaticHub.getCompressor());
 
-        SmartDashboard.putNumber("Grabber Encoder pos: ", grabberMotor.getSelectedSensorPosition());
+                    // SmartDashboard.putNumber("Grabber Encoder pos: ", grabberMotor.getSelectedSensorPosition());
     }
 }

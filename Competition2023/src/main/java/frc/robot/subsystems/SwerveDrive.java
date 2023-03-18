@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
 
+import frc.robot.commands.Autobalance;
+
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 // import frc.robot.commands.ResetFieldForwardPositionGyro;
@@ -310,6 +312,10 @@ public class SwerveDrive extends SubsystemBase{
 
   public void normalSpeedMode(){
     swervePower = Constants.SWERVE_POWER;
+  }
+
+  public float returnGyroPitch(){
+    return(ahrs.getRoll());
   }
 
 }

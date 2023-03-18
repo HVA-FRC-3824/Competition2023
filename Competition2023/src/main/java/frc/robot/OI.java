@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 // import frc.robot.commands.ArmExtension;
 // import frc.robot.commands.ArmRetraction;
-import frc.robot.commands.Autobalance;
+// import frc.robot.commands.Autobalance;
 import frc.robot.commands.SetAndHoldPosition;
 
 public class OI{
@@ -16,11 +16,11 @@ public class OI{
     
     // driver joystick buttons
     private static JoystickButton toggleDriveCentricityBtn;
-    private static JoystickButton autoBalanceBtn;
+    // private static JoystickButton autoBalanceBtn;
     private static JoystickButton toggleSetAndHoldPosBtn;
     private static JoystickButton toggleDrivePowerBtn;
     private static JoystickButton jukeSpeedModeBtn;
-    
+
     // operator controller buttons
     // private static JoystickButton grabberBtn;
     private static JoystickButton grabberCloseBtn;
@@ -41,7 +41,7 @@ public class OI{
     private static JoystickButton toggleArmExtensionLimiterBtn;
 
     // COMMANDS
-    private Autobalance autoBalanceCommandClass = new Autobalance();
+    // private Autobalance autoBalanceCommandClass = new Autobalance();
     private SetAndHoldPosition setAndHoldPositionCommandClass = new SetAndHoldPosition();
     /* REPLACED FUNCTIONALITY */
     // private ArmExtension armExtensionCommandClass = new ArmExtension();
@@ -64,7 +64,7 @@ public class OI{
 
         // DRIVER BUTTONS
         toggleDriveCentricityBtn = new JoystickButton(driverController, 7); // Select left middle
-        autoBalanceBtn = new JoystickButton(driverController, 5);           // LB
+        // autoBalanceBtn = new JoystickButton(driverController, 5);           // LB
         jukeSpeedModeBtn = new JoystickButton(driverController, 6);         // RB 
         toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
         toggleDrivePowerBtn = new JoystickButton(driverController, 1);      // A
@@ -101,7 +101,7 @@ public class OI{
 
     public void configureButtonBindings(){
         // WestCoastDrive
-        autoBalanceBtn.onTrue(autoBalanceCommandClass);
+        // autoBalanceBtn.onTrue(autoBalanceCommandClass);
         toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
         toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionCommandClass); // TODO check toggle?
         toggleDrivePowerBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDrivePower);
