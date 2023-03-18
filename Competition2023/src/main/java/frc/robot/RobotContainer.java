@@ -6,7 +6,7 @@ import frc.robot.commands.AutonomousDoNothing;
 import frc.robot.commands.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.InlineCommands;
 import frc.robot.commands.AutonomousScoreHybridBackUp;
-
+import frc.robot.commands.HybridScoreCommunityZone;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -68,6 +68,7 @@ public class RobotContainer{
     autonomousCommandChooser.addOption("COMMUNITY ZONE BACK TO GRID", "communityB2Grid");
     autonomousCommandChooser.addOption("DO NOTHING", "doNothing");
     autonomousCommandChooser.addOption("CHARGING STATION", "Charging station");
+    autonomousCommandChooser.addOption("SCORE HYBRID COMMUNITY ZONE NEW", "CommunityZoneHybridScore");
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
@@ -89,6 +90,8 @@ public class RobotContainer{
         return new AutonomousDoNothing();
       case "Charging station":
         return new AutonomousChargingStation();
+      case "CommunityZoneHybridScore":
+        return new HybridScoreCommunityZone();
       default:
         System.out.println("\nError selecting autonomous command:\nCommand selected: " + autonomousCommandChooser.getSelected() + "\n");
         return null;
