@@ -6,7 +6,8 @@ import frc.robot.commands.autonomous.AutonomousCommunityZone;
 import frc.robot.commands.autonomous.AutonomousDoNothing;
 import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;

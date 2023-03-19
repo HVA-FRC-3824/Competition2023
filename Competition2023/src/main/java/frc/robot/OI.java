@@ -20,6 +20,7 @@ public class OI{
     private static JoystickButton toggleSetAndHoldPosBtn;
     private static JoystickButton toggleDrivePowerBtn;
     private static JoystickButton jukeSpeedModeBtn;
+    private static JoystickButton xLockWheelsBtn;
 
     // operator controller buttons
     // private static JoystickButton grabberBtn;
@@ -68,6 +69,7 @@ public class OI{
         jukeSpeedModeBtn = new JoystickButton(driverController, 6);         // RB 
         toggleSetAndHoldPosBtn = new JoystickButton(driverController, 4);   // Y
         toggleDrivePowerBtn = new JoystickButton(driverController, 1);      // A
+        xLockWheelsBtn = new JoystickButton(driverController, 2); // B
 
 
         // OPERATOR BUTTONS
@@ -100,12 +102,13 @@ public class OI{
     }
 
     public void configureButtonBindings(){
-        // WestCoastDrive
+        // Swerve Drive
         // autoBalanceBtn.onTrue(autoBalanceCommandClass);
         toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
         toggleSetAndHoldPosBtn.toggleOnTrue(setAndHoldPositionCommandClass); // TODO check toggle?
         toggleDrivePowerBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDrivePower);
         jukeSpeedModeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.jukeSpeed).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.normalSpeed);
+        xLockWheelsBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.xLockWheels);
 
         // Grabber
         // grabberBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleGrabber);

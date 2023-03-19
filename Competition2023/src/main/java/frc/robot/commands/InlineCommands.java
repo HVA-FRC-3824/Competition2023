@@ -18,6 +18,7 @@ public class InlineCommands{
     public final Command toggleDrivePower;
     public final Command jukeSpeed;
     public final Command normalSpeed;
+    public final Command xLockWheels;
 
     // Grabber
     // public final Command toggleGrabber;
@@ -53,6 +54,7 @@ public class InlineCommands{
         toggleDrivePower = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDrivePower());
         jukeSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.jukeSpeedMode());
         normalSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.normalSpeedMode());
+        xLockWheels = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.xLockWheels());
 
         // Grabber
         // toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());

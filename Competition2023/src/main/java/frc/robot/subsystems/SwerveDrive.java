@@ -41,7 +41,7 @@ public class SwerveDrive extends SubsystemBase{
   private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
-  *  {VX, VY, Speed, Angle, Previous Angle, Offset} */
+  *  {VX, VY, Speed, Desired Angle, Current Angle, Offset} */
   public double [] frontRight = {0, 0, 0, 0, 0, 0};
   public double [] frontLeft = {0, 0, 0, 0, 0, 0};
   public double [] backLeft = {0, 0, 0, 0, 0, 0};
@@ -127,7 +127,7 @@ public class SwerveDrive extends SubsystemBase{
   public void convertSwerveValues (double x1, double y1, double x2){
     // Width and length between center of wheels
     double w = 17; // 21.5
-    double l = 29; //25
+    double l = 29; // 25
     
     // Width and length relative ratios
     double wr;
@@ -145,21 +145,21 @@ public class SwerveDrive extends SubsystemBase{
     double d;
 
     // Set deadzone & dampening turn
-    if (Math.abs(x2) > 0.2){
-      turn = x2 *0.7;
+    if (Math.abs(x2) > 0.1){
+      turn = x2 * 0.9;
     }    
 
     // Set length & width proportional to chassis size by using circle of radius 1
     // turn_angle gets tan of length & width (in radians)
     double turn_angle = Math.atan2(l, w);
-    wr = Math.cos(turn_angle); //x, cos
-    lr = Math.sin(turn_angle); //y, sin
+    wr = Math.cos(turn_angle); // x, cos
+    lr = Math.sin(turn_angle); // y, sin
 
     // Set deadzone & adjusting drive input to controller (negative forward)
-    if (Math.abs(x1) > 0.15){
+    if (Math.abs(x1) > 0.1){
       vX = x1;
     }
-    if (Math.abs(y1) > 0.15){
+    if (Math.abs(y1) > 0.1){
       vY = -y1;
     }
 
@@ -251,10 +251,14 @@ public class SwerveDrive extends SubsystemBase{
       backRight[5] += 2 * Math.PI;}
 
     // Send values to motors, angle variable math is percentage of chassis circle
-    drive(driveMotorFrontRight, angleMotorFrontRight, -frontRight[2], -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(driveMotorFrontLeft, angleMotorFrontLeft, frontLeft[2], -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(driveMotorBackLeft, angleMotorBackLeft, backLeft[2], -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
-    drive(driveMotorBackRight, angleMotorBackRight, backRight[2], -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorFrontRight, angleMotorFrontRight, -frontRight[2], 
+          -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorFrontLeft, angleMotorFrontLeft, frontLeft[2], 
+          -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorBackLeft, angleMotorBackLeft, backLeft[2], 
+          -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+    drive(driveMotorBackRight, angleMotorBackRight, backRight[2], 
+          -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
   }
 
 
@@ -267,6 +271,18 @@ public class SwerveDrive extends SubsystemBase{
     angleMotor.set(TalonFXControlMode.Position, angle); //0
 
     SmartDashboard.putNumber("Angle", speed);
+  }
+
+  // NOT DONE, MATH ON GOOGLE DOC
+  public void xLockWheels(){
+    drive(driveMotorFrontRight, angleMotorFrontRight, 0, 
+      angleMotorFrontRight.getSelectedSensorPosition() - (360 - (((angleMotorFrontRight.getSelectedSensorPosition() / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 45 )));
+    drive(driveMotorFrontLeft, angleMotorFrontLeft, 0, 
+      angleMotorFrontLeft.getSelectedSensorPosition()  - (360 - (((angleMotorFrontLeft.getSelectedSensorPosition()  / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 135)));
+    drive(driveMotorBackLeft, angleMotorBackLeft, 0, 
+      angleMotorBackLeft.getSelectedSensorPosition()   - (360 - (((angleMotorBackLeft.getSelectedSensorPosition()   / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 225)));
+    drive(driveMotorBackRight, angleMotorBackRight, 0,  
+      angleMotorBackRight.getSelectedSensorPosition()  - (360 - (((angleMotorBackRight.getSelectedSensorPosition()  / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 315)));
   }
 
   // Reset gyro to zero the heading of the robot.
