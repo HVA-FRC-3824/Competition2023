@@ -2,37 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import frc.robot.RobotContainer;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonomousGetOutCommunityZoneComeBack extends SequentialCommandGroup {
-  /** Creates a new AutonomousGetOutCommunityZoneComeBack. */
   public AutonomousGetOutCommunityZoneComeBack() {
-    System.out.println("Running Autonomous Get out of community zone and come back to grid...");
+    System.out.println("Running autonomous Get out of community zone and return...");
       addCommands(
-        // move robot forward
+        // move robot forward at 40% power for 2.25 seconds
         new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-
-        // wait for path to finish
         new WaitCommand(2.25),
 
-        // stop chassis
+        // stop for 1 second
         new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
-        
-        // wait for drive train to stop completely
         new WaitCommand(1),
 
-        // go back to in front of the grid
+        // move robot backwards at 40% power for 2.25 seconds
         new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
-
-        // wait for path to finish
         new WaitCommand(2.25),
 
         // Stop Robot

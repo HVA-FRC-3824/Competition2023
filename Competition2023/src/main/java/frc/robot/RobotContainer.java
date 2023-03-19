@@ -1,12 +1,12 @@
 package frc.robot;
 
-import frc.robot.commands.AutonomousChargingStation;
-import frc.robot.commands.AutonomousDefault;
-import frc.robot.commands.AutonomousDoNothing;
-import frc.robot.commands.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.InlineCommands;
-import frc.robot.commands.AutonomousScoreHybridBackUp;
-import frc.robot.commands.HybridScoreCommunityZone;
+import frc.robot.commands.autonomous.AutonomousCommunityZoneChargingStation;
+import frc.robot.commands.autonomous.AutonomousCommunityZone;
+import frc.robot.commands.autonomous.AutonomousDoNothing;
+import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
+import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -81,17 +81,15 @@ public class RobotContainer{
   public Command getAutonomousCommand(){
     switch (autonomousCommandChooser.getSelected()){
       case "default":
-        return new AutonomousDefault();
+        return new AutonomousCommunityZone();
       case "scoreHybridBackUp":
-        return new AutonomousScoreHybridBackUp();
-      case "communityB2Grid":
         return new AutonomousGetOutCommunityZoneComeBack();
       case "doNothing":
         return new AutonomousDoNothing();
       case "Charging station":
-        return new AutonomousChargingStation();
+        return new AutonomousCommunityZoneChargingStation();
       case "CommunityZoneHybridScore":
-        return new HybridScoreCommunityZone();
+        return new AutonomousHybridScoreCommunityZone();
       default:
         System.out.println("\nError selecting autonomous command:\nCommand selected: " + autonomousCommandChooser.getSelected() + "\n");
         return null;

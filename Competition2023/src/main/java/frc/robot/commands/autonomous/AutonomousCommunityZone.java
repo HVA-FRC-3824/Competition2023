@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -6,17 +6,15 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import frc.robot.RobotContainer;
 
-public class AutonomousDefault extends SequentialCommandGroup{
-    public AutonomousDefault(){
-        System.out.println("Running Autonomous Default...");
+public class AutonomousCommunityZone extends SequentialCommandGroup{
+    public AutonomousCommunityZone(){
+        System.out.println("Running autonomous get out of community zone command...");
         addCommands(
-            // move robot forward
+            // move robot forward at 40% power for 2.25 seconds
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-
-            // wait for path to finish
             new WaitCommand(2.25),
 
-            // stop chassis
+            // stop robot
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0))
         );
     }

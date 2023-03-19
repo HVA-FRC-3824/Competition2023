@@ -13,19 +13,20 @@ public class Autobalance extends CommandBase {
     boolean state;
 
     public Autobalance(){
-        // Require chassis to takeover drive train input. This will end the driveWithJoystick command that will be recalled after this command ends.*/
+        /* Require chassis to takeover drive train input. This will end the driveWithJoystick command that 
+        will be recalled after this command ends.*/
         addRequirements(RobotContainer.SWERVE_DRIVE_OBJ);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize(){
+        System.out.println("AUTOBALANCE COMMAND RUNNING...");
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        System.out.println("AUTOBALANCE METHOD RUNNING");
         float pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.returnGyroPitch();
  
         // Determines power
@@ -51,7 +52,6 @@ public class Autobalance extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished(){
-        // Command will end when joystick button is released due to requirement of chassis class of stop command.
         return false;
     }
 }

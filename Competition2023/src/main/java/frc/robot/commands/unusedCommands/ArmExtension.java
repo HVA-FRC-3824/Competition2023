@@ -1,14 +1,14 @@
-package frc.robot.commands;
+package frc.robot.commands.unusedCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class ArmRetraction extends CommandBase {
+public class ArmExtension extends CommandBase {
   public boolean extensionLimiter;
-  /** Creates a new ArmRetraction. */
-  public ArmRetraction() {
+  /** Creates a new ArmExtension. */
+  public ArmExtension() {
     addRequirements(RobotContainer.ARM_EXTENSION_OBJ);
   }
 
@@ -21,14 +21,14 @@ public class ArmRetraction extends CommandBase {
   public void execute() {
     extensionLimiter = RobotContainer.ARM_EXTENSION_OBJ.getExtensionLimiter();
     if(extensionLimiter){
-      if(RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotorEncoderPosition() > Constants.MIN_ARM_EXTENSION){
-        RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotor().setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
+      if(RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotorEncoderPosition() < Constants.MAX_ARM_EXTENSION){
+        RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotor().setVoltage(Constants.ARM_EXTENSION_VOLTAGE);
       }else{
-        System.out.println("WARNING: Arm Extension Position is less than Minimum extension!!! ");
+        System.out.println("WARNING: Arm Extension Position is greater than maximum extension!!! ");
         RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotor().setVoltage(0);
       }
     }else{
-      RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotor().setVoltage(-Constants.ARM_EXTENSION_VOLTAGE);
+      RobotContainer.ARM_EXTENSION_OBJ.getArmExtensionMotor().setVoltage(Constants.ARM_EXTENSION_VOLTAGE);
     }
   }
 

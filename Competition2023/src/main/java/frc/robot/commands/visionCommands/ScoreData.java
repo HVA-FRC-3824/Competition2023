@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.visionCommands;
 
 /* Store data used for scoring */
 public class ScoreData {
