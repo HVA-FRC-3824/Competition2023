@@ -1,9 +1,9 @@
-# 2023 Competition Robot - ~~ARMageddon~~ Franky #
+# 2023 Competition Robot - ARMageddon #
 > Robot made to compete in 2023 FRC *Charged Up*
 
-~~ARMageddon~~ Franky's capabilities include:
+ARMageddon's capabilities include:
 - ~~Westcoast Drive with two speed pneumatic transmission~~
-- Swerve Drive
+- Swerve Drive with X wheel locking capability
 - Grabber
 - Articulating and telescoping arm
 - [Custom vision system](https://github.com/bogogion/frc-2023-cv)
