@@ -257,16 +257,60 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putNumber("Angle", speed);
   }
 
-  // TODO: NOT DONE, MATH ON GOOGLE DOC
+  /* Method to put wheels in X positions for locking on the charging pad
+   * degreesOffStraight is only applicable in one direction of motion, so name isn't completely accurate */
   public void xLockWheels(){
-    drive(driveMotorFrontRight, angleMotorFrontRight, 0, 
-      angleMotorFrontRight.getSelectedSensorPosition() - (360 - (((angleMotorFrontRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 45 )));
-    drive(driveMotorFrontLeft, angleMotorFrontLeft, 0, 
-      angleMotorFrontLeft.getSelectedSensorPosition()  - (360 - (((angleMotorFrontLeft.getSelectedSensorPosition()  / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 135)));
-    drive(driveMotorBackLeft, angleMotorBackLeft, 0, 
-      angleMotorBackLeft.getSelectedSensorPosition()   - (360 - (((angleMotorBackLeft.getSelectedSensorPosition()   / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 225)));
-    drive(driveMotorBackRight, angleMotorBackRight, 0,  
-      angleMotorBackRight.getSelectedSensorPosition()  - (360 - (((angleMotorBackRight.getSelectedSensorPosition()  / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 315)));
+    // FRONT LEFT WHEEL
+    double desiredPositionFrontLeft;
+    double rotationsFL = angleMotorFrontLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    double degreesOffStraightFL = (rotationsFL % 1) * 360;
+    double overDifferenceFL = (225 - degreesOffStraightFL)/360;
+    double underDifferenceFL = (-135 - degreesOffStraightFL)/360;
+    if(Math.abs(overDifferenceFL) < Math.abs(underDifferenceFL)){
+      desiredPositionFrontLeft = (rotationsFL + overDifferenceFL) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }else{
+      desiredPositionFrontLeft = (rotationsFL + underDifferenceFL) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }
+    drive(driveMotorFrontLeft, angleMotorFrontLeft, 0, desiredPositionFrontLeft);
+
+    // FRONT RIGHT WHEEL
+    double desiredPositionFrontRight;
+    double rotationsFR = angleMotorFrontRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    double degreesOffStraightFR = (rotationsFR % 1) * 360;
+    double overDifferenceFR = (135 - degreesOffStraightFR)/360;
+    double underDifferenceFR = (495 - degreesOffStraightFR)/360;
+    if(Math.abs(overDifferenceFR) < Math.abs(underDifferenceFR)){
+      desiredPositionFrontRight = (rotationsFR + overDifferenceFR) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }else{
+      desiredPositionFrontRight = (rotationsFR + underDifferenceFR) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }
+    drive(driveMotorFrontRight, angleMotorFrontRight, 0, desiredPositionFrontRight);
+
+    // BACK LEFT WHEEL
+    double desiredPositionBackLeft;
+    double rotationsBL = angleMotorBackLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    double degreesOffStraightBL = (rotationsBL % 1) * 360;
+    double overDifferenceBL = (315 - degreesOffStraightBL)/360;
+    double underDifferenceBL = (-45 - degreesOffStraightBL)/360;
+    if(Math.abs(overDifferenceBL) < Math.abs(underDifferenceBL)){
+      desiredPositionBackLeft = (rotationsBL + overDifferenceBL) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }else{
+      desiredPositionBackLeft = (rotationsBL + underDifferenceBL) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }
+    drive(driveMotorBackLeft, angleMotorBackLeft, 0, desiredPositionBackLeft);
+
+    // BACK RIGHT WHEEL
+    double desiredPositionBackRight;
+    double rotationsBR = angleMotorBackRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    double degreesOffStraightBR = (rotationsBR % 1) * 360;
+    double overDifferenceBR = (45 - degreesOffStraightBR)/360;
+    double underDifferenceBR = (405 - degreesOffStraightBR)/360;
+    if(Math.abs(overDifferenceBR) < Math.abs(underDifferenceBR)){
+      desiredPositionBackRight = (rotationsBR + overDifferenceBR) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }else{
+      desiredPositionBackRight = (rotationsBR + underDifferenceBR) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
+    }
+    drive(driveMotorBackRight, angleMotorBackRight, 0, desiredPositionBackRight);
   }
 
   // Reset gyro to zero the heading of the robot.
