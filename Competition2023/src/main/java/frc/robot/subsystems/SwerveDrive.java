@@ -144,9 +144,13 @@ public class SwerveDrive extends SubsystemBase{
     double c;
     double d;
 
-    // Set deadzone & dampening turn
+    // Set deadzone & dampening turn, more dampened if score power mode is enabled
     if (Math.abs(x2) > 0.1){
-      turn = x2 * 0.9;
+      if(powerModeScore){
+        turn = x2 * 0.5;
+      }else{
+        turn = x2 * 0.9;
+      }
     }    
 
     // Set length & width proportional to chassis size by using circle of radius 1
@@ -174,7 +178,7 @@ public class SwerveDrive extends SubsystemBase{
 
 
     // Set strafe_angle to NavX reported angle
-    if (robotCentric == false){
+    if (!robotCentric){
       strafe_angle += (gyro_current) / 360 * 2 * Math.PI;
     }
 
@@ -305,7 +309,7 @@ public class SwerveDrive extends SubsystemBase{
     return Math.IEEEremainder(ahrs.getAngle(), 360) * (Constants.K_SWERVE_GYRO_REVERSED ? -1.0 : 1.0);
   }
 
-  //Toggle drive between field centric and robot centric
+  // Toggle drive between field centric and robot centric
   public void toggleDriveCentricity(){
     robotCentric = !robotCentric;
   }
@@ -331,5 +335,4 @@ public class SwerveDrive extends SubsystemBase{
   public float returnGyroPitch(){
     return(ahrs.getRoll());
   }
-
 }

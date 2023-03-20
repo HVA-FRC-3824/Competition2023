@@ -13,21 +13,21 @@ import frc.robot.RobotContainer;
 public class AutonomousGetOutCommunityZoneComeBack extends SequentialCommandGroup {
   public AutonomousGetOutCommunityZoneComeBack() {
     System.out.println("Running autonomous Get out of community zone and return...");
-      addCommands(
-        // move robot forward at 40% power for 2.25 seconds
-        new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-        new WaitCommand(2.25),
+    addCommands(
+      // move robot forward at 40% power for 2.25 seconds
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(2.25),
 
-        // stop for 1 second
-        new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
-        new WaitCommand(1),
+      // stop for 1 second
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
+      new WaitCommand(1),
 
-        // move robot backwards at 40% power for 2.25 seconds
-        new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
-        new WaitCommand(2.25),
+      // move robot backwards at 40% power for 2.25 seconds
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
+      new WaitCommand(2.25),
 
-        // Stop Robot
-        new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0))
-        );
+      // Stop Robot
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0))
+    );
   }
 }

@@ -12,18 +12,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class ArmExtension extends SubsystemBase {
+
   private WPI_TalonFX armExtendMotor;
   private double actualArmExtensionPos;
   private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
   private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
-  /** Creates a new ArmExtension. */
+
   public ArmExtension() {
-    //TODO PIDS
+    // TODO: tune PIDs
     armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_CAN_ID);
     RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0.5, 0.0, 0.0);
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
-    // // Extension reset smartdashboard chooser
+    // Extension reset smartdashboard chooser
     extensionEncoderReset.setDefaultOption("False: ", false);
     extensionEncoderReset.addOption("True: ", true);
     SmartDashboard.putData("Arm Extension Encoder Reset: ", extensionEncoderReset);
@@ -32,7 +33,6 @@ public class ArmExtension extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     // set actual arm extension and output encoder position for extendMotor
     actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);

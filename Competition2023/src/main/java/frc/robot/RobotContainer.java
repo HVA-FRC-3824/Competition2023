@@ -6,8 +6,13 @@ import frc.robot.commands.autonomous.AutonomousCommunityZone;
 import frc.robot.commands.autonomous.AutonomousDoNothing;
 import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
+
+import frc.robot.subsystems.ArmAngle;
+import frc.robot.subsystems.ArmExtension;
+import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.LEDs;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,12 +21,6 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import frc.robot.subsystems.ArmAngle;
-import frc.robot.subsystems.ArmExtension;
-import frc.robot.subsystems.Grabber;
-import frc.robot.subsystems.SwerveDrive;
-import frc.robot.subsystems.LEDs;
 
 /* This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}

@@ -27,7 +27,8 @@ public class ArmAngle extends SubsystemBase{
         // TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, true, FeedbackDevice.CTRE_MagEncoder_Absolute, false, true,
-        0, .25, 0.000015, 0, 0, 0, false);
+        Constants.ARM_ANGLE_MOTOR_KF, Constants.ARM_ANGLE_MOTOR_KP, Constants.ARM_ANGLE_MOTOR_KI, Constants.ARM_ANGLE_MOTOR_KD, Constants.ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY, Constants.ARM_ANGLE_MOTOR_K_ACCELERATION, false);
+        //kF: 0, kP: .25, kI: 0.000015, kD: 0, kCruiseVelocity: 0, kAcceleration: 0
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
 
         // Angle reset smartdashboard chooser

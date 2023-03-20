@@ -48,26 +48,35 @@ public final class Constants{
 
         public static final int K_SWERVE_ENCODER_TICKS_PER_REVOLUTION                               = 28300;
 
-        // #region ARM
+        // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
-        public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
+        public static final double ARM_ANGLE_MOTOR_KF                                               = 0;
+        public static final double ARM_ANGLE_MOTOR_KP                                               = .25;
+        public static final double ARM_ANGLE_MOTOR_KI                                               = 0.000015;
+        public static final double ARM_ANGLE_MOTOR_KD                                               = 0;
+        public static final int ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY                                   = 0;
+        public static final int ARM_ANGLE_MOTOR_K_ACCELERATION                                      = 0;
         
-        public static final int ARM_ANGLE_GEAR_RATIO                                                = 49;
-        public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
+        public static final double ARM_ANGLE_GEAR_RATIO                                             = 49;
         public static final double MAX_ARM_POSITION                                                 = 390872;
         public static final double MIN_ARM_POSITION                                                 = -10000;
-        public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
-        public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
-        public static final double ARM_EXTENSION_VOLTAGE                                            = 8;
-        //public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
-        public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
-        public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
-        public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
+        // public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
         
         public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824;
         public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824;
         public static final double ARM_TOP_ANGLE_VALUE                                              = 3824;
         // #endregion
+
+        // #region ARM EXTENSION
+        public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
+        public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
+        public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = 2048 * ARM_EXTENSION_GEAR_RATIO;
+        public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 8;
+        public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
+        public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
+        public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
 
         // #region GRABBER
         public static final int GRABBER_MOTOR_CAN_ID                                                = 4;
@@ -87,8 +96,7 @@ public final class Constants{
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
         public static ScoreData[][] SCORE_DATA_ARRAY                                                = new ScoreData[3][3];
-        public static final float MIN_DIST_TO_TAG                                                     = 8; /* In inches*/
-   
+        public static final float MIN_DIST_TO_TAG                                                   = 8; /* In inches*/
         // #endregion
 
     // #region PIDs
