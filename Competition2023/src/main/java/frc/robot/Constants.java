@@ -28,25 +28,17 @@ public final class Constants{
         public static final int BACK_LEFT_DRIVE_MOTOR_CAN_ID                                        = 10; 
         public static final int BACK_RIGHT_ANGLE_MOTOR_CAN_ID                                       = 11; 
         public static final int BACK_RIGHT_DRIVE_MOTOR_CAN_ID                                       = 12; 
-        
         public static final double K_CHASSIS_LEFT_ANGLE_P                                           = 0.2245;     //previous: 0.225
         public static final double K_CHASSIS_LEFT_ANGLE_I                                           = 0.0000185;  //previous: 0.0002
         public static final double K_CHASSIS_LEFT_ANGLE_D                                           = 0.000001;   //previous: 0.0000001
-
         public static final double K_CHASSIS_RIGHT_ANGLE_P                                          = 0.2245;    //previous: 0.225
         public static final double K_CHASSIS_RIGHT_ANGLE_I                                          = 0.0000185; //previous: 0.0002
         public static final double K_CHASSIS_RIGHT_ANGLE_D                                          = 0.000003;  //previous: 0.000005
-
-        public static final double SWERVE_GEAR_RATIO                                                = 0.0833333; //wheel spins per angle motor spin    
         public static final double SWERVE_POWER                                                     = 1;
         public static final double SWERVE_SCORE_POWER                                               = .5;
         public static final double SWERVE_JUKE_POWER                                                = .3;
-
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
-
-        public static final double WHEEL_MOTOR_TICKS_PER_REVOLUTION                                 = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
-
-        public static final int K_SWERVE_ENCODER_TICKS_PER_REVOLUTION                               = 28300;
+        public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                                 = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
 
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
@@ -56,12 +48,10 @@ public final class Constants{
         public static final double ARM_ANGLE_MOTOR_KD                                               = 0;
         public static final int ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY                                   = 0;
         public static final int ARM_ANGLE_MOTOR_K_ACCELERATION                                      = 0;
-        
         public static final double ARM_ANGLE_GEAR_RATIO                                             = 49;
         public static final double MAX_ARM_POSITION                                                 = 390872;
         public static final double MIN_ARM_POSITION                                                 = -10000;
         // public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
-        
         public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824;
         public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824;
         public static final double ARM_TOP_ANGLE_VALUE                                              = 3824;
@@ -79,12 +69,6 @@ public final class Constants{
         public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
 
         // #region GRABBER
-        public static final int GRABBER_MOTOR_CAN_ID                                                = 4;
-        public static final double GRABBER_VOLTAGE                                                  = 6;
-        // public static final int PNEUMATIC_HUB_CAN_ID                                                = 4;
-            // pneumatics
-            // public static final int GRABBER_RPH_ID                                                  = 3824;
-            // public static final int PNEUMATIC_HUB_ANALOG_ID                                         = 0;
         // #endregion
 
         // #region LEDs

@@ -1,6 +1,5 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous.simpleCommands;
 
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.LEDs.LEDsPattern;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,10 +20,6 @@ public class InlineCommands{
     public final Command xLockWheels;
 
     // Grabber
-    // public final Command toggleGrabber;
-    public final Command grabberOpen;
-    public final Command grabberClose;
-    public final Command grabberStop;
 
     // Arm
     public final Command angleArmWithController;
@@ -57,10 +52,6 @@ public class InlineCommands{
         xLockWheels = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.xLockWheels());
 
         // Grabber
-        // toggleGrabber = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.toggleGrabber());
-        grabberOpen = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(Constants.GRABBER_VOLTAGE));
-        grabberClose = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE));
-        grabberStop = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grabberSetVoltage(0));
 
         // Arm Angle
         angleArmWithController = new RunCommand(() -> 
@@ -86,6 +77,5 @@ public class InlineCommands{
         setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(60, 100, 100));
         setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(300, 100, 50));
         setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsPattern(LEDsPattern.RAINBOW));
-    
     }
 }

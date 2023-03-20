@@ -1,12 +1,11 @@
 package frc.robot;
 
-import frc.robot.commands.InlineCommands;
 import frc.robot.commands.autonomous.AutonomousCommunityZoneChargingStation;
 import frc.robot.commands.autonomous.AutonomousCommunityZone;
 import frc.robot.commands.autonomous.AutonomousDoNothing;
 import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
-
+import frc.robot.commands.autonomous.simpleCommands.InlineCommands;
 import frc.robot.subsystems.ArmAngle;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.Grabber;
@@ -33,6 +32,7 @@ public class RobotContainer{
   public static final ArmExtension ARM_EXTENSION_OBJ = new ArmExtension();
   public static final Grabber GRABBER_OBJ = new Grabber();
   public static final LEDs LEDS_OBJ = new LEDs();
+  
   /* Instantiate inline commands before OI because OI requires commands before binding to buttons
    * Inline commands requires OI when retrieving joystick values. */
   public static final InlineCommands INLINE_COMMANDS_OBJ = new InlineCommands();

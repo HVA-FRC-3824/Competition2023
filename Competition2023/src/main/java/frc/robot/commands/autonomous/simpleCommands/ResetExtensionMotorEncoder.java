@@ -1,20 +1,25 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous.simpleCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class SetAndHoldPosition extends CommandBase {
-  /** Creates a new SetAndHoldPosition. */
-  public SetAndHoldPosition() {
+import frc.robot.RobotContainer;
+
+public class ResetExtensionMotorEncoder extends CommandBase {
+  /** Creates a new ResetExtensionMotorEncoder. */
+  public ResetExtensionMotorEncoder() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.ARM_EXTENSION_OBJ.resetExtensionMotorEncoder();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

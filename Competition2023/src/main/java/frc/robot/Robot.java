@@ -15,7 +15,6 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
   
-  // This method is run when the robot is first started up and should be used for any initialization code.
   @Override
   public void robotInit(){
     System.out.println("AVE CHRISTUS REX");
@@ -30,10 +29,11 @@ public class Robot extends TimedRobot {
 
     /* SERVER INITALIZATION */
     CommClient client = new CommClient(Constants.PORT);
-    /* Start client thread */
+    
+    // Start client thread
     client.start("ClientThread");
 
-    /* Start the tagstatehandler */
+    // Start the tagstatehandler
     TagStateHandler.init_Array(); 
     
     // starts camera

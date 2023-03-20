@@ -1,25 +1,26 @@
-package frc.robot.commands;
+// Copyright (c) FIRST and other WPILib contributors.
+package frc.robot.commands.autonomous.simpleCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
 
-public class ResetAngleMotorEncoder extends CommandBase {
-  /** Creates a new ResetAngleMotorEncoder. */
-  public ResetAngleMotorEncoder() {
+public class ResetFieldForwardPositionGyro extends CommandBase {
+  /** Creates a new ResetFieldForwardPositionGyro. */
+  public ResetFieldForwardPositionGyro() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.ARM_ANGLE_OBJ.resetAngleMotorEncoder();
-    System.out.println("Reset Arm Angle Encoder");
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    RobotContainer.SWERVE_DRIVE_OBJ.resetFieldCentricity();
   }
 
   // Called once the command ends or is interrupted.

@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,7 +7,6 @@ import edu.wpi.first.wpilibj.SPI;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-// import frc.robot.commands.ResetFieldForwardPositionGyro;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
@@ -19,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 public class SwerveDrive extends SubsystemBase{
-  // Declare chassis objects
   private AHRS ahrs;
 
   private WPI_TalonFX angleMotorFrontRight;
@@ -41,21 +35,21 @@ public class SwerveDrive extends SubsystemBase{
   private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
-  *  {VX, VY, Speed, Desired Angle, Current Angle, Offset} */
+   * {VX, VY, Speed, Desired Angle, Current Angle, Offset} */
   public double [] frontRight = {0, 0, 0, 0, 0, 0};
   public double [] frontLeft = {0, 0, 0, 0, 0, 0};
   public double [] backLeft = {0, 0, 0, 0, 0, 0};
   public double [] backRight = {0, 0, 0, 0, 0, 0};
 
   public SwerveDrive(){   
-    //Try to instantiate the NavX Gyro with exception catch
+    // Try to instantiate the NavX Gyro with exception catch
     try{
       ahrs = new AHRS(SPI.Port.kMXP);
     }catch (RuntimeException ex){
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
-    //Configure drivetrain motors
+    // Configure drivetrain motors
     angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(angleMotorFrontRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
     driveMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_DRIVE_MOTOR_CAN_ID);
@@ -89,13 +83,13 @@ public class SwerveDrive extends SubsystemBase{
   // This method will be called once per scheduler run.
   @Override
   public void periodic(){
-    // Update drivetrain information on SmartDashboard for testing.
+    // Update drivetrain information on SmartDashboard for testing. TODO: Change this to output the current angle of the wheels, don't go over 360
     // SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     // SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     // SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     
-    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore); //TODO IDK why this didn't work
+    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
 
     SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
@@ -107,20 +101,6 @@ public class SwerveDrive extends SubsystemBase{
 
   public void resetFieldCentricity(){
     ahrs.reset();
-  }
-
-  //Gets motors for use in commands
-  public WPI_TalonFX getMotorFR (){
-    return angleMotorFrontRight;
-  }
-  public WPI_TalonFX getMotorFL (){
-    return angleMotorFrontLeft;
-  }
-  public WPI_TalonFX getMotorBL (){
-    return angleMotorBackLeft;
-  }
-  public WPI_TalonFX getMotorBR (){
-    return angleMotorBackRight;
   }
 
   // (x1 joystick input left/right, y1 joystick input front/back, x2 joystick input turn)
@@ -235,7 +215,7 @@ public class SwerveDrive extends SubsystemBase{
       backRight[3] = Math.atan2(c, a) - Math.PI / 2;
     }
 
-    // When desired heading is >180 from current, make wheels turn the opposite direction
+    // When desired heading is > 180 from current, make wheels turn the opposite direction
     if (Math.abs(frontRight[4] - frontRight[3]) > Math.PI && frontRight[4] < frontRight[3]){
       frontRight[5] -= 2 * Math.PI;}
     if (Math.abs(frontRight[4] - frontRight[3]) > Math.PI && frontRight[4] > frontRight[3]){
@@ -256,13 +236,13 @@ public class SwerveDrive extends SubsystemBase{
 
     // Send values to motors, angle variable math is percentage of chassis circle
     drive(driveMotorFrontRight, angleMotorFrontRight, -frontRight[2], 
-          -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+          -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorFrontLeft, angleMotorFrontLeft, frontLeft[2], 
-          -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+          -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorBackLeft, angleMotorBackLeft, backLeft[2], 
-          -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+          -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorBackRight, angleMotorBackRight, backRight[2], 
-          -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION);
+          -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
   }
 
 
@@ -277,16 +257,16 @@ public class SwerveDrive extends SubsystemBase{
     SmartDashboard.putNumber("Angle", speed);
   }
 
-  // NOT DONE, MATH ON GOOGLE DOC
+  // TODO: NOT DONE, MATH ON GOOGLE DOC
   public void xLockWheels(){
     drive(driveMotorFrontRight, angleMotorFrontRight, 0, 
-      angleMotorFrontRight.getSelectedSensorPosition() - (360 - (((angleMotorFrontRight.getSelectedSensorPosition() / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 45 )));
+      angleMotorFrontRight.getSelectedSensorPosition() - (360 - (((angleMotorFrontRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 45 )));
     drive(driveMotorFrontLeft, angleMotorFrontLeft, 0, 
-      angleMotorFrontLeft.getSelectedSensorPosition()  - (360 - (((angleMotorFrontLeft.getSelectedSensorPosition()  / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 135)));
+      angleMotorFrontLeft.getSelectedSensorPosition()  - (360 - (((angleMotorFrontLeft.getSelectedSensorPosition()  / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 135)));
     drive(driveMotorBackLeft, angleMotorBackLeft, 0, 
-      angleMotorBackLeft.getSelectedSensorPosition()   - (360 - (((angleMotorBackLeft.getSelectedSensorPosition()   / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 225)));
+      angleMotorBackLeft.getSelectedSensorPosition()   - (360 - (((angleMotorBackLeft.getSelectedSensorPosition()   / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 225)));
     drive(driveMotorBackRight, angleMotorBackRight, 0,  
-      angleMotorBackRight.getSelectedSensorPosition()  - (360 - (((angleMotorBackRight.getSelectedSensorPosition()  / Constants.WHEEL_MOTOR_TICKS_PER_REVOLUTION) * 360) - 315)));
+      angleMotorBackRight.getSelectedSensorPosition()  - (360 - (((angleMotorBackRight.getSelectedSensorPosition()  / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION) * 360) - 315)));
   }
 
   // Reset gyro to zero the heading of the robot.
@@ -314,6 +294,7 @@ public class SwerveDrive extends SubsystemBase{
     robotCentric = !robotCentric;
   }
 
+  // Toggle drive between normal power and scoring/slower power, ON PRESSED
   public void toggleDrivePower(){
     if(powerModeScore){
       swervePower = Constants.SWERVE_POWER;
@@ -324,14 +305,15 @@ public class SwerveDrive extends SubsystemBase{
     }
   }
 
+  // Methods for toggling between normal power and juke power, WHEN HELD
   public void jukeSpeedMode(){
     swervePower = Constants.SWERVE_JUKE_POWER;
   }
-
   public void normalSpeedMode(){
     swervePower = Constants.SWERVE_POWER;
   }
 
+  // Method to return the pitch of the Gryo, roll because the gyro is mounted sideways, used in autobalance
   public float returnGyroPitch(){
     return(ahrs.getRoll());
   }
