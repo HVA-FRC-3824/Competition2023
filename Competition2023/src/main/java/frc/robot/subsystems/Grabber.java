@@ -24,3 +24,9 @@ public class Grabber extends SubsystemBase{
     @Override
     public void periodic(){}
 }
+
+// communicate with build and design (Michael/Sarah/Sam/Gavin)
+// what motors (how many- about 1 or 2)
+// what motor controllers
+// gear ratios
+// everything I need to be able to code the grabber
