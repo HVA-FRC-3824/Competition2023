@@ -17,7 +17,7 @@ public class AutoScore extends CommandBase{
     public static void initScoreValues(){
         /* Function should set all the values for SCORE_DATA_ARRAY */
 
-        /* Ex. */
+        /* Offset-/+ : left/right */
 
         /* Height! */
         for(int i = 0; i < 3; i++){
@@ -25,33 +25,21 @@ public class AutoScore extends CommandBase{
                 switch (i) {
                     case 0:
                         Constants.SCORE_DATA_ARRAY[i][j].height = heights.TOP;
+                        Constants.SCORE_DATA_ARRAY[i][j].offset = -1;
                         break;
                     case 1:
                         Constants.SCORE_DATA_ARRAY[i][j].height = heights.MID;
+                        Constants.SCORE_DATA_ARRAY[i][j].offset = 0;
                         break;
                     case 2:
                         Constants.SCORE_DATA_ARRAY[i][j].height = heights.BOT;
+                        Constants.SCORE_DATA_ARRAY[i][j].offset = 1;
                         break;
                     default:
                         break;
                 }
             }
         }
-
-        /* Set hard offset and dist */
-        /* TOP */
-        Constants.SCORE_DATA_ARRAY[0][0].offset = -1;
-        Constants.SCORE_DATA_ARRAY[0][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[0][2].offset = 1;
-        /* MIDDLE */
-        Constants.SCORE_DATA_ARRAY[1][0].offset = -1;
-        Constants.SCORE_DATA_ARRAY[1][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[1][2].offset = 1;
-        /* BOTTOM */
-        Constants.SCORE_DATA_ARRAY[2][0].offset = -1;
-        Constants.SCORE_DATA_ARRAY[2][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[2][2].offset = 1;
-
     }
 
     public static enum heights{BOT,MID,TOP};
@@ -94,7 +82,7 @@ public class AutoScore extends CommandBase{
                     continue;
                 }
 
-                RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 1, 0);
+                RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, -.4, 0);
             }
             else
             { 
@@ -154,5 +142,6 @@ public class AutoScore extends CommandBase{
         }
 
         // RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE);
+        return;
     }
 }

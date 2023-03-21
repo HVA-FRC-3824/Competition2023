@@ -45,7 +45,7 @@ public class OI{
         // Y                  - 4
         // LB                 - 5
         // RB                 - 6
-        // Select/left middle   - 7
+        // Select/left middle - 7
         // Start/right middle - 8
 
         // DRIVER BUTTONS
