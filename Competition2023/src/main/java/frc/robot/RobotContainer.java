@@ -100,13 +100,13 @@ public class RobotContainer{
    * chassis only, thus Motion Magic (Control mode for Talon SRX that provides the benefits of 
    * Motion Profiling without needing to generate motion profile trajectory points.) is not required. 
    * (PIDController with Gyro/Vision or ControlMode.Velocity will be used instead). */
-  public static void configureTalonFX(WPI_TalonFX talonFX, boolean setInverted, boolean setSensorPhase, double kF,double kP, 
+  public static void configureTalonFX(WPI_TalonFX talonFX, boolean setInverted, FeedbackDevice feedbackDevice, boolean setSensorPhase, double kF,double kP, 
                                       double kI, double kD){
     // Factory default to reset TalonFX and prevent unexpected behavior.
     talonFX.configFactoryDefault();
     
     // Configure Sensor Source for Primary PID.
-    talonFX.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
+    talonFX.configSelectedFeedbackSensor(feedbackDevice, Constants.K_PID_LOOP_IDX, Constants.K_TIMEOUT_MS);
     
     // Configure TalonFX to drive forward when LED is green.
     talonFX.setInverted(setInverted);

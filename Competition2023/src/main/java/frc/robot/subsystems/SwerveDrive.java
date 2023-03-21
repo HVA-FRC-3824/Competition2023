@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -51,24 +52,36 @@ public class SwerveDrive extends SubsystemBase{
 
     // Configure drivetrain motors
     angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(angleMotorFrontRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
+      RobotContainer.configureTalonFX(angleMotorFrontRight, false, FeedbackDevice.IntegratedSensor, 
+      false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, 
+      Constants.K_CHASSIS_RIGHT_ANGLE_D);
     driveMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_DRIVE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(driveMotorFrontRight, false, false, 0.0, 0.0, 0.0, 0.0);
+      RobotContainer.configureTalonFX(driveMotorFrontRight, false, FeedbackDevice.IntegratedSensor,
+      false, 0.0, 0.0, 0.0, 0.0);
 
     angleMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_ANGLE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(angleMotorFrontLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
+      RobotContainer.configureTalonFX(angleMotorFrontLeft, false, FeedbackDevice.IntegratedSensor,
+      false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, 
+      Constants.K_CHASSIS_LEFT_ANGLE_D);
     driveMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_DRIVE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(driveMotorFrontLeft, false, false, 0.0, 0.0, 0.0, 0.0);
+      RobotContainer.configureTalonFX(driveMotorFrontLeft, false, FeedbackDevice.IntegratedSensor,
+      false, 0.0, 0.0, 0.0, 0.0);
     
     angleMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_ANGLE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(angleMotorBackLeft, false, false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, Constants.K_CHASSIS_LEFT_ANGLE_D);
+      RobotContainer.configureTalonFX(angleMotorBackLeft, false, FeedbackDevice.IntegratedSensor,
+      false, 0.0, Constants.K_CHASSIS_LEFT_ANGLE_P, Constants.K_CHASSIS_LEFT_ANGLE_I, 
+      Constants.K_CHASSIS_LEFT_ANGLE_D);
     driveMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_DRIVE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(driveMotorBackLeft, false, false, 0.0, 0.0, 0.0, 0.0);
+      RobotContainer.configureTalonFX(driveMotorBackLeft, false, FeedbackDevice.IntegratedSensor, 
+      false, 0.0, 0.0, 0.0, 0.0);
 
     angleMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_ANGLE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(angleMotorBackRight, false, false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, Constants.K_CHASSIS_RIGHT_ANGLE_D);
+      RobotContainer.configureTalonFX(angleMotorBackRight, false, FeedbackDevice.IntegratedSensor, 
+      false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, 
+      Constants.K_CHASSIS_RIGHT_ANGLE_D);
     driveMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_DRIVE_MOTOR_CAN_ID);
-      RobotContainer.configureTalonFX(driveMotorBackRight, false, false, 0.0, 0.0, 0.0, 0.0);
+      RobotContainer.configureTalonFX(driveMotorBackRight, false, FeedbackDevice.IntegratedSensor, 
+      false, 0.0, 0.0, 0.0, 0.0);
 
     swervePower = Constants.SWERVE_POWER;
 
@@ -376,16 +389,26 @@ public class SwerveDrive extends SubsystemBase{
     return(ahrs.getRoll());
   }
 
-  public boolean approachChargeStationForward(){
-    while(Math.abs(getGyroPitch()) <  2 ){
-        convertSwerveValues(0, -0.6, 0);
+  public boolean approachAndClimbOverChargeStationForward(){
+    // moves fast until on robot is on charging pad
+    while(getGyroPitch() <  3 ){
+      convertSwerveValues(0, -0.6, 0);
+    }
+    // moves slower while robot is going up charging pad
+    while(getGyroPitch() > 0){
+      convertSwerveValues(0, -0.4, 0);
+    }
+    // moves even slower while robot is going down the charging pad
+    while(getGyroPitch() < 0){
+      convertSwerveValues(0, -0.3, 0);
     }
     return(true);
   }
 
   public boolean approachChargeStationBackward(){
-    while(Math.abs(getGyroPitch()) <  2 ){
-        convertSwerveValues(0, 0.6, 0);
+    // move fast backwards toward charging station
+    while(getGyroPitch() >  -3 ){
+      convertSwerveValues(0, 0.4, 0);
     }
     return(true);
   }

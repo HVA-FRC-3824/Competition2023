@@ -28,4 +28,16 @@ public class SwerveDriveOdometry extends SubsystemBase {
   public double getTotalAverageDistanceTraveled(){
     return((totalDistanceTraveledFL + totalDistanceTraveledFR + totalDistanceTraveledBL + totalDistanceTraveledBR)/4);
   }
+
+  public double[] getCurrentPosition(){
+    return(currentPosition);
+  }
+
+  public double getCurrentXPosition(){
+    return(currentPosition[0]);
+  }
+
+  public double getCurrentYPosition(){
+    return(currentPosition[1]);
+  }
 }

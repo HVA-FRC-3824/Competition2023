@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class ArmExtension extends SubsystemBase {
 
@@ -21,7 +22,8 @@ public class ArmExtension extends SubsystemBase {
   public ArmExtension() {
     // TODO: tune PIDs
     armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_CAN_ID);
-    RobotContainer.configureTalonFX(armExtendMotor, true, true, 0.0, 0.5, 0.0, 0.0);
+    RobotContainer.configureTalonFX(armExtendMotor, true, FeedbackDevice.IntegratedSensor, true, 
+                                    0.0, 0.5, 0.0, 0.0);
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
     // Extension reset smartdashboard chooser
@@ -98,7 +100,7 @@ public class ArmExtension extends SubsystemBase {
 
   public void extendAndRetractArm(double joystickInput){
     // DEADZONE
-    if(Math.abs(joystickInput) > .10){
+    if(Math.abs(joystickInput) > .1){
       // EXTENSION LIMTER CONDITIONAL
       if(extensionLimiter == true){
         // EXTENSION LIMITER
