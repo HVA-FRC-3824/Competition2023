@@ -15,7 +15,7 @@ public final class Constants{
     // #endregion
 
     // #region Driver button IDs
-    //TODO ADD THESE
+    public static final int TOGGLE_DRIVE_CENTRICITY_BTN_ID                                          = 7; // Select, left middle button
     // #endregion
 
     // #region subsystems

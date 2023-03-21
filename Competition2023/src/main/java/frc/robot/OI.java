@@ -49,7 +49,7 @@ public class OI{
         // Start/right middle - 8
 
         // DRIVER BUTTONS
-        toggleDriveCentricityBtn = new JoystickButton(driverController, 7); // Select left middle
+        toggleDriveCentricityBtn = new JoystickButton(driverController, Constants.TOGGLE_DRIVE_CENTRICITY_BTN_ID);
         // autoBalanceBtn = new JoystickButton(driverController, 5);           // LB
         jukeSpeedModeBtn = new JoystickButton(driverController, 6);         // RB 
         toggleDrivePowerBtn = new JoystickButton(driverController, 1);      // A
