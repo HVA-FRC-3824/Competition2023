@@ -25,6 +25,7 @@ public class Grabber extends SubsystemBase{
     public void periodic(){}
 }
 
+// Grabber Notes
 // communicate with build and design (Michael/Sarah/Sam/Gavin)
 // what motors (how many- about 1 or 2)
 // what motor controllers
