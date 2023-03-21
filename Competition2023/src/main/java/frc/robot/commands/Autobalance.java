@@ -27,7 +27,7 @@ public class Autobalance extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        float pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.returnGyroPitch();
+        float pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
  
         // Determines power
         if (Math.abs(pitchAngle) > 10){

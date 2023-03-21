@@ -252,7 +252,7 @@ public class SwerveDrive extends SubsystemBase{
     driveMotor.set(speed * swervePower);
 
     // Set angle motor position + print values
-    angleMotor.set(TalonFXControlMode.Position, angle); //0
+    angleMotor.set(TalonFXControlMode.Position, angle);
 
     SmartDashboard.putNumber("Angle", speed);
   }
@@ -313,6 +313,19 @@ public class SwerveDrive extends SubsystemBase{
     drive(driveMotorBackRight, angleMotorBackRight, 0, desiredPositionBackRight);
   }
 
+  public WPI_TalonFX getFLDrive(){
+    return(driveMotorFrontLeft);
+  }
+  public WPI_TalonFX getFRDrive(){
+    return(driveMotorFrontRight);
+  }
+  public WPI_TalonFX getBLDrive(){
+    return(driveMotorBackLeft);
+  }
+  public WPI_TalonFX getBRDrive(){
+    return(driveMotorBackRight);
+  }
+
   // Reset gyro to zero the heading of the robot.
   public void zeroHeading(){
     ahrs.reset();
@@ -357,8 +370,23 @@ public class SwerveDrive extends SubsystemBase{
     swervePower = Constants.SWERVE_POWER;
   }
 
+  /* AUTONOMOUS METHODS */
   // Method to return the pitch of the Gryo, roll because the gyro is mounted sideways, used in autobalance
-  public float returnGyroPitch(){
+  public float getGyroPitch(){
     return(ahrs.getRoll());
+  }
+
+  public boolean approachChargeStationForward(){
+    while(Math.abs(getGyroPitch()) <  2 ){
+        convertSwerveValues(0, -0.6, 0);
+    }
+    return(true);
+  }
+
+  public boolean approachChargeStationBackward(){
+    while(Math.abs(getGyroPitch()) <  2 ){
+        convertSwerveValues(0, 0.6, 0);
+    }
+    return(true);
   }
 }

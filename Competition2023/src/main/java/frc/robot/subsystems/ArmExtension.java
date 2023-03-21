@@ -34,7 +34,7 @@ public class ArmExtension extends SubsystemBase {
   @Override
   public void periodic() {
     // set actual arm extension and output encoder position for extendMotor
-    actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
+    actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048; // TODO: make into a constant
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
 
     // If reset encoder is selected, it runs encoder reset method
