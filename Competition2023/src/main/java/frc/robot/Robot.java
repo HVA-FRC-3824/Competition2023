@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.visionCommands.AutoScore;
 import frc.robot.subsystems.communication.*;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -35,6 +36,9 @@ public class Robot extends TimedRobot {
 
     // Start the tagstatehandler
     TagStateHandler.init_Array(); 
+
+    // Init score data 
+    AutoScore.initScoreValues();
     
     // starts camera
     CameraServer.startAutomaticCapture();

@@ -73,7 +73,7 @@ public class AutoScore extends CommandBase{
                 int rounded_Angle = (int)(TagData.TAG_DATA[followed_Tag].tag_returnAngle()+.5);
                 if(rounded_Angle != 0)
                 { 
-                    /* TODO: figure out how the angle changes based on turn off the robot */
+                    /* TODO: figure out how the angle changes based on turn off the robot, use this to center the robot/change angle of swerve */
                     if(rounded_Angle > 0)
                     { RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0); }
                     else
