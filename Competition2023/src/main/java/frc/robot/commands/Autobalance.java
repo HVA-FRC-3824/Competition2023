@@ -12,6 +12,9 @@ public class Autobalance extends CommandBase {
     // true means were in 
     boolean state;
 
+    // used in execute. Made a object variable so we don't have to make a new variable every time func is called
+    float pitchAngle;
+
     public Autobalance(){
         /* Require chassis to takeover drive train input. This will end the driveWithJoystick command that 
         will be recalled after this command ends.*/
@@ -27,7 +30,7 @@ public class Autobalance extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
-        float pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
+        pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
  
         // Determines power
         if (Math.abs(pitchAngle) > 10){
@@ -53,5 +56,18 @@ public class Autobalance extends CommandBase {
     @Override
     public boolean isFinished(){
         return false;
+    }
+
+    public void auBa() {
+        // this function is a proposed solution to the AutoBalance
+        pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
+
+        // adjust this variable through testing
+        float amplifier = -2.0F;
+
+        // we are basically plugging in the pitchAngle into this equation:
+        // y = -2x        x is pitch         y is power
+        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, pitchAngle * amplifier, 0);
+
     }
 }
