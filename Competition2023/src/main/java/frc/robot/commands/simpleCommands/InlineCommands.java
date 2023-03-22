@@ -1,4 +1,4 @@
-package frc.robot.commands.autonomous.simpleCommands;
+package frc.robot.commands.simpleCommands;
 
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.LEDs.LEDsPattern;

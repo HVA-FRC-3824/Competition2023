@@ -1,20 +1,19 @@
-package frc.robot.commands.autonomous.simpleCommands;
+package frc.robot.commands.simpleCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
 
-public class ResetAngleMotorEncoder extends CommandBase {
-  public ResetAngleMotorEncoder() {}
+public class ResetExtensionMotorEncoder extends CommandBase {
+  public ResetExtensionMotorEncoder() {}
 
   @Override
-  public void initialize() {
-    RobotContainer.ARM_ANGLE_OBJ.resetAngleMotorEncoder();
-    System.out.println("Reset Arm Angle Encoder");
+  public void initialize() {}
+
+  @Override
+  public void execute() {
+    RobotContainer.ARM_EXTENSION_OBJ.resetExtensionMotorEncoder();
   }
-
-  @Override
-  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

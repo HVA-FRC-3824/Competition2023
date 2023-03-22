@@ -16,6 +16,16 @@ public final class Constants{
 
     // #region Driver button IDs
     public static final int TOGGLE_DRIVE_CENTRICITY_BTN_ID                                          = 7; // Select, left middle button
+    public static final int JUKE_SPEED_MODE_BTN_ID                                                  = 6; // RB
+    public static final int TOGGLE_DRIVE_POWER_BTN_ID                                               = 1; // A
+    public static final int XLOCK_WHEELS_BTN_ID                                                     = 2; // B
+    public static final int SET_ARM_TOP_POS_BTN_ID                                                  = 4; // Y
+    public static final int SET_ARM_MIDDLE_POS_BTN_ID                                               = 2; // B
+    public static final int SET_ARM_BOTTOM_POS_BTN_ID                                               = 1; // A
+    public static final int PURPLE_CUBE_BTN_ID                                                      = 270;
+    public static final int YELLOW_CONE_BTN_ID                                                      = 90;
+    public static final int NORMAL_LED_BTN_ID                                                       = 0;
+    public static final int TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID                                     = 3; // X
     // #endregion
 
     // #region subsystems

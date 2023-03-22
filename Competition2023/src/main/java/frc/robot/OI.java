@@ -51,21 +51,21 @@ public class OI{
         // DRIVER BUTTONS
         toggleDriveCentricityBtn = new JoystickButton(driverController, Constants.TOGGLE_DRIVE_CENTRICITY_BTN_ID);
         // autoBalanceBtn = new JoystickButton(driverController, 5);           // LB
-        jukeSpeedModeBtn = new JoystickButton(driverController, 6);         // RB 
-        toggleDrivePowerBtn = new JoystickButton(driverController, 1);      // A
-        xLockWheelsBtn = new JoystickButton(driverController, 2); // B
+        jukeSpeedModeBtn = new JoystickButton(driverController, Constants.JUKE_SPEED_MODE_BTN_ID);          
+        toggleDrivePowerBtn = new JoystickButton(driverController, Constants.TOGGLE_DRIVE_POWER_BTN_ID);      
+        xLockWheelsBtn = new JoystickButton(driverController, Constants.XLOCK_WHEELS_BTN_ID);
 
 
         // OPERATOR BUTTONS
-        setArmTopPosBtn = new JoystickButton(operatorController, 4);        // Y
-        setArmMiddlePosBtn = new JoystickButton(operatorController, 2);     // B
-        setArmBottomPosBtn = new JoystickButton(operatorController, 1);     // A
+        setArmTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        
+        setArmMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);     
+        setArmBottomPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_BOTTOM_POS_BTN_ID); 
 
-        purpleCubeBtn = new POVButton(operatorController, 270);
-        yellowConeBtn = new POVButton(operatorController, 90);
-        normalLEDBtn = new POVButton(operatorController, 0);
+        purpleCubeBtn = new POVButton(operatorController, Constants.PURPLE_CUBE_BTN_ID);
+        yellowConeBtn = new POVButton(operatorController, Constants.YELLOW_CONE_BTN_ID);
+        normalLEDBtn = new POVButton(operatorController, Constants.NORMAL_LED_BTN_ID);
 
-        toggleArmExtensionLimiterBtn = new JoystickButton(operatorController, 3); // X
+        toggleArmExtensionLimiterBtn = new JoystickButton(operatorController, Constants.TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID);
     }
 
     // Used for driving command

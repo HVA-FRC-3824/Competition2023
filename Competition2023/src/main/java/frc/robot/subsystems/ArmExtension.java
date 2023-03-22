@@ -31,6 +31,11 @@ public class ArmExtension extends SubsystemBase {
     extensionEncoderReset.setDefaultOption("False: ", false);
     extensionEncoderReset.addOption("True: ", true);
     SmartDashboard.putData("Arm Extension Encoder Reset: ", extensionEncoderReset);
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("Arm Extension Encoder Reset: ", extensionEncoderReset);
+    */
+
     // SmartDashboard.putData("RESET ARM EXTENSION ENCODER", new ResetExtensionMotorEncoder());
   }
 
@@ -39,6 +44,10 @@ public class ArmExtension extends SubsystemBase {
     // set actual arm extension and output encoder position for extendMotor
     actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048; // TODO: make into a constant
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("Actual Arm Extension Position: ", actualArmExtensionPos);
+    */
 
     // If reset encoder is selected, it runs encoder reset method
     if(extensionEncoderReset.getSelected()){
@@ -46,6 +55,10 @@ public class ArmExtension extends SubsystemBase {
     }
 
     SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("ARM EXTENSION LIMITER", extesionLimiter);
+    */
   }
 
   // reset arm angle motor encoder
@@ -118,6 +131,10 @@ public class ArmExtension extends SubsystemBase {
               // Need to put these in here because our while stops our periodic 
               actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
               SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
+              /*
+              Shuffleboard.getTag("bestTag")
+                .add("Actual Arm Extension Position: ", actualArmExtensionPos);
+              */
             }
             // Stops us moving after we get back in bounds
             armExtendMotor.setVoltage(0);
@@ -129,6 +146,10 @@ public class ArmExtension extends SubsystemBase {
               // Need to put these in here because our while stops our periodic 
               actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
               SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
+              /*
+              Shuffleboard.getTag("bestTag")
+                .add("Actual Arm Extension Position: ", actualArmExtensionPos);
+              */
             }
             // Stops us moving after we get back in bounds
             armExtendMotor.setVoltage(0);

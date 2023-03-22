@@ -88,6 +88,10 @@ public class SwerveDrive extends SubsystemBase{
     gyroReset.setDefaultOption("RESET GYRO FALSE", false);
     gyroReset.addOption("RESET GYRO TRUE", true);
     SmartDashboard.putData("RESET GRYO", gyroReset);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("RESET GRYO", gyroReset);
+    */
     
     // Button that calls the reset field forward position command
     // SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
@@ -103,9 +107,21 @@ public class SwerveDrive extends SubsystemBase{
     // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     
     SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("Swerve Power score Mode: ", powerModeScore);
+    */
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
-
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("Swerve Current Power", swervePower);
+    */
+    
     SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
+    /*
+    Shuffleboard.getTab("bestTag")
+    .add("Gyro heading", ahrs.getAngle());
+    */
 
     if(gyroReset.getSelected()){
       resetFieldCentricity();
@@ -268,11 +284,16 @@ public class SwerveDrive extends SubsystemBase{
     angleMotor.set(TalonFXControlMode.Position, angle);
 
     SmartDashboard.putNumber("Angle", speed);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("Angle, speed");
+    */
   }
 
   /* Method to put wheels in X positions for locking on the charging pad
    * degreesOffStraight is only applicable in one direction of motion, so name isn't completely accurate */
   public void xLockWheels(){
+    System.out.println("RUNNING X WHEELS METHOD");
     // FRONT LEFT WHEEL
     double desiredPositionFrontLeft;
     double rotationsFL = angleMotorFrontLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
@@ -284,7 +305,7 @@ public class SwerveDrive extends SubsystemBase{
     }else{
       desiredPositionFrontLeft = (rotationsFL + underDifferenceFL) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }
-    drive(driveMotorFrontLeft, angleMotorFrontLeft, 0, desiredPositionFrontLeft);
+    angleMotorFrontLeft.set(TalonFXControlMode.Position, desiredPositionFrontLeft);
 
     // FRONT RIGHT WHEEL
     double desiredPositionFrontRight;
@@ -297,7 +318,7 @@ public class SwerveDrive extends SubsystemBase{
     }else{
       desiredPositionFrontRight = (rotationsFR + underDifferenceFR) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }
-    drive(driveMotorFrontRight, angleMotorFrontRight, 0, desiredPositionFrontRight);
+    angleMotorFrontRight.set(TalonFXControlMode.Position, desiredPositionFrontRight);
 
     // BACK LEFT WHEEL
     double desiredPositionBackLeft;
@@ -310,7 +331,7 @@ public class SwerveDrive extends SubsystemBase{
     }else{
       desiredPositionBackLeft = (rotationsBL + underDifferenceBL) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }
-    drive(driveMotorBackLeft, angleMotorBackLeft, 0, desiredPositionBackLeft);
+    angleMotorBackLeft.set(TalonFXControlMode.Position, desiredPositionBackLeft);
 
     // BACK RIGHT WHEEL
     double desiredPositionBackRight;
@@ -323,7 +344,9 @@ public class SwerveDrive extends SubsystemBase{
     }else{
       desiredPositionBackRight = (rotationsBR + underDifferenceBR) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }
-    drive(driveMotorBackRight, angleMotorBackRight, 0, desiredPositionBackRight);
+    angleMotorBackRight.set(TalonFXControlMode.Position, desiredPositionBackRight);
+    System.out.println("Back right current: " + angleMotorBackRight);
+    System.out.println("Back right desired: " + desiredPositionBackRight);
   }
 
   public WPI_TalonFX getFLDrive(){
@@ -380,7 +403,9 @@ public class SwerveDrive extends SubsystemBase{
     swervePower = Constants.SWERVE_JUKE_POWER;
   }
   public void normalSpeedMode(){
-    swervePower = Constants.SWERVE_POWER;
+    if(!powerModeScore){
+      swervePower = Constants.SWERVE_POWER;
+    }
   }
 
   /* AUTONOMOUS METHODS */
