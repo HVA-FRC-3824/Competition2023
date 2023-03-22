@@ -72,6 +72,10 @@ public class RobotContainer{
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("Autonomous Command", autonomousCommandChooser);
+    */
   }
 
   /**
