@@ -173,7 +173,6 @@ public class ArmExtension extends SubsystemBase {
     if (Math.abs(joystickInput_proposed) > .1) {
       // If extensionLimiter is on
       if (extensionLimiter) {
-
         // if joystick is forward
         if (joystickInput_proposed > 0) {
           // check beforehand if adding it would make it go over the MAX
