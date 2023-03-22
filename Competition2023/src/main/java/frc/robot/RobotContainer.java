@@ -5,7 +5,7 @@ import frc.robot.commands.autonomous.AutonomousCommunityZone;
 import frc.robot.commands.autonomous.AutonomousDoNothing;
 import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
 import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
-import frc.robot.commands.autonomous.simpleCommands.InlineCommands;
+import frc.robot.commands.simpleCommands.InlineCommands;
 import frc.robot.subsystems.ArmAngle;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.Grabber;
