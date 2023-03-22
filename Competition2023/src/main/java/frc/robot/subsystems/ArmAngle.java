@@ -6,6 +6,7 @@ import frc.robot.RobotContainer;
 
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -47,10 +48,18 @@ public class ArmAngle extends SubsystemBase{
         armAngleRawActualPosition = armAngleMotor.getSelectedSensorPosition();
         // armAngleActualPosition = (armAngleRawActualPosition / Constants.ARM_ANGLE_GEAR_RATIO) / 2048;
         SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
+        /*
+        Shuffleboard.getTab("bestTab")
+            .add("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
+        */
 
         // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
-
+        /*
+        Shuffleboard.getTab("bestTab")
+            .add("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
+        */
+        
         // If reset encoder is selected, it runs encoder reset method
         // if(angleEncoderReset.getSelected()){
         //     resetAngleMotorEncoder();

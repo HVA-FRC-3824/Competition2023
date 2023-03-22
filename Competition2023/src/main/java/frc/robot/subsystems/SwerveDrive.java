@@ -88,6 +88,10 @@ public class SwerveDrive extends SubsystemBase{
     gyroReset.setDefaultOption("RESET GYRO FALSE", false);
     gyroReset.addOption("RESET GYRO TRUE", true);
     SmartDashboard.putData("RESET GRYO", gyroReset);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("RESET GRYO", gyroReset);
+    */
     
     // Button that calls the reset field forward position command
     // SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
@@ -103,9 +107,21 @@ public class SwerveDrive extends SubsystemBase{
     // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     
     SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("Swerve Power score Mode: ", powerModeScore);
+    */
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
-
+    /*
+    Shuffleboard.getTag("bestTag")
+      .add("Swerve Current Power", swervePower);
+    */
+    
     SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
+    /*
+    Shuffleboard.getTab("bestTag")
+    .add("Gyro heading", ahrs.getAngle());
+    */
 
     if(gyroReset.getSelected()){
       resetFieldCentricity();
@@ -268,6 +284,10 @@ public class SwerveDrive extends SubsystemBase{
     angleMotor.set(TalonFXControlMode.Position, angle);
 
     SmartDashboard.putNumber("Angle", speed);
+    /*
+    Shuffleboard.getTab("bestTab")
+      .add("Angle, speed");
+    */
   }
 
   /* Method to put wheels in X positions for locking on the charging pad
