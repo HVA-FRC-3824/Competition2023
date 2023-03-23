@@ -100,7 +100,7 @@ public class SwerveDrive extends SubsystemBase{
   // This method will be called once per scheduler run.
   @Override
   public void periodic(){
-    // Update drivetrain information on SmartDashboard for testing. TODO: Change this to output the current angle of the wheels, don't go over 360
+    // Update drivetrain information on SmartDashboard for testing.
     // SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     // SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
     // SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
@@ -297,8 +297,8 @@ public class SwerveDrive extends SubsystemBase{
     double desiredPositionFrontLeft;
     double rotationsFL = angleMotorFrontLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     double degreesOffStraightFL = (rotationsFL % 1) * 360;
-    double overDifferenceFL = (225 - degreesOffStraightFL)/360;
-    double underDifferenceFL = (-135 - degreesOffStraightFL)/360;
+    double overDifferenceFL = (135 - degreesOffStraightFL)/360; // 225
+    double underDifferenceFL = (495 - degreesOffStraightFL)/360; // -135
     if(Math.abs(overDifferenceFL) < Math.abs(underDifferenceFL)){
       desiredPositionFrontLeft = (rotationsFL + overDifferenceFL) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }else{
@@ -310,8 +310,8 @@ public class SwerveDrive extends SubsystemBase{
     double desiredPositionFrontRight;
     double rotationsFR = angleMotorFrontRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     double degreesOffStraightFR = (rotationsFR % 1) * 360;
-    double overDifferenceFR = (135 - degreesOffStraightFR)/360;
-    double underDifferenceFR = (495 - degreesOffStraightFR)/360;
+    double overDifferenceFR = (225 - degreesOffStraightFR)/360; // 135
+    double underDifferenceFR = (-135 - degreesOffStraightFR)/360; // 495
     if(Math.abs(overDifferenceFR) < Math.abs(underDifferenceFR)){
       desiredPositionFrontRight = (rotationsFR + overDifferenceFR) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }else{
@@ -323,8 +323,8 @@ public class SwerveDrive extends SubsystemBase{
     double desiredPositionBackLeft;
     double rotationsBL = angleMotorBackLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     double degreesOffStraightBL = (rotationsBL % 1) * 360;
-    double overDifferenceBL = (315 - degreesOffStraightBL)/360;
-    double underDifferenceBL = (-45 - degreesOffStraightBL)/360;
+    double overDifferenceBL = (45 - degreesOffStraightBL)/360; // 315
+    double underDifferenceBL = (405 - degreesOffStraightBL)/360; // -45
     if(Math.abs(overDifferenceBL) < Math.abs(underDifferenceBL)){
       desiredPositionBackLeft = (rotationsBL + overDifferenceBL) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }else{
@@ -336,8 +336,8 @@ public class SwerveDrive extends SubsystemBase{
     double desiredPositionBackRight;
     double rotationsBR = angleMotorBackRight.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     double degreesOffStraightBR = (rotationsBR % 1) * 360;
-    double overDifferenceBR = (45 - degreesOffStraightBR)/360;
-    double underDifferenceBR = (405 - degreesOffStraightBR)/360;
+    double overDifferenceBR = (315 - degreesOffStraightBR)/360; // 45
+    double underDifferenceBR = (-45 - degreesOffStraightBR)/360; // 405
     if(Math.abs(overDifferenceBR) < Math.abs(underDifferenceBR)){
       desiredPositionBackRight = (rotationsBR + overDifferenceBR) *  Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
     }else{

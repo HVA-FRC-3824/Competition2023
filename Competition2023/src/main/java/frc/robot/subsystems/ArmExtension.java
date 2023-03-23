@@ -42,7 +42,7 @@ public class ArmExtension extends SubsystemBase {
   @Override
   public void periodic() {
     // set actual arm extension and output encoder position for extendMotor
-    actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048; // TODO: make into a constant
+    actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV;
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
     /*
     Shuffleboard.getTag("bestTag")

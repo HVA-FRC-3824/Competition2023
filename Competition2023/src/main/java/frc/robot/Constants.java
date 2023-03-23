@@ -50,7 +50,8 @@ public final class Constants{
         public static final double SWERVE_SCORE_POWER                                               = .5;
         public static final double SWERVE_JUKE_POWER                                                = .3;
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
-        public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
+        public static final int FALCON_500_ENCODER_COUNTS_PER_REV                                   = 2048;
+        public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = FALCON_500_ENCODER_COUNTS_PER_REV * 12; // kSensorUnitsPerRotation / kGearRatio;
 
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
@@ -72,7 +73,7 @@ public final class Constants{
         // #region ARM EXTENSION
         public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
-        public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = 2048 * ARM_EXTENSION_GEAR_RATIO;
+        public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
         public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 8;

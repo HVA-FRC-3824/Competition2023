@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
 
+// TODO: change to instant command and test
 public class ResetFieldForwardPositionGyro extends CommandBase {
   public ResetFieldForwardPositionGyro() {}
 

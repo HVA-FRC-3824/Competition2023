@@ -12,8 +12,8 @@ public class SwerveDriveOdometry extends SubsystemBase {
   private double currentPosition[] = new double[2]; // X and Y position
   public SwerveDriveOdometry() {}
 
-  
-  public void peristaticodic() {
+  @Override
+  public void periodic() {
     // TODO: Multiply by circumferance to get the distance, currently in rotations
     totalDistanceTraveledFL = (RobotContainer.SWERVE_DRIVE_OBJ.getFLDrive().getSelectedSensorPosition() 
                               / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
