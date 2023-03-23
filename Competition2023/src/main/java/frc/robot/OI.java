@@ -3,22 +3,27 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+// import frc.robot.commands.simpleCommands.moveBackward;
+// import frc.robot.commands.simpleCommands.moveForward;
+// import frc.robot.commands.simpleCommands.moveLeft;
+// import frc.robot.commands.simpleCommands.moveRight;
 import frc.robot.commands.simpleCommands.xWheelsLock;
 
 public class OI{
-    // joysticks
+    // JOYSTICKS
     private static Joystick driverController;
     private static Joystick operatorController;
     
-    // driver joystick buttons
+    // DRIVER JOYSTICK BUTTONS
     private static JoystickButton toggleDriveCentricityBtn;
     // private static JoystickButton autoBalanceBtn;
     private static JoystickButton toggleDrivePowerBtn;
     private static JoystickButton jukeSpeedModeBtn;
     private static JoystickButton xLockWheelsBtn;
 
-    // operator controller buttons
+    // private static POVButton forwardBtn, rightBtn, leftBtn, backBtn;
 
+    // OPERATOR CONTROLLER BUTTONS
     private static JoystickButton setArmTopPosBtn;
     private static JoystickButton setArmMiddlePosBtn;
     private static JoystickButton setArmBottomPosBtn;
@@ -54,6 +59,11 @@ public class OI{
         toggleDrivePowerBtn = new JoystickButton(driverController, Constants.TOGGLE_DRIVE_POWER_BTN_ID);    // A   
         xLockWheelsBtn = new JoystickButton(driverController, Constants.XLOCK_WHEELS_BTN_ID);               // B
 
+        // forwardBtn = new POVButton(driverController, 0);
+        // backBtn = new POVButton(driverController, 180);
+        // rightBtn = new POVButton(driverController, 270);
+        // leftBtn = new POVButton(driverController, 90);
+
         // OPERATOR BUTTONS
         setArmTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        // Y
         setArmMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
@@ -77,16 +87,20 @@ public class OI{
     }
 
     public void configureButtonBindings(){
-        // Swerve Drive
+        // SWERVE DRIVE
         // autoBalanceBtn.onTrue(autoBalanceCommandClass);
         toggleDriveCentricityBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDriveCentricity);
         toggleDrivePowerBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleDrivePower);
         jukeSpeedModeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.jukeSpeed).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.normalSpeed);
         xLockWheelsBtn.onTrue(new xWheelsLock(RobotContainer.SWERVE_DRIVE_OBJ)).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.driveWithJoystick);
+        // forwardBtn.onTrue(new moveForward(RobotContainer.SWERVE_DRIVE_OBJ)).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.endMove);
+        // backBtn.onTrue(new moveBackward(RobotContainer.SWERVE_DRIVE_OBJ)).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.endMove);
+        // rightBtn.onTrue(new moveRight(RobotContainer.SWERVE_DRIVE_OBJ)).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.endMove);
+        // leftBtn.onTrue(new moveLeft(RobotContainer.SWERVE_DRIVE_OBJ)).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.endMove);
 
-        // Grabber
+        // GRABBER
 
-        // Arm
+        // ARM
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);
         setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
         setArmBottomPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armBottomPos);

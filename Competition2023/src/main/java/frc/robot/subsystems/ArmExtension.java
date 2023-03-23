@@ -18,7 +18,6 @@ public class ArmExtension extends SubsystemBase {
   private double actualArmExtensionPos;
   private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
   private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
-  private double joystickInput_proposed;
 
   public ArmExtension() {
     // TODO: tune PIDs
@@ -113,108 +112,6 @@ public class ArmExtension extends SubsystemBase {
   }
 
   public void extendAndRetractArm(double joystickInput){
-    // DEADZONE
-    if(Math.abs(joystickInput) > .1){
-      // EXTENSION LIMTER CONDITIONAL
-      if(extensionLimiter){
-        // EXTENSION LIMITER
-        if((actualArmExtensionPos <= Constants.MAX_ARM_EXTENSION) && (actualArmExtensionPos >= Constants.MIN_ARM_EXTENSION)){
-          armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
-        // WHAT TO DO IF OUT OF BOUNDS
-        }else{
-          System.out.println("WARNING: Arm Extension Position is out of bounds!!! ");
-          // GET BACK INTO BOUNDS IF OVER MAX
-          if(actualArmExtensionPos >= Constants.MAX_ARM_EXTENSION){ 
-            // moves us until we get back in bounds
-            while(actualArmExtensionPos >= Constants.MAX_ARM_EXTENSION){
-              armExtendMotor.setVoltage(-2);
-              // Need to put these in here because our while stops our periodic 
-              actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
-              SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
-              /*
-              Shuffleboard.getTag("bestTag")
-                .add("Actual Arm Extension Position: ", actualArmExtensionPos);
-              */
-            }
-            // Stops us moving after we get back in bounds
-            armExtendMotor.setVoltage(0);
-          // GET BACK INTO BOUNDS IF UNDER MIN
-          }else if(actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION){
-            // moves us until we get back in bounds
-            while(actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION){
-              armExtendMotor.setVoltage(2);
-              // Need to put these in here because our while stops our periodic 
-              actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / 2048;
-              SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
-              /*
-              Shuffleboard.getTag("bestTag")
-                .add("Actual Arm Extension Position: ", actualArmExtensionPos);
-              */
-            }
-            // Stops us moving after we get back in bounds
-            armExtendMotor.setVoltage(0);
-          }
-        }
-      // IF EXTENSION LIMITER NOT ON, FREELY MOVE JOYSTICK
-      }else{
-        armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
-      }
-    // DEADZONE
-    }else{
-      armExtendMotor.setVoltage(0);
-    }
-  }
-
-  public void extendAndRetractArm_proposed_solution(double joystickInput){
-    joystickInput_proposed = -joystickInput;
-    // now, pos is forward, negative is backward
-    
-    // If out of DEADZONE
-    if (Math.abs(joystickInput_proposed) > .1) {
-      // If extensionLimiter is on
-      if (extensionLimiter) {
-        // if joystick is forward
-        if (joystickInput_proposed > 0) {
-          // check beforehand if adding it would make it go over the MAX
-                                                                // adjust # below
-          if (!(actualArmExtensionPos >= Constants.MAX_ARM_EXTENSION - 1000)) {
-            // if MAX are is 500, if current pos is 495, we don't want do add more
-            // so if we are not a number somewhere near 495...
-            armExtendMotor.setVoltage(joystickInput_proposed * Constants.ARM_EXTENSION_VOLTAGE);
-          }
-        }
-
-        // if joystick is backward
-        if (joystickInput_proposed < 0) {
-          // check beforehand if adding it would make it go under the MIN
-                                                                  // adjust # below
-          if (!(actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION + 1000)) {
-              // similar logic
-              // if MIN is -500, and our current pos is 4-95, we don't want to back up more
-              // so if we are not a number somewhere near -495...
-              armExtendMotor.setVoltage(joystickInput_proposed * Constants.ARM_EXTENSION_VOLTAGE);
-          }
-        }
-
-      // if extension limiter off, freely move joystick
-      } else {
-        armExtendMotor.setVoltage(joystickInput_proposed * Constants.ARM_EXTENSION_VOLTAGE);
-      }
-    // if in DEADZONE
-    } else {
-      armExtendMotor.setVoltage(0);
-    }
-
-    // only to figure out how much one Constants.ARM_EXTENSION_VOLTAGE changes the actualArmExtensionPos (delete this later)
-    double pre_pos = actualArmExtensionPos;
-    armExtendMotor.setVoltage(-1 * Constants.ARM_EXTENSION_VOLTAGE);
-    double post_pos = actualArmExtensionPos;
-
-    System.out.println("This is one ARM_EXTENSION_VOLTAGE with -1 joystickInput");
-    System.out.println(Math.abs(pre_pos - post_pos));
-  }
-
-  public void extendAndRetractArmProposed2(double joystickInput){
     // DEADZONE
     if(Math.abs(joystickInput) > .1){
       // EXTENSION LIMTER CONDITIONAL

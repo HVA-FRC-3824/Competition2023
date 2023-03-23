@@ -35,6 +35,8 @@ public class SwerveDrive extends SubsystemBase{
   private boolean powerModeScore = false;
   private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
 
+  public boolean endMove = false;
+
   /* Array of values for calculating swerve angle & speed
    * {VX, VY, Speed, Desired Angle, Current Angle, Offset} */
   public double [] frontRight = {0, 0, 0, 0, 0, 0};
@@ -154,7 +156,7 @@ public class SwerveDrive extends SubsystemBase{
     double d;
 
     // Set deadzone & dampening turn, more dampened if score power mode is enabled
-    if (Math.abs(x2) > 0.1){
+    if (Math.abs(x2) > 0.13){
       if(powerModeScore){
         turn = x2 * 0.5;
       }else{
@@ -404,7 +406,29 @@ public class SwerveDrive extends SubsystemBase{
   public void normalSpeedMode(){
     if(!powerModeScore){
       swervePower = Constants.SWERVE_POWER;
+    }else{
+      swervePower = Constants.SWERVE_SCORE_POWER;
     }
+  }
+
+  public void moveForward(){
+    endMove = false;
+    convertSwerveValues(0, -.4, 0);
+  }
+  public void moveBack(){
+    endMove = false;
+    convertSwerveValues(0, .4, 0);
+  }
+  public void moveLeft(){
+    endMove = false;
+    convertSwerveValues(-.4, 0, 0);
+  }
+  public void moveRight(){
+    endMove = false;
+    convertSwerveValues(.4, 0, 0);
+  }
+  public void endMove(){
+    endMove = true;
   }
 
   /* AUTONOMOUS METHODS */
