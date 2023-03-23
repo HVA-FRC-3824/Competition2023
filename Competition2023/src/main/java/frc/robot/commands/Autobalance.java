@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.SwerveDrive;
 
 public class Autobalance extends CommandBase {
     // variable to hold the desired power of the drivetrain
@@ -13,12 +14,12 @@ public class Autobalance extends CommandBase {
     boolean state;
 
     // used in execute. Made a object variable so we don't have to make a new variable every time func is called
-    float pitchAngle;
+    double pitchAngle;
 
-    public Autobalance(){
+    public Autobalance(SwerveDrive driveTrain){
         /* Require chassis to takeover drive train input. This will end the driveWithJoystick command that 
         will be recalled after this command ends.*/
-        addRequirements(RobotContainer.SWERVE_DRIVE_OBJ);
+        addRequirements(driveTrain);
     }
 
     // Called when the command is initially scheduled.
@@ -63,11 +64,10 @@ public class Autobalance extends CommandBase {
         pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
 
         // adjust this variable through testing
-        float amplifier = -2.0F;
+        double amplifier = 0.8;
 
         // we are basically plugging in the pitchAngle into this equation:
         // y = -2x        x is pitch         y is power
-        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, pitchAngle * amplifier, 0);
-
+        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, (pitchAngle * -amplifier), 0);
     }
 }

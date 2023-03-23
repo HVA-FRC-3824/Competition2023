@@ -27,6 +27,6 @@ public class AutonomousCommunityZoneChargingStation extends SequentialCommandGro
       new WaitUntilCommand(RobotContainer.SWERVE_DRIVE_OBJ::approachChargeStationBackward)
     );
     // autobalance
-    CommandScheduler.getInstance().schedule(new Autobalance());
+    CommandScheduler.getInstance().schedule(new Autobalance(RobotContainer.SWERVE_DRIVE_OBJ));
   }
 }

@@ -116,7 +116,7 @@ public class ArmExtension extends SubsystemBase {
     // DEADZONE
     if(Math.abs(joystickInput) > .1){
       // EXTENSION LIMTER CONDITIONAL
-      if(extensionLimiter == true){
+      if(extensionLimiter){
         // EXTENSION LIMITER
         if((actualArmExtensionPos <= Constants.MAX_ARM_EXTENSION) && (actualArmExtensionPos >= Constants.MIN_ARM_EXTENSION)){
           armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
@@ -166,7 +166,7 @@ public class ArmExtension extends SubsystemBase {
   }
 
   public void extendAndRetractArm_proposed_solution(double joystickInput){
-    joystickInput_proposed = joystickInput * -1;
+    joystickInput_proposed = -joystickInput;
     // now, pos is forward, negative is backward
     
     // If out of DEADZONE
@@ -212,6 +212,38 @@ public class ArmExtension extends SubsystemBase {
 
     System.out.println("This is one ARM_EXTENSION_VOLTAGE with -1 joystickInput");
     System.out.println(Math.abs(pre_pos - post_pos));
+  }
+
+  public void extendAndRetractArmProposed2(double joystickInput){
+    // DEADZONE
+    if(Math.abs(joystickInput) > .1){
+      // EXTENSION LIMTER CONDITIONAL
+      if(extensionLimiter){
+        // EXTENSION LIMITER
+        if((actualArmExtensionPos <= Constants.MAX_ARM_EXTENSION) && (actualArmExtensionPos >= Constants.MIN_ARM_EXTENSION)){
+          armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
+        // WHAT TO DO IF OUT OF BOUNDS
+        }else{
+          System.out.println("WARNING: Arm Extension Position is out of bounds!!! ");
+          // LETS US MOVE IF WE ARE TRYING TO GET THE ARM BACK UNDER
+          if((actualArmExtensionPos >= Constants.MAX_ARM_EXTENSION) && (joystickInput > 0)){ 
+            armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
+          // LETS US MOVE IF WE ARE TRYING TO GET THE ARM BACK OVER
+          }else if((actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION) && (joystickInput < 0)){
+            armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
+          }else{
+            // SETS US TO ZERO IF WE ARE TRYING TO GO THE WRONG WAY
+            armExtendMotor.setVoltage(0);
+          }
+        }
+      // IF EXTENSION LIMITER NOT ON, FREELY MOVE JOYSTICK
+      }else{
+        armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
+      }
+    // DEADZONE
+    }else{
+      armExtendMotor.setVoltage(0);
+    }
   }
 
   public void stopArmExtension(){
