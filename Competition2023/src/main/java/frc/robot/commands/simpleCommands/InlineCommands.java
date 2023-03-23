@@ -1,7 +1,6 @@
 package frc.robot.commands.simpleCommands;
 
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.LEDs.LEDsPattern;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;

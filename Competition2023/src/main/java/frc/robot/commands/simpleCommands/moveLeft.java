@@ -21,14 +21,7 @@ public class moveLeft extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!RobotContainer.SWERVE_DRIVE_OBJ.endMove){
-      RobotContainer.SWERVE_DRIVE_OBJ.moveLeft();
-    }else{
-      for(int i = 0; i < 10; i++){
-        System.out.println("RAHLKHJL:JAS");
-      }
-      end(true);
-    } 
+    RobotContainer.SWERVE_DRIVE_OBJ.moveLeft();
   }
 
   // Called once the command ends or is interrupted.

@@ -421,11 +421,11 @@ public class SwerveDrive extends SubsystemBase{
   }
   public void moveLeft(){
     endMove = false;
-    convertSwerveValues(-.4, 0, 0);
+    convertSwerveValues(.4, 0, 0);
   }
   public void moveRight(){
     endMove = false;
-    convertSwerveValues(.4, 0, 0);
+    convertSwerveValues(-.4, 0, 0);
   }
   public void endMove(){
     endMove = true;
@@ -447,7 +447,7 @@ public class SwerveDrive extends SubsystemBase{
       convertSwerveValues(0, -0.4, 0);
     }
     // moves even slower while robot is going down the charging pad
-    while(getGyroPitch() < 0){
+    while(getGyroPitch() < -0.01){
       convertSwerveValues(0, -0.3, 0);
     }
     return(true);

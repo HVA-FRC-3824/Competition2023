@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import java.util.Random;
+// import java.util.Random;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -12,12 +12,12 @@ import frc.robot.Constants;
 public class LEDs extends SubsystemBase{
     // enum objects
     public enum LEDsPattern {RAINBOW, RED, BLUE, GREEN, BOUNCE, TWINKLE, NOTHING};
-    private LEDsPattern currLEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
+    // private LEDsPattern currLEDsPattern = LEDsPattern.RAINBOW; // Default set to rainbow
     // Declare and instantiate LED objects and variables
     private AddressableLED LED = new AddressableLED(Constants.LEDS_ID);
     private AddressableLEDBuffer LEDsBuffer = new AddressableLEDBuffer(Constants.TOTAL_LEDS_COUNT);
     private int hue = 0;
-    private int i = 0;
+    // private int i = 0;
     
     public LEDs(){ 
         // Sets the LEDs length to the buffer length
@@ -25,11 +25,12 @@ public class LEDs extends SubsystemBase{
         // Sets the Leds to the data stored on the buffer
         LED.setData(LEDsBuffer);
         LED.start();
+        setLEDsRainbow();
     }
 
-    // // This method will be called once per scheduler run
-    // @Override
-    // public void periodic(){
+    // This method will be called once per scheduler run
+    @Override
+    public void periodic(){
     //     switch(currLEDsPattern){
     //         case RAINBOW:
     //             // not checking if already in this state because the rainbow moves in a wave pattern
@@ -73,11 +74,7 @@ public class LEDs extends SubsystemBase{
     //     }
     //     // Sends the LED buffer data to the LEDS 
     //     LED.setData(LEDsBuffer);
-    // }
-
-    // RobotContainer.LEDS_OBJ.setLEDsColor(280, 88, 88);
-    // RobotContainer.LEDS_OBJ.setLEDsColor(61, 83, 88);
-    // link above to controller buttons for operator
+    }
 
     private void setLEDsRainbow(){
         setLEDsColor(hue++, 255, 255);
@@ -94,44 +91,38 @@ public class LEDs extends SubsystemBase{
         }
     }
 
-    private void setLEDsTwinkle(){
-        Random rand = new Random();
-        int led_max = LEDsBuffer.getLength();
+    // private void setLEDsTwinkle(){
+    //     Random rand = new Random();
+    //     int led_max = LEDsBuffer.getLength();
         
-        /* Set all to off */
-        for(int i = 0; i < led_max; i++){
-            LEDsBuffer.setHSV(i, 100, 255, 20);
-        }
+    //     /* Set all to off */
+    //     for(int i = 0; i < led_max; i++){
+    //         LEDsBuffer.setHSV(i, 100, 255, 20);
+    //     }
 
-        /* Grab random led ten times */
-        for(int i = 0; i < 30; i++){
-            /* Set to lower value */
-            LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
-        }
-        // twinkle blue for rohawktics?
-    }
+    //     /* Grab random led ten times */
+    //     for(int i = 0; i < 30; i++){
+    //         /* Set to lower value */
+    //         LEDsBuffer.setHSV(rand.nextInt(led_max),100, 255, rand.nextInt(255));
+    //     }
+    //     // twinkle blue for rohawktics?
+    // }
 
-    // TODO: Test
-    private void setLEDsBounce(){
-        int led_max = LEDsBuffer.getLength();
-        if(i == led_max){
-           LEDsBuffer.setHSV(i, 100, 255, 0);
-           i = 0;
-           return;
-        }
+    // private void setLEDsBounce(){
+    //     int led_max = LEDsBuffer.getLength();
+    //     if(i == led_max){
+    //        LEDsBuffer.setHSV(i, 100, 255, 0);
+    //        i = 0;
+    //        return;
+    //     }
             
-        if(i != 0){
-            LEDsBuffer.setHSV(i-1, 100, 255, 0);
-            i++;
-            return;
-        }
+    //     if(i != 0){
+    //         LEDsBuffer.setHSV(i-1, 100, 255, 0);
+    //         i++;
+    //         return;
+    //     }
             
-        LEDsBuffer.setHSV(i, 100, 255, 255);
-        i++;
-    }
-
-    // Method called in other places to set a led pattern
-    public void setLEDsPattern(LEDsPattern pattern){
-        currLEDsPattern = pattern;
-    }
+    //     LEDsBuffer.setHSV(i, 100, 255, 255);
+    //     i++;
+    // }
 }
