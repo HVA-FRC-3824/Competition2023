@@ -24,13 +24,12 @@ public class Autobalance extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize(){
-        System.out.println("AUTOBALANCE COMMAND RUNNING...");
-    }
+    public void initialize(){}
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute(){
+        System.out.println("AUTOBALANCE COMMAND RUNNING...");
         pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
  
         // Determines power
