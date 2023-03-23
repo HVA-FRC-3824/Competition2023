@@ -27,53 +27,57 @@ public class LEDs extends SubsystemBase{
         LED.start();
     }
 
-    // This method will be called once per scheduler run
-    @Override
-    public void periodic(){
-        switch(currLEDsPattern){
-            case RAINBOW:
-                // not checking if already in this state because the rainbow moves in a wave pattern
-                setLEDsRainbow();
-                break;
-            case BLUE:
-                if (currLEDsPattern != LEDsPattern.BLUE) {
-                    // Blue Hue: 85-135
-                    setLEDsColor(100, 255, 255);
-                    this.setLEDsPattern(LEDsPattern.BLUE);
-                    break;
-                }
+    // // This method will be called once per scheduler run
+    // @Override
+    // public void periodic(){
+    //     switch(currLEDsPattern){
+    //         case RAINBOW:
+    //             // not checking if already in this state because the rainbow moves in a wave pattern
+    //             setLEDsRainbow();
+    //             break;
+    //         case BLUE:
+    //             if (currLEDsPattern != LEDsPattern.BLUE) {
+    //                 // Blue Hue: 85-135
+    //                 setLEDsColor(100, 255, 255);
+    //                 this.setLEDsPattern(LEDsPattern.BLUE);
+    //                 break;
+    //             }
                 
-            case RED: 
-                if (currLEDsPattern != LEDsPattern.RED) {
-                    // Red Hue: 170-15 
-                    setLEDsColor(180, 255, 255);
-                    this.setLEDsPattern(LEDsPattern.RED);
-                    break;
-                }
-            case GREEN:
-                if (currLEDsPattern != LEDsPattern.GREEN) {
-                    // Green Hue: 40-75
-                    setLEDsColor(50, 255, 255);
-                    this.setLEDsPattern(LEDsPattern.GREEN);
-                    break;
-                }
-            case BOUNCE:
-                setLEDsBounce();
-                break;
-            case TWINKLE:
-                /* setLEDSTwinkle does NOT set the value once, and must be updated periodically */
-                setLEDsTwinkle();
-                break;
-            case NOTHING:
-                break;
-            default: 
-                setLEDsColor(180, 255, 255);
-                System.out.println("ERROR: LEDs switch case Not getting a color pattern");
-                break;   
-        }
-        // Sends the LED buffer data to the LEDS 
-        LED.setData(LEDsBuffer);
-    }
+    //         case RED: 
+    //             if (currLEDsPattern != LEDsPattern.RED) {
+    //                 // Red Hue: 170-15 
+    //                 setLEDsColor(180, 255, 255);
+    //                 this.setLEDsPattern(LEDsPattern.RED);
+    //                 break;
+    //             }
+    //         case GREEN:
+    //             if (currLEDsPattern != LEDsPattern.GREEN) {
+    //                 // Green Hue: 40-75
+    //                 setLEDsColor(50, 255, 255);
+    //                 this.setLEDsPattern(LEDsPattern.GREEN);
+    //                 break;
+    //             }
+    //         case BOUNCE:
+    //             setLEDsBounce();
+    //             break;
+    //         case TWINKLE:
+    //             /* setLEDSTwinkle does NOT set the value once, and must be updated periodically */
+    //             setLEDsTwinkle();
+    //             break;
+    //         case NOTHING:
+    //             break;
+    //         default: 
+    //             setLEDsColor(180, 255, 255);
+    //             System.out.println("ERROR: LEDs switch case Not getting a color pattern");
+    //             break;   
+    //     }
+    //     // Sends the LED buffer data to the LEDS 
+    //     LED.setData(LEDsBuffer);
+    // }
+
+    // RobotContainer.LEDS_OBJ.setLEDsColor(280, 88, 88);
+    // RobotContainer.LEDS_OBJ.setLEDsColor(61, 83, 88);
+    // link above to controller buttons for operator
 
     private void setLEDsRainbow(){
         setLEDsColor(hue++, 255, 255);
