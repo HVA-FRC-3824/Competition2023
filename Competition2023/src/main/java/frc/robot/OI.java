@@ -3,9 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-
-// import frc.robot.commands.Autobalance;
-import frc.robot.commands.autonomous.simpleCommands.xWheelsLock;
+import frc.robot.commands.simpleCommands.xWheelsLock;
 
 public class OI{
     // joysticks

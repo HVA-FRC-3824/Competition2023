@@ -98,8 +98,8 @@ public class AutoScore extends CommandBase{
     }
 
     public void score(int ix, int iy){
-        float offset;
-        heights height;
+        // float offset;
+        // heights height;
 
         /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects One ScoreData object has 3 attributes (angle, dist, height)
          * These attributes will be fed into the arm to move the physical arm to a scoring spot */
