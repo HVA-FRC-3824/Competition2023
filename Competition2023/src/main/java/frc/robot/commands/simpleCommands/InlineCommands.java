@@ -73,8 +73,8 @@ public class InlineCommands{
         extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArmExtension());
         
         // LED Buttons
-        setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(60, 100, 100));
-        setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(300, 100, 50));
-        setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsPattern(LEDsPattern.RAINBOW));
+        setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(280, 88, 88));
+        setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(61, 83, 88));
+        setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsPattern(LEDsPattern.BLUE));
     }
 }
