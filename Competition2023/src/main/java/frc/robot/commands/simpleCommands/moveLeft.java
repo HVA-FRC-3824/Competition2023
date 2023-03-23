@@ -23,7 +23,12 @@ public class moveLeft extends CommandBase {
   public void execute() {
     if(!RobotContainer.SWERVE_DRIVE_OBJ.endMove){
       RobotContainer.SWERVE_DRIVE_OBJ.moveLeft();
-    }  
+    }else{
+      for(int i = 0; i < 10; i++){
+        System.out.println("RAHLKHJL:JAS");
+      }
+      end(true);
+    } 
   }
 
   // Called once the command ends or is interrupted.

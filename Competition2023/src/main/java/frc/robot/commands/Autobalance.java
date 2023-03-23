@@ -14,7 +14,8 @@ public class Autobalance extends CommandBase {
     boolean state;
 
     // used in execute. Made a object variable so we don't have to make a new variable every time func is called
-    double pitchAngle;
+    double pitchAngleX;
+    double powerY;
 
     public Autobalance(SwerveDrive driveTrain){
         /* Require chassis to takeover drive train input. This will end the driveWithJoystick command that 
@@ -30,21 +31,21 @@ public class Autobalance extends CommandBase {
     @Override
     public void execute(){
         System.out.println("AUTOBALANCE COMMAND RUNNING...");
-        pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
+        pitchAngleX = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
  
         // Determines power
-        if (Math.abs(pitchAngle) > 10){
-            power = 0.2;
-        }else if(Math.abs(pitchAngle) > 5.0){
+        if (Math.abs(pitchAngleX) > 10){
             power = 0.15;
-        }else if(Math.abs(pitchAngle) > 2){
+        }else if(Math.abs(pitchAngleX) > 5.0){
             power = 0.1;
+        }else if(Math.abs(pitchAngleX) > 2){
+            power = 0.05;
         }else{
             power = 0;
         }
 
         // Determines if we need to go forward or backward
-        forward = (pitchAngle > 0);
+        forward = (pitchAngleX > 0);
         if(forward){ // <-- sets us to actually do that
             power = -power;
         }
@@ -58,15 +59,17 @@ public class Autobalance extends CommandBase {
         return false;
     }
 
-    public void auBa() {
-        // this function is a proposed solution to the AutoBalance
-        pitchAngle = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
+    public void autoBalanceLinear() {
+        pitchAngleX = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
 
-        // adjust this variable through testing
-        double amplifier = 0.8;
-
-        // we are basically plugging in the pitchAngle into this equation:
-        // y = -2x        x is pitch         y is power
-        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, (pitchAngle * -amplifier), 0);
+        // deadzone so that it stops moving when balanced
+        if(Math.abs(pitchAngleX) < 2){
+            powerY = 0;
+        }else{
+            powerY = ((-0.015 * pitchAngleX) + .02);
+        }
+        // we are basically plugging in the pitchAngleX into this equation:
+        // y=-0.015x+.02        x is pitch         y is power
+        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, powerY, 0);
     }
 }

@@ -23,7 +23,9 @@ public class moveRight extends CommandBase {
   public void execute() {
     if(!RobotContainer.SWERVE_DRIVE_OBJ.endMove){
       RobotContainer.SWERVE_DRIVE_OBJ.moveRight();
-    }  
+    }else{
+      end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.

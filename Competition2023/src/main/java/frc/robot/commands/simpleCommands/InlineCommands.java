@@ -17,7 +17,7 @@ public class InlineCommands{
     public final Command toggleDrivePower;
     public final Command jukeSpeed;
     public final Command normalSpeed;
-    public final Command endMove;
+
     // Grabber
 
     // Arm
@@ -26,8 +26,6 @@ public class InlineCommands{
     public final Command armTopPos;
     public final Command armMiddlePos;
     public final Command armBottomPos;
-    public final Command extendArm;
-    public final Command retractArm;
     public final Command extenderStop;
     public final Command toggleExtensionLimiter;
 
@@ -48,7 +46,6 @@ public class InlineCommands{
         toggleDrivePower = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.toggleDrivePower());
         jukeSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.jukeSpeedMode());
         normalSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.normalSpeedMode());
-        endMove = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.endMove());
         
         // Grabber
 
@@ -67,9 +64,6 @@ public class InlineCommands{
         armTopPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop());
         armMiddlePos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle());
         armBottomPos = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmBottom());
-        
-        extendArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArm());
-        retractArm = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.retractArm());
         extenderStop = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.stopArmExtension());
         
         // LED Buttons

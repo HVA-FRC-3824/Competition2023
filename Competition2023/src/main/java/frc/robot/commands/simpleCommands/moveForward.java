@@ -21,9 +21,7 @@ public class moveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!RobotContainer.SWERVE_DRIVE_OBJ.endMove){
-      RobotContainer.SWERVE_DRIVE_OBJ.moveForward();
-    }
+    RobotContainer.SWERVE_DRIVE_OBJ.moveForward();
   }
 
   // Called once the command ends or is interrupted.

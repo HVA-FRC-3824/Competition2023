@@ -76,7 +76,7 @@ public final class Constants{
         public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
         public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
-        public static final double ARM_EXTENSION_VOLTAGE                                            = 8;
+        public static final double ARM_EXTENSION_VOLTAGE                                            = 12;
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num

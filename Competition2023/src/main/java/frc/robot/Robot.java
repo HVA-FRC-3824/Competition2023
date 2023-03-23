@@ -45,6 +45,8 @@ public class Robot extends TimedRobot {
 
     // Instantiate RobotContainer. 
     robotContainer = new RobotContainer();
+
+    RobotContainer.ARM_EXTENSION_OBJ.setArmExtensionMotorBrake();
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 
