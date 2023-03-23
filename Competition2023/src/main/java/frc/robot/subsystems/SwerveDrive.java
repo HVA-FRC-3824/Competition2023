@@ -265,15 +265,14 @@ public class SwerveDrive extends SubsystemBase{
 
     // Send values to motors, angle variable math is percentage of chassis circle
     drive(driveMotorFrontRight, angleMotorFrontRight, -frontRight[2], 
-          -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
+        -(frontRight[3] + frontRight[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorFrontLeft, angleMotorFrontLeft, frontLeft[2], 
-          -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
+        -(frontLeft[3] + frontLeft[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorBackLeft, angleMotorBackLeft, backLeft[2], 
-          -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
+        -(backLeft[3] + backLeft[5])  / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
     drive(driveMotorBackRight, angleMotorBackRight, backRight[2], 
-          -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
+        -(backRight[3] + backRight[5]) / (Math.PI * 2) * Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION);
   }
-
 
   // Moves each wheel (1 speed + 1 angle motor)
   public void drive (WPI_TalonFX driveMotor, WPI_TalonFX angleMotor, double speed, double angle){

@@ -1,6 +1,6 @@
 package frc.robot;
 
-import frc.robot.commands.visionCommands.ScoreData;
+// import frc.robot.commands.visionCommands.ScoreData;
 
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -19,13 +19,15 @@ public final class Constants{
     public static final int JUKE_SPEED_MODE_BTN_ID                                                  = 6; // RB
     public static final int TOGGLE_DRIVE_POWER_BTN_ID                                               = 1; // A
     public static final int XLOCK_WHEELS_BTN_ID                                                     = 2; // B
+
+    public static final int TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID                                     = 3; // X
     public static final int SET_ARM_TOP_POS_BTN_ID                                                  = 4; // Y
     public static final int SET_ARM_MIDDLE_POS_BTN_ID                                               = 2; // B
     public static final int SET_ARM_BOTTOM_POS_BTN_ID                                               = 1; // A
     public static final int PURPLE_CUBE_BTN_ID                                                      = 270;
     public static final int YELLOW_CONE_BTN_ID                                                      = 90;
     public static final int NORMAL_LED_BTN_ID                                                       = 0;
-    public static final int TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID                                     = 3; // X
+    
     // #endregion
 
     // #region subsystems
@@ -48,7 +50,7 @@ public final class Constants{
         public static final double SWERVE_SCORE_POWER                                               = .5;
         public static final double SWERVE_JUKE_POWER                                                = .3;
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
-        public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                                 = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
+        public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = 2048 * 12; // kSensorUnitsPerRotation / kGearRatio;
 
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
@@ -89,7 +91,7 @@ public final class Constants{
         // server info / tag information
         public static final int PORT                                                                = 5805;
         public static final int MAX_TAGS                                                            = 8;
-        public static ScoreData[][] SCORE_DATA_ARRAY                                                = new ScoreData[3][3];
+        // public static ScoreData[][] SCORE_DATA_ARRAY                                                = new ScoreData[3][3];
         public static final float MIN_DIST_TO_TAG                                                   = 8; /* In inches*/
         // #endregion
 

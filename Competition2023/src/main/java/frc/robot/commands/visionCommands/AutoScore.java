@@ -24,16 +24,16 @@ public class AutoScore extends CommandBase{
             for(int j = 0; j < 3; j++){
                 switch (i) {
                     case 0:
-                        Constants.SCORE_DATA_ARRAY[i][j].height = heights.TOP;
-                        Constants.SCORE_DATA_ARRAY[i][j].offset = -1;
+                        // Constants.SCORE_DATA_ARRAY[i][j].height = heights.TOP;
+                        // Constants.SCORE_DATA_ARRAY[i][j].offset = -1;
                         break;
                     case 1:
-                        Constants.SCORE_DATA_ARRAY[i][j].height = heights.MID;
-                        Constants.SCORE_DATA_ARRAY[i][j].offset = 0;
+                        // Constants.SCORE_DATA_ARRAY[i][j].height = heights.MID;
+                        // Constants.SCORE_DATA_ARRAY[i][j].offset = 0;
                         break;
                     case 2:
-                        Constants.SCORE_DATA_ARRAY[i][j].height = heights.BOT;
-                        Constants.SCORE_DATA_ARRAY[i][j].offset = 1;
+                        // Constants.SCORE_DATA_ARRAY[i][j].height = heights.BOT;
+                        // Constants.SCORE_DATA_ARRAY[i][j].offset = 1;
                         break;
                     default:
                         break;
@@ -104,42 +104,42 @@ public class AutoScore extends CommandBase{
         /* SCORE_DATA_ARRAY is a 2D array of ScoreData objects One ScoreData object has 3 attributes (angle, dist, height)
          * These attributes will be fed into the arm to move the physical arm to a scoring spot */
 
-        offset = Constants.SCORE_DATA_ARRAY[iy][ix].offset;
-        height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
+        // offset = Constants.SCORE_DATA_ARRAY[iy][ix].offset;
+        // height = Constants.SCORE_DATA_ARRAY[iy][ix].height;
 
         // Height 
-        switch(height){
-            case BOT:
-                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_BOTTOM_ANGLE_VALUE);
-                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
-                break;
-            case MID:
-                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_MIDDLE_ANGLE_VALUE);
-                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
-                break;
-            case TOP:
-                RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_TOP_ANGLE_VALUE);
-                RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
-                break;
-            default:
-                System.out.println("Whomp Whomp");
-                return;
-        }
+        // switch(height){
+        //     case BOT:
+        //         RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_BOTTOM_ANGLE_VALUE);
+        //         RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_BOTTOM_EXTENSION_VALUE);;
+        //         break;
+        //     case MID:
+        //         RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_MIDDLE_ANGLE_VALUE);
+        //         RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_MIDDLE_EXTENSION_VALUE);;
+        //         break;
+        //     case TOP:
+        //         RobotContainer.ARM_ANGLE_OBJ.setArmActualPosCustom(Constants.ARM_TOP_ANGLE_VALUE);
+        //         RobotContainer.ARM_EXTENSION_OBJ.armExtendCustom(Constants.ARM_TOP_EXTENSION_VALUE);;
+        //         break;
+        //     default:
+        //         System.out.println("Whomp Whomp");
+        //         return;
+        // }
 
         /* Move robot by an offset, -/+ : left/right */
-        if(offset != 0)
-        {
-            if(offset > 0)
-            {/* Right */
-                for(int i = 0; i < offset; i++)
-                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(1, 0, 0);}
-            }
-            else
-            {/* Left */
-                for(int i = 0; i > offset; i--)
-                {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(-1, 0, 0);}
-            }
-        }
+        // if(offset != 0)
+        // {
+        //     if(offset > 0)
+        //     {/* Right */
+        //         for(int i = 0; i < offset; i++)
+        //         {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(1, 0, 0);}
+        //     }
+        //     else
+        //     {/* Left */
+        //         for(int i = 0; i > offset; i--)
+        //         {RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(-1, 0, 0);}
+        //     }
+        // }
 
         // RobotContainer.GRABBER_OBJ.grabberSetVoltage(-Constants.GRABBER_VOLTAGE);
         return;
