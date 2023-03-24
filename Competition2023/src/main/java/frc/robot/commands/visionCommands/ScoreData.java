@@ -4,4 +4,9 @@ package frc.robot.commands.visionCommands;
 public class ScoreData {
     public float offset;
     AutoScore.heights height;
+
+    ScoreData(AutoScore.heights height)
+    {
+        this.height = height;
+    }
 }

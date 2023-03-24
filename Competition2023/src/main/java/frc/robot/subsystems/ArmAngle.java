@@ -100,7 +100,7 @@ public class ArmAngle extends SubsystemBase{
     }
 
     // CUSTOM MOVEMENT METHOD
-    // public void setArmActualPosCustom(double position){
-    //     armAngleMotor.set(ControlMode.Position, position);
-    // }
+    public void setArmActualPosCustom(double position){
+        armAngleMotor.set(ControlMode.Position, position);
+    }
 }
