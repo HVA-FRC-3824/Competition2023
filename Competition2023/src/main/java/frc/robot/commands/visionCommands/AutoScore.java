@@ -38,17 +38,22 @@ public class AutoScore extends CommandBase{
             }
         }
 
-        Constants.SCORE_DATA_ARRAY[0][0].offset = -1;
+        int left_off, right_off;
+
+        left_off = -1;
+        right_off = 1;
+
+        Constants.SCORE_DATA_ARRAY[0][0].offset = left_off;
         Constants.SCORE_DATA_ARRAY[0][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[0][2].offset = 1;
+        Constants.SCORE_DATA_ARRAY[0][2].offset = right_off;
 
-        Constants.SCORE_DATA_ARRAY[1][0].offset = -1;
+        Constants.SCORE_DATA_ARRAY[1][0].offset = left_off;
         Constants.SCORE_DATA_ARRAY[1][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[1][2].offset = 1;
+        Constants.SCORE_DATA_ARRAY[1][2].offset = right_off;
 
-        Constants.SCORE_DATA_ARRAY[2][0].offset = -1;
+        Constants.SCORE_DATA_ARRAY[2][0].offset = left_off;
         Constants.SCORE_DATA_ARRAY[2][1].offset = 0;
-        Constants.SCORE_DATA_ARRAY[2][2].offset = 1;
+        Constants.SCORE_DATA_ARRAY[2][2].offset = right_off;
     }
 
     public static enum heights{BOT,MID,TOP};
