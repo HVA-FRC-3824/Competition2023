@@ -1,5 +1,5 @@
 // Copyright (c) FIRST and other WPILib contributors.
-package frc.robot.commands.simpleCommands;
+package frc.robot.commands.simpleCommands.resetCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 

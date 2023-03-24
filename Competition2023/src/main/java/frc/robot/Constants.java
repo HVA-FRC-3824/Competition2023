@@ -62,12 +62,12 @@ public final class Constants{
         public static final int ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY                                   = 0;
         public static final int ARM_ANGLE_MOTOR_K_ACCELERATION                                      = 0;
         public static final double ARM_ANGLE_GEAR_RATIO                                             = 49;
-        public static final double MAX_ARM_POSITION                                                 = 390872;
-        public static final double MIN_ARM_POSITION                                                 = -10000;
+        public static final double MAX_ARM_ANGLE_POSITION                                           = 390872;
+        public static final double MIN_ARM_ANGLE_POSITION                                           = -10000;
         // public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
-        public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824;
-        public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824;
-        public static final double ARM_TOP_ANGLE_VALUE                                              = 3824;
+        public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824; // TODO figure out num
+        public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824; // TODO figure out num
+        public static final double ARM_TOP_ANGLE_VALUE                                              = 3824; // TODO figure out num
         // #endregion
 
         // #region ARM EXTENSION
