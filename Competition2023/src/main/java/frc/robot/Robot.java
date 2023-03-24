@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit(){
+    // set brake modes to motors
     RobotContainer.ARM_ANGLE_OBJ.setArmAngleMotorBreak();
     RobotContainer.ARM_EXTENSION_OBJ.setArmExtensionMotorBrake();
   }
