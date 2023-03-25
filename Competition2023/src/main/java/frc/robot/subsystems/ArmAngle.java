@@ -38,7 +38,7 @@ public class ArmAngle extends SubsystemBase{
 
         // SmartDashboard.putData("RESET ARM ANGLE ENCODER", new ResetAngleMotorEncoder()); 
         
-        armAngleMotor.setSelectedSensorPosition(0); // CANCELING OUT ABSOLUTE FUNCTION   
+        // armAngleMotor.setSelectedSensorPosition(0); // CANCELING OUT ABSOLUTE FUNCTION   
     }
 
     @Override

@@ -56,8 +56,8 @@ public final class Constants{
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
         public static final double ARM_ANGLE_MOTOR_KF                                               = 0;
-        public static final double ARM_ANGLE_MOTOR_KP                                               = .25;
-        public static final double ARM_ANGLE_MOTOR_KI                                               = 0.000015;
+        public static final double ARM_ANGLE_MOTOR_KP                                               = .3;
+        public static final double ARM_ANGLE_MOTOR_KI                                               = 0.000016;
         public static final double ARM_ANGLE_MOTOR_KD                                               = 0;
         public static final int ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY                                   = 0;
         public static final int ARM_ANGLE_MOTOR_K_ACCELERATION                                      = 0;
@@ -72,7 +72,7 @@ public final class Constants{
 
         // #region ARM EXTENSION
         public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
-        public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
+        public static final int ARM_EXTENSION_GEAR_RATIO                                            = 36;
         public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 12;
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
@@ -82,6 +82,7 @@ public final class Constants{
         public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 450887;
 
         // #region GRABBER
+        public static final double GRABBER_VOLTAGE                                                  = 8;
         // #endregion
 
         // #region LEDs

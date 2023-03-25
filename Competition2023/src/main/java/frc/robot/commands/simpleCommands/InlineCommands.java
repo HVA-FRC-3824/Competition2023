@@ -18,7 +18,9 @@ public class InlineCommands{
     public final Command normalSpeed;
 
     // Grabber
-
+    public final Command grabberIntake;
+    public final Command grabberRelease;
+    public final Command grabberStop;
     // Arm
     public final Command angleArmWithController;
     public final Command extendArmWithController;
@@ -47,15 +49,18 @@ public class InlineCommands{
         normalSpeed = new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.normalSpeedMode());
         
         // Grabber
-
+        grabberIntake = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.grab());
+        grabberStop = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.stop());
+        grabberRelease = new InstantCommand(() -> RobotContainer.GRABBER_OBJ.realese());
+        
         // Arm Angle
         angleArmWithController = new RunCommand(() -> 
             RobotContainer.ARM_ANGLE_OBJ.setDesiredArmPosition(
             RobotContainer.OI_OBJ.getOperatorController().getRawAxis(1)), 
             RobotContainer.ARM_ANGLE_OBJ);
         
-        toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter());
         // Arm Extension
+        toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter());
         extendArmWithController = new RunCommand(() ->
             RobotContainer.ARM_EXTENSION_OBJ.extendAndRetractArm(
             RobotContainer.OI_OBJ.getOperatorController().getRawAxis(5)), 

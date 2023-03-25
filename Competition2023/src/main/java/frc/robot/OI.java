@@ -28,6 +28,9 @@ public class OI{
     private static JoystickButton setArmMiddlePosBtn;
     private static JoystickButton setArmBottomPosBtn;
 
+    private static JoystickButton grabberIntakeBtn;
+    private static JoystickButton grabbberReleaseBtn;
+
     private static POVButton purpleCubeBtn;
     private static POVButton yellowConeBtn;
     private static POVButton normalLEDBtn;
@@ -69,6 +72,9 @@ public class OI{
         setArmMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
         setArmBottomPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_BOTTOM_POS_BTN_ID);  // A
 
+        grabbberReleaseBtn = new JoystickButton(operatorController, 5);                       // LB
+        grabberIntakeBtn = new JoystickButton(operatorController, 6);                         // RB
+
         purpleCubeBtn = new POVButton(operatorController, Constants.PURPLE_CUBE_BTN_ID);                   // right
         yellowConeBtn = new POVButton(operatorController, Constants.YELLOW_CONE_BTN_ID);                   // left
         normalLEDBtn = new POVButton(operatorController, Constants.NORMAL_LED_BTN_ID);                     // up
@@ -100,7 +106,9 @@ public class OI{
         leftBtn.whileTrue(new moveLeft(RobotContainer.SWERVE_DRIVE_OBJ));
 
         // GRABBER
-
+        grabberIntakeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberIntake).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop);
+        grabbberReleaseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberRelease).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop);
+        
         // ARM
         setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);
         setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
