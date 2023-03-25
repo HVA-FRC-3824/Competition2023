@@ -32,13 +32,17 @@ public final class Constants{
 
     // #region subsystems
         //#region Swerve Drive
-        public static final int FRONT_RIGHT_ANGLE_MOTOR_CAN_ID                                      = 5; 
+        public static final int FRONT_RIGHT_ANGLE_MOTOR_CAN_ID                                      = 5;
+        public static final int FRONT_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                 = 15; 
         public static final int FRONT_RIGHT_DRIVE_MOTOR_CAN_ID                                      = 6;
         public static final int FRONT_LEFT_ANGLE_MOTOR_CAN_ID                                       = 7; 
+        public static final int FRONT_LEFT_ABSOLUTE_ENCODER_CAN_ID                                  = 3824; // TODO: FIGURE OUT CAN ID
         public static final int FRONT_LEFT_DRIVE_MOTOR_CAN_ID                                       = 8; 
-        public static final int BACK_LEFT_ANGLE_MOTOR_CAN_ID                                        = 9; 
+        public static final int BACK_LEFT_ANGLE_MOTOR_CAN_ID                                        = 9;
+        public static final int BACK_LEFT_ABSOLUTE_ENCODER_CAN_ID                                   = 16;
         public static final int BACK_LEFT_DRIVE_MOTOR_CAN_ID                                        = 10; 
         public static final int BACK_RIGHT_ANGLE_MOTOR_CAN_ID                                       = 11; 
+        public static final int BACK_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                  = 3824; // TODO: FIGURE OUT CAN ID
         public static final int BACK_RIGHT_DRIVE_MOTOR_CAN_ID                                       = 12; 
         public static final double K_CHASSIS_LEFT_ANGLE_P                                           = 0.2245;     //previous: 0.225
         public static final double K_CHASSIS_LEFT_ANGLE_I                                           = 0.0000185;  //previous: 0.0002
@@ -74,6 +78,7 @@ public final class Constants{
 
         // #region ARM EXTENSION
         public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
+        public static final int ARM_EXTEND_ENCODER_CAN_ID                                           = 14;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 36;
         public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 12;
@@ -86,6 +91,7 @@ public final class Constants{
         public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 450887;
 
         // #region GRABBER
+        public static final int GRABBER_CAN_ID                                                      = 13;
         public static final double GRABBER_VOLTAGE                                                  = 8;
         // #endregion
 

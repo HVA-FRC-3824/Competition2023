@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Grabber extends SubsystemBase{
     private WPI_TalonSRX grabberMotor;
     public Grabber(){
-        grabberMotor = new WPI_TalonSRX(13); //TODO: make it a constant
+        grabberMotor = new WPI_TalonSRX(Constants.GRABBER_CAN_ID);
         RobotContainer.configureTalonSRX(grabberMotor, false, null, false,
                          false, 0, 0, 0, 0, 0, 0, false);
         grabberMotor.setNeutralMode(NeutralMode.Brake);
