@@ -36,13 +36,13 @@ public final class Constants{
         public static final int FRONT_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                 = 15; 
         public static final int FRONT_RIGHT_DRIVE_MOTOR_CAN_ID                                      = 6;
         public static final int FRONT_LEFT_ANGLE_MOTOR_CAN_ID                                       = 7; 
-        public static final int FRONT_LEFT_ABSOLUTE_ENCODER_CAN_ID                                  = 3824; // TODO: FIGURE OUT CAN ID
+        public static final int FRONT_LEFT_ABSOLUTE_ENCODER_CAN_ID                                  = 17;
         public static final int FRONT_LEFT_DRIVE_MOTOR_CAN_ID                                       = 8; 
         public static final int BACK_LEFT_ANGLE_MOTOR_CAN_ID                                        = 9;
         public static final int BACK_LEFT_ABSOLUTE_ENCODER_CAN_ID                                   = 16;
         public static final int BACK_LEFT_DRIVE_MOTOR_CAN_ID                                        = 10; 
         public static final int BACK_RIGHT_ANGLE_MOTOR_CAN_ID                                       = 11; 
-        public static final int BACK_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                  = 3824; // TODO: FIGURE OUT CAN ID
+        public static final int BACK_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                  = 18;
         public static final int BACK_RIGHT_DRIVE_MOTOR_CAN_ID                                       = 12; 
         public static final double K_CHASSIS_LEFT_ANGLE_P                                           = 0.2245;     //previous: 0.225
         public static final double K_CHASSIS_LEFT_ANGLE_I                                           = 0.0000185;  //previous: 0.0002
