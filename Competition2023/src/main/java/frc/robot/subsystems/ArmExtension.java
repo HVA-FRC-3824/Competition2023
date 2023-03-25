@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class ArmExtension extends SubsystemBase {
 
   private WPI_TalonFX armExtendMotor;
+  private WPI_TalonSRX armExtensionAbsEncoder;
   private double actualArmExtensionPos;
   private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
   private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
@@ -27,6 +29,11 @@ public class ArmExtension extends SubsystemBase {
     RobotContainer.configureTalonFX(armExtendMotor, true, FeedbackDevice.IntegratedSensor, true, 
                                     0.0, 0.5, 0.0, 0.0);
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
+
+    armExtensionAbsEncoder = new WPI_TalonSRX(Constants.ARM_EXTEND_ENCODER_CAN_ID);
+    RobotContainer.configureTalonSRX(armExtensionAbsEncoder, false, FeedbackDevice.CTRE_MagEncoder_Absolute, 
+                                    false, false, 0, 0, 0, 0, 0, 
+                                    0, false);
 
     // Extension reset smartdashboard chooser
     extensionEncoderReset.setDefaultOption("False: ", false);
@@ -50,6 +57,8 @@ public class ArmExtension extends SubsystemBase {
     if(extensionEncoderReset.getSelected()){
       resetExtensionMotorEncoder();
     }
+
+    SmartDashboard.putNumber("Arm Extension Abs Pos: ", armExtensionAbsEncoder.getSelectedSensorPosition());
 
     SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
     // Shuffleboard.getTag("bestTag").add("ARM EXTENSION LIMITER", extesionLimiter);

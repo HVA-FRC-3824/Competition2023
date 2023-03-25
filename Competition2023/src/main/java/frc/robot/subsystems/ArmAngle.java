@@ -46,11 +46,11 @@ public class ArmAngle extends SubsystemBase{
         // output encoder position for angleMotor
         armAngleRawActualPosition = armAngleMotor.getSelectedSensorPosition();
 
-        SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
+        SmartDashboard.putNumber("Actual Arm Abs Angle Motor Position: ", armAngleRawActualPosition);
         // Shuffleboard.getTab("bestTab").add("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
 
         // ouput desired arm angle
-        SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
+        SmartDashboard.putNumber("Desired Arm Angle Motor Position: ", armAngleDesiredPosition);
         // Shuffleboard.getTab("bestTab").add("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
         
         // If reset encoder is selected, it runs encoder reset method
