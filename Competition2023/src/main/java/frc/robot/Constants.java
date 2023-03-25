@@ -91,7 +91,7 @@ public final class Constants{
         public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 450887;
 
         // #region GRABBER
-        public static final int GRABBER_CAN_ID                                                      = 13;
+        public static final int GRABBER_CAN_ID                                                      = 4;
         public static final double GRABBER_VOLTAGE                                                  = 10;
         // #endregion
 
