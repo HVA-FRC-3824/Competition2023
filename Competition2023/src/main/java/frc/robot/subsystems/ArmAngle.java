@@ -105,6 +105,16 @@ public class ArmAngle extends SubsystemBase{
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
     }
 
+    public void setArmAngleTopScoringPos(){
+        armAngleDesiredPosition = Constants.ARM_ANGLE_TOP_SCORE_POS;
+    }
+    public void setArmAngleMiddleScoringPos(){
+        armAngleDesiredPosition = Constants.ARM_ANGLE_MIDDLE_SCORE_POS;
+    }
+    public void setArmAnglePickUpPos(){
+        armAngleDesiredPosition = Constants.ARM_ANGLE_PICK_UP_POS;
+    }
+
     // CUSTOM MOVEMENT METHOD
     public void setArmActualPosCustom(double position){
         armAngleMotor.set(ControlMode.Position, position);

@@ -24,9 +24,9 @@ public class OI{
     private static POVButton forwardBtn, rightBtn, leftBtn, backBtn;
 
     // OPERATOR CONTROLLER BUTTONS
-    private static JoystickButton setArmTopPosBtn;
-    private static JoystickButton setArmMiddlePosBtn;
-    private static JoystickButton setArmBottomPosBtn;
+    private static JoystickButton scoreTopPosBtn;
+    private static JoystickButton scoreMiddlePosBtn;
+    private static JoystickButton pickUpPosBtn;
 
     private static JoystickButton grabberIntakeBtn;
     private static JoystickButton grabbberReleaseBtn;
@@ -68,9 +68,9 @@ public class OI{
         leftBtn = new POVButton(driverController, 90);
 
         // OPERATOR BUTTONS
-        setArmTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        // Y
-        setArmMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
-        setArmBottomPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_BOTTOM_POS_BTN_ID);  // A
+        scoreTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        // Y
+        scoreMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
+        pickUpPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_BOTTOM_POS_BTN_ID);  // A
 
         grabbberReleaseBtn = new JoystickButton(operatorController, 5);                       // LB
         grabberIntakeBtn = new JoystickButton(operatorController, 6);                         // RB
@@ -110,9 +110,9 @@ public class OI{
         grabbberReleaseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberRelease).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop);
         
         // ARM
-        setArmTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armTopPos);
-        setArmMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armMiddlePos);
-        setArmBottomPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.armBottomPos);
+        scoreTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreTopPos);
+        scoreMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreMiddlePos);
+        pickUpPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.pickUpPos);
 
         toggleArmExtensionLimiterBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleExtensionLimiter);
         

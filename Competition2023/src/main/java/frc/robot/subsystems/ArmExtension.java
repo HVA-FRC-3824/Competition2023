@@ -68,17 +68,17 @@ public class ArmExtension extends SubsystemBase {
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
   }
 
-  // sets arm to bottom grid score length
-  public void extendArmBottom(){
-    armExtendMotor.set(ControlMode.Position, Constants.MIN_ARM_EXTENSION_IN_ROTATIONS );
+  // sets arm to top gird scoring position
+  public void extendArmTop(){
+    armExtendMotor.set(ControlMode.Position, Constants.ARM_EXTENSION_TOP_SCORE_POS);
   }
   // sets arm to middle grid score length
   public void extendArmMiddle(){
-    // armExtendMotor.set(ControlMode.Position, Constants.ARM_MIDDLE_EXTENSION_VALUE);
+    armExtendMotor.set(ControlMode.Position, Constants.ARM_EXTENSION_MIDDLE_SCORE_POS);
   }
-  // sets arm to top grid score length
-  public void extendArmTop(){
-    armExtendMotor.set(ControlMode.Position, maxArmExtension);
+  // sets arm to picking up extension position
+  public void extendArmPickUp(){
+    armExtendMotor.set(ControlMode.Position, Constants.ARM_EXTENSION_PICK_UP_POS);
   }
   public void armExtendCustom(double pos){
     armExtendMotor.set(ControlMode.Position, pos);
