@@ -1,10 +1,9 @@
 package frc.robot;
 
-import frc.robot.commands.autonomous.AutonomousCommunityZoneChargingStation;
-import frc.robot.commands.autonomous.AutonomousCommunityZone;
-import frc.robot.commands.autonomous.AutonomousDoNothing;
-import frc.robot.commands.autonomous.AutonomousGetOutCommunityZoneComeBack;
-import frc.robot.commands.autonomous.AutonomousHybridScoreCommunityZone;
+import frc.robot.commands.autonomousCommands.AutonomousLRCommunityZone;
+import frc.robot.commands.autonomousCommands.AutonomousMiddleCommunityZoneChargingStation;
+import frc.robot.commands.autonomousCommands.AutonomousLRCommunityZoneReturn;
+import frc.robot.commands.autonomousCommands.AutonomousDoNothing;
 import frc.robot.commands.simpleCommands.InlineCommands;
 
 import frc.robot.subsystems.ArmAngle;
@@ -64,12 +63,10 @@ public class RobotContainer{
    * command's path). */
   private void initializeAutonomousChooser(){
     // Add options (which autonomous commands can be selected) to chooser.
-    autonomousCommandChooser.setDefaultOption("DEFAULT COMMAND DRIVE FORWARD", "default");
-    autonomousCommandChooser.addOption("SCORE HYBRID BACK UP", "scoreHybridBackUp");
-    autonomousCommandChooser.addOption("COMMUNITY ZONE BACK TO GRID", "communityB2Grid");
-    autonomousCommandChooser.addOption("DO NOTHING", "doNothing");
-    autonomousCommandChooser.addOption("CHARGING STATION", "Charging station");
-    autonomousCommandChooser.addOption("SCORE HYBRID COMMUNITY ZONE NEW", "CommunityZoneHybridScore");
+    autonomousCommandChooser.setDefaultOption("LEFT/RIGHT DEFAULT COMMAND DRIVE FORWARD", "communityZone");
+    autonomousCommandChooser.addOption("LEFT/RIGHT DRIVE FORWARD COME BACK", "communityZoneReturn");
+    autonomousCommandChooser.addOption("ANYWHERE DO NOTHING", "doNothing");
+    autonomousCommandChooser.addOption("MIDDLE COMMUNITY ZONE AND CHARGING STATION", "middleCommunityZoneChargingStation");
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
@@ -82,16 +79,14 @@ public class RobotContainer{
    */
   public Command getAutonomousCommand(){
     switch (autonomousCommandChooser.getSelected()){
-      case "default":
-        return new AutonomousCommunityZone();
-      case "scoreHybridBackUp":
-        return new AutonomousGetOutCommunityZoneComeBack();
+      case "communityZone":
+        return new AutonomousLRCommunityZone();
+      case "communityZoneReturn":
+        return new AutonomousLRCommunityZoneReturn();
       case "doNothing":
         return new AutonomousDoNothing();
-      case "Charging station":
-        return new AutonomousCommunityZoneChargingStation();
-      case "CommunityZoneHybridScore":
-        return new AutonomousHybridScoreCommunityZone();
+      case "middleCommunityZoneChargingStation":
+        return new AutonomousMiddleCommunityZoneChargingStation();
       default:
         System.out.println("\nError selecting autonomous command:\nCommand selected: " + autonomousCommandChooser.getSelected() + "\n");
         return null;

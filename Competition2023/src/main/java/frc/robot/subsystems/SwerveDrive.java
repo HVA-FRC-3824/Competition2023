@@ -431,7 +431,18 @@ public class SwerveDrive extends SubsystemBase{
     endMove = true;
   }
 
+  public void zeroWheelsWithABSEncoders(){
+    /*
+     * get rotations of abs encoders
+     * figure out how far off they are to zeroed/forward
+     * get that difference in rotations
+     * turn that difference into RSU for integrated encoders
+     * apply to wheels
+     */
+  }
+
   /* AUTONOMOUS METHODS */
+
   // Method to return the pitch of the Gryo, roll because the gyro is mounted sideways, used in autobalance
   public float getGyroPitch(){
     return(ahrs.getRoll());

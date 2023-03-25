@@ -18,6 +18,8 @@ public class ArmExtension extends SubsystemBase {
   private double actualArmExtensionPos;
   private final SendableChooser<Boolean> extensionEncoderReset = new SendableChooser<>();
   private boolean extensionLimiter = true; // We want to start with the extension limit on, so true
+  
+  private double maxArmExtension; // Var for changing max are extension based on the angle of the arm
 
   public ArmExtension() {
     // TODO: tune PIDs
@@ -30,10 +32,7 @@ public class ArmExtension extends SubsystemBase {
     extensionEncoderReset.setDefaultOption("False: ", false);
     extensionEncoderReset.addOption("True: ", true);
     SmartDashboard.putData("Arm Extension Encoder Reset: ", extensionEncoderReset);
-    /*
-    Shuffleboard.getTag("bestTag")
-      .add("Arm Extension Encoder Reset: ", extensionEncoderReset);
-    */
+    // Shuffleboard.getTag("bestTag").add("Arm Extension Encoder Reset: ", extensionEncoderReset);
 
     // SmartDashboard.putData("RESET ARM EXTENSION ENCODER", new ResetExtensionMotorEncoder());
   }
@@ -43,10 +42,9 @@ public class ArmExtension extends SubsystemBase {
     // set actual arm extension and output encoder position for extendMotor
     actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV;
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
-    /*
-    Shuffleboard.getTag("bestTag")
-      .add("Actual Arm Extension Position: ", actualArmExtensionPos);
-    */
+    /* Shuffleboard.getTag("bestTag").add("Actual Arm Extension Position: ", actualArmExtensionPos); */
+
+    maxArmExtension = ((Constants.MAX_ARM_EXTENSION_IN_RSU / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV); // / Math.cos(RobotContainer.ARM_ANGLE_OBJ.getArmAngle());
 
     // If reset encoder is selected, it runs encoder reset method
     if(extensionEncoderReset.getSelected()){
@@ -54,10 +52,7 @@ public class ArmExtension extends SubsystemBase {
     }
 
     SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
-    /*
-    Shuffleboard.getTag("bestTag")
-      .add("ARM EXTENSION LIMITER", extesionLimiter);
-    */
+    // Shuffleboard.getTag("bestTag").add("ARM EXTENSION LIMITER", extesionLimiter);
   }
 
   // reset arm angle motor encoder
@@ -75,7 +70,7 @@ public class ArmExtension extends SubsystemBase {
 
   // sets arm to bottom grid score length
   public void extendArmBottom(){
-    armExtendMotor.set(ControlMode.Position, Constants.MIN_ARM_EXTENSION);
+    armExtendMotor.set(ControlMode.Position, Constants.MIN_ARM_EXTENSION_IN_ROTATIONS );
   }
   // sets arm to middle grid score length
   public void extendArmMiddle(){
@@ -83,7 +78,7 @@ public class ArmExtension extends SubsystemBase {
   }
   // sets arm to top grid score length
   public void extendArmTop(){
-    armExtendMotor.set(ControlMode.Position, Constants.MAX_ARM_EXTENSION);
+    armExtendMotor.set(ControlMode.Position, maxArmExtension);
   }
   public void armExtendCustom(double pos){
     armExtendMotor.set(ControlMode.Position, pos);
@@ -95,16 +90,16 @@ public class ArmExtension extends SubsystemBase {
       // EXTENSION LIMTER CONDITIONAL
       if(extensionLimiter){
         // EXTENSION LIMITER
-        if((actualArmExtensionPos <= Constants.MAX_ARM_EXTENSION) && (actualArmExtensionPos >= Constants.MIN_ARM_EXTENSION)){
+        if((actualArmExtensionPos <= maxArmExtension) && (actualArmExtensionPos >= Constants.MIN_ARM_EXTENSION_IN_ROTATIONS)){
           armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
         // WHAT TO DO IF OUT OF BOUNDS
         }else{
           System.out.println("WARNING: Arm Extension Position is out of bounds!!! ");
           // LETS US MOVE IF WE ARE TRYING TO GET THE ARM BACK UNDER
-          if((actualArmExtensionPos >= Constants.MAX_ARM_EXTENSION) && (joystickInput > 0)){ 
+          if((actualArmExtensionPos >= maxArmExtension) && (joystickInput > 0)){ 
             armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
           // LETS US MOVE IF WE ARE TRYING TO GET THE ARM BACK OVER
-          }else if((actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION) && (joystickInput < 0)){
+          }else if((actualArmExtensionPos <= Constants.MIN_ARM_EXTENSION_IN_ROTATIONS) && (joystickInput < 0)){
             armExtendMotor.setVoltage(-joystickInput * Constants.ARM_EXTENSION_VOLTAGE);
           }else{
             // SETS US TO ZERO IF WE ARE TRYING TO GO THE WRONG WAY

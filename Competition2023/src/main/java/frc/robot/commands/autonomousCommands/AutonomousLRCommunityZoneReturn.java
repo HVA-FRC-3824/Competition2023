@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.autonomous;
+package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 import frc.robot.RobotContainer;
 
-public class AutonomousGetOutCommunityZoneComeBack extends SequentialCommandGroup {
-  public AutonomousGetOutCommunityZoneComeBack() {
+public class AutonomousLRCommunityZoneReturn extends SequentialCommandGroup {
+  public AutonomousLRCommunityZoneReturn() {
     System.out.println("Running autonomous Get out of community zone and return...");
     addCommands(
       // move robot forward at 40% power for 2.25 seconds

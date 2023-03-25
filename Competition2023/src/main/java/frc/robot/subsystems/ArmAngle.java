@@ -47,11 +47,11 @@ public class ArmAngle extends SubsystemBase{
         armAngleRawActualPosition = armAngleMotor.getSelectedSensorPosition();
 
         SmartDashboard.putNumber("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
-        /*Shuffleboard.getTab("bestTab").add("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);*/
+        // Shuffleboard.getTab("bestTab").add("Actual Arm Angle Motor Position: ", armAngleRawActualPosition);
 
         // ouput desired arm angle
         SmartDashboard.putNumber("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
-        /* Shuffleboard.getTab("bestTab").add("Desired Arm Angle Motor Position ", armAngleDesiredPosition); */
+        // Shuffleboard.getTab("bestTab").add("Desired Arm Angle Motor Position ", armAngleDesiredPosition);
         
         // If reset encoder is selected, it runs encoder reset method
         // if(angleEncoderReset.getSelected()){
@@ -67,14 +67,15 @@ public class ArmAngle extends SubsystemBase{
     // Method that allows movement of the arm angle
     public void setDesiredArmPosition(double joystickAngle){
         // TODO: figure out max and min arm angle positions
-       /* Top encoder pos:
+       /* 
+        * Top encoder pos:
         * Bottom encoder pos:
         */
         // makes sure we are inside acceptable area of motion
         if ((armAngleDesiredPosition <= Constants.MAX_ARM_ANGLE_POSITION) && (armAngleDesiredPosition >= Constants.MIN_ARM_ANGLE_POSITION)){
             // Joystick deadzone
             if(Math.abs(joystickAngle) > .1 ){
-                armAngleDesiredPosition = armAngleDesiredPosition + (-joystickAngle * 200); // Set to constant 
+                armAngleDesiredPosition = armAngleDesiredPosition + (-joystickAngle * Constants.ARM_ANGLE_MOTOR_SENS); 
             }
             
         // Makes sure desired pos doesn't go above or bellow max
@@ -89,6 +90,11 @@ public class ArmAngle extends SubsystemBase{
     }
     public void setArmActualPosToDesiredPos(){
         armAngleMotor.set(ControlMode.Position, armAngleDesiredPosition);
+    }
+
+    // TODO: Do the math to get the current actual angle of the arm, need abs encoder
+    public double getArmAngle(){
+        return(/* ( ( */armAngleRawActualPosition/* / (counts per rev * gear ratio)) * circumferance of spindal)) * whatever math gets the distance into angle; */);
     }
 
     // IDLE MODE SETTER METHODS

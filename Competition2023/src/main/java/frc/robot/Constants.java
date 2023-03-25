@@ -1,6 +1,6 @@
 package frc.robot;
 
-// import frc.robot.commands.visionCommands.ScoreData;
+import frc.robot.commands.visionCommands.ScoreData;
 
 /* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -64,7 +64,7 @@ public final class Constants{
         public static final double ARM_ANGLE_GEAR_RATIO                                             = 49;
         public static final double MAX_ARM_ANGLE_POSITION                                           = 390872;
         public static final double MIN_ARM_ANGLE_POSITION                                           = -10000;
-        // public static final double ARM_ANGLE_MOTOR_SENS                                             = .8; // DON't PUT ABOVE 1
+        public static final double ARM_ANGLE_MOTOR_SENS                                             = 200;
         public static final double ARM_BOTTOM_ANGLE_VALUE                                           = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_ANGLE_VALUE                                           = 3824; // TODO figure out num
         public static final double ARM_TOP_ANGLE_VALUE                                              = 3824; // TODO figure out num
@@ -74,12 +74,12 @@ public final class Constants{
         public static final int ARM_EXTEND_MOTOR_CAN_ID                                             = 3;
         public static final int ARM_EXTENSION_GEAR_RATIO                                            = 16;
         public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
-        public static final double MAX_ARM_EXTENSION                                                = (450887 / ARM_EXTENSION_GEAR_RATIO) / 2048;
-        public static final double MIN_ARM_EXTENSION                                                = (-800 / ARM_EXTENSION_GEAR_RATIO) / 2048;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 12;
         public static final double ARM_BOTTOM_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_MIDDLE_EXTENSION_VALUE                                       = 3824; // TODO figure out num
         public static final double ARM_TOP_EXTENSION_VALUE                                          = 3824; // TODO figure out num
+        public static final double MIN_ARM_EXTENSION_IN_ROTATIONS                                   = (0 /*prev:-800*/ / ARM_EXTENSION_GEAR_RATIO) / FALCON_500_ENCODER_COUNTS_PER_REV;
+        public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 450887;
 
         // #region GRABBER
         // #endregion

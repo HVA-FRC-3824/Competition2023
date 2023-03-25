@@ -1,4 +1,4 @@
-package frc.robot.commands.autonomous;
+package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -8,8 +8,8 @@ import frc.robot.RobotContainer;
 
 import frc.robot.commands.Autobalance;
 
-public class AutonomousCommunityZoneChargingStation extends SequentialCommandGroup {
-  public AutonomousCommunityZoneChargingStation() {
+public class AutonomousMiddleCommunityZoneChargingStation extends SequentialCommandGroup {
+  public AutonomousMiddleCommunityZoneChargingStation() {
     System.out.println("Running autonomous get out of community zone and autobalance command...");
     addCommands(
       // move robot forward over charging station
