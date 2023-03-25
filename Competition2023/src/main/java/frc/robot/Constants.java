@@ -92,7 +92,7 @@ public final class Constants{
 
         // #region GRABBER
         public static final int GRABBER_CAN_ID                                                      = 13;
-        public static final double GRABBER_VOLTAGE                                                  = 8;
+        public static final double GRABBER_VOLTAGE                                                  = 10;
         // #endregion
 
         // #region LEDs
