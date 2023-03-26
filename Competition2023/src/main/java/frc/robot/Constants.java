@@ -27,7 +27,11 @@ public final class Constants{
     public static final int PURPLE_CUBE_BTN_ID                                                      = 270;
     public static final int YELLOW_CONE_BTN_ID                                                      = 90;
     public static final int NORMAL_LED_BTN_ID                                                       = 0;
+    // #endregion
     
+    // #region OTHER:
+    public static final int FALCON_500_ENCODER_COUNTS_PER_REV                                       = 2048;
+    public static final int CTRE_MAG_ENCODER_COUNTS_PER_REV                                         = 4096;
     // #endregion
 
     // #region subsystems
@@ -54,21 +58,22 @@ public final class Constants{
         public static final double SWERVE_SCORE_POWER                                               = .5;
         public static final double SWERVE_JUKE_POWER                                                = .3;
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
-        public static final int FALCON_500_ENCODER_COUNTS_PER_REV                                   = 2048;
         public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = FALCON_500_ENCODER_COUNTS_PER_REV * 12; // kSensorUnitsPerRotation / kGearRatio;
 
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;
         public static final double ARM_ANGLE_MOTOR_KF                                               = 0;
-        public static final double ARM_ANGLE_MOTOR_KP                                               = .3;
-        public static final double ARM_ANGLE_MOTOR_KI                                               = 0.000016;
+
+        public static final double ARM_ANGLE_MOTOR_KP                                               = .78;
+        public static final double ARM_ANGLE_MOTOR_KI                                               = 0.000015;
         public static final double ARM_ANGLE_MOTOR_KD                                               = 0;
+
         public static final int ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY                                   = 0;
         public static final int ARM_ANGLE_MOTOR_K_ACCELERATION                                      = 0;
         public static final double ARM_ANGLE_GEAR_RATIO                                             = 49;
-        public static final double ARM_ANGLE_MOTOR_SENS                                             = 200;
+        public static final double ARM_ANGLE_MOTOR_SENS                                             = 150;
 
-        public static final double MAX_ARM_ANGLE_POSITION                                           = 390872; // TODO: figure out num
+        public static final double MAX_ARM_ANGLE_POSITION                                           = 2600;
         public static final double MIN_ARM_ANGLE_POSITION                                           = -10000; // TODO: figure out num
         
         public static final double ARM_ANGLE_TOP_SCORE_POS                                          = 3824; // TODO figure out num
@@ -88,7 +93,7 @@ public final class Constants{
         public static final double ARM_EXTENSION_PICK_UP_POS                                        = 3824; // TODO figure out num
 
         public static final double MIN_ARM_EXTENSION_IN_ROTATIONS                                   = (0 /*prev:-800*/ / ARM_EXTENSION_GEAR_RATIO) / FALCON_500_ENCODER_COUNTS_PER_REV;
-        public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 450887;
+        public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 1008305.971;
 
         // #region GRABBER
         public static final int GRABBER_CAN_ID                                                      = 4;

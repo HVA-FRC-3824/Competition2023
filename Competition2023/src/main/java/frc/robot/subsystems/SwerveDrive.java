@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
@@ -18,15 +20,19 @@ public class SwerveDrive extends SubsystemBase{
   private AHRS ahrs;
 
   private WPI_TalonFX angleMotorFrontRight;
+  private WPI_TalonSRX frontRightAbsEncoder;
   private WPI_TalonFX driveMotorFrontRight;
   
   private WPI_TalonFX angleMotorFrontLeft;
+  private WPI_TalonSRX frontLeftAbsEncoder;
   private WPI_TalonFX driveMotorFrontLeft;
 
   private WPI_TalonFX angleMotorBackLeft;
+  private WPI_TalonSRX backLeftAbsEncoder;
   private WPI_TalonFX driveMotorBackLeft;
 
   private WPI_TalonFX angleMotorBackRight;
+  private WPI_TalonSRX backRightAbsEncoder;
   private WPI_TalonFX driveMotorBackRight;
 
   private double swervePower;
@@ -60,6 +66,9 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorFrontRight, false, FeedbackDevice.IntegratedSensor,
       false, 0.0, 0.0, 0.0, 0.0);
+    frontRightAbsEncoder = new WPI_TalonSRX(Constants.FRONT_RIGHT_ABSOLUTE_ENCODER_CAN_ID);
+      RobotContainer.configureTalonSRX(frontRightAbsEncoder, true, FeedbackDevice.CTRE_MagEncoder_Absolute,
+      false, false, 0, 0, 0, 0, 0, 0, false);
 
     angleMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_ANGLE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(angleMotorFrontLeft, false, FeedbackDevice.IntegratedSensor,
@@ -68,6 +77,9 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorFrontLeft = new WPI_TalonFX(Constants.FRONT_LEFT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorFrontLeft, false, FeedbackDevice.IntegratedSensor,
       false, 0.0, 0.0, 0.0, 0.0);
+    frontLeftAbsEncoder = new WPI_TalonSRX(Constants.FRONT_LEFT_ABSOLUTE_ENCODER_CAN_ID);
+      RobotContainer.configureTalonSRX(frontLeftAbsEncoder, true, FeedbackDevice.CTRE_MagEncoder_Absolute,
+      false, false, 0, 0, 0, 0, 0, 0, false);
     
     angleMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_ANGLE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(angleMotorBackLeft, false, FeedbackDevice.IntegratedSensor,
@@ -76,6 +88,9 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorBackLeft = new WPI_TalonFX(Constants.BACK_LEFT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorBackLeft, false, FeedbackDevice.IntegratedSensor, 
       false, 0.0, 0.0, 0.0, 0.0);
+    backLeftAbsEncoder = new WPI_TalonSRX(Constants.BACK_LEFT_ABSOLUTE_ENCODER_CAN_ID);
+      RobotContainer.configureTalonSRX(backLeftAbsEncoder, true, FeedbackDevice.CTRE_MagEncoder_Absolute,
+      false, false, 0, 0, 0, 0, 0, 0, false);
 
     angleMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_ANGLE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(angleMotorBackRight, false, FeedbackDevice.IntegratedSensor, 
@@ -84,46 +99,42 @@ public class SwerveDrive extends SubsystemBase{
     driveMotorBackRight = new WPI_TalonFX(Constants.BACK_RIGHT_DRIVE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(driveMotorBackRight, false, FeedbackDevice.IntegratedSensor, 
       false, 0.0, 0.0, 0.0, 0.0);
+    backRightAbsEncoder = new WPI_TalonSRX(Constants.BACK_RIGHT_ABSOLUTE_ENCODER_CAN_ID);
+      RobotContainer.configureTalonSRX(backRightAbsEncoder, true, FeedbackDevice.CTRE_MagEncoder_Absolute,
+      false, false, 0, 0, 0, 0, 0, 0, false);
 
     swervePower = Constants.SWERVE_POWER;
 
     gyroReset.setDefaultOption("RESET GYRO FALSE", false);
     gyroReset.addOption("RESET GYRO TRUE", true);
     SmartDashboard.putData("RESET GRYO", gyroReset);
-    /*
-    Shuffleboard.getTab("bestTab")
-      .add("RESET GRYO", gyroReset);
-    */
+    /* Shuffleboard.getTab("bestTab").add("RESET GRYO", gyroReset); */
     
     // Button that calls the reset field forward position command
     // SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
   }
 
-  // This method will be called once per scheduler run.
   @Override
   public void periodic(){
     // Update drivetrain information on SmartDashboard for testing.
-    // SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    // SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    // SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.K_SWERVE_ENCODER_TICKS_PER_REVOLUTION);
-    
+    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
+
+    SmartDashboard.putNumber("FR Abs Pos in Rel Degrees", frontRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("FL Abs Pos in Rel Degrees", frontLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("BR Abs Pos in Rel Degrees", backRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("BL Abs Pos in Rel Degrees", backLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+
     SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
-    /*
-    Shuffleboard.getTab("bestTab")
-      .add("Swerve Power score Mode: ", powerModeScore);
-    */
+    /* Shuffleboard.getTab("bestTab").add("Swerve Power score Mode: ", powerModeScore); */
+    
     SmartDashboard.putNumber("Swerve Current Power", swervePower);
-    /*
-    Shuffleboard.getTag("bestTag")
-      .add("Swerve Current Power", swervePower);
-    */
+    /* Shuffleboard.getTag("bestTag").add("Swerve Current Power", swervePower); */
     
     SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
-    /*
-    Shuffleboard.getTab("bestTag")
-    .add("Gyro heading", ahrs.getAngle());
-    */
+    /* Shuffleboard.getTab("bestTag").add("Gyro heading", ahrs.getAngle()); */
 
     if(gyroReset.getSelected()){
       resetFieldCentricity();

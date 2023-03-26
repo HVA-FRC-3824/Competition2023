@@ -26,8 +26,8 @@ public class ArmExtension extends SubsystemBase {
   public ArmExtension() {
     // TODO: tune PIDs
     armExtendMotor = new WPI_TalonFX(Constants.ARM_EXTEND_MOTOR_CAN_ID);
-    RobotContainer.configureTalonFX(armExtendMotor, true, FeedbackDevice.IntegratedSensor, true, 
-                                    0.0, 0.5, 0.0, 0.0);
+    RobotContainer.configureTalonFX(armExtendMotor, true, FeedbackDevice.IntegratedSensor, false, 
+                                    0.0, 0.01, 0.0, 0.0);
     armExtendMotor.setNeutralMode(NeutralMode.Brake);
 
     armExtensionAbsEncoder = new WPI_TalonSRX(Constants.ARM_EXTEND_ENCODER_CAN_ID);
