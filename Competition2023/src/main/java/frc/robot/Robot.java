@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
-  private Boolean wheelsZeroed = false;
   
   @Override
   public void robotInit(){
@@ -76,10 +75,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit(){
-    // TODO: does this work?
-    RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders();
-    wheelsZeroed = true;
-
     // Command sets autocommand to the command based on the smartdashboard
     autonomousCommand = robotContainer.getAutonomousCommand();
 
@@ -102,11 +97,8 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
     }
 
-    // TODO: does this work?
-    if(!wheelsZeroed){
-      RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders();
-    }
-
+    RobotContainer.INLINE_COMMANDS_OBJ.zeroAngleMotors.schedule();
+    
     // Sets default commands of driving and moving arm
     RobotContainer.initializeTeleopDefaultCommands();
   }

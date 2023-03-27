@@ -12,6 +12,8 @@ public class AutonomousMiddleCommunityZoneChargingStation extends SequentialComm
   public AutonomousMiddleCommunityZoneChargingStation() {
     System.out.println("Running autonomous get out of community zone and autobalance command...");
     addCommands(
+      // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),
+
       // move robot forward over charging station
       new WaitUntilCommand(RobotContainer.SWERVE_DRIVE_OBJ::approachAndClimbOverChargeStationForward),
       

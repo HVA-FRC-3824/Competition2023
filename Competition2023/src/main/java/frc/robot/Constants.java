@@ -59,6 +59,11 @@ public final class Constants{
         public static final double SWERVE_JUKE_POWER                                                = .3;
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
         public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = FALCON_500_ENCODER_COUNTS_PER_REV * 12; // kSensorUnitsPerRotation / kGearRatio;
+        public static final double SWERVE_FRONT_RIGHT_ABS_FORWARD_POSITION_RSU                      = 2334.435556;
+        public static final double SWERVE_FRONT_LEFT_ABS_FORWARD_POSITION_RSU                       = 3586.275556;
+        public static final double SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU                       = 926.1511111;
+        public static final double SWERVE_BACK_LEFT_ABS_FORWARD_POSITION_RSU                        = 2400.426667;
+
 
         // #region ARM ANGLE
         public static final int ARM_ANGLE_MOTOR_CAN_ID                                              = 2;

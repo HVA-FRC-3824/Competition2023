@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -36,7 +35,8 @@ public class SwerveDrive extends SubsystemBase{
   private WPI_TalonFX driveMotorBackRight;
 
   private double swervePower;
-  
+
+  private boolean wheelsZeroed = false;
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
   private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
@@ -117,10 +117,10 @@ public class SwerveDrive extends SubsystemBase{
   @Override
   public void periodic(){
     // Update drivetrain information on SmartDashboard for testing.
-    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360/ Constants.FALCON_500_ENCODER_COUNTS_PER_REV);
+    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition()* 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
 
     SmartDashboard.putNumber("FR Abs Pos in Rel Degrees", frontRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
     SmartDashboard.putNumber("FL Abs Pos in Rel Degrees", frontLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
@@ -443,13 +443,16 @@ public class SwerveDrive extends SubsystemBase{
   }
 
   public void zeroWheelsWithABSEncoders(){
-    /*
-     * get rotations of abs encoders
-     * figure out how far off they are to zeroed/forward
-     * get that difference in rotations
-     * turn that difference into RSU for integrated encoders
-     * apply to wheels
-     */
+    wheelsZeroed = true;
+    System.out.println("Wheel zeroing method running... ");
+    angleMotorFrontLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+    angleMotorFrontLeft.setSelectedSensorPosition(0);
+    angleMotorFrontRight.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+    angleMotorFrontRight.setSelectedSensorPosition(0);
+    angleMotorBackLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+    angleMotorBackLeft.setSelectedSensorPosition(0);
+    angleMotorBackRight.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV *12);
+    angleMotorBackRight.setSelectedSensorPosition(0);
   }
 
   /* AUTONOMOUS METHODS */

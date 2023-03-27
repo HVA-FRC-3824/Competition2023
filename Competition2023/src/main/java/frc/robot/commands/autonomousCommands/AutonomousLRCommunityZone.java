@@ -9,7 +9,8 @@ import frc.robot.RobotContainer;
 public class AutonomousLRCommunityZone extends SequentialCommandGroup{
     public AutonomousLRCommunityZone(){
         System.out.println("Running autonomous get out of community zone command...");
-        addCommands(            
+        addCommands(   
+            // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),         
             // move robot forward at 40% power for 2.25 seconds
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
             new WaitCommand(2.25),

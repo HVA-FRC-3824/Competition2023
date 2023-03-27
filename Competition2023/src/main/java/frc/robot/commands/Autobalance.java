@@ -55,7 +55,7 @@ public class Autobalance extends CommandBase {
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return false;
     }
 
@@ -70,6 +70,21 @@ public class Autobalance extends CommandBase {
         }
         // we are basically plugging in the pitchAngleX into this equation:
         // y=-0.015x+.02        x is pitch         y is power
+        RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, powerY, 0);
+    }
+
+    public void autoBalanceQuadratic() {
+        pitchAngleX = RobotContainer.SWERVE_DRIVE_OBJ.getGyroPitch();
+
+        // deadzone so that it stops moving when balanced
+        if(Math.abs(pitchAngleX) < 2){
+            powerY = 0;
+        }else{
+            powerY = (0.0028205128 * (Math.pow(pitchAngleX, 2)) + (-0.0094871795 * pitchAngleX) + 0.1076923077);
+        }
+        // we are basically plugging in the pitchAngleX into this equation:
+        // y=x^2 + 2        x is pitch         y is power
+
         RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, powerY, 0);
     }
 }
