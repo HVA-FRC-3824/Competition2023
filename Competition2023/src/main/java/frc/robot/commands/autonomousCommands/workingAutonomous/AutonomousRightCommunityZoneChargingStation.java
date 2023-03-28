@@ -6,9 +6,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer;
 
-public class AutonomousLeftCommunityZoneChargingStation extends SequentialCommandGroup {
-  public AutonomousLeftCommunityZoneChargingStation() {
-    System.out.println("RUNNING AUTONOMOUS LEFT COMMUNITY ZONE AND AUTOBALANCE COMMAND... ");
+public class AutonomousRightCommunityZoneChargingStation extends SequentialCommandGroup {
+  /** Creates a new AutonomousRightCommunityZoneChargingStation. */
+  public AutonomousRightCommunityZoneChargingStation() {
+    System.out.println("RUNNING AUTONOMOUS RIGHT COMMUNITY ZONE AND AUTOBALANCE COMMAND... ");
     addCommands(
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
 
@@ -18,8 +19,8 @@ public class AutonomousLeftCommunityZoneChargingStation extends SequentialComman
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0)),
       new WaitCommand(.25),
 
-      // move right to in front of the charging station
-      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.4, 0.0, 0.0)),
+      // move left to in front of the charging station
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(-0.4, 0.0, 0.0)),
       new WaitCommand(1.25),
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
       new WaitCommand(.25),

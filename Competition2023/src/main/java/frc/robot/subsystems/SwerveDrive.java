@@ -37,7 +37,7 @@ public class SwerveDrive extends SubsystemBase{
 
   private double swervePower;
 
-  private boolean wheelsZeroed = false;
+  // private boolean wheelsZeroed = false;
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
   private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();

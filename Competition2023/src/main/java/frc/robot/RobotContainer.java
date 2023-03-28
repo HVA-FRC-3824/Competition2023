@@ -3,7 +3,9 @@ package frc.robot;
 import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousDoNothing;
 import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousLRCommunityZone;
 import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousLRCommunityZoneReturn;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousLeftCommunityZoneChargingStation;
 import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousMiddleCommunityZoneChargingStation;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousRightCommunityZoneChargingStation;
 import frc.robot.commands.simpleCommands.InlineCommands;
 
 import frc.robot.subsystems.ArmAngle;
@@ -63,10 +65,12 @@ public class RobotContainer{
    * command's path). */
   private void initializeAutonomousChooser(){
     // Add options (which autonomous commands can be selected) to chooser.
-    autonomousCommandChooser.setDefaultOption("LEFT/RIGHT DEFAULT COMMAND DRIVE FORWARD", "communityZone");
+    autonomousCommandChooser.setDefaultOption("ANYWHERE DO NOTHING", "doNothing");
+    autonomousCommandChooser.addOption("LEFT/RIGHT DEFAULT COMMAND DRIVE FORWARD", "communityZone");
     autonomousCommandChooser.addOption("LEFT/RIGHT DRIVE FORWARD COME BACK", "communityZoneReturn");
-    autonomousCommandChooser.addOption("ANYWHERE DO NOTHING", "doNothing");
-    autonomousCommandChooser.addOption("MIDDLE COMMUNITY ZONE AND CHARGING STATION", "middleCommunityZoneChargingStation");
+    autonomousCommandChooser.addOption("MIDDLE COMMUNITY ZONE CHARGING STATION", "middleCommunityZoneChargingStation");
+    autonomousCommandChooser.addOption("LEFT COMMUNITY ZONE CHARGING STATION", "leftCommunityZoneChargingStation");
+    autonomousCommandChooser.addOption("RIGHT COMMUNITY ZONE CHARGING STATION", "rightCommunityZoneChargingStation");
 
     // Display chooser on SmartDashboard for operators to select which autonomous command to run during the auto period.
     SmartDashboard.putData("Autonomous Command", autonomousCommandChooser);
@@ -87,6 +91,10 @@ public class RobotContainer{
         return new AutonomousDoNothing();
       case "middleCommunityZoneChargingStation":
         return new AutonomousMiddleCommunityZoneChargingStation();
+      case "leftCommunityZoneChargingStation":
+        return new AutonomousLeftCommunityZoneChargingStation();
+      case "rightCommunityZoneChargingStation":
+        return new AutonomousRightCommunityZoneChargingStation();
       default:
         System.out.println("\nError selecting autonomous command:\nCommand selected: " + autonomousCommandChooser.getSelected() + "\n");
         return null;
