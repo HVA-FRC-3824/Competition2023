@@ -1,4 +1,4 @@
-package frc.robot.commands.autonomousCommands;
+package frc.robot.commands.autonomousCommands.workingAutonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -10,8 +10,9 @@ import frc.robot.commands.Autobalance;
 
 public class AutonomousMiddleCommunityZoneChargingStation extends SequentialCommandGroup {
   public AutonomousMiddleCommunityZoneChargingStation() {
-    System.out.println("Running autonomous get out of community zone and autobalance command...");
+    System.out.println("RUNNING AUTONOMOUS COMMUNIT ZONE AND AUTOBALANCE COMMAND... ");
     addCommands(
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
       // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),
 
       // move robot forward over charging station

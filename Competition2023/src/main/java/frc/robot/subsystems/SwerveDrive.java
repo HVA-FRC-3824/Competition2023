@@ -11,6 +11,7 @@ import frc.robot.RobotContainer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -135,6 +136,8 @@ public class SwerveDrive extends SubsystemBase{
     
     SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
     /* Shuffleboard.getTab("bestTag").add("Gyro heading", ahrs.getAngle()); */
+
+    SmartDashboard.putNumber("Gyro pitch", getGyroPitch());
 
     if(gyroReset.getSelected()){
       resetFieldCentricity();
@@ -442,46 +445,69 @@ public class SwerveDrive extends SubsystemBase{
     endMove = true;
   }
 
-  public void zeroWheelsWithABSEncoders(){
-    wheelsZeroed = true;
-    System.out.println("Wheel zeroing method running... ");
-    angleMotorFrontLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
-    angleMotorFrontLeft.setSelectedSensorPosition(0);
-    angleMotorFrontRight.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
-    angleMotorFrontRight.setSelectedSensorPosition(0);
-    angleMotorBackLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
-    angleMotorBackLeft.setSelectedSensorPosition(0);
-    angleMotorBackRight.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV *12);
-    angleMotorBackRight.setSelectedSensorPosition(0);
+  // public void zeroWheelsWithABSEncoders(){
+  //   wheelsZeroed = true;
+  //   System.out.println("Wheel zeroing method running... ");
+  //   angleMotorFrontLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+  //   angleMotorFrontLeft.setSelectedSensorPosition(0);
+  //   angleMotorFrontRight.set(TalonFXControlMode.Position, (Constants.SWERVE_FRONT_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+  //   angleMotorFrontRight.setSelectedSensorPosition(0);
+  //   angleMotorBackLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
+  //   angleMotorBackLeft.setSelectedSensorPosition(0);
+  //   angleMotorBackRight.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV *12);
+  //   angleMotorBackRight.setSelectedSensorPosition(0);
+  // }
+
+  public void setIdleModeBrake(){
+    driveMotorBackLeft.setNeutralMode(NeutralMode.Brake);
+    driveMotorBackRight.setNeutralMode(NeutralMode.Brake);
+    driveMotorFrontLeft.setNeutralMode(NeutralMode.Brake);
+    driveMotorFrontRight.setNeutralMode(NeutralMode.Brake);
+    angleMotorFrontLeft.setNeutralMode(NeutralMode.Brake);
+    angleMotorFrontRight.setNeutralMode(NeutralMode.Brake);
+    angleMotorBackLeft.setNeutralMode(NeutralMode.Brake);
+    angleMotorBackRight.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void setIdleModeCoast(){
+
   }
 
   /* AUTONOMOUS METHODS */
 
   // Method to return the pitch of the Gryo, roll because the gyro is mounted sideways, used in autobalance
   public float getGyroPitch(){
-    return(ahrs.getRoll());
+    return(ahrs.getRoll() + 1.4f);
   }
 
   public boolean approachAndClimbOverChargeStationForward(){
+    System.out.println("RUNNING APPROACH AND CLIMB OVER CHARGE STATION FORWARD COMMAND... ");
     // moves fast until on robot is on charging pad
     while(getGyroPitch() <  3 ){
       convertSwerveValues(0, -0.6, 0);
+      System.out.println("while loop 1");
     }
     // moves slower while robot is going up charging pad
     while(getGyroPitch() > 0){
       convertSwerveValues(0, -0.4, 0);
+      System.out.println("while loop 2");
     }
     // moves even slower while robot is going down the charging pad
     while(getGyroPitch() < -0.01){
       convertSwerveValues(0, -0.3, 0);
+      System.out.println("while loop 3");
     }
     return(true);
   }
 
+  public void zeroGyro(){
+    ahrs.calibrate();
+  }
+
   public boolean approachChargeStationBackward(){
     // move fast backwards toward charging station
-    while(getGyroPitch() >  -3 ){
-      convertSwerveValues(0, 0.4, 0);
+    while(getGyroPitch() >  -7 ){
+      convertSwerveValues(0, 0.5, 0);
     }
     return(true);
   }

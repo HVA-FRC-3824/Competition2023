@@ -1,9 +1,9 @@
 package frc.robot;
 
-import frc.robot.commands.autonomousCommands.AutonomousLRCommunityZone;
-import frc.robot.commands.autonomousCommands.AutonomousMiddleCommunityZoneChargingStation;
-import frc.robot.commands.autonomousCommands.AutonomousLRCommunityZoneReturn;
-import frc.robot.commands.autonomousCommands.AutonomousDoNothing;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousDoNothing;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousLRCommunityZone;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousLRCommunityZoneReturn;
+import frc.robot.commands.autonomousCommands.workingAutonomous.AutonomousMiddleCommunityZoneChargingStation;
 import frc.robot.commands.simpleCommands.InlineCommands;
 
 import frc.robot.subsystems.ArmAngle;

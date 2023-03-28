@@ -49,6 +49,8 @@ public class Robot extends TimedRobot {
     // set brake modes to motors
     RobotContainer.ARM_EXTENSION_OBJ.setArmExtensionMotorBrake();
     RobotContainer.ARM_ANGLE_OBJ.setArmAngleMotorBreak();
+
+    RobotContainer.SWERVE_DRIVE_OBJ.zeroGyro();
   }
 
   /* This method is called every robot packet, no matter the mode. Use this for items like diagnostics that you want ran during 
@@ -96,8 +98,6 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-
-    RobotContainer.INLINE_COMMANDS_OBJ.zeroAngleMotors.schedule();
     
     // Sets default commands of driving and moving arm
     RobotContainer.initializeTeleopDefaultCommands();

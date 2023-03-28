@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.autonomousCommands;
+package frc.robot.commands.autonomousCommands.workingAutonomous;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -14,6 +14,7 @@ public class AutonomousLRCommunityZoneReturn extends SequentialCommandGroup {
   public AutonomousLRCommunityZoneReturn() {
     System.out.println("Running autonomous Get out of community zone and return...");
     addCommands(
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
       // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),
       // move robot forward at 40% power for 2.25 seconds
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
