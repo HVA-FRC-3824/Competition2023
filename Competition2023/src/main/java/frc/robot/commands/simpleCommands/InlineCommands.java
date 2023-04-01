@@ -26,12 +26,11 @@ public class InlineCommands{
     // ARM
     public final Command angleArmWithController;
     public final Command extendArmWithController;
+    public final Command toggleLimiters;
 
     public final Command scoreTopPos;
     public final Command scoreMiddlePos;
     public final Command pickUpPos;
-
-    public final Command toggleExtensionLimiter;
 
     // LEDS
     public final Command setPurpleLED;
@@ -70,9 +69,10 @@ public class InlineCommands{
               .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle()));
         pickUpPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAnglePickUpPos())
               .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmPickUp()));
+        toggleLimiters = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.toggleAngleLimiter())
+              .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter()));
         
         // ARM EXTENSION
-        toggleExtensionLimiter = new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter());
         extendArmWithController = new RunCommand(() ->
             RobotContainer.ARM_EXTENSION_OBJ.extendAndRetractArm(
             RobotContainer.OI_OBJ.getOperatorController().getRawAxis(5)), 

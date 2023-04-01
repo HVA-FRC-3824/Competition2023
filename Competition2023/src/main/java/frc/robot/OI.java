@@ -35,7 +35,7 @@ public class OI{
     private static POVButton yellowConeBtn;
     private static POVButton normalLEDBtn;
 
-    private static JoystickButton toggleArmExtensionLimiterBtn;
+    private static JoystickButton toggleArmLimitersBtn;
 
     // COMMANDS
     // private Autobalance autoBalanceCommandClass = new Autobalance();
@@ -79,7 +79,7 @@ public class OI{
         yellowConeBtn = new POVButton(operatorController, Constants.YELLOW_CONE_BTN_ID);                   // left
         normalLEDBtn = new POVButton(operatorController, Constants.NORMAL_LED_BTN_ID);                     // up
 
-        toggleArmExtensionLimiterBtn = new JoystickButton(operatorController, Constants.TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID);
+        toggleArmLimitersBtn = new JoystickButton(operatorController, Constants.TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID);
     }
 
     // Used for driving command
@@ -114,7 +114,7 @@ public class OI{
         scoreMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreMiddlePos);
         pickUpPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.pickUpPos);
 
-        toggleArmExtensionLimiterBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleExtensionLimiter);
+        toggleArmLimitersBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleLimiters);
         
         // LEDs
         purpleCubeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setPurpleLED);

@@ -18,7 +18,7 @@ public class AutonomousMiddleCommunityZoneChargingStation extends SequentialComm
       new WaitUntilCommand(RobotContainer.SWERVE_DRIVE_OBJ::approachAndClimbOverChargeStationForward),
       
       // Wait .5 seconds to ensure the robot is out of the community zone
-      new WaitCommand(.5),
+      new WaitCommand(1),
 
       // Wait 1 second with the robot stopped
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0)),

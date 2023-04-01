@@ -12,6 +12,8 @@ public final class Constants{
     // #region Joysticks/controller IDs
     public static final int DRIVER_CONTROLLER_PORT                                                  = 0;
     public static final int OPERATOR_CONTROLLER_PORT                                                = 1;
+
+    public static final double DRIVER_CONTROLLER_DEADZONE                                           = .05;
     // #endregion
 
     // #region Driver button IDs
@@ -36,6 +38,9 @@ public final class Constants{
 
     // #region subsystems
         //#region Swerve Drive
+        public static final float GYRO_ERROR_OFFSET                                                 = -1.05f;
+        public static final int CHASSIS_WIDTH                                                       = 17;
+        public static final int CHASSIS_LENGTH                                                      = 29;
         public static final int FRONT_RIGHT_ANGLE_MOTOR_CAN_ID                                      = 5;
         public static final int FRONT_RIGHT_ABSOLUTE_ENCODER_CAN_ID                                 = 15; 
         public static final int FRONT_RIGHT_DRIVE_MOTOR_CAN_ID                                      = 6;
@@ -54,10 +59,12 @@ public final class Constants{
         public static final double K_CHASSIS_RIGHT_ANGLE_P                                          = 0.2245;    //previous: 0.225
         public static final double K_CHASSIS_RIGHT_ANGLE_I                                          = 0.0000185; //previous: 0.0002
         public static final double K_CHASSIS_RIGHT_ANGLE_D                                          = 0.000003;  //previous: 0.000005
-        public static final double SWERVE_POWER                                                     = 1;
+        public static final double SWERVE_DEFAULT_POWER                                                     = 1;
         public static final double SWERVE_SCORE_POWER                                               = .5;
+        public static final double SWERVE_DEFUALT_TURN_POWER                                        = .9;
         public static final double SWERVE_JUKE_POWER                                                = .3;
         public static final boolean K_SWERVE_GYRO_REVERSED                                          = true;
+        // public static final double SWERVE_GEAR_RATIO                                                = UNSURE;
         public static final double SWERVE_WHEEL_COUNTS_PER_REVOLUTION                               = FALCON_500_ENCODER_COUNTS_PER_REV * 12; // kSensorUnitsPerRotation / kGearRatio;
         public static final double SWERVE_FRONT_RIGHT_ABS_FORWARD_POSITION_RSU                      = 2334.435556;
         public static final double SWERVE_FRONT_LEFT_ABS_FORWARD_POSITION_RSU                       = 3586.275556;
@@ -98,7 +105,7 @@ public final class Constants{
         public static final double ARM_EXTENSION_PICK_UP_POS                                        = 3824; // TODO figure out num
 
         public static final double MIN_ARM_EXTENSION_IN_ROTATIONS                                   = (0 /*prev:-800*/ / ARM_EXTENSION_GEAR_RATIO) / FALCON_500_ENCODER_COUNTS_PER_REV;
-        public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 1008305.971;
+        public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 975000;
 
         // #region GRABBER
         public static final int GRABBER_CAN_ID                                                      = 4;

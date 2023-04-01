@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
-
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
@@ -17,8 +16,10 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 public class SwerveDrive extends SubsystemBase{
+  // gyro object
   private AHRS ahrs;
 
+  // motor controller objects
   private WPI_TalonFX angleMotorFrontRight;
   private WPI_TalonSRX frontRightAbsEncoder;
   private WPI_TalonFX driveMotorFrontRight;
@@ -35,14 +36,13 @@ public class SwerveDrive extends SubsystemBase{
   private WPI_TalonSRX backRightAbsEncoder;
   private WPI_TalonFX driveMotorBackRight;
 
+  // variable to hold our current swerve power
   private double swervePower;
 
   // private boolean wheelsZeroed = false;
   private boolean robotCentric = false;
   private boolean powerModeScore = false;
-  private final SendableChooser<Boolean> gyroReset = new SendableChooser<>();
-
-  public boolean endMove = false;
+  private final SendableChooser<Boolean> gyroHeadingReset = new SendableChooser<>();
 
   /* Array of values for calculating swerve angle & speed
    * {VX, VY, Speed, Desired Angle, Current Angle, Offset} */
@@ -59,7 +59,7 @@ public class SwerveDrive extends SubsystemBase{
       System.out.println("\nError instantiating navX-MXP:\n" + ex.getMessage() + "\n");
     }
 
-    // Configure drivetrain motors
+    // Configure drivetrain motors and abs encoder controllers
     angleMotorFrontRight = new WPI_TalonFX(Constants.FRONT_RIGHT_ANGLE_MOTOR_CAN_ID);
       RobotContainer.configureTalonFX(angleMotorFrontRight, false, FeedbackDevice.IntegratedSensor, 
       false, 0.0, Constants.K_CHASSIS_RIGHT_ANGLE_P, Constants.K_CHASSIS_RIGHT_ANGLE_I, 
@@ -104,61 +104,59 @@ public class SwerveDrive extends SubsystemBase{
       RobotContainer.configureTalonSRX(backRightAbsEncoder, true, FeedbackDevice.CTRE_MagEncoder_Absolute,
       false, false, 0, 0, 0, 0, 0, 0, false);
 
-    swervePower = Constants.SWERVE_POWER;
+    // sets our default swerve power
+    swervePower = Constants.SWERVE_DEFAULT_POWER;
 
-    gyroReset.setDefaultOption("RESET GYRO FALSE", false);
-    gyroReset.addOption("RESET GYRO TRUE", true);
-    SmartDashboard.putData("RESET GRYO", gyroReset);
-    /* Shuffleboard.getTab("bestTab").add("RESET GRYO", gyroReset); */
+    // Sendable chooser to reset the gyro heading in case error
+    gyroHeadingReset.setDefaultOption("RESET GYRO HEADING FALSE", false);
+    gyroHeadingReset.addOption("RESET GYRO HEADING TRUE", true);
+    SmartDashboard.putData("RESET GRYO HEADING", gyroHeadingReset);
     
-    // Button that calls the reset field forward position command
-    // SmartDashboard.putData("RESET GYRO", new ResetFieldForwardPositionGyro());
+    // Button that calls the reset field forward position command TODO: fix button
+    // SmartDashboard.putData("RESET GYRO HEADING", new ResetFieldForwardPositionGyro());
   }
 
   @Override
   public void periodic(){
     // Update drivetrain information on SmartDashboard for testing.
-    SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
-    SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition()* 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
-    SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
-    SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    // SmartDashboard.putNumber("FR Angle Motor Pos in Rel Degrees", angleMotorFrontRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    // SmartDashboard.putNumber("FL Angle Motor Pos in Rel Degrees", angleMotorFrontLeft.getSelectedSensorPosition()* 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    // SmartDashboard.putNumber("BR Angle Motor Pos in Rel Degrees", angleMotorBackRight.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
+    // SmartDashboard.putNumber("BL Angle Motor Pos in Rel Degrees", angleMotorBackLeft.getSelectedSensorPosition() * 360 / (Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12));
 
-    SmartDashboard.putNumber("FR Abs Pos in Rel Degrees", frontRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("FL Abs Pos in Rel Degrees", frontLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("BR Abs Pos in Rel Degrees", backRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
-    SmartDashboard.putNumber("BL Abs Pos in Rel Degrees", backLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    // SmartDashboard.putNumber("FR Abs Pos in Rel Degrees", frontRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    // SmartDashboard.putNumber("FL Abs Pos in Rel Degrees", frontLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    // SmartDashboard.putNumber("BR Abs Pos in Rel Degrees", backRightAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
+    // SmartDashboard.putNumber("BL Abs Pos in Rel Degrees", backLeftAbsEncoder.getSelectedSensorPosition() * 360/ Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV);
 
-    SmartDashboard.putBoolean("Swerve Power score Mode: ", powerModeScore);
-    /* Shuffleboard.getTab("bestTab").add("Swerve Power score Mode: ", powerModeScore); */
-    
-    SmartDashboard.putNumber("Swerve Current Power", swervePower);
-    /* Shuffleboard.getTag("bestTag").add("Swerve Current Power", swervePower); */
-    
-    SmartDashboard.putNumber("Gyro heading", ahrs.getAngle());
-    /* Shuffleboard.getTab("bestTag").add("Gyro heading", ahrs.getAngle()); */
+    // Smartdashboard outputs for the swervedrive
+    SmartDashboard.putBoolean("SWERVE SLOW MODE (TOGGLE): ", powerModeScore);
+    SmartDashboard.putNumber("SWERVE CURRENT POWER: ", swervePower);
+    SmartDashboard.putNumber("CURRENT GYRO HEADING: ", ahrs.getAngle());
+    SmartDashboard.putNumber("CURRENT GYRO PITCH: ", getGyroPitch());
 
-    SmartDashboard.putNumber("Gyro pitch", getGyroPitch());
-
-    if(gyroReset.getSelected()){
+    // If statement that is checked periodically used to reset the field centricity
+    if(gyroHeadingReset.getSelected()){
       resetFieldCentricity();
     }
   }
 
+  // Method that resets gyro heading
   public void resetFieldCentricity(){
     ahrs.reset();
   }
 
-  // (x1 joystick input left/right, y1 joystick input front/back, x2 joystick input turn)
+  // Main Drive Method (x1 joystick input left/right, y1 joystick input front/back, x2 joystick input turn)
   public void convertSwerveValues (double x1, double y1, double x2){
     // Width and length between center of wheels
-    double w = 17; // 21.5
-    double l = 29; // 25
+    double w = Constants.CHASSIS_WIDTH;
+    double l = Constants.CHASSIS_LENGTH;
     
     // Width and length relative ratios
     double wr;
     double lr;
 
-    // Input velocities and turn
+    // Input velocities and turn; start at zero to guarantee no movement
     double vX = 0;
     double vY = 0;
     double turn = 0;
@@ -170,11 +168,11 @@ public class SwerveDrive extends SubsystemBase{
     double d;
 
     // Set deadzone & dampening turn, more dampened if score power mode is enabled
-    if (Math.abs(x2) > 0.13){
+    if (Math.abs(x2) > Constants.DRIVER_CONTROLLER_DEADZONE){
       if(powerModeScore){
-        turn = x2 * 0.5;
+        turn = x2 * Constants.SWERVE_SCORE_POWER;
       }else{
-        turn = x2 * 0.9;
+        turn = x2 * Constants.SWERVE_DEFUALT_TURN_POWER;
       }
     }    
 
@@ -185,10 +183,10 @@ public class SwerveDrive extends SubsystemBase{
     lr = Math.sin(turn_angle); // y, sin
 
     // Set deadzone & adjusting drive input to controller (negative forward)
-    if (Math.abs(x1) > 0.1){
+    if (Math.abs(x1) > Constants.DRIVER_CONTROLLER_DEADZONE){
       vX = x1;
     }
-    if (Math.abs(y1) > 0.1){
+    if (Math.abs(y1) > Constants.DRIVER_CONTROLLER_DEADZONE){
       vY = -y1;
     }
 
@@ -297,18 +295,13 @@ public class SwerveDrive extends SubsystemBase{
 
     // Set angle motor position + print values
     angleMotor.set(TalonFXControlMode.Position, angle);
-
-    SmartDashboard.putNumber("Angle", speed);
-    /*
-    Shuffleboard.getTab("bestTab")
-      .add("Angle, speed");
-    */
   }
 
   /* Method to put wheels in X positions for locking on the charging pad
    * degreesOffStraight is only applicable in one direction of motion, so name isn't completely accurate */
   public void xLockWheels(){
     System.out.println("RUNNING X WHEELS METHOD");
+    
     // FRONT LEFT WHEEL
     double desiredPositionFrontLeft;
     double rotationsFL = angleMotorFrontLeft.getSelectedSensorPosition() / Constants.SWERVE_WHEEL_COUNTS_PER_REVOLUTION;
@@ -364,6 +357,7 @@ public class SwerveDrive extends SubsystemBase{
     System.out.println("Back right desired: " + desiredPositionBackRight);
   }
 
+  // Methods for returning drive motors for odometry class
   public WPI_TalonFX getFLDrive(){
     return(driveMotorFrontLeft);
   }
@@ -405,7 +399,7 @@ public class SwerveDrive extends SubsystemBase{
   // Toggle drive between normal power and scoring/slower power, ON PRESSED
   public void toggleDrivePower(){
     if(powerModeScore){
-      swervePower = Constants.SWERVE_POWER;
+      swervePower = Constants.SWERVE_DEFAULT_POWER;
       powerModeScore = false;
     }else if(!powerModeScore){
       swervePower = Constants.SWERVE_SCORE_POWER;
@@ -419,32 +413,28 @@ public class SwerveDrive extends SubsystemBase{
   }
   public void normalSpeedMode(){
     if(!powerModeScore){
-      swervePower = Constants.SWERVE_POWER;
+      swervePower = Constants.SWERVE_DEFAULT_POWER;
     }else{
       swervePower = Constants.SWERVE_SCORE_POWER;
     }
   }
 
+  // Methods for d Pad controls
   public void moveForward(){
-    endMove = false;
     convertSwerveValues(0, -.4, 0);
   }
   public void moveBack(){
-    endMove = false;
     convertSwerveValues(0, .4, 0);
   }
   public void moveLeft(){
-    endMove = false;
     convertSwerveValues(.4, 0, 0);
   }
   public void moveRight(){
-    endMove = false;
     convertSwerveValues(-.4, 0, 0);
   }
-  public void endMove(){
-    endMove = true;
-  }
 
+  // TODO: change 12 to the actual gear ratio and get method working
+  // Method for zeroing the wheels at start
   // public void zeroWheelsWithABSEncoders(){
   //   wheelsZeroed = true;
   //   System.out.println("Wheel zeroing method running... ");
@@ -454,10 +444,11 @@ public class SwerveDrive extends SubsystemBase{
   //   angleMotorFrontRight.setSelectedSensorPosition(0);
   //   angleMotorBackLeft.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_LEFT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
   //   angleMotorBackLeft.setSelectedSensorPosition(0);
-  //   angleMotorBackRight.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV *12);
+  //   angleMotorBackRight.set(TalonFXControlMode.Position, (Constants.SWERVE_BACK_RIGHT_ABS_FORWARD_POSITION_RSU / Constants.CTRE_MAG_ENCODER_COUNTS_PER_REV) * Constants.FALCON_500_ENCODER_COUNTS_PER_REV * 12);
   //   angleMotorBackRight.setSelectedSensorPosition(0);
   // }
 
+  // Method that sets all drive and angle motors to brake mode, used for autonomous
   public void setIdleModeBrake(){
     driveMotorBackLeft.setNeutralMode(NeutralMode.Brake);
     driveMotorBackRight.setNeutralMode(NeutralMode.Brake);
@@ -469,46 +460,74 @@ public class SwerveDrive extends SubsystemBase{
     angleMotorBackRight.setNeutralMode(NeutralMode.Brake);
   }
 
+  // Method that sets all drive and angle motors to coast mode, unused currently
   public void setIdleModeCoast(){
-
+    driveMotorBackLeft.setNeutralMode(NeutralMode.Coast);
+    driveMotorBackRight.setNeutralMode(NeutralMode.Coast);
+    driveMotorFrontLeft.setNeutralMode(NeutralMode.Coast);
+    driveMotorFrontRight.setNeutralMode(NeutralMode.Coast);
+    angleMotorFrontLeft.setNeutralMode(NeutralMode.Coast);
+    angleMotorFrontRight.setNeutralMode(NeutralMode.Coast);
+    angleMotorBackLeft.setNeutralMode(NeutralMode.Coast);
+    angleMotorBackRight.setNeutralMode(NeutralMode.Coast);
   }
 
   /* AUTONOMOUS METHODS */
 
   // Method to return the pitch of the Gryo, roll because the gyro is mounted sideways, used in autobalance
   public float getGyroPitch(){
-    return(ahrs.getRoll() + 1.4f);
+    return(ahrs.getRoll() + Constants.GYRO_ERROR_OFFSET);
+
+    // TODO: Try this?
+    // if(Alliance.Red.equals(DriverStation.getAlliance())){
+    //   // if red
+    //   return(ahrs.getRoll() - 1.05f);
+    // }else{
+    //   // if blue
+    //   return(ahrs.getRoll() + 1.05f);
+    // }
   }
 
+  // Method for approaching and climbing over the charging station, used for middle autonomous
   public boolean approachAndClimbOverChargeStationForward(){
+    // TODO: remove if statments once tuned
     System.out.println("RUNNING APPROACH AND CLIMB OVER CHARGE STATION FORWARD COMMAND... ");
+    
     // moves fast until on robot is on charging pad
     while(getGyroPitch() <  3 ){
       convertSwerveValues(0, -0.6, 0);
-      System.out.println("while loop 1");
+      System.out.println("Climb over; while loop 1");
     }
+    
     // moves slower while robot is going up charging pad
-    while(getGyroPitch() > 0){
+    while(getGyroPitch() > -0.15){
       convertSwerveValues(0, -0.4, 0);
-      System.out.println("while loop 2");
+      System.out.println("Climb over; while loop 2");
     }
+    
     // moves even slower while robot is going down the charging pad
-    while(getGyroPitch() < -0.01){
+    while(getGyroPitch() < -1.2){
       convertSwerveValues(0, -0.3, 0);
-      System.out.println("while loop 3");
+      System.out.println("Climb over; while loop 3");
     }
+    
+    // ends command
     return(true);
   }
 
+  // Method for zeroing the gyro, currently used in initialization
   public void zeroGyro(){
     ahrs.calibrate();
   }
 
+  // Method for approaching and climbing on the charging station, used for middle autonomous
   public boolean approachChargeStationBackward(){
     // move fast backwards toward charging station
     while(getGyroPitch() >  -7 ){
       convertSwerveValues(0, 0.5, 0);
     }
+    
+    // ends command
     return(true);
   }
 }

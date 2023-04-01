@@ -30,7 +30,7 @@ public class TagStateHandler extends SubsystemBase{
     {
         for(int i = 0; i < Constants.MAX_TAGS; i++)
         {
-            SmartDashboard.putBoolean(name + (i+1), false);
+            // SmartDashboard.putBoolean(name + (i+1), false);
             /* 
             Shuffleboard.getTab("bestTab")
                 .add(name + (i+1), false);

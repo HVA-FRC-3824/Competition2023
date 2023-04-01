@@ -16,9 +16,17 @@ public class AutonomousLRCommunityZoneReturn extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
       // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),
-      // move robot forward at 40% power for 2.25 seconds
+      // move robot forward at 40% power for 2.5 seconds
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-      new WaitCommand(2.25),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
 
       // stop for 1 second
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
@@ -26,7 +34,15 @@ public class AutonomousLRCommunityZoneReturn extends SequentialCommandGroup {
 
       // move robot backwards at 40% power for 2.25 seconds
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
-      new WaitCommand(2.25),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.4, 0.0)),
+      new WaitCommand(.25),
 
       // Stop Robot
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0))

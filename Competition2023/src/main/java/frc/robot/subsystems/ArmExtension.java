@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-// import frc.robot.commands.ResetExtensionMotorEncoder;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -39,7 +39,6 @@ public class ArmExtension extends SubsystemBase {
     extensionEncoderReset.setDefaultOption("False: ", false);
     extensionEncoderReset.addOption("True: ", true);
     SmartDashboard.putData("Arm Extension Encoder Reset: ", extensionEncoderReset);
-    // Shuffleboard.getTag("bestTag").add("Arm Extension Encoder Reset: ", extensionEncoderReset);
 
     // SmartDashboard.putData("RESET ARM EXTENSION ENCODER", new ResetExtensionMotorEncoder());
   }
@@ -49,19 +48,20 @@ public class ArmExtension extends SubsystemBase {
     // set actual arm extension and output encoder position for extendMotor
     actualArmExtensionPos = (armExtendMotor.getSelectedSensorPosition() / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV;
     SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
-    /* Shuffleboard.getTag("bestTag").add("Actual Arm Extension Position: ", actualArmExtensionPos); */
 
-    maxArmExtension = ((Constants.MAX_ARM_EXTENSION_IN_RSU / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV); // / Math.cos(RobotContainer.ARM_ANGLE_OBJ.getArmAngle());
+    maxArmExtension = ((Constants.MAX_ARM_EXTENSION_IN_RSU / Constants.ARM_EXTENSION_GEAR_RATIO) / Constants.FALCON_500_ENCODER_COUNTS_PER_REV) / Math.cos(Math.toRadians(RobotContainer.ARM_ANGLE_OBJ.getArmAngle()));
+    
+    // Outputs max extension math for testing
+    // SmartDashboard.putNumber("Max Extension", maxArmExtension);
+    // SmartDashboard.putNumber("cos", Math.cos(Math.toRadians(RobotContainer.ARM_ANGLE_OBJ.getArmAngle())));
 
     // If reset encoder is selected, it runs encoder reset method
     if(extensionEncoderReset.getSelected()){
       resetExtensionMotorEncoder();
     }
 
-    SmartDashboard.putNumber("Arm Extension Abs Pos: ", armExtensionAbsEncoder.getSelectedSensorPosition());
-
+    // Display if our limiter is on or not
     SmartDashboard.putBoolean("ARM EXTENSION LIMITER", extensionLimiter);
-    // Shuffleboard.getTag("bestTag").add("ARM EXTENSION LIMITER", extesionLimiter);
   }
 
   // reset arm angle motor encoder

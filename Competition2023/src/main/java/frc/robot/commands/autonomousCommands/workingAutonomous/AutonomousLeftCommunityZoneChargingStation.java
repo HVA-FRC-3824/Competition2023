@@ -12,15 +12,25 @@ public class AutonomousLeftCommunityZoneChargingStation extends SequentialComman
     addCommands(
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
 
-      // move foward out of community zone
+      // move foward out of community zone for 2.5 sec then stop for .25
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-      new WaitCommand(2.25),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+      new WaitCommand(.5),
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0, 0, 0)),
       new WaitCommand(.25),
 
-      // move right to in front of the charging station
+      // move right to in front of the charging station for 1 seconds then stop for .25
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.4, 0.0, 0.0)),
-      new WaitCommand(1.25),
+      new WaitCommand(.5),
+      new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.4, 0.0, 0.0)),
+      new WaitCommand(.5),
       new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0)),
       new WaitCommand(.25),
 

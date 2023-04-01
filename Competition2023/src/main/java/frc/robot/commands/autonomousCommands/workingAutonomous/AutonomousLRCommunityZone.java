@@ -12,9 +12,17 @@ public class AutonomousLRCommunityZone extends SequentialCommandGroup{
         addCommands(
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.setIdleModeBrake()),
             // new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.zeroWheelsWithABSEncoders()),         
-            // move robot forward at 40% power for 2.25 seconds
+            // move robot forward at 40% power for 2.5 seconds
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
-            new WaitCommand(2.25),
+            new WaitCommand(.5),
+            new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+            new WaitCommand(.5),
+            new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+            new WaitCommand(.5),
+            new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+            new WaitCommand(.5),
+            new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, -0.4, 0.0)),
+            new WaitCommand(.5),
 
             // stop robot
             new InstantCommand(() -> RobotContainer.SWERVE_DRIVE_OBJ.convertSwerveValues(0.0, 0.0, 0.0))
