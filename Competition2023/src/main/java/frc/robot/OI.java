@@ -24,16 +24,16 @@ public class OI{
     private static POVButton forwardBtn, rightBtn, leftBtn, backBtn;
 
     // OPERATOR CONTROLLER BUTTONS
-    private static JoystickButton scoreTopPosBtn;
-    private static JoystickButton scoreMiddlePosBtn;
+    // private static JoystickButton scoreTopPosBtn;
+    // private static JoystickButton scoreMiddlePosBtn;
     private static JoystickButton pickUpPosBtn;
 
     private static JoystickButton grabberIntakeBtn;
     private static JoystickButton grabbberReleaseBtn;
 
-    private static POVButton purpleCubeBtn;
-    private static POVButton yellowConeBtn;
-    private static POVButton normalLEDBtn;
+    // private static POVButton purpleCubeBtn;
+    // private static POVButton yellowConeBtn;
+    // private static POVButton normalLEDBtn;
 
     private static JoystickButton toggleArmLimitersBtn;
 
@@ -68,16 +68,16 @@ public class OI{
         leftBtn = new POVButton(driverController, 90);
 
         // OPERATOR BUTTONS
-        scoreTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        // Y
-        scoreMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
+        // scoreTopPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_TOP_POS_BTN_ID);        // Y
+        // scoreMiddlePosBtn = new JoystickButton(operatorController, Constants.SET_ARM_MIDDLE_POS_BTN_ID);  // B
         pickUpPosBtn = new JoystickButton(operatorController, Constants.SET_ARM_BOTTOM_POS_BTN_ID);  // A
 
         grabbberReleaseBtn = new JoystickButton(operatorController, 5);                       // LB
         grabberIntakeBtn = new JoystickButton(operatorController, 6);                         // RB
 
-        purpleCubeBtn = new POVButton(operatorController, Constants.PURPLE_CUBE_BTN_ID);                   // right
-        yellowConeBtn = new POVButton(operatorController, Constants.YELLOW_CONE_BTN_ID);                   // left
-        normalLEDBtn = new POVButton(operatorController, Constants.NORMAL_LED_BTN_ID);                     // up
+        // purpleCubeBtn = new POVButton(operatorController, Constants.PURPLE_CUBE_BTN_ID);                   // right
+        // yellowConeBtn = new POVButton(operatorController, Constants.YELLOW_CONE_BTN_ID);                   // left
+        // normalLEDBtn = new POVButton(operatorController, Constants.NORMAL_LED_BTN_ID);                     // up
 
         toggleArmLimitersBtn = new JoystickButton(operatorController, Constants.TOGGLE_ARM_EXTENSION_LIMITER_BTN_ID);
     }
@@ -110,15 +110,15 @@ public class OI{
         grabbberReleaseBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.grabberRelease).onFalse(RobotContainer.INLINE_COMMANDS_OBJ.grabberStop);
         
         // ARM
-        scoreTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreTopPos);
-        scoreMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreMiddlePos);
+        // scoreTopPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreTopPos);
+        // scoreMiddlePosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.scoreMiddlePos);
         pickUpPosBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.pickUpPos);
 
         toggleArmLimitersBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.toggleLimiters);
         
         // LEDs
-        purpleCubeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setPurpleLED);
-        yellowConeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setYellowLED);
-        normalLEDBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setNormalLED);
+        // purpleCubeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setPurpleLED);
+        // yellowConeBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setYellowLED);
+        // normalLEDBtn.onTrue(RobotContainer.INLINE_COMMANDS_OBJ.setNormalLED);
     }
 }

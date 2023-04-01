@@ -86,10 +86,10 @@ public final class Constants{
         public static final double ARM_ANGLE_MOTOR_SENS                                             = 150;
 
         public static final double MAX_ARM_ANGLE_POSITION                                           = 2600;
-        public static final double MIN_ARM_ANGLE_POSITION                                           = -10000; // TODO: figure out num
+        public static final double MIN_ARM_ANGLE_POSITION                                           = -10000;
         
-        public static final double ARM_ANGLE_TOP_SCORE_POS                                          = 3824; // TODO figure out num
-        public static final double ARM_ANGLE_MIDDLE_SCORE_POS                                       = 3824; // TODO figure out num
+        // public static final double ARM_ANGLE_TOP_SCORE_POS                                          = 3824; // figure out num
+        // public static final double ARM_ANGLE_MIDDLE_SCORE_POS                                       = 3824; // figure out num
         public static final double ARM_ANGLE_PICK_UP_POS                                            = 3824; // TODO figure out num
         // #endregion
 
@@ -100,9 +100,9 @@ public final class Constants{
         public static final int ARM_EXTENSION_COUNTS_PER_REV                                        = FALCON_500_ENCODER_COUNTS_PER_REV * ARM_EXTENSION_GEAR_RATIO;
         public static final double ARM_EXTENSION_VOLTAGE                                            = 12;
 
-        public static final double ARM_EXTENSION_TOP_SCORE_POS                                      = 3824; // TODO figure out num
-        public static final double ARM_EXTENSION_MIDDLE_SCORE_POS                                   = 3824; // TODO figure out num
-        public static final double ARM_EXTENSION_PICK_UP_POS                                        = 3824; // TODO figure out num
+        // public static final double ARM_EXTENSION_TOP_SCORE_POS                                      = 3824; // figure out num
+        // public static final double ARM_EXTENSION_MIDDLE_SCORE_POS                                   = 3824; // figure out num
+        // public static final double ARM_EXTENSION_PICK_UP_POS                                        = 3824; // figure out num
 
         public static final double MIN_ARM_EXTENSION_IN_ROTATIONS                                   = (0 /*prev:-800*/ / ARM_EXTENSION_GEAR_RATIO) / FALCON_500_ENCODER_COUNTS_PER_REV;
         public static final double MAX_ARM_EXTENSION_IN_RSU /* Raw Sensor Units */                  = 975000;

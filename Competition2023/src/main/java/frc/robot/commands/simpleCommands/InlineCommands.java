@@ -28,14 +28,14 @@ public class InlineCommands{
     public final Command extendArmWithController;
     public final Command toggleLimiters;
 
-    public final Command scoreTopPos;
-    public final Command scoreMiddlePos;
+    // public final Command scoreTopPos;
+    // public final Command scoreMiddlePos;
     public final Command pickUpPos;
 
     // LEDS
-    public final Command setPurpleLED;
-    public final Command setYellowLED;
-    public final Command setNormalLED;
+    // public final Command setPurpleLED;
+    // public final Command setYellowLED;
+    // public final Command setNormalLED;
 
     public InlineCommands(){
         // SWERVE DRIVE
@@ -63,10 +63,10 @@ public class InlineCommands{
             RobotContainer.ARM_ANGLE_OBJ);
 
         // ARM ANGLE AND EXTENSION
-        scoreTopPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAngleTopScoringPos())
-              .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop()));
-        scoreMiddlePos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAngleMiddleScoringPos())
-              .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle()));
+        // scoreTopPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAngleTopScoringPos())
+        //       .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop()));
+        // scoreMiddlePos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAngleMiddleScoringPos())
+        //       .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle()));
         pickUpPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAnglePickUpPos())
               .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmPickUp()));
         toggleLimiters = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.toggleAngleLimiter())
@@ -79,8 +79,8 @@ public class InlineCommands{
             RobotContainer.ARM_EXTENSION_OBJ); 
         
         // LEDS
-        setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(60, 100, 100));
-        setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(300, 100, 50));
-        setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(247, 83, 88));
+        // setPurpleLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(60, 100, 100));
+        // setYellowLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(300, 100, 50));
+        // setNormalLED = new InstantCommand(() -> RobotContainer.LEDS_OBJ.setLEDsColor(247, 83, 88));
     }
 }

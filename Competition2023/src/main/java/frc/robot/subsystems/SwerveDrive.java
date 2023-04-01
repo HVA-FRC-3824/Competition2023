@@ -490,7 +490,6 @@ public class SwerveDrive extends SubsystemBase{
 
   // Method for approaching and climbing over the charging station, used for middle autonomous
   public boolean approachAndClimbOverChargeStationForward(){
-    // TODO: remove if statments once tuned
     System.out.println("RUNNING APPROACH AND CLIMB OVER CHARGE STATION FORWARD COMMAND... ");
     
     // moves fast until on robot is on charging pad

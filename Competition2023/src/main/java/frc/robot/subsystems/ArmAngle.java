@@ -26,7 +26,6 @@ public class ArmAngle extends SubsystemBase{
     // private final SendableChooser<Boolean> angleEncoderReset = new SendableChooser<>();
 
     public ArmAngle(){
-        // TODO PIDS
         armAngleMotor = new WPI_TalonSRX(Constants.ARM_ANGLE_MOTOR_CAN_ID);
         RobotContainer.configureTalonSRX(armAngleMotor, true, FeedbackDevice.CTRE_MagEncoder_Relative, false, true,
         Constants.ARM_ANGLE_MOTOR_KF, Constants.ARM_ANGLE_MOTOR_KP, Constants.ARM_ANGLE_MOTOR_KI, Constants.ARM_ANGLE_MOTOR_KD, Constants.ARM_ANGLE_MOTOR_K_CRUISE_VELOCITY, Constants.ARM_ANGLE_MOTOR_K_ACCELERATION, false);
@@ -127,12 +126,12 @@ public class ArmAngle extends SubsystemBase{
         armAngleMotor.setNeutralMode(NeutralMode.Brake);
     }
 
-    public void setArmAngleTopScoringPos(){
-        armAngleDesiredPosition = Constants.ARM_ANGLE_TOP_SCORE_POS;
-    }
-    public void setArmAngleMiddleScoringPos(){
-        armAngleDesiredPosition = Constants.ARM_ANGLE_MIDDLE_SCORE_POS;
-    }
+    // public void setArmAngleTopScoringPos(){
+    //     armAngleDesiredPosition = Constants.ARM_ANGLE_TOP_SCORE_POS;
+    // }
+    // public void setArmAngleMiddleScoringPos(){
+    //     armAngleDesiredPosition = Constants.ARM_ANGLE_MIDDLE_SCORE_POS;
+    // }
     public void setArmAnglePickUpPos(){
         armAngleDesiredPosition = Constants.ARM_ANGLE_PICK_UP_POS;
     }
