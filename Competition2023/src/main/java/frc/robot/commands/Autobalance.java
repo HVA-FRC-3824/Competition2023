@@ -35,8 +35,8 @@ public class Autobalance extends CommandBase {
  
         // Determines power
         if (Math.abs(pitchAngleX) > 10){
-            power = 0.15;
-        }else if(Math.abs(pitchAngleX) > 5.0){
+            power = 0.25;
+        }else if(Math.abs(pitchAngleX) > 7.0){
             power = 0.08;
         }else if(Math.abs(pitchAngleX) > 3.2){
             power = 0.032;
