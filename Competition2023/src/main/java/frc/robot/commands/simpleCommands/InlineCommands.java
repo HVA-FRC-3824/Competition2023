@@ -67,8 +67,8 @@ public class InlineCommands{
         //       .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmTop()));
         // scoreMiddlePos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAngleMiddleScoringPos())
         //       .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmMiddle()));
-        pickUpPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAnglePickUpPos())
-              .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmPickUp()));
+        pickUpPos = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.setArmAnglePickUpPos());
+              //.alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.extendArmPickUp()));
         toggleLimiters = new InstantCommand(() -> RobotContainer.ARM_ANGLE_OBJ.toggleAngleLimiter())
               .alongWith(new InstantCommand(() -> RobotContainer.ARM_EXTENSION_OBJ.toggleExtensionLimiter()));
         
