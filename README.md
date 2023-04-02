@@ -3,13 +3,18 @@
 
 ARMageddon's capabilities include:
 - ~~Westcoast Drive with two speed pneumatic transmission~~
-- Swerve Drive with X wheel locking capability
-- Grabber
-- Articulating and telescoping arm
+- Custom Swerve Drive 
+      - X wheel locking capability
+      - Scoring mode
+      - Slow mode
+- Wheeled 775 powered cone grabber
+- Articulating and telescoping arm with relative encoder powered limits (capable of full 48 inch extension even at angle while maintaining legality at level)
 - [Custom vision system](https://github.com/bogogion/frc-2023-cv)
-- Autonomous capability
+- Autonomous autobalance and "path following" capability
+- Cone vs Cube indicating LEDs with bounce and twinkle methods
 
-*Capabilities will, and can change. List WIP*
+Controls outlined in OI.java class
+
 ## The authors of this robot's code are: ##
 Joey Borrelli,
 Zane Maples, 
