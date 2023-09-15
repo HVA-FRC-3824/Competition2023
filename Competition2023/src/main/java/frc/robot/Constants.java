@@ -110,6 +110,7 @@ public final class Constants{
         // #region GRABBER
         public static final int GRABBER_CAN_ID                                                      = 4;
         public static final double GRABBER_VOLTAGE                                                  = 10;
+        public static final int MAX_GRABBER_CURRENT  /* In amps */                                  = 15;
         // #endregion
 
         // #region LEDs

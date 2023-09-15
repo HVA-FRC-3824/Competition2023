@@ -16,6 +16,12 @@ public class Grabber extends SubsystemBase{
         RobotContainer.configureTalonSRX(grabberMotor, false, null, false,
                          false, 0, 0, 0, 0, 0, 0, false);
         
+        /* Set a way lower current limit for the grabber to stop it from blowing up */
+        grabberMotor.configContinuousCurrentLimit(Constants.MAX_GRABBER_CURRENT, 50);
+        grabberMotor.configPeakCurrentLimit(20, 50);
+        grabberMotor.configPeakCurrentDuration(250, 50);
+        grabberMotor.enableCurrentLimit(true);
+
         // Sets us to brake by default to hold gamepieces
         grabberMotor.setNeutralMode(NeutralMode.Brake);
     }
